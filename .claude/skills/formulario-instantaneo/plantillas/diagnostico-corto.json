@@ -1,0 +1,111 @@
+{
+  "_leeme": [
+    "Diagnóstico corto para venta consultiva: 4 preguntas de opción múltiple que el comercial usa para priorizar y una pantalla final para reservar la llamada.",
+    "Cópiala a clientes/<slug>/planes/AAAA-MM-DD_formulario-diagnostico.json y adapta con la ficha: rangos de tamaño y opciones de `encaje` según su ICP, procesos según su oferta y las URLs de su web.",
+    "Tiene lógica condicional (quien solo se informa o trabaja solo va a otro final): la API no la documenta, así que se monta en Ads Manager con `formularios_meta.py guia`, o se crea por API con --sin-logica y todos ven el final principal.",
+    "`final.url` tiene que ser el enlace directo del calendario del partner (Calendly o HighLevel) para que Ads Manager ofrezca la reserva embebida.",
+    "`encaje` es lo que el lead declara, no el cualificado del contrato §16: ese lo marca el comercial en el CRM."
+  ],
+  "nombre": "acme_diagnostico-20min_v1",
+  "tipo": "mayor_intencion",
+  "idioma": "ES_ES",
+  "intro": {
+    "titulo": "Diagnóstico de automatización en 20 minutos",
+    "estilo": "lista",
+    "contenido": [
+      "Revisamos contigo el proceso que más horas os quita cada semana",
+      "Te decimos qué se puede automatizar, qué no merece la pena y por dónde empezar",
+      "Pensado para empresas de 10 a 250 personas; si trabajas solo, te dejamos una guía gratuita"
+    ],
+    "boton": "Empezar"
+  },
+  "titular_preguntas": "4 preguntas para preparar la llamada",
+  "preguntas": [
+    {
+      "clave": "tamano",
+      "tipo": "opciones",
+      "texto": "¿Cuántas personas trabajan en tu empresa?",
+      "opciones": [
+        {"clave": "solo_yo", "texto": "Solo yo"},
+        {"clave": "2_9", "texto": "De 2 a 9"},
+        {"clave": "10_49", "texto": "De 10 a 49"},
+        {"clave": "50_249", "texto": "De 50 a 249"},
+        {"clave": "250_mas", "texto": "250 o más"}
+      ],
+      "encaje": ["10_49", "50_249"]
+    },
+    {
+      "clave": "proceso",
+      "tipo": "opciones",
+      "texto": "¿Qué proceso os quita más horas cada semana?",
+      "opciones": [
+        {"clave": "atencion", "texto": "Responder a clientes (emails, WhatsApp, llamadas)"},
+        {"clave": "comercial", "texto": "Seguimiento comercial y presupuestos"},
+        {"clave": "papeleo", "texto": "Papeleo y documentos (facturas, albaranes, contratos)"},
+        {"clave": "informes", "texto": "Pasar datos entre herramientas e informes"},
+        {"clave": "otro", "texto": "Otro"}
+      ]
+    },
+    {
+      "clave": "urgencia",
+      "tipo": "opciones",
+      "texto": "¿Para cuándo quieres tenerlo resuelto?",
+      "opciones": [
+        {"clave": "este_mes", "texto": "Este mes"},
+        {"clave": "1_3_meses", "texto": "En 1–3 meses"},
+        {"clave": "mas_adelante", "texto": "Más adelante"},
+        {"clave": "solo_informandome", "texto": "Solo me estoy informando"}
+      ],
+      "encaje": ["este_mes", "1_3_meses"]
+    },
+    {
+      "clave": "rol",
+      "tipo": "opciones",
+      "texto": "¿Qué papel tienes en esta decisión?",
+      "opciones": [
+        {"clave": "decido", "texto": "Decido yo"},
+        {"clave": "decido_con_otros", "texto": "Decido con socios o dirección"},
+        {"clave": "propongo", "texto": "Lo propongo; decide otra persona"}
+      ],
+      "encaje": ["decido", "decido_con_otros"]
+    },
+    {"tipo": "nombre_completo"},
+    {"tipo": "email"},
+    {"tipo": "telefono"}
+  ],
+  "privacidad": {
+    "url": "https://acme-automations.example/privacidad",
+    "texto_enlace": "Política de privacidad de Acme Automations"
+  },
+  "final": {
+    "titulo": "Reserva tu diagnóstico",
+    "texto": "Elige hueco ahora. Son 20 minutos y llegamos con tus respuestas ya revisadas.",
+    "boton": "reservar",
+    "texto_boton": "Elegir hueco",
+    "url": "https://acme-automations.example/reservar-diagnostico",
+    "pais": "ES"
+  },
+  "finales_alternativos": {
+    "recurso": {
+      "titulo": "Te dejamos la guía para empezar",
+      "texto": "Mientras lo valoras, esta guía te ayuda a decidir qué automatizar primero. Cuando quieras hablar, responde al email que te enviaremos.",
+      "boton": "web",
+      "texto_boton": "Ver la guía",
+      "url": "https://acme-automations.example/guia-que-automatizar"
+    },
+    "no_encaje": {
+      "titulo": "Gracias por tu interés",
+      "texto": "El diagnóstico está pensado para equipos de 10 personas o más. Esta guía te ayudará a empezar por tu cuenta.",
+      "boton": "web",
+      "texto_boton": "Ver la guía",
+      "url": "https://acme-automations.example/guia-que-automatizar"
+    }
+  },
+  "logica": [
+    {"si": {"pregunta": "urgencia", "respuesta": ["solo_informandome"]}, "ir_a": "final:recurso"},
+    {"si": {"pregunta": "tamano", "respuesta": ["solo_yo"]}, "ir_a": "final:no_encaje"}
+  ],
+  "parametros": {"oferta": "diagnostico", "formulario": "diagnostico-corto", "version": "v1"},
+  "solo_anuncios": true,
+  "revision_politicas": "pendiente"
+}

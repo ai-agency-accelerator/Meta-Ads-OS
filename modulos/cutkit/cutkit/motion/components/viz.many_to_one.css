@@ -1,0 +1,23 @@
+/* viz.many_to_one — de muchos a uno: rejilla de baldosas de tinta (sistemas abstractos, nunca logos) que se apagan; la
+   elegida crece al centro y muestra el objeto real (icono del kit). Tinta sobre papel; oro solo en el aro de la elegida. */
+.mo .mo-wrap{position:absolute;inset:0}
+.mo .mo-tile{position:absolute;box-sizing:border-box;border-radius:22%;background:#161514;transform-origin:50% 50%;
+  box-shadow:0 2px 0 rgba(0,0,0,.25),0 10px 22px rgba(0,0,0,.14)}
+.mo .mo-pick{z-index:2}
+.mo .mo-glyph{position:absolute;inset:26% 22%;display:flex;flex-direction:column;justify-content:space-between}
+.mo .mo-bar{display:block;height:16%;border-radius:999px;background:rgba(255,255,255,.55)}
+.mo .mo-bar-1{width:72%}.mo .mo-bar-2{width:46%}
+.mo .mo-face{position:absolute;inset:0;border-radius:22%;background:#FFFFFF;box-shadow:inset 0 0 0 calc(3px * var(--s)) var(--ck-accent)}
+.mo .mo-icon{position:absolute;inset:12%;background-position:center;background-size:contain;background-repeat:no-repeat}
+.mo .mo-label{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;
+  font:900 calc(68px * var(--s))/1 var(--ck-sans);color:#161514;letter-spacing:-.03em}
+.mo .mo-gsvg{position:absolute;left:16%;top:16%;width:68%;height:68%;overflow:visible}
+.mo .mo-gf{fill:rgba(255,255,255,.92)}
+.mo .mo-gs{fill:none;stroke:rgba(255,255,255,.92);stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+.mo .mo-target{position:absolute;left:14%;top:14%;width:72%;height:72%;overflow:visible}
+.mo .mo-t-ink{fill:#161514}.mo .mo-t-paper{fill:#FFFFFF}.mo .mo-t-gold{fill:var(--ck-accent)}
+.mo .mo-sub{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;
+  font:800 calc(48px * var(--s))/1 var(--ck-sans);color:rgba(22,21,20,.62);letter-spacing:-.02em}
+.gx-th-dark.mo .mo-sub{color:rgba(255,255,255,.66)}
+.gx-th-dark.mo .mo-tile{background:#26252A}
+.gx-th-dark.mo .mo-label{color:#FFFFFF}

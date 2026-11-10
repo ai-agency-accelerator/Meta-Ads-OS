@@ -1,0 +1,13 @@
+{
+  "plan": "2026-11-lote-objeciones.json",
+  "creado": "2026-11-13 10:12",
+  "estado": "PAUSED",
+  "campana_id": "120000000000000301",
+  "conjuntos": {
+    "BROAD-A+_LEAD": "120000000000000302"
+  },
+  "anuncios": {
+    "20261112_objecion-precio_roi-calculadora_video_h1": "120000000000000303",
+    "20261112_objecion-precio_roi-calculadora_video_h2": "120000000000000304"
+  }
+}

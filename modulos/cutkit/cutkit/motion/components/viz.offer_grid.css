@@ -1,0 +1,55 @@
+/* viz.offer_grid — baldosas de cristal oscuro (negro profesional) con iconos 3D; oro solo en el foco. */
+.og .og-wrap{position:absolute;inset:0;transform-origin:50% 40%}
+.og .og-slot{position:absolute;z-index:2}
+.og .gx-pulse{z-index:1}
+.og .og-tile{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:50% 50%}
+.og .og-glass{position:absolute;inset:0;border-radius:24%;
+  background:linear-gradient(160deg,rgba(255,255,255,.11) 0%,rgba(255,255,255,.035) 46%,rgba(255,255,255,.02) 100%),#121214;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(0,0,0,.45),0 16px 36px rgba(0,0,0,.45)}
+.og .og-ic{position:absolute;inset:14%;background-position:center;background-size:contain;background-repeat:no-repeat}
+.og .og-ic-silver{filter:url(#og-silver) drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.og .og-ic-hot{filter:drop-shadow(0 8px 14px rgba(0,0,0,.4))}
+.og .og-ic-gold{filter:url(#og-gold) drop-shadow(0 8px 14px rgba(0,0,0,.4))}
+/* `items[].media`: miniatura real del resultado en la baldosa (reposo en gris, foco a color) */
+.og .og-ic.og-thumb{inset:7%;background-size:cover;background-position:center;border-radius:19%}
+.og .og-thumb-rest{filter:grayscale(1) contrast(.94)}
+.og .og-thumb-hot{filter:none}
+.og .og-ring{position:absolute;inset:-2px;border-radius:24%;box-shadow:0 0 0 calc(5px * var(--s)) var(--ck-accent);pointer-events:none}
+.og .og-ring-w{box-shadow:0 0 0 calc(4px * var(--s)) rgba(255,255,255,.88)}
+.og .og-glow{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none;z-index:0;
+  background:none}   /* sin halo (§4: nada de glow); el foco es el aro sólido */
+.og .og-band{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(10px * var(--s))}
+.og .og-kicker{font:900 calc(76px * var(--s))/1.04 var(--ck-sans);color:var(--g-fg);letter-spacing:-.025em;text-align:center;text-wrap:balance}
+.og .og-ord{font:800 calc(44px * var(--s))/1 var(--ck-sans);color:var(--ck-accent);letter-spacing:.01em}
+.og .og-name{font:900 calc(96px * var(--s))/1 var(--ck-sans);color:var(--g-fg);letter-spacing:-.035em;white-space:nowrap}
+/* lienzo claro: baldosas blancas, aro en tinta */
+.gx-th-light.og .og-glass{background:linear-gradient(160deg,#FFFFFF 0%,#F2F2EF 100%);box-shadow:inset 0 0 0 1px rgba(22,21,20,.07),0 1px 2px rgba(0,0,0,.08),0 14px 30px rgba(0,0,0,.10)}
+.gx-th-light.og .og-ring{box-shadow:0 0 0 calc(5px * var(--s)) #161514}
+.gx-th-light.og .og-ord{color:#161514}
+.gx-th-light.og .og-glow{background:radial-gradient(circle,rgba(22,21,20,.06) 0%,rgba(22,21,20,0) 62%)}
+/* rejilla de 9 (band_pos top): ordinal grande, sub y diana del cierre */
+.og .og-band-top{gap:calc(8px * var(--s))}
+/* ordinal_style «sans»: Montserrat 900 grande, punto más pequeño y la «a» volada (0,44 em, alineada arriba) */
+.og .og-ord-sans{font:900 calc(140px * var(--s))/0.92 var(--ck-sans);letter-spacing:-.04em;color:var(--g-fg);white-space:nowrap}
+.gx-th-dark.og .og-ord-sans{color:var(--ck-accent)}
+.og .og-ord-sans .og-ord-dot{font-size:.6em;letter-spacing:0;margin-left:.02em}
+.og .og-ord-sans .og-ord-sup{display:inline-block;font-size:.44em;line-height:1;vertical-align:top;margin-top:.04em;margin-left:.05em;letter-spacing:0}
+/* ordinal_bar: raya bajo la «o»/«a» volada para que «1.º» no se lea «1.°» */
+.og .og-ord-sans.og-ord-bar .og-ord-sup{line-height:.86;padding-bottom:.06em;border-bottom:.11em solid currentColor}
+.og .og-sub{font:800 calc(52px * var(--s))/1.1 var(--ck-sans);color:var(--g-muted);letter-spacing:-.015em;white-space:nowrap}
+.og .og-target{position:absolute;inset:18%;width:64%;height:64%;overflow:visible}
+.og .og-t-ink{fill:#161514}.og .og-t-paper{fill:#F7F7F5}.og .og-t-gold{fill:var(--ck-accent)}
+.og .og-band-top .og-kicker{white-space:nowrap}
+/* cámara de la rejilla (empuje a la activa), aro viajero (`carry`), conectores y pulsos (`combine`), remate */
+.og .og-cam{position:absolute;inset:0}
+.og .og-trav{z-index:3;pointer-events:none}
+.og .og-wires{position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:0}
+.og .og-wire-ol{fill:none;stroke:#161514;stroke-linecap:round}
+.og .og-wire{fill:none;stroke:var(--ck-accent);stroke-linecap:round}
+.gx-th-dark.og .og-wire-ol{stroke:rgba(255,255,255,.92)}
+.og .og-pulse{position:absolute;border-radius:50%;background:var(--ck-accent);box-shadow:0 0 0 calc(4px * var(--s)) #161514,0 4px 10px rgba(0,0,0,.25);z-index:4;pointer-events:none}
+.og .og-note{position:absolute;left:0;right:0;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;padding:.06em 0 .1em}
+.og .og-note-in{font:900 calc(64px * var(--s))/1.05 var(--ck-sans);color:var(--g-fg);letter-spacing:-.03em;white-space:nowrap}
+.og .og-target{position:absolute;inset:18%}
+.og .og-nw{display:inline-block;overflow:hidden;vertical-align:top;padding:.04em .04em .14em;margin:-.04em -.04em -.14em}
+.og .og-nwi{display:inline-block}

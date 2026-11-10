@@ -1,0 +1,59 @@
+{
+  "id": "kb-01-learning-limited-que-es",
+  "titulo": "Qué es el aprendizaje limitado y qué hacer",
+  "categoria": "conocimiento",
+  "segmento": "general",
+  "dificultad": "baja",
+  "fecha": "2026-11-09",
+  "clientes_base": [],
+  "peticion": "/pregunta \"¿Qué significa exactamente «aprendizaje limitado» y es malo para mis campañas?\"",
+  "preambulo": "solo_fecha",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Lo define bien: es probable que el conjunto no consiga ~50 eventos de optimización en la semana tras la última edición significativa; es una etiqueta de inestabilidad, no una penalización.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Da las causas oficiales: audiencia pequeña, presupuesto bajo, puja o control de coste bajo, solapamiento, evento poco frecuente, demasiados anuncios.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Dice qué hacer: si es rentable, no tocar; si no, consolidar conjuntos, más presupuesto, otro evento o relajar el control de coste; nunca fragmentar.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md §4"
+      },
+      {
+        "id": "d4",
+        "texto": "Cita el archivo de la base y etiqueta la evidencia.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/00-CONVENCIONES.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Decir que es una penalización o que hay que salir de él a toda costa (dividiendo conjuntos o duplicando).",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M03"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre repite que hay que salir del aprendizaje; el experto lo trata como diagnóstico de volumen."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "meta-ads-kb/",
+        "motivo": "cita la ruta de la base"
+      },
+      {
+        "patron": "\\[(official meta|empirical|strong inference|hypothesis|contested)\\]",
+        "motivo": "etiqueta la evidencia"
+      }
+    ]
+  }
+}

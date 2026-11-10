@@ -1,0 +1,56 @@
+{
+  "id": "ins-01-sin-ficha",
+  "titulo": "Presupuesto y CPL para un cliente sin ficha: primero los datos",
+  "categoria": "datos-insuficientes",
+  "segmento": "consultiva-b2b",
+  "dificultad": "baja",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Tengo un cliente nuevo, una gestoría de Valencia que quiere captar pymes. ¿Cuánto presupuesto le pongo en Meta y qué CPL objetivo le digo?",
+  "preambulo": false,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "No da presupuesto ni CPL objetivo sin datos y dice que primero hace falta la ficha.",
+        "peso": 3,
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Pide los datos mínimos (honorarios o cuota y margen, recurrencia o LTV, tasas del embudo o supuestos, capacidad, mercado) y propone /cliente-nuevo y /economia.",
+        "peso": 3,
+        "fuente": ".claude/skills/cliente-nuevo/SKILL.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Explica cómo saldrán los números (break-even por etapa = contribución × tasas; presupuesto según el coste del evento) sin inventar valores, marcando como [HYPOTHESIS] cualquier supuesto.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/05-economia-funnel-lead-gen-calculadoras.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Dar un presupuesto o un CPL objetivo concreto para la gestoría.",
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Crear la ficha inventando datos del negocio.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre da «unos 20 € al día y CPL de 15 €»; el experto pide la economía y explica cómo saldrá cada número."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "cliente-nuevo|economia|ficha",
+        "motivo": "deriva a ficha o economía"
+      }
+    ]
+  }
+}

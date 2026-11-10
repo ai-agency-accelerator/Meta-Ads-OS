@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motor de anuncios</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%237cdb9a'/%3E%3Cpath d='M6 4l6 4-6 4z' fill='%230b1a10'/%3E%3C/svg%3E">
+<style>
+  :root { --bg:#0f1012; --panel:#17181b; --line:#2a2c31; --ink:#ecedef; --muted:#8b8f98; --acc:#7cdb9a; --warn:#ffb648; --bad:#ff6b6b; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Inter, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); font-size:14px; }
+  header { display:flex; align-items:center; gap:18px; padding:14px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:5; }
+  header b { font-size:16px; letter-spacing:-.2px; }
+  header .spend { margin-left:auto; color:var(--muted); font-size:13px; }
+  nav button { background:none; border:0; color:var(--muted); font-size:14px; padding:6px 10px; border-radius:8px; cursor:pointer; }
+  nav button.on { color:var(--ink); background:var(--panel); }
+  main { padding:20px 22px; max-width:1400px; margin:0 auto; }
+  .grid { display:grid; grid-template-columns: 360px 1fr; gap:20px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:16px; }
+  h2 { font-size:15px; margin:0 0 12px; } h3 { font-size:13px; color:var(--muted); margin:14px 0 8px; text-transform:uppercase; letter-spacing:.5px; }
+  label { display:block; font-size:12px; color:var(--muted); margin:8px 0 4px; }
+  input, textarea, select { width:100%; background:#0f1012; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font:inherit; }
+  textarea { min-height:60px; }
+  .btn { background:var(--acc); color:#0b1a10; border:0; border-radius:9px; padding:9px 14px; font-weight:700; cursor:pointer; margin-top:10px; }
+  .btn.ghost { background:none; color:var(--ink); border:1px solid var(--line); font-weight:600; }
+  .btn.small { padding:5px 9px; font-size:12px; margin:0; }
+  .row { display:flex; gap:8px; align-items:center; } .row > * { flex:1; }
+  .list .item { padding:10px; border-radius:10px; border:1px solid var(--line); margin-bottom:8px; cursor:pointer; }
+  .list .item:hover { border-color:#3b3e45; } .list .item.on { border-color:var(--acc); }
+  .muted { color:var(--muted); font-size:12px; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; background:#22242a; color:var(--muted); margin-right:4px; }
+  .pill.ok { background:#163323; color:var(--acc); } .pill.bad { background:#3a1a1a; color:var(--bad); } .pill.run { background:#3a2c12; color:var(--warn); }
+  .videos { display:flex; gap:14px; flex-wrap:wrap; }
+  .videos figure { margin:0; width:270px; } .videos video { width:270px; border-radius:12px; background:#000; }
+  .videos figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
+  .shots { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap:10px; }
+  .shot { border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#121316; }
+  .shot img, .shot video { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; background:#000; }
+  .shot .meta { padding:8px; font-size:11.5px; }
+  .bar { height:8px; background:#22242a; border-radius:99px; overflow:hidden; margin:8px 0; } .bar > div { height:100%; background:var(--acc); width:0; transition:width .4s; }
+  pre { white-space:pre-wrap; font-size:12px; color:#c9ccd2; background:#0f1012; border:1px solid var(--line); border-radius:8px; padding:10px; max-height:280px; overflow:auto; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; } td { padding:5px 4px; border-bottom:1px solid var(--line); } td:last-child { text-align:right; }
+  .hidden { display:none; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <b>Motor de anuncios</b>
+  <nav>
+    <button data-tab="projects" class="on">Anuncios</button>
+    <button data-tab="actors">Actores</button>
+    <button data-tab="brands">Marcas y productos</button>
+    <button data-tab="system">Sistema</button>
+  </nav>
+  <div class="spend" id="spend">…</div>
+</header>
+<main>
+  <!-- ANUNCIOS -->
+  <section id="tab-projects">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>Nuevo anuncio</h2>
+          <label>Marca</label><select id="p-brand"></select>
+          <label>Producto</label><select id="p-product"></select>
+          <label>Actor</label><select id="p-actor"></select>
+          <label>Objetivo</label><input id="p-objective" value="descargas de la app">
+          <label>Audiencia</label><textarea id="p-audience">parejas y familias jóvenes que improvisan la cena cada noche</textarea>
+          <label>Mensajes clave (uno por línea)</label><textarea id="p-messages"></textarea>
+          <div class="row">
+            <div><label>Idioma</label><select id="p-locale"><option>es-ES</option><option>es-MX</option><option>en-US</option></select></div>
+            <div><label>Duración (s)</label><input id="p-duration" type="number" value="24"></div>
+          </div>
+          <div class="row">
+            <div><label>Plataforma</label><select id="p-platform"><option>reels</option><option>meta_feed</option><option>tiktok</option><option>shorts</option></select></div>
+            <div><label>Formato</label><select id="p-mode"><option value="native">Presentador a cámara</option><option value="voiceover">Voz en off</option></select></div>
+          </div>
+          <label>Notas de estilo</label><input id="p-style" value="UGC grabado con el móvil; nada de tono de anuncio">
+          <button class="btn" onclick="createProject()">Crear y generar</button>
+        </div>
+        <div class="card"><h2>Anuncios</h2><div class="list" id="projects"></div></div>
+      </div>
+      <div id="project-view"><div class="card muted">Selecciona o crea un anuncio.</div></div>
+    </div>
+  </section>
+
+  <!-- ACTORES -->
+  <section id="tab-actors" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <h2>Crear actor persistente</h2>
+        <label>Handle</label><input id="a-handle" placeholder="@presentadora_01">
+        <label>Apariencia canónica (edad, piel, pelo, rasgos, complexión)</label><textarea id="a-appearance"></textarea>
+        <label>Vestuario del look principal</label><input id="a-wardrobe">
+        <label>Personalidad / forma de hablar</label><input id="a-persona">
+        <label>Descripción de voz (para diálogo nativo)</label><input id="a-voicehint" placeholder="warm, clear 32-year-old woman, Castilian Spanish">
+        <div class="row"><div><label>Idioma</label><select id="a-locale"><option>es-ES</option><option>es-MX</option><option>en-US</option></select></div>
+        <div><label>Género</label><select id="a-gender"><option value="female">mujer</option><option value="male">hombre</option></select></div></div>
+        <label>Localización de referencia</label><input id="a-location" placeholder="despacho en casa luminoso, luz de ventana lateral">
+        <button class="btn" onclick="createActor()">Crear actor (~0,40 $)</button>
+        <p class="muted">Se genera el retrato maestro, una hoja multivista validada con reconocimiento facial y el perfil de identidad. El actor se reutiliza en todos los anuncios.</p>
+      </div>
+      <div><div class="card"><h2>Biblioteca de actores</h2><div id="actors"></div></div></div>
+    </div>
+  </section>
+
+  <!-- MARCAS -->
+  <section id="tab-brands" class="hidden">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>Nueva marca</h2>
+          <label>Nombre</label><input id="b-name">
+          <div class="row"><div><label>Primario</label><input id="b-primary" value="#111111"></div><div><label>Acento</label><input id="b-accent" value="#FF3B30"></div></div>
+          <label>CTA (una por línea)</label><textarea id="b-ctas"></textarea>
+          <label>Afirmaciones aprobadas (una por línea)</label><textarea id="b-claims"></textarea>
+          <label>Prohibido (una por línea)</label><textarea id="b-dont"></textarea>
+          <label>Etiqueta IA</label><select id="b-label"><option value="visible">visible (recomendado UE)</option><option value="end_card">en tarjeta final</option><option value="metadata_only">solo metadatos</option></select>
+          <button class="btn" onclick="createBrand()">Crear marca</button>
+        </div>
+        <div class="card">
+          <h2>Nuevo producto</h2>
+          <form id="prod-form">
+            <label>Marca</label><select name="brand_id" id="pf-brand"></select>
+            <label>Nombre</label><input name="name">
+            <label>Tipo</label><select name="kind"><option value="app">app</option><option value="physical">físico</option><option value="service">servicio</option></select>
+            <label>Descripción</label><textarea name="description"></textarea>
+            <label>Beneficios (uno por línea)</label><textarea name="benefits"></textarea>
+            <label>Capturar URL real (una por línea)</label><textarea name="capture_url" placeholder="https://tu-app.com/…"></textarea>
+            <label>Capturas reales</label><input type="file" name="screenshots" multiple accept="image/*">
+            <label>Packshots reales</label><input type="file" name="packshots" multiple accept="image/*">
+            <label>Grabaciones de pantalla</label><input type="file" name="recordings" multiple accept="video/*">
+            <label>Texto real de la etiqueta (para QA OCR)</label><textarea name="label_text"></textarea>
+          </form>
+          <button class="btn" onclick="createProduct()">Crear producto</button>
+        </div>
+      </div>
+      <div><div class="card"><h2>Marcas</h2><div id="brands"></div></div><div class="card"><h2>Productos</h2><div id="products"></div></div></div>
+    </div>
+  </section>
+
+  <!-- SISTEMA -->
+  <section id="tab-system" class="hidden">
+    <div class="card"><h2>Proveedores y gasto</h2><pre id="status"></pre></div>
+    <div class="card"><h2>Trabajos</h2><div id="jobs"></div></div>
+  </section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+// todo texto que viene del servidor (guion del LLM, registros, errores de proveedores) se escapa antes de ir al HTML
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const api = async (url, opts={}) => { const r = await fetch(url, opts); if (!r.ok) throw new Error(await r.text()); return r.json(); };
+const post = (url, body) => api(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body||{})});
+let current = null, polling = null;
+
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button').forEach(x => x.classList.remove('on')); b.classList.add('on');
+  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+  $('tab-' + b.dataset.tab).classList.remove('hidden'); refresh();
+});
+
+async function refresh() {
+  const [st, brands, products, actors, projects] = await Promise.all([api('/api/status'), api('/api/brands'), api('/api/products'), api('/api/actors'), api('/api/projects')]);
+  $('spend').textContent = `gasto ${st.spend.total_usd.toFixed(2)} $ / ${st.budget_global_usd} $` + (st.mock ? ' · MOCK' : '');
+  $('status').textContent = JSON.stringify(st, null, 2);
+  const opt = (arr, lab) => arr.map(x => `<option value="${x.id}">${esc(lab(x))}</option>`).join('');
+  $('p-brand').innerHTML = opt(brands, b => b.name); $('pf-brand').innerHTML = opt(brands, b => b.name);
+  $('p-product').innerHTML = opt(products, p => p.name + ' · ' + p.kind);
+  const prevActor = $('p-actor').value;
+  $('p-actor').innerHTML = opt(actors, a => a.handle) + '<option value="">(sin actor: voz en off)</option>';
+  if (prevActor) $('p-actor').value = prevActor;
+  $('brands').innerHTML = brands.map(b => `<div class="item"><b>${esc(b.name)}</b> <span class="muted">${esc(b.id)}</span><br><span class="muted">${esc((b.ctas||[]).join(' · '))}</span></div>`).join('') || '<span class="muted">—</span>';
+  $('products').innerHTML = products.map(p => `<div class="item"><b>${esc(p.name)}</b> <span class="pill">${esc(p.kind)}</span> <span class="muted">${p.screenshot_asset_ids.length} capturas · ${p.packshot_asset_ids.length} packshots</span>
+     <div class="row" style="margin-top:6px">${p.screenshot_asset_ids.slice(0,3).map(i => `<img src="/api/assets/${i}" style="height:90px;flex:none;border-radius:6px">`).join('')}</div></div>`).join('') || '<span class="muted">—</span>';
+  $('actors').innerHTML = actors.map(a => `<div class="item"><b>${esc(a.handle)}</b> <span class="muted">${esc(a.id)}</span>
+     <div class="row" style="margin-top:8px">${[a.master_portrait_id, ...a.sheet_asset_ids].filter(Boolean).slice(0,6).map(i => `<img src="/api/assets/${i}" style="height:120px;flex:none;border-radius:8px">`).join('')}</div>
+     <div class="muted" style="margin-top:6px">umbral identidad ${a.identity.threshold} · coherencia de la hoja ${a.identity.self_similarity ?? '—'} · voces ${esc(Object.keys(a.voices).join(', '))}</div></div>`).join('') || '<span class="muted">Sin actores todavía.</span>';
+  $('projects').innerHTML = projects.map(p => `<div class="item ${current===p.id?'on':''}" onclick="openProject('${p.id}')">
+     <b>${esc(p.name || p.id)}</b> ${p.parent ? '<span class="pill">variante</span>' : ''}<br><span class="pill ${p.status==='done'?'ok':p.status==='failed'?'bad':p.status==='running'?'run':''}">${esc(p.status)}</span>
+     <span class="muted">${esc(p.locale)} · ${p.cost.toFixed(2)} $</span></div>`).join('') || '<span class="muted">—</span>';
+  const jobs = await api('/api/jobs');
+  $('jobs').innerHTML = '<table>' + jobs.map(j => `<tr><td>${esc(j.kind)}</td><td>${esc(j.project_id||'')}</td><td>${esc(j.status)}</td><td>${Math.round(j.progress*100)}% · ${esc(j.message)}</td></tr>`).join('') + '</table>';
+}
+
+async function createProject() {
+  const body = {brand_id:$('p-brand').value, product_id:$('p-product').value, actor_id:$('p-actor').value || null, objective:$('p-objective').value,
+    audience:$('p-audience').value, messages:$('p-messages').value.split('\n').filter(Boolean), locale:$('p-locale').value,
+    duration_s:+$('p-duration').value, platform:$('p-platform').value, mode:$('p-mode').value, style:$('p-style').value};
+  const p = await post('/api/projects', body); await post(`/api/projects/${p.id}/run`); current = p.id; openProject(p.id);
+}
+async function createActor() {
+  await post('/api/actors', {handle:$('a-handle').value, appearance:$('a-appearance').value, wardrobe:$('a-wardrobe').value, persona:$('a-persona').value,
+    voice_hint:$('a-voicehint').value, locale:$('a-locale').value, gender:$('a-gender').value, location:$('a-location').value});
+  $('a-handle').value = ''; document.querySelector('[data-tab=system]').click();
+}
+async function createBrand() {
+  const L = (id) => $(id).value.split('\n').filter(Boolean);
+  await post('/api/brands', {name:$('b-name').value, primary:$('b-primary').value, accent:$('b-accent').value, ctas:L('b-ctas'), claims:L('b-claims'), dont:L('b-dont'), label_policy:$('b-label').value});
+  refresh();
+}
+async function createProduct() {
+  const fd = new FormData($('prod-form')); await fetch('/api/products', {method:'POST', body: fd}); refresh();
+}
+async function regen(pid, sid) {
+  const action = $('act-' + sid).value;
+  await post(`/api/projects/${pid}/scenes/${sid}/regen`, {action}); openProject(pid);
+}
+async function editCmd(pid, confirm=false) {
+  const instruction = $('e-cmd').value.trim(); if (!instruction) return;
+  const r = await post(`/api/projects/${pid}/edit`, {instruction, confirm});
+  if (r.status === 'needs_confirmation') {
+    $('e-msg').innerHTML = `Esta orden cuesta ≈${esc(r.estimate_usd.toFixed(2))} $ <button class="btn small" onclick="editCmd('${pid}', true)">Confirmar</button>`;
+    return;
+  }
+  $('e-msg').textContent = 'En cola…'; openProject(pid);
+}
+async function variant(pid) {
+  const kind = $('v-kind').value, value = $('v-value').value;
+  await post(`/api/projects/${pid}/variants`, {kind, value}); openProject(pid);
+}
+
+async function openProject(pid) {
+  current = pid; const p = await api(`/api/projects/${pid}`);
+  const running = (p.jobs||[]).find(j => j.status==='running' || j.status==='queued');
+  const vid = (id, cap) => id ? `<figure><video src="/api/assets/${id}#t=0.8" preload="metadata" controls playsinline></video><figcaption>${cap}</figcaption></figure>` : '';
+  const variants = (p.variants||[]);
+  const order = p.scene_order || (p.shots||[]).map(s => s.id);
+  const shotsSorted = [...(p.shots||[])].sort((a,b) => order.indexOf(a.id) - order.indexOf(b.id));
+  const shots = shotsSorted.map((s,i) => `<div class="shot">${s.clip_asset_id ? `<video src="/api/assets/${s.clip_asset_id}#t=0.6" preload="metadata" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>` : (s.keyframe_asset_id ? `<img src="/api/assets/${s.keyframe_asset_id}">` : '<div style="aspect-ratio:9/16;background:#000"></div>')}
+     <div class="meta"><b>S${i+1}</b> ${esc(s.shot_type)} <span class="pill ${s.status==='ready'?'ok':s.status==='failed'?'bad':''}">${s.status}</span><br>
+     <span class="muted">${esc(s.route ? s.route.pipeline + (s.route.model? ' · '+s.route.model:'') : '')}</span><br>
+     <span class="muted">${esc((s.dialogue||s.description||'').slice(0,90))}</span><br>
+     <select id="act-${s.id}" style="margin:6px 0;font-size:11.5px;padding:4px"><option value="reroll_seed">otra toma</option><option value="strengthen_identity">reforzar identidad</option>
+       <option value="shorten_shot">acortar / manos quietas</option><option value="recompose_product">producto real</option></select>
+     <button class="btn ghost small" onclick="regen('${p.id}','${s.id}')">Regenerar escena</button></div></div>`).join('');
+  const costRows = Object.entries(p.cost.by_step||{}).map(([k,v]) => `<tr><td>${esc(k)}</td><td>${v.toFixed(4)} $</td></tr>`).join('');
+  const modelRows = Object.entries(p.cost.by_model||{}).map(([k,v]) => `<tr><td>${esc(k)}</td><td>${v.toFixed(4)} $</td></tr>`).join('');
+  const phaseRows = Object.entries(p.cost.by_phase||{}).map(([k,v]) => `<tr><td>${{produce:'producción',retake:'retomas',regeneration:'regeneración (QA/manual)',variant:'variante'}[k]||k}</td><td>${v.toFixed(4)} $</td></tr>`).join('');
+  $('project-view').innerHTML = `
+    <div class="card"><h2>${esc(p.name || p.id)} <span class="pill ${p.status==='done'?'ok':p.status==='failed'?'bad':'run'}">${p.status}</span></h2>
+      ${running ? `<div class="muted">${esc(running.message)}</div><div class="bar"><div style="width:${Math.round(running.progress*100)}%"></div></div>` : ''}
+      <div class="videos">${vid(p.render_asset_id, 'Máster')}${variants.map(v => vid(v.asset, esc('Variante · ' + v.kind + (v.value ? ': ' + (typeof v.value === 'object' ? JSON.stringify(v.value) : v.value) : '')))).join('')}</div>
+      <div class="row" style="margin-top:10px"><a class="btn ghost" href="/api/projects/${p.id}/export">Exportar ZIP</a></div>
+    </div>
+    <div class="card"><h2>Editar con una orden</h2>
+      <div class="row"><input id="e-cmd" placeholder="regenera únicamente la escena 3 · cambia el hook · hazlo en alemán · CTA: Descárgala ya">
+      <button class="btn small" onclick="editCmd('${p.id}')">Aplicar</button></div>
+      <div class="muted" id="e-msg" style="margin-top:6px"></div>
+      <div class="muted" style="margin-top:6px">Las escenas se regeneran en una versión nueva; los cambios de texto o idioma crean una variante (el máster no se toca). Lo que cuesta dinero pide confirmación con el coste estimado.</div>
+    </div>
+    <div class="card"><h2>Variantes</h2>
+      <div class="row"><select id="v-kind"><option value="hook_text">hook en texto (≈0 $)</option><option value="cta">CTA tarjeta (≈0 $)</option><option value="aspect">formato 4:5 / 1:1 (≈0 $)</option>
+      <option value="captions">estilo subtítulos (≈0 $)</option><option value="music">sin música (≈0 $)</option><option value="spoken_cta">CTA hablada (≈0,6 $)</option><option value="language">idioma (≈A-roll)</option></select>
+      <input id="v-value" placeholder="valor (texto, 4:5, en-US…)"><button class="btn small" onclick="variant('${p.id}')">Crear</button></div>
+      <div class="muted" style="margin-top:8px">${variants.map(v => `${esc(v.kind)}: ${esc(typeof v.value === 'object' ? JSON.stringify(v.value) : (v.value||''))} → ${esc(v.id)}`).join('<br>') || 'Sin variantes.'}</div>
+    </div>
+    <div class="card"><h2>Escenas</h2><div class="shots">${shots || '<span class="muted">Pendiente…</span>'}</div></div>
+    <div class="card"><h2>Guion</h2><pre>${esc((p.script?.segments||[]).map(s => `[${s.role}] ${s.text}${s.on_screen_text? '  ⟶ texto: '+s.on_screen_text:''}`).join('\n'))}</pre></div>
+    <div class="card"><h2>QA</h2><pre>${esc((p.qa_lines||['sin QA todavía']).join('\n'))}</pre></div>
+    <div class="card"><h2>Coste real · ${p.cost.total_usd.toFixed(3)} $</h2><h3>Por etapa</h3><table>${costRows}</table><h3>Por fase</h3><table>${phaseRows}</table><h3>Por modelo</h3><table>${modelRows}</table></div>
+    <div class="card"><h2>Registro</h2><pre>${esc((p.log||[]).slice(-40).join('\n'))}</pre></div>`;
+  refresh();
+  clearTimeout(polling); if (running) polling = setTimeout(() => openProject(pid), 4000);
+}
+refresh();
+</script>
+</body>
+</html>

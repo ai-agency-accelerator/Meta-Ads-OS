@@ -1,0 +1,351 @@
+{
+  "name": "Mensajería → Conversions API (Meta Ads OS)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Mensajería → Conversions API (Meta Ads OS)\n\n**Qué hace.** Fila 1: Meta verifica la URL. Fila 2: cada mensaje que llega desde un anuncio (Click to WhatsApp, Messenger, Instagram Direct) guarda en tu CRM el canal, la cuenta, el anuncio, el `ctwa_clid` y la hora. Fila 3: cuando el contacto cambia de etapa en el CRM, manda a Meta el evento que toca (LeadSubmitted, QualifiedLead o Purchase), una sola vez.\n\n**Antes de activar**\n1. Rellena los `<<…>>`: VERIFY_TOKEN, «Configuración (rellena esto)» y las dos URLs del CRM.\n2. Credenciales al importar: Header Auth en «CRM · cambio de etapa»; Query Auth (nombre `access_token`) en «Enviar a la Conversions API». El token, solo ahí.\n3. En el entorno de n8n: `META_APP_SECRET`, `NODE_FUNCTION_ALLOW_BUILTIN=crypto` y `N8N_BLOCK_ENV_ACCESS_IN_NODE=false`.\n4. Sin `TEST_EVENT_CODE` no sale nada. El envío real exige `ENVIO_REAL_APROBADO: true` con el sí del cliente.\n\nSin reintentos automáticos: Meta no deduplica la mensajería y un reintento la duplica.\nGuía: docs/guias/mensajeria.md",
+        "height": 520,
+        "width": 560
+      },
+      "name": "Léeme",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "meta-mensajeria",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Meta · verificación",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Meta comprueba tu URL con un GET (hub.mode, hub.verify_token, hub.challenge) al guardar el webhook en tu app.\n// Inventa una cadena larga, ponla aquí y la misma en la app de Meta → WhatsApp / Messenger / Instagram → Webhooks.\nconst VERIFY_TOKEN = '<<VERIFY_TOKEN: cadena larga inventada por ti, la misma que pones en Meta>>';\nconst q = $input.first().json.query || {};\nif (VERIFY_TOKEN.startsWith('<<')) {\n  throw new Error('Rellena VERIFY_TOKEN en este nodo antes de verificar el webhook en Meta.');\n}\nif (q['hub.mode'] !== 'subscribe' || q['hub.verify_token'] !== VERIFY_TOKEN) {\n  throw new Error('verify_token no coincide: Meta no podrá verificar la URL.');\n}\nreturn [{ json: { challenge: String(q['hub.challenge'] || '') } }];\n"
+      },
+      "name": "Comprobar verify_token",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.challenge }}",
+        "options": {}
+      },
+      "name": "Devolver challenge",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "meta-mensajeria",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "name": "Meta · mensajes entrantes",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Comprueba que el aviso viene de Meta: cabecera X-Hub-Signature-256 = HMAC SHA-256 del cuerpo crudo con el\n// secreto de tu app (App Dashboard → Configuración → Básica → Clave secreta). Sin esto, cualquiera que conozca la\n// URL podría meter clics falsos en tu CRM.\n// Necesita: el webhook con la opción «Raw Body» activada (ya lo está), el módulo crypto permitido\n// (NODE_FUNCTION_ALLOW_BUILTIN=crypto en n8n autoalojado) y el secreto en la variable de entorno META_APP_SECRET\n// (N8N_BLOCK_ENV_ACCESS_IN_NODE=false). Nunca pegues el secreto en este código.\nconst crypto = require('crypto');\nlet secreto = '';\ntry { secreto = $env.META_APP_SECRET || ''; } catch (e) { secreto = ''; }\nif (!secreto) {\n  throw new Error('Falta META_APP_SECRET en el entorno de n8n: sin él no se puede comprobar que el aviso es de Meta.');\n}\nconst salida = [];\nconst items = $input.all();\nfor (let i = 0; i < items.length; i++) {\n  const item = items[i];\n  const cabeceras = item.json.headers || {};\n  const firma = String(cabeceras['x-hub-signature-256'] || '');\n  const crudo = await this.helpers.getBinaryDataBuffer(i, 'data');\n  const esperada = 'sha256=' + crypto.createHmac('sha256', secreto).update(crudo).digest('hex');\n  const ok = firma.length === esperada.length && crypto.timingSafeEqual(Buffer.from(firma), Buffer.from(esperada));\n  if (!ok) {\n    throw new Error('Firma X-Hub-Signature-256 no válida: el aviso no viene de Meta o el secreto no es el de la app.');\n  }\n  let body = item.json.body;\n  if (!body || typeof body !== 'object' || !Object.keys(body).length) {\n    body = JSON.parse(crudo.toString('utf8'));\n  }\n  salida.push({ json: { headers: cabeceras, body } });\n}\nreturn salida;\n"
+      },
+      "name": "Verificar firma",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Una salida por mensaje entrante que viene de un anuncio. El referral solo llega en el primer mensaje tras el clic:\n// si no lo guardas ahora, se pierde. Misma lógica que `capi.py origen` (los tests comparan las dos).\n// WhatsApp Cloud API: entry[].changes[].value.messages[].referral (ctwa_clid, source_id = ID del anuncio).\n// Messenger e Instagram: entry[].messaging[].message.referral (source ADS, ad_id); se ignoran los ecos.\nconst segundos = (t) => {\n  const n = Math.floor(Number(t));\n  if (!Number.isFinite(n) || n <= 0) return '';\n  return String(n > 1e11 ? Math.floor(n / 1000) : n);\n};\nconst salida = [];\nfor (const item of $input.all()) {\n  const p = item.json.body || {};\n  if (p.object === 'whatsapp_business_account') {\n    for (const entrada of p.entry || []) {\n      for (const cambio of entrada.changes || []) {\n        const v = cambio.value || {};\n        const contacto = (v.contacts || [])[0] || {};\n        for (const m of v.messages || []) {\n          const ref = m.referral;\n          if (!ref) continue; // orgánico o mensaje posterior al primero\n          const tel = String(m.from || contacto.wa_id || '');\n          salida.push({ json: {\n            mensajeria_canal: 'whatsapp',\n            mensajeria_cuenta: String(entrada.id || ''),\n            mensajeria_anuncio: String(ref.source_id || ''),\n            mensajeria_clic: String(ref.ctwa_clid || ''),\n            mensajeria_persona: tel || String(m.from_user_id || contacto.user_id || ''),\n            mensajeria_entrada: segundos(m.timestamp),\n            telefono: tel ? '+' + tel.replace(/^\\+/, '') : '',\n            numero_negocio: String((v.metadata || {}).phone_number_id || ''),\n            aviso: ref.ctwa_clid ? '' : 'Anuncio de Estados: sin ctwa_clid, se emparejará por teléfono',\n          } });\n        }\n      }\n    }\n  } else if (p.object === 'page' || p.object === 'instagram') {\n    const canal = p.object === 'page' ? 'messenger' : 'instagram';\n    for (const entrada of p.entry || []) {\n      for (const ev of entrada.messaging || []) {\n        const msg = ev.message || {};\n        if (msg.is_echo) continue; // lo ha escrito el negocio\n        const ref = msg.referral || ev.referral || (ev.postback || {}).referral;\n        if (!ref || ref.source !== 'ADS') continue;\n        salida.push({ json: {\n          mensajeria_canal: canal,\n          mensajeria_cuenta: String((ev.recipient || {}).id || entrada.id || ''),\n          mensajeria_anuncio: String(ref.ad_id || ''),\n          mensajeria_clic: '',\n          mensajeria_persona: String((ev.sender || {}).id || ''),\n          mensajeria_entrada: segundos(ev.timestamp),\n          telefono: '',\n          ref: String(ref.ref || ''),\n          aviso: '',\n        } });\n      }\n    }\n  }\n}\nreturn salida;\n"
+      },
+      "name": "Extraer origen del clic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "<<URL_CRM_ORIGEN: endpoint de tu CRM que crea o actualiza el contacto y guarda los campos mensajeria_*>>",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "name": "Guardar origen en el CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crm-etapa",
+        "authentication": "headerAuth",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "name": "CRM · cambio de etapa",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rellena esto una vez por cliente. Nada de tokens aquí: el token va en la credencial del nodo «Enviar a la\n// Conversions API» (Query Auth, nombre access_token).\nconst CONFIG = {\n  DATASET_ID: '<<DATASET_ID: el dataset vinculado a tu WABA, Página o cuenta de Instagram>>',\n  WABA_ID: '<<WABA_ID: ID de la cuenta de WhatsApp Business (si el CRM no lo guardó)>>',\n  PAGE_ID: '<<PAGE_ID: ID de la Página (Messenger y WhatsApp sin ctwa_clid)>>',\n  IG_ID: '<<IG_ID: ID de la cuenta profesional de Instagram>>',\n  // Código de Events Manager → Probar eventos. Mientras exista, todo va como prueba.\n  TEST_EVENT_CODE: '<<TEST_EVENT_CODE: código de Probar eventos>>',\n  // Solo con el sí del cliente, después de verificar las pruebas: true y TEST_EVENT_CODE vacío.\n  ENVIO_REAL_APROBADO: false,\n  // Etapa del contrato §16 que cuenta como lead cualificado: cualificado, llamada, asistio o propuesta.\n  CUALIFICA_EN: 'cualificado',\n  MONEDA: 'EUR',\n};\nreturn $input.all().map((item) => ({ json: { ...item.json, config: CONFIG } }));\n"
+      },
+      "name": "Configuración (rellena esto)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Etapa del CRM (contrato §16) → evento de la Conversions API de mensajería. Misma tabla que `capi.py`.\n// Sale un elemento solo si hay algo que mandar; si la etapa no tiene evento o el hito ya se envió, no sale nada.\n// Los datos que faltan (venta sin importe, WhatsApp sin clic ni teléfono) paran el flujo con un error a la vista.\nconst ETAPAS = [\"lead\", \"diagnostico\", \"cualificado\", \"llamada\", \"asistio\", \"propuesta\", \"ganado\", \"perdido\"];\nconst EVENTOS_MENSAJERIA = [\"LeadSubmitted\", \"QualifiedLead\", \"Purchase\", \"InitiateCheckout\", \"AddToCart\", \"ViewContent\", \"OrderCreated\", \"OrderShipped\", \"OrderDelivered\", \"OrderCanceled\", \"OrderReturned\", \"CartAbandoned\", \"RatingProvided\", \"ReviewProvided\"];\nconst CANALES = ['whatsapp', 'messenger', 'instagram'];\nconst VENTANA_CLIC = 7 * 86400;\nconst valido = (v) => v !== undefined && v !== null && String(v).trim() !== '' && !String(v).startsWith('<<');\nconst segundos = (t) => {\n  if (!valido(t)) return 0;\n  const n = /^\\d+(\\.\\d+)?$/.test(String(t)) ? Number(t) : Date.parse(String(t)) / 1000;\n  if (!Number.isFinite(n)) return 0;\n  return Math.floor(n > 1e11 ? n / 1000 : n);\n};\nconst salida = [];\nfor (const item of $input.all()) {\n  const b = item.json.body || {};\n  const c = item.json.config || {};\n  const canal = String(b.mensajeria_canal || '').trim().toLowerCase();\n  if (!CANALES.includes(canal)) continue; // el contacto no entró por un anuncio de mensajes\n  const etapa = String(b.etapa || '').trim().toLowerCase();\n  if (!ETAPAS.includes(etapa)) throw new Error(`Etapa «${etapa}» desconocida: usa una del contrato §16 (${ETAPAS.join(', ')}).`);\n  const cualificaEn = valido(c.CUALIFICA_EN) ? String(c.CUALIFICA_EN) : 'cualificado';\n  let evento = null;\n  if (etapa === 'lead') evento = 'LeadSubmitted';\n  else if (etapa === 'ganado') evento = 'Purchase';\n  else if (etapa === cualificaEn) evento = 'QualifiedLead';\n  if (!evento) continue; // diagnóstico, llamada, asistencia, propuesta y perdido no tienen evento de mensajería\n  if (!EVENTOS_MENSAJERIA.includes(evento)) throw new Error(`Evento ${evento} no admitido en mensajería.`);\n  const enviados = String(b.mensajeria_enviados || '').split(',').map((s) => s.trim()).filter(Boolean);\n  if (enviados.includes(evento)) continue; // Meta no deduplica la mensajería: cada hito, una sola vez\n  const ahora = Math.floor(Date.now() / 1000);\n  const momento = segundos(b.momento) || ahora;\n  if (momento > ahora + 300) throw new Error('El momento del cambio de etapa está en el futuro.');\n  if (ahora - momento > 7 * 86400) throw new Error('El cambio de etapa tiene más de 7 días: Meta lo rechaza. Envía en tiempo real.');\n  const persona = String(b.mensajeria_persona || '').trim();\n  const cuenta = String(b.mensajeria_cuenta || '').trim();\n  const ud = {};\n  let necesitaHash = false;\n  let ph = '';\n  if (canal === 'whatsapp') {\n    const waba = valido(cuenta) ? cuenta : c.WABA_ID;\n    if (!valido(waba)) throw new Error('Falta la WABA: guárdala al entrar la conversación o ponla en Configuración.');\n    ud.whatsapp_business_account_id = String(waba);\n    if (valido(b.mensajeria_clic)) {\n      ud.ctwa_clid = String(b.mensajeria_clic).trim();\n    } else {\n      ph = String(b.telefono || '').replace(/\\D/g, '').replace(/^00/, '');\n      if (ph.length < 7 || ph.length > 15) throw new Error('WhatsApp sin ctwa_clid y sin teléfono con prefijo: no hay con qué emparejar.');\n      if (!valido(c.PAGE_ID)) throw new Error('WhatsApp sin ctwa_clid necesita PAGE_ID en Configuración.');\n      ud.page_id = String(c.PAGE_ID);\n      necesitaHash = true; // el nodo siguiente hashea ph_normalizado con SHA-256\n    }\n  } else if (canal === 'messenger') {\n    const pagina = valido(cuenta) ? cuenta : c.PAGE_ID;\n    if (!valido(pagina) || !valido(persona)) throw new Error('Messenger necesita la Página y el PSID de quien escribió.');\n    ud.page_id = String(pagina);\n    ud.page_scoped_user_id = persona;\n  } else {\n    const ig = valido(cuenta) ? cuenta : c.IG_ID;\n    if (!valido(ig) || !valido(persona)) throw new Error('Instagram necesita la cuenta profesional y el IGSID de quien escribió.');\n    ud.instagram_business_account_id = String(ig);\n    ud.ig_sid = persona;\n  }\n  const ev = { event_name: evento, event_time: momento, action_source: 'business_messaging', messaging_channel: canal, user_data: ud };\n  if (evento === 'Purchase') {\n    const valor = Number(b.valor);\n    if (!valido(b.valor) || !Number.isFinite(valor) || valor <= 0) {\n      throw new Error('Etapa ganado sin valor: pon el importe del proyecto en la oportunidad (Purchase necesita value).');\n    }\n    const moneda = String(valido(b.moneda) ? b.moneda : (c.MONEDA || '')).toUpperCase();\n    if (!/^[A-Z]{3}$/.test(moneda)) throw new Error('Moneda como código ISO de 3 letras (EUR, USD, MXN…).');\n    ev.custom_data = { value: valor, currency: moneda };\n  }\n  const entrada = segundos(b.mensajeria_entrada);\n  salida.push({ json: {\n    evento: ev,\n    necesita_hash: necesitaHash,\n    ph_normalizado: ph,\n    contacto_id: String(b.contacto_id || ''),\n    enviados: [...enviados, evento].join(','),\n    fuera_de_ventana: Boolean(entrada && momento - entrada > VENTANA_CLIC),\n    config: c,\n  } });\n}\nreturn salida;\n"
+      },
+      "name": "Etapa → evento",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "value": "={{ $json.ph_normalizado }}",
+        "dataPropertyName": "ph_hash",
+        "encoding": "hex"
+      },
+      "name": "Hashear teléfono",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        800,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Monta el cuerpo para POST /{dataset}/events. Por defecto solo sale con test_event_code: el envío real exige\n// ENVIO_REAL_APROBADO = true en Configuración (igual que `capi.py enviar --real --confirmo`).\nconst salida = [];\nfor (const item of $input.all()) {\n  const j = item.json;\n  const c = j.config || {};\n  const ev = JSON.parse(JSON.stringify(j.evento));\n  if (j.necesita_hash) {\n    if (!/^[0-9a-f]{64}$/.test(String(j.ph_hash || ''))) throw new Error('Falta el hash SHA-256 del teléfono.');\n    ev.user_data.ph = [j.ph_hash];\n  }\n  const dataset = String(c.DATASET_ID || '');\n  if (!/^\\d{6,20}$/.test(dataset)) throw new Error('Rellena DATASET_ID en Configuración.');\n  const cuerpo = { data: [ev] };\n  const codigo = String(c.TEST_EVENT_CODE || '').trim();\n  if (codigo && !codigo.startsWith('<<')) {\n    cuerpo.test_event_code = codigo;\n  } else if (c.ENVIO_REAL_APROBADO !== true) {\n    throw new Error('Sin TEST_EVENT_CODE no se envía nada: un evento real de prueba ensucia el dataset. '\n      + 'Para producción, ENVIO_REAL_APROBADO = true con el sí del cliente.');\n  }\n  salida.push({ json: { ...j, cuerpo, dataset } });\n}\nreturn salida;\n"
+      },
+      "name": "Montar payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v27.0/{{ $json.dataset }}/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.cuerpo) }}",
+        "options": {}
+      },
+      "name": "Enviar a la Conversions API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        460
+      ],
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "<<URL_CRM_ENVIADO: endpoint de tu CRM que guarda mensajeria_enviados en el contacto>>",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contacto_id: $('Montar payload').item.json.contacto_id, mensajeria_enviados: $('Montar payload').item.json.enviados, respuesta_meta: $json }) }}",
+        "options": {}
+      },
+      "name": "Marcar enviado en el CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Meta · verificación": {
+      "main": [
+        [
+          {
+            "node": "Comprobar verify_token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Comprobar verify_token": {
+      "main": [
+        [
+          {
+            "node": "Devolver challenge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta · mensajes entrantes": {
+      "main": [
+        [
+          {
+            "node": "Verificar firma",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar firma": {
+      "main": [
+        [
+          {
+            "node": "Extraer origen del clic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer origen del clic": {
+      "main": [
+        [
+          {
+            "node": "Guardar origen en el CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM · cambio de etapa": {
+      "main": [
+        [
+          {
+            "node": "Configuración (rellena esto)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración (rellena esto)": {
+      "main": [
+        [
+          {
+            "node": "Etapa → evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etapa → evento": {
+      "main": [
+        [
+          {
+            "node": "Hashear teléfono",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hashear teléfono": {
+      "main": [
+        [
+          {
+            "node": "Montar payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar payload": {
+      "main": [
+        [
+          {
+            "node": "Enviar a la Conversions API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar a la Conversions API": {
+      "main": [
+        [
+          {
+            "node": "Marcar enviado en el CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "active": false
+}

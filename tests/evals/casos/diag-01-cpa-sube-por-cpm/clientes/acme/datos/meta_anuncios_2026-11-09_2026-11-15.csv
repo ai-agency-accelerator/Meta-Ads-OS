@@ -1,0 +1,5 @@
+ad_id,anuncio,campana,conjunto,desde,hasta,gasto,impresiones,alcance,frecuencia,cpm,clics_enlace,ctr,vistas_3s,thruplay,hook_rate,hold_rate,evento_resultado,resultado_meta,coste_resultado_meta
+120000000000000011,20261006_tiempo-perdido_demo-antes-despues_demo_h1,ES_LEADS_ADQ_HV,BROAD-A+_LEAD,2026-11-09,2026-11-15,595.00,30810,17117,1.80,19.31,339,1.10,9243,3420,30.0,37.0,lead,13,45.77
+120000000000000012,20261006_caso-real_asesoria-fiscal_testimonio_h1,ES_LEADS_ADQ_HV,BROAD-A+_LEAD,2026-11-09,2026-11-15,525.00,25533,14185,1.80,20.56,281,1.10,6894,3102,27.0,45.0,lead,10,52.50
+120000000000000013,20261020_fundador_por-que-automatizar_founder_h1,ES_LEADS_ADQ_HV,BROAD-A+_LEAD,2026-11-09,2026-11-15,385.00,19231,10684,1.80,20.02,212,1.10,5577,1952,29.0,35.0,lead,8,48.12
+120000000000000014,20261020_objecion-precio_roi-calculadora_estatico_h1,ES_LEADS_ADQ_HV,BROAD-A+_LEAD,2026-11-09,2026-11-15,245.00,12153,6752,1.80,20.16,134,1.10,,,,,lead,5,49.00

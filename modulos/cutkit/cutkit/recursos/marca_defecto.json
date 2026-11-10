@@ -1,0 +1,19 @@
+{
+  "nombre": "",
+  "colores": {
+    "primario": "#111827",
+    "secundario": "#374151",
+    "acento": "#FACC15",
+    "fondo": "#FFFFFF",
+    "texto": "#111827",
+    "texto_sobre_primario": "#FFFFFF"
+  },
+  "tipografias": {
+    "titulos": {"familia": "Montserrat", "archivo": "Montserrat-ExtraBold.ttf", "peso": 800},
+    "texto": {"familia": "Montserrat", "archivo": "Montserrat-SemiBold.ttf", "peso": 600}
+  },
+  "logo": {},
+  "subtitulos": {"color": "#FFFFFF", "resaltado": "#FACC15", "contorno": "#000000", "mayusculas": false},
+  "cta_por_defecto": "",
+  "etiqueta_ia": "Contenido generado con IA"
+}

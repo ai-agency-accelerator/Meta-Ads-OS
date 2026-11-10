@@ -1,0 +1,32 @@
+/* viz.puzzle — dos piezas del tema (carbón en negro, blanco en claro) con una sola luz cenital; oro solo en el encaje */
+.pz{--g-ring-on:#FECA1A;--g-ring-off:rgba(255,255,255,.12)}
+.gx-th-light.pz{--g-ring-on:#161514;--g-ring-off:rgba(22,21,20,.12)}
+.pz .pz-wrap{position:absolute;inset:0}
+.pz .pz-piece{position:absolute;overflow:visible}
+.pz .pz-left{z-index:2}
+.pz .pz-right{z-index:1}
+.pz .pz-shape{position:absolute;left:0;top:0;overflow:visible;filter:drop-shadow(0 1px 2px rgba(0,0,0,.18)) drop-shadow(0 14px 30px rgba(0,0,0,.16))}
+.gx-th-dark .pz-shape{filter:drop-shadow(0 1px 2px rgba(0,0,0,.4)) drop-shadow(0 16px 34px rgba(0,0,0,.45))}
+.pz .pz-fill{fill:var(--g-card)}
+.pz .pz-edge{fill:none;stroke:var(--g-line);stroke-width:2}
+.pz .pz-in{position:absolute;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(24px * var(--s))}
+.pz .pz-logos{display:flex;gap:calc(14px * var(--s))}
+.pz .pz-tile{position:relative;width:calc(88px * var(--s));height:calc(88px * var(--s));border-radius:24%;background:#FFFFFF;
+  box-shadow:0 0 0 1px rgba(22,21,20,.08),0 6px 14px rgba(0,0,0,.12);transform-origin:50% 50%}
+.pz .pz-logo{position:absolute;inset:16%}
+.pz .pz-label{font:800 calc(54px * var(--s))/1.06 var(--ck-sans);color:var(--g-card-fg);letter-spacing:-.02em;text-align:center;text-wrap:balance;padding:0 calc(26px * var(--s));width:100%;box-sizing:border-box}
+.pz .pz-shine{position:absolute;z-index:4;pointer-events:none;overflow:hidden;mix-blend-mode:screen;
+  background:linear-gradient(105deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.38) 50%,rgba(255,255,255,0) 70%)}
+.gx-th-light .pz-shine{mix-blend-mode:normal;background:linear-gradient(105deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 70%)}
+.pz .pz-ring{position:absolute;left:0;top:0;overflow:visible;z-index:5;pointer-events:none}
+.pz .pz-ringpath{fill:none;stroke:#FECA1A;stroke-width:4}
+.pz .pz-uni{position:absolute;left:0;top:0;overflow:visible;z-index:0;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.18)) drop-shadow(0 14px 30px rgba(0,0,0,.16))}
+.gx-th-dark .pz-uni{filter:drop-shadow(0 1px 2px rgba(0,0,0,.4)) drop-shadow(0 16px 34px rgba(0,0,0,.45))}
+/* piezas apiladas (etiquetas largas): logos a la izquierda y la etiqueta en una línea a su lado */
+.pz-v .pz-in{flex-direction:row;gap:calc(24px * var(--s));padding:0 calc(40px * var(--s));box-sizing:border-box}
+.pz-v .pz-label{width:auto;padding:0;white-space:nowrap;text-align:left}
+/* regla de entrada de texto: el rótulo sube por su máscara; el destello del encaje es oro y se apaga */
+.pz .pz-tm{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em .12em .2em;margin:-.14em -.12em -.2em}
+.pz .pz-ti{display:inline-block;will-change:transform}
+/* lado a lado: la etiqueta mide lo que su texto (con width:100% gx.fit medía la caja y la dejaba siempre en 26 px) */
+.pz:not(.pz-v) .pz-label{width:auto;max-width:100%}

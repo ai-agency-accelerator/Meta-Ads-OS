@@ -1,0 +1,53 @@
+/* viz.layers_control — el agente apila las capas y nosotros decidimos qué se ve. Panel de capas oscuro (como el real),
+   insignias redondas de tinta con su glifo en oro, rótulos del tema; oro solo en el sello. */
+.lc .lc-wrap{position:absolute;inset:0}
+.lc .lc-lrow{position:absolute;display:flex;align-items:center;justify-content:center;gap:calc(18px * var(--s))}
+.lc .lc-badge{position:relative;flex:none;width:calc(52px * var(--s));height:calc(52px * var(--s));border-radius:50%;background:#161514;
+  box-shadow:0 0 0 1px rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center}
+.gx-th-dark .lc-badge{background:#26262A;box-shadow:0 0 0 1px rgba(255,255,255,.10),0 8px 18px rgba(0,0,0,.45)}
+.lc .lc-badge-gl{width:62%;height:62%;fill:none;stroke:#FECA1A;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.lc .lc-badge-gl .f{fill:#FECA1A;stroke:none}
+.lc .lc-label{display:inline-block;white-space:nowrap;font:800 calc(48px * var(--s))/1.08 var(--ck-sans);color:var(--g-fg);letter-spacing:-.02em}
+.lc .lc-tm{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em .12em .2em;margin:-.14em -.12em -.2em}
+.lc .lc-ti{display:inline-block;will-change:transform}
+/* el panel de capas */
+.lc .lc-panel{position:absolute;box-sizing:border-box;border-radius:calc(22px * var(--s));background:#161618;
+  box-shadow:0 0 0 1px rgba(255,255,255,.07),0 2px 4px rgba(0,0,0,.2),0 22px 46px rgba(0,0,0,.30)}
+.gx-th-dark .lc-panel{box-shadow:0 0 0 1px rgba(255,255,255,.12),0 2px 4px rgba(0,0,0,.4),0 24px 50px rgba(0,0,0,.55)}
+.lc .lc-head{position:absolute;left:calc(22px * var(--s));top:calc(16px * var(--s));display:flex;gap:calc(10px * var(--s))}
+.lc .lc-tab{width:calc(96px * var(--s));height:calc(16px * var(--s));border-radius:calc(8px * var(--s));background:rgba(255,255,255,.10)}
+.lc .lc-tab-on{width:calc(124px * var(--s));background:rgba(255,255,255,.34)}
+.lc .lc-ghost{position:absolute;box-sizing:border-box;border-radius:calc(14px * var(--s));border:calc(2px * var(--s)) dashed rgba(255,255,255,.12)}
+.lc .lc-row{position:absolute;box-sizing:border-box;border-radius:calc(16px * var(--s));background:#232327;display:flex;align-items:center;
+  gap:calc(18px * var(--s));padding:0 calc(22px * var(--s));box-shadow:0 0 0 1px rgba(255,255,255,.05)}
+.lc .lc-eye{flex:none;width:calc(52px * var(--s));height:calc(52px * var(--s));color:rgba(236,236,232,1)}
+.lc .lc-eye-svg{width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lc .lc-pupil{fill:currentColor;stroke:none}
+.lc .lc-slash{stroke:#FFFFFF;stroke-width:2.6}
+.lc .lc-thumb{flex:none;width:calc(60px * var(--s));height:calc(60px * var(--s));border-radius:calc(12px * var(--s));background:#F1F0EC;overflow:hidden}
+.lc .lc-th-svg{width:100%;height:100%}
+.lc .lc-th-ink{fill:#161514}
+.lc .lc-th-gold{fill:#E0A800}
+.lc .lc-th-bg{fill:#D9D6CE}
+.lc .lc-th-orb{fill:#F2D46A;opacity:.55}
+.lc .lc-bar{flex:none;height:calc(16px * var(--s));border-radius:calc(8px * var(--s));background:rgba(255,255,255,.30)}
+/* nombre real de la capa (`layers: [...]`) en blanco de interfaz, 600 */
+.lc .lc-name{flex:none;white-space:nowrap;font:600 calc(40px * var(--s))/1 var(--ck-sans);color:rgba(255,255,255,.94);letter-spacing:-.01em}
+/* sello: borde y destello de oro, sello con check (nada de contorno negro) */
+/* borde oro ENTERO: un trazo que recorre la tarjeta en `seal` y se queda */
+.lc .lc-rim{position:absolute;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 calc(10px * var(--s)) rgba(254,202,26,.45))}
+.lc .lc-rim-r{fill:none;stroke:#FECA1A;stroke-linecap:round}
+.lc .lc-shine-box{position:absolute;overflow:hidden;border-radius:calc(22px * var(--s));pointer-events:none;opacity:0}
+.lc .lc-shine{position:absolute;inset:0;mix-blend-mode:screen;
+  background:linear-gradient(105deg,rgba(255,255,255,0) 32%,rgba(255,240,190,.42) 50%,rgba(255,255,255,0) 68%)}
+.lc .lc-seal{position:absolute;border-radius:50%;background:#FECA1A;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.lc .lc-seal-gl{width:70%;height:70%;fill:none;stroke:#161514;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.lc .lc-ring{position:absolute;box-sizing:border-box;border-radius:50%;border:calc(5px * var(--s)) solid #FECA1A;pointer-events:none}
+/* onda del clic sobre el ojo */
+.lc .lc-click{position:absolute;left:0;top:0;box-sizing:border-box;border-radius:50%;border:calc(5px * var(--s)) solid #FECA1A;pointer-events:none;z-index:5}
+/* el cursor (negro con borde blanco, como el del sistema) */
+.lc .lc-cursor{position:absolute;left:0;top:0;pointer-events:none;z-index:6;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+.lc .lc-cursor-gl{width:100%;height:100%;overflow:visible}
+.lc .lc-cursor-gl .f{fill:#0B0B0C;stroke:#FFFFFF;stroke-width:2.6;stroke-linejoin:round}
+.lc .lc-stack{position:absolute;inset:0}

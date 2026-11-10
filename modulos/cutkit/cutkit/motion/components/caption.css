@@ -1,0 +1,40 @@
+/* cutkit · subtítulos (raíl y lockup) */
+/* tema por variables (el runtime las cambia en el corte si la página cruza a un panel claro) */
+.ck-cap-page, .ck-lockup { --cap-fg: #FFFFFF; --cap-shadow: var(--ck-text-shadow); --cap-shadow-hero: var(--ck-text-shadow-hero);
+  --cap-accent: var(--ck-accent); --cap-mark: rgba(254, 202, 26, 0); }
+.ck-cap-page { position: absolute; text-align: center; pointer-events: none; }
+.ck-cap-inner { display: inline-block; font-family: var(--ck-sans); font-weight: 800; color: var(--cap-fg);
+  letter-spacing: -0.01em; line-height: 1.08; text-shadow: var(--cap-shadow); white-space: nowrap; }
+.ck-cap-line { display: block; white-space: nowrap; }
+.ck-cap-reg { padding-top: 0.06em; }
+/* destacado (hero) del raíl: Montserrat 800 en su propia línea, ~1,5× (88 px a 58). Regla de estilo: nunca serif
+   cursiva; el énfasis va con peso, tamaño u oro */
+.ck-cap-hero { font-family: var(--ck-sans); font-style: normal; font-weight: 800; letter-spacing: -0.03em;
+  line-height: 0.98; margin-top: -0.02em; padding: 0.02em 0.06em 0.02em; text-shadow: var(--cap-shadow-hero); }
+/* accent: oro sobre oscuro; sobre papel, tinta con banda de marcador oro detrás (mismo hueco en ambos temas) */
+.ck-cap-accent { color: var(--cap-accent); padding: 0 0.10em; margin: 0 -0.10em; border-radius: 0.08em;
+  background-image: linear-gradient(transparent 16%, var(--cap-mark) 16%, var(--cap-mark) 90%, transparent 90%); }
+.ck-cap-brand { color: var(--cap-brand, #FFFFFF); text-decoration: underline; text-decoration-color: var(--cap-brand-line, transparent);
+  text-decoration-thickness: 0.09em; text-underline-offset: 0.14em; text-decoration-skip-ink: none; }
+/* scale: misma familia y peso, 1,35× y blanca (se distingue del oro por tamaño, no por color) */
+.ck-cap-scale { font-size: 1.35em; letter-spacing: -0.02em; line-height: 0.9; vertical-align: -0.04em; }
+.ck-cap-pill { background: rgba(28, 27, 32, .62); border-radius: 22px; padding: 6px 22px 10px; text-shadow: none; }
+
+.ck-lockup { position: absolute; pointer-events: none; color: var(--cap-fg); }
+.ck-lk-line { display: block; white-space: nowrap; }
+.ck-lk-line { font-family: var(--ck-sans); font-weight: 800; letter-spacing: -0.02em; line-height: 0.98;
+  color: var(--cap-fg); text-shadow: var(--cap-shadow); }
+.ck-lk-light { font-weight: 400; letter-spacing: -0.01em; }
+.ck-lk-big { font-weight: 900; letter-spacing: -0.035em; line-height: 0.9; text-transform: uppercase; }
+.ck-lk-hero + .ck-lk-line { margin-top: 0.10em; }
+/* héroe del lockup: Montserrat 900 a ~1,75× de los conectores (nunca serif) */
+.ck-lk-hero { font-family: var(--ck-sans); font-style: normal; font-weight: 900; letter-spacing: -0.035em;
+  line-height: 0.94; margin-top: -0.04em; padding: 0.02em 0.04em 0.02em; text-shadow: var(--cap-shadow-hero); }
+
+/* héroe sin sitio (cara completa): la palabra pasa a 900 a 1,35× en la línea */
+.ck-cap-heroalt { font-weight: 900; }
+.ck-lk-alt { font-family: var(--ck-sans); font-weight: 900; letter-spacing: -0.025em; line-height: 0.95; }
+
+/* contorno del subtítulo sobre la línea del split (solo se activa con --cap-stroke-w): por debajo del relleno */
+.ck-cap-inner, .ck-lk-line { -webkit-text-stroke: var(--cap-stroke-w, 0px) var(--cap-stroke-c, transparent);
+  paint-order: stroke fill; stroke-linejoin: round; }

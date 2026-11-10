@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "marca": {"ruta": "../../html/marca-ejemplo"},
+  "sitio": {
+    "nombre": "Acme Automations",
+    "url": "https://acme.example",
+    "idioma": "es",
+    "moneda": "EUR",
+    "contacto": "hola@acme.example",
+    "legal": {
+      "responsable": "Acme Automations, S.L.",
+      "finalidad": "responder a tu solicitud, enviarte el resultado del diagnóstico y, si reservas, preparar la llamada",
+      "privacidad": "https://acme.example/privacidad",
+      "aviso_legal": "https://acme.example/aviso-legal",
+      "cookies": "https://acme.example/cookies"
+    }
+  },
+  "tracking": {
+    "pixel_id": "000000000000000",
+    "eventos_navegador": true,
+    "webhook": {"url": "https://hooks.example/acme/lead", "modo": "json", "timeout_ms": 8000},
+    "base_legal_servidor": "consentimiento",
+    "consentimiento": {"banner": true, "caducidad_dias": 180},
+    "prefill_reserva": true
+  },
+  "paginas": {
+    "landing": {
+      "titulo_seo": "Diagnóstico gratuito de automatización | Acme Automations",
+      "descripcion_seo": "En 3 minutos: qué tareas de tu equipo se pueden automatizar, cuánto te cuestan hoy y si te compensa hacerlo.",
+      "hero": {
+        "titular": "¿Cuántas horas a la semana se le van a tu equipo en copiar y pegar?",
+        "entradilla": "Haz el diagnóstico gratuito: en 3 minutos sabrás qué tareas se pueden automatizar, cuánto te cuestan hoy y si te compensa hacerlo. A veces la respuesta es que no, y también te la damos.",
+        "cta": {"texto": "Empezar el diagnóstico", "href": "@diagnostico"},
+        "prueba": "Sin registrarte para empezar. Ves el cálculo y sus supuestos.",
+        "media": {"tipo": "arranque"}
+      },
+      "secciones": [
+        {
+          "tipo": "dolor",
+          "titulo": "Si te suena alguna, este diagnóstico es para ti",
+          "puntos": [
+            "Alguien de tu equipo pasa pedidos del email al ERP a mano, uno a uno.",
+            "Los informes de cada lunes se hacen copiando datos de tres herramientas distintas.",
+            "Respondéis a las mismas preguntas de clientes una y otra vez.",
+            "Sabes que «eso se podría automatizar», pero no cuánto te cuesta hoy ni por dónde empezar."
+          ]
+        },
+        {
+          "tipo": "pasos",
+          "titulo": "Cómo funciona",
+          "pasos": [
+            {"titulo": "Respondes 4 preguntas", "texto": "Qué tareas repetís, cuántas personas las hacen y cuántas horas. Sin datos sensibles."},
+            {"titulo": "Ves el cálculo", "texto": "Horas y coste que se podrían recuperar al año, con los supuestos a la vista para que los cambies."},
+            {"titulo": "Te decimos la verdad", "texto": "Si no te compensa, te lo decimos. Si hay proyecto, vemos por dónde empezar en una llamada de 30 minutos."}
+          ]
+        },
+        {
+          "tipo": "casos",
+          "ejemplo": true,
+          "titulo": "Lo que han conseguido otras empresas",
+          "casos": [
+            {"cifra": "00 h/semana", "cifra_texto": "Pon aquí el resultado medido de un cliente real", "cita": "Sustituye este texto por una frase real de tu cliente, con su permiso por escrito.", "autor": "Nombre del cliente", "cargo": "cargo y empresa"}
+          ]
+        },
+        {
+          "tipo": "para_quien",
+          "titulo": "Para quién es (y para quién no)",
+          "si": [
+            "Sois entre 5 y 250 personas y hay tareas que se repiten cada semana.",
+            "Usáis herramientas en la nube o estáis dispuestos a dar el paso.",
+            "Quieres decidir con números, no con promesas."
+          ],
+          "no": [
+            "Buscas algo que funcione sin tocar ningún proceso.",
+            "Las tareas cambian cada vez y dependen del criterio de una persona.",
+            "Lo necesitas para mañana: un proyecto bien hecho lleva semanas."
+          ]
+        },
+        {
+          "tipo": "faq",
+          "titulo": "Preguntas frecuentes",
+          "preguntas": [
+            {"pregunta": "¿El diagnóstico tiene coste?", "respuesta": "No. Es gratuito y no te compromete a nada. Si los números dicen que no compensa, ahí termina."},
+            {"pregunta": "¿Qué datos me pedís?", "respuesta": "Para el cálculo, solo tareas, personas y horas. Para enviarte el resultado, nombre, email, empresa y teléfono. No pedimos datos de tus clientes ni de facturación."},
+            {"pregunta": "¿Cómo de fiable es la cifra?", "respuesta": "Es una estimación con tus respuestas y con supuestos que ves y puedes cambiar. En la llamada la afinamos con tu caso real antes de proponerte nada."},
+            {"pregunta": "¿Qué pasa en la llamada?", "respuesta": "Son 30 minutos para revisar tus números y decirte qué automatizar primero y qué no. Si no encaja, te lo decimos."}
+          ]
+        },
+        {
+          "tipo": "cierre",
+          "titulo": "Descubre en 3 minutos si te compensa automatizar",
+          "texto": "Y si no compensa, también te lo diremos.",
+          "cta": {"texto": "Empezar el diagnóstico", "href": "@diagnostico"}
+        }
+      ]
+    },
+    "diagnostico": {
+      "nombre": "Diagnóstico de automatización",
+      "titulo_seo": "Diagnóstico de automatización | Acme Automations",
+      "intro": {
+        "titulo": "Diagnóstico de automatización",
+        "entradilla": "Responde 4 preguntas sobre las tareas repetitivas de tu equipo y verás cuántas horas y cuánto dinero se os van al año en trabajo que se podría automatizar.",
+        "promesas": [
+          "Te enseñamos el cálculo y sus supuestos, y puedes cambiarlos.",
+          "Si no te compensa, te lo decimos. También pasa.",
+          "Sin datos sensibles: solo tareas, personas y horas."
+        ],
+        "boton": "Empezar",
+        "nota": "Tus respuestas solo se usan para calcular tu resultado y, si la pides, preparar la llamada."
+      },
+      "captura": "antes",
+      "preguntas": [
+        {
+          "id": "tamano", "tipo": "opciones", "corta": "Tamaño",
+          "pregunta": "¿Cuántas personas trabajáis en la empresa?",
+          "columnas": 2,
+          "opciones": [
+            {"etiqueta": "De 1 a 9", "valor": 1},
+            {"etiqueta": "De 10 a 49", "valor": 2},
+            {"etiqueta": "De 50 a 249", "valor": 3},
+            {"etiqueta": "250 o más", "valor": 4}
+          ]
+        },
+        {
+          "id": "procesos", "tipo": "grupo", "corta": "Tareas",
+          "pregunta": "¿Qué tareas repetitivas os quitan más tiempo?",
+          "ayuda": "Piensa en tareas que se hacen igual cada vez. Puedes añadir hasta 5.",
+          "etiqueta_item": "Tarea", "min_items": 1, "max_items": 5, "texto_anadir": "Añadir otra tarea",
+          "campos": [
+            {"id": "nombre", "tipo": "texto", "etiqueta": "Qué tarea es", "corta": "Tarea", "placeholder": "Ej.: pasar pedidos del email al ERP", "requerido": true, "maxlength": 80},
+            {"id": "personas", "tipo": "numero", "etiqueta": "Cuántas personas la hacen", "corta": "personas", "min": 1, "max": 100, "paso": 1, "defecto": 1, "unidad": "personas"},
+            {"id": "horas", "tipo": "numero", "etiqueta": "Horas a la semana por persona", "corta": "h/semana", "min": 0.5, "max": 40, "paso": 0.5, "defecto": 2, "unidad": "horas por semana"},
+            {"id": "tipo", "tipo": "opciones", "etiqueta": "Qué tipo de trabajo es", "corta": "tipo", "opciones": [
+              {"etiqueta": "Copiar datos entre programas o documentos", "valor": 0.6},
+              {"etiqueta": "Responder o clasificar emails y mensajes", "valor": 0.5},
+              {"etiqueta": "Preparar informes, presupuestos o documentos", "valor": 0.5},
+              {"etiqueta": "Revisar, decidir o hablar con clientes", "valor": 0.25}
+            ]}
+          ]
+        },
+        {
+          "id": "herramientas", "tipo": "opciones", "corta": "Herramientas",
+          "pregunta": "¿Dónde está la información que usan esas tareas?",
+          "opciones": [
+            {"etiqueta": "Sobre todo en herramientas en la nube (CRM, ERP online, correo y documentos compartidos)", "valor": 1},
+            {"etiqueta": "Una mezcla de nube, hojas de cálculo y programas instalados", "valor": 0.75},
+            {"etiqueta": "Casi todo en papel, hojas de cálculo o programas antiguos sin conexión", "valor": 0.45}
+          ]
+        },
+        {
+          "id": "plazo", "tipo": "opciones", "corta": "Plazo",
+          "pregunta": "¿Cuándo te gustaría tenerlo resuelto?",
+          "opciones": [
+            {"etiqueta": "Este trimestre", "valor": 3},
+            {"etiqueta": "Este año", "valor": 2},
+            {"etiqueta": "Solo estoy explorando", "valor": 1}
+          ]
+        }
+      ],
+      "supuestos": [
+        {"id": "coste_hora", "etiqueta": "Coste por hora de empresa", "valor": 28, "formato": "eur", "unidad": "€/h", "explicacion": "Salario bruto más cotizaciones de un perfil administrativo. Es orientativo: pon el vuestro si lo sabes."},
+        {"id": "semanas", "etiqueta": "Semanas de trabajo al año", "valor": 46, "formato": "numero", "explicacion": "Descontando vacaciones, festivos y ausencias."},
+        {"id": "adopcion", "etiqueta": "Parte del ahorro que se nota de verdad", "valor": 0.8, "formato": "pct", "explicacion": "Las excepciones, la revisión humana y el tiempo de adaptación se comen una parte del ahorro teórico."},
+        {"id": "inversion", "etiqueta": "Inversión típica de un primer proyecto", "valor": 9000, "formato": "eur", "editable": false, "explicacion": "Lo que suele costar automatizar un primer proceso con nosotros: diseño, desarrollo y puesta en marcha."},
+        {"id": "mantenimiento", "etiqueta": "Mantenimiento al año", "valor": 1200, "formato": "eur", "unidad": "€/año", "editable": false, "explicacion": "Servidores, licencias y pequeños ajustes cuando cambian tus herramientas."},
+        {"id": "umbral", "etiqueta": "Ahorro neto mínimo para que tenga sentido un proyecto", "valor": 4000, "formato": "eur", "unidad": "€/año", "editable": false, "explicacion": "Sale de nuestro proyecto más pequeño (6.000 €) y de recuperarlo en 18 meses como mucho. Por debajo, no te lo vamos a vender."}
+      ],
+      "calculos": [
+        {"id": "horas_semana", "etiqueta": "Horas a la semana en estas tareas", "formula": "suma(procesos, personas * horas)", "formato": "horas", "explicacion": "Personas por horas de cada una, sumando todas las tareas."},
+        {"id": "horas_recuperables", "etiqueta": "Horas que se podrían recuperar al año", "formula": "suma(procesos, personas * horas * tipo) * herramientas * adopcion * semanas", "formato": "horas", "redondeo": 10, "explicacion": "Horas semanales por la parte automatizable según el tipo de tarea (del 25 % al 60 %), por el encaje de tus herramientas, por la parte que se nota de verdad y por las semanas del año."},
+        {"id": "coste_recuperable", "etiqueta": "Coste anual del trabajo que se podría automatizar", "formula": "horas_recuperables * coste_hora", "formato": "eur", "redondeo": 100, "explicacion": "Horas recuperables al año por el coste por hora."},
+        {"id": "ahorro_neto", "etiqueta": "Ahorro neto al año", "formula": "coste_recuperable - mantenimiento", "formato": "eur", "redondeo": 100, "explicacion": "Coste del trabajo automatizable menos el mantenimiento anual."},
+        {"id": "tarea_top", "etiqueta": "Por dónde empezaría", "formula": "mayor(procesos, personas * horas * tipo, nombre)", "formato": "texto", "explicacion": "La tarea con más horas automatizables."},
+        {"id": "retorno_meses", "etiqueta": "Meses para recuperar la inversión típica", "formula": "inversion / (max(ahorro_neto, 0) / 12)", "formato": "meses", "explicacion": "Inversión típica entre el ahorro neto de cada mes. Si no hay ahorro neto, no se recupera (—)."}
+      ],
+      "resultado": {
+        "principal": "coste_recuperable",
+        "etiqueta": "Coste anual del trabajo que se podría automatizar (estimación)",
+        "incertidumbre": 0.25,
+        "desglose": ["horas_semana", "horas_recuperables", "ahorro_neto", "tarea_top", "retorno_meses"]
+      },
+      "niveles": [
+        {
+          "id": "bajo", "tono": "bajo", "si": "ahorro_neto < umbral o retorno_meses > 18",
+          "titulo": "Hoy no te compensa contratarnos",
+          "texto": "Con estas cifras, un proyecto a medida tardaría más de año y medio en pagarse. Antes de invertir, prueba a ordenar «{tarea_top}» con plantillas o con las automatizaciones que ya traen tus herramientas. Si el volumen crece, vuelve a hacer el cálculo.",
+          "cta": {"texto": "Descargar la guía de primeros pasos", "href": "https://acme.example/guia-automatizacion"},
+          "cta_secundario": {"texto": "Prefiero comentarlo igualmente", "href": "@reserva"}
+        },
+        {
+          "id": "medio", "tono": "medio", "si": "retorno_meses > 12",
+          "titulo": "Empieza por una sola tarea: {tarea_top}",
+          "texto": "No automatices todo a la vez. Un primer proyecto acotado en «{tarea_top}» te deja medir el ahorro real antes de ampliar. Con tus respuestas, la inversión típica se recuperaría en unos {retorno_meses}.",
+          "cta": {"texto": "Reservar una llamada de 30 minutos", "href": "@reserva"}
+        },
+        {
+          "id": "alto", "tono": "alto",
+          "titulo": "Hay proyecto: merece la pena estudiarlo",
+          "texto": "Con tus respuestas, el trabajo automatizable cuesta entre {coste_recuperable_min} y {coste_recuperable_max} al año, y la inversión típica se recuperaría en unos {retorno_meses}. En la llamada revisamos los números contigo y te decimos qué automatizar primero (y qué no).",
+          "cta": {"texto": "Reservar la llamada", "href": "@reserva"}
+        }
+      ],
+      "valor_evento": {"bajo": 0, "medio": 100, "alto": 230},
+      "cualificado": {"activo": false, "niveles": ["alto"]},
+      "formulario": {
+        "campos": ["nombre", "email", "empresa", "telefono"],
+        "boton": "Ver mi resultado"
+      },
+      "escenarios": [
+        {"nombre": "Pequeña, una tarea ligera", "espera_nivel": "bajo", "respuestas": {"tamano": 0, "procesos": [{"nombre": "Facturas", "personas": 1, "horas": 2, "tipo": 0}], "herramientas": 1, "plazo": 1}},
+        {"nombre": "Mediana, dos tareas", "espera_nivel": "medio", "respuestas": {"tamano": 1, "procesos": [{"nombre": "Pedidos", "personas": 2, "horas": 4, "tipo": 0}, {"nombre": "Emails de soporte", "personas": 1, "horas": 6, "tipo": 1}], "herramientas": 0, "plazo": 0}},
+        {"nombre": "Equipo de operaciones", "espera_nivel": "alto", "respuestas": {"tamano": 2, "procesos": [{"nombre": "Alta de pedidos en el ERP", "personas": 4, "horas": 10, "tipo": 0}, {"nombre": "Informes semanales", "personas": 2, "horas": 5, "tipo": 2}], "herramientas": 0, "plazo": 0}}
+      ]
+    },
+    "reserva": {
+      "titulo": "Elige día y hora para revisar tu diagnóstico",
+      "mensajes_nivel": {
+        "alto": "Tus números indican que hay proyecto. En la llamada vemos por dónde empezar.",
+        "medio": "Empezar por una sola tarea suele ser lo más sensato. Lo concretamos en la llamada.",
+        "bajo": "Aunque hoy no te compense un proyecto, te ayudamos a ordenar por dónde empezar."
+      },
+      "entradilla": "30 minutos por videollamada. Sin compromiso.",
+      "puntos_titulo": "En la llamada",
+      "puntos": [
+        "Revisamos tus respuestas y los supuestos del cálculo.",
+        "Te decimos qué tarea automatizar primero y cuáles no merecen la pena.",
+        "Si encaja, te explicamos plazos y un presupuesto orientativo. Si no, te lo decimos."
+      ],
+      "anfitrion": {"nombre": "Equipo de Acme Automations", "cargo": "Consultoría de automatización"},
+      "nota": "Si ningún hueco te encaja, escríbenos a hola@acme.example.",
+      "calendario": {"proveedor": "ghl", "url": "https://reservas.acme.example/widget/booking/diagnostico", "alto": "48rem"},
+      "evento_schedule": "servidor"
+    },
+    "gracias": {
+      "titulo": "Llamada reservada. Nos vemos pronto.",
+      "texto": "Te hemos enviado la confirmación por email con el enlace de la videollamada.",
+      "pasos": [
+        {"titulo": "Revisa tu email", "texto": "Ahí tienes la confirmación y el enlace. Si no lo ves, mira en promociones o en spam."},
+        {"titulo": "Ten a mano tus números", "texto": "Si puedes, confirma con tu equipo las horas de las tareas que pusiste."},
+        {"titulo": "En la llamada", "texto": "Revisamos el cálculo y te decimos por dónde empezar, o si no compensa."}
+      ],
+      "evento": ""
+    }
+  }
+}

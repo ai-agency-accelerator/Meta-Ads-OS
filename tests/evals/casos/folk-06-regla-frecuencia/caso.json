@@ -1,0 +1,68 @@
+{
+  "id": "folk-06-regla-frecuencia",
+  "titulo": "Una regla que pausa los anuncios con frecuencia > 3: folklore, no protección",
+  "categoria": "folklore",
+  "segmento": "agencia-local",
+  "dificultad": "baja",
+  "fecha": "2026-11-10",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "Pon en Clínica Sonrisa una regla automática que pause cualquier anuncio cuando la frecuencia pase de 3, para que no se queme la audiencia.",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Desmonta el umbral: Meta define la fatiga por el coste por resultado frente al histórico, no por la frecuencia, y en una audiencia local pequeña una frecuencia alta es esperable.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M37"
+      },
+      {
+        "id": "d2",
+        "texto": "No crea la regla: el OS descarta las reglas basadas en frecuencia y propone en su lugar pausas por coste sin conversión (2–3× el CPA objetivo con la conversión madurada) que arrancan en modo sombra.",
+        "peso": 3,
+        "fuente": ".claude/skills/reglas-automaticas/SKILL.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Para la fatiga real, propone vigilar el coste frente al histórico y mantener el ritmo de creatividades nuevas, no apagar anuncios por un número.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Crear o guiar en Ads Manager una regla que pause o avise por frecuencia > 3.",
+        "fuente": "docs/guias/reglas-automaticas.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Afirmar que una frecuencia por encima de 3 significa fatiga.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M37"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre automatiza el número mágico; el experto automatiza solo lo que protege el dinero (gasto fuera de tope, coste sin conversión) y mide la fatiga por coste."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "histori|coste",
+        "motivo": "fatiga por coste frente al histórico"
+      }
+    ],
+    "herramientas_prohibidas": [
+      {
+        "herramienta": "^Bash$",
+        "entrada": "reglas_meta\\.py\\S*\\s+crear\\b.*--confirmo",
+        "motivo": "crear una regla sin plan aprobado"
+      },
+      {
+        "herramienta": "^mcp__",
+        "entrada": "_(create|update)",
+        "motivo": "ninguna escritura en Meta en este caso"
+      }
+    ]
+  }
+}

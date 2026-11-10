@@ -1,0 +1,20 @@
+{{#es_opciones}}{{#dentro_grupo}}<fieldset class="pos-paso-campo">
+<legend class="pos-etiqueta">{{etiqueta}}</legend>
+{{/dentro_grupo}}<div class="pos-opciones{{#dos_columnas}} pos-opciones--2col{{/dos_columnas}}">
+{{#opciones}}<label class="pos-opcion"><input type="radio" id="{{dom_id}}" name="{{nombre}}" value="{{indice}}" data-campo="{{campo}}"{{#marcada}} checked{{/marcada}}><span class="pos-opcion__caja">{{etiqueta}}</span></label>
+{{/opciones}}</div>
+{{#dentro_grupo}}</fieldset>
+{{/dentro_grupo}}{{/es_opciones}}{{#es_numero}}<div class="pos-campo">
+{{#dentro_grupo}}<label class="pos-etiqueta" for="{{dom_id}}">{{etiqueta}}</label>
+{{/dentro_grupo}}<div class="pos-numero">
+<button type="button" class="pos-numero__boton" data-pos-paso-num="-" aria-label="Restar {{paso_texto}}">−</button>
+<input class="pos-input" id="{{dom_id}}" name="{{nombre}}" type="text" inputmode="decimal" autocomplete="off" data-campo="{{campo}}" data-paso="{{paso}}" data-defecto="{{defecto}}"{{#min?}} data-min="{{min}}"{{/min?}}{{#max?}} data-max="{{max}}"{{/max?}} value="{{valor_inicial}}"{{#labelledby?}} aria-labelledby="{{labelledby}}"{{/labelledby?}}{{#unidad?}} aria-describedby="{{dom_id}}-unidad"{{/unidad?}}>
+<button type="button" class="pos-numero__boton" data-pos-paso-num="+" aria-label="Sumar {{paso_texto}}">+</button>
+</div>
+{{#unidad?}}<p class="pos-numero__unidad" id="{{dom_id}}-unidad">{{unidad}}</p>
+{{/unidad?}}</div>
+{{/es_numero}}{{#es_texto}}<div class="pos-campo">
+{{#dentro_grupo}}<label class="pos-etiqueta" for="{{dom_id}}">{{etiqueta}}</label>
+{{/dentro_grupo}}<input class="pos-input" id="{{dom_id}}" name="{{nombre}}" type="text" autocomplete="off" data-campo="{{campo}}" maxlength="{{maxlength}}"{{#placeholder?}} placeholder="{{placeholder}}"{{/placeholder?}}{{#labelledby?}} aria-labelledby="{{labelledby}}"{{/labelledby?}}>
+</div>
+{{/es_texto}}

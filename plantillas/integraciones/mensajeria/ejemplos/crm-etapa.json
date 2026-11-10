@@ -1,0 +1,17 @@
+{
+  "_leeme": "Lo que tu CRM manda al webhook «cambio de etapa» cuando un contacto que entró por mensajería cambia de etapa. Los campos mensajeria_* los guardó el flujo de entrada. etapa = id del contrato §16 (lead, diagnostico, cualificado, llamada, asistio, propuesta, ganado, perdido); momento = hora del cambio (ISO 8601 o epoch; vacío = ahora); valor = importe del proyecto, obligatorio en ganado.",
+  "contacto_id": "contacto-ejemplo-0001",
+  "etapa": "cualificado",
+  "momento": "",
+  "valor": null,
+  "moneda": "EUR",
+  "telefono": "+16505551212",
+  "email": "",
+  "mensajeria_canal": "whatsapp",
+  "mensajeria_cuenta": "100000000000001",
+  "mensajeria_anuncio": "120000000000000123",
+  "mensajeria_clic": "ARAkEjemploClicDeAnuncio0000000000000001",
+  "mensajeria_persona": "",
+  "mensajeria_entrada": "1762851600",
+  "mensajeria_enviados": "LeadSubmitted"
+}

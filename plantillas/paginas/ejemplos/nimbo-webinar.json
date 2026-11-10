@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "sitio": {
+    "nombre": "Nimbo",
+    "url": "https://nimbo.example",
+    "contacto": "hola@nimbo.example",
+    "legal": {
+      "responsable": "Nimbo Software, S.L.",
+      "finalidad": "gestionar tu inscripción al webinar y enviarte el enlace y la grabación",
+      "privacidad": "https://nimbo.example/privacidad",
+      "aviso_legal": "https://nimbo.example/aviso-legal",
+      "cookies": "https://nimbo.example/cookies"
+    }
+  },
+  "tracking": {
+    "pixel_id": "000000000000000",
+    "webhook": {
+      "url": "https://hooks.example/nimbo/webinar",
+      "modo": "json"
+    },
+    "base_legal_servidor": "consentimiento",
+    "content_name": "webinar-conciliacion-2026-12-03"
+  },
+  "paginas": {
+    "webinar": {
+      "archivo": "index.html",
+      "titulo_seo": "Webinar: deja de cuadrar facturas a mano | Nimbo",
+      "descripcion_seo": "Webinar gratuito en directo para equipos de finanzas de pymes: qué se puede automatizar en la conciliación y cómo empezar sin cambiar de ERP.",
+      "hero": {
+        "titular": "Deja de cuadrar facturas a mano",
+        "entradilla": "Webinar gratuito en directo para equipos de finanzas de pymes: qué se puede automatizar en la conciliación, qué no, y cómo empezar sin cambiar de ERP.",
+        "prueba": "Con turno de preguntas al final. Si no puedes asistir, te mandamos la grabación."
+      },
+      "evento": {
+        "titulo": "Webinar Nimbo: conciliación automática para pymes",
+        "inicio": "2026-12-03T18:00:00+01:00",
+        "duracion_min": 45,
+        "zona": "Hora peninsular española",
+        "plataforma": "videollamada",
+        "descripcion": "Te enviaremos el enlace de acceso por email el día antes.",
+        "otras_zonas": [
+          {
+            "nombre": "Canarias",
+            "zona": "Atlantic/Canary"
+          },
+          {
+            "nombre": "México (CDMX)",
+            "zona": "America/Mexico_City"
+          }
+        ]
+      },
+      "formulario": {
+        "campos": [
+          "nombre",
+          "email",
+          "empresa",
+          {
+            "id": "cargo",
+            "requerido": true
+          },
+          {
+            "id": "facturas_mes",
+            "tipo": "select",
+            "etiqueta": "¿Cuántas facturas gestionáis al mes?",
+            "requerido": true,
+            "opciones": [
+              "Menos de 100",
+              "De 100 a 500",
+              "Más de 500"
+            ]
+          },
+          {
+            "id": "proceso",
+            "tipo": "textarea",
+            "etiqueta": "¿Qué parte de la conciliación te gustaría quitarte de encima?",
+            "maxlength": 300
+          },
+          {
+            "id": "telefono",
+            "requerido": false,
+            "ayuda": "Solo si quieres los recordatorios por WhatsApp."
+          }
+        ],
+        "boton": "Quiero mi plaza",
+        "evento": "CompleteRegistration",
+        "marketing": [
+          {
+            "id": "acepta_whatsapp",
+            "texto": "Quiero los recordatorios del webinar también por WhatsApp."
+          },
+          {
+            "id": "acepta_novedades",
+            "texto": "Quiero recibir por email novedades de Nimbo después del webinar. Puedo darme de baja cuando quiera."
+          }
+        ]
+      },
+      "secciones": [
+        {
+          "tipo": "lista",
+          "titulo": "Lo que vas a ver",
+          "puntos": [
+            "Qué partes de la conciliación bancaria se pueden automatizar hoy y cuáles siguen necesitando a una persona.",
+            "Cómo conectar banco, ERP y facturas sin migrar de herramienta.",
+            "Una demo en directo con datos ficticios, de principio a fin.",
+            "Cómo calcular si te compensa antes de invertir."
+          ]
+        },
+        {
+          "tipo": "ponentes",
+          "titulo": "Quién lo presenta",
+          "ponentes": [
+            {
+              "nombre": "Equipo de producto de Nimbo",
+              "cargo": "Finanzas operativas",
+              "bio": "Diseñamos las automatizaciones de conciliación que usan nuestros clientes."
+            }
+          ]
+        },
+        {
+          "tipo": "para_quien",
+          "titulo": "Para quién es",
+          "si": [
+            "Llevas la contabilidad o las finanzas de una pyme.",
+            "Concilias a mano cada semana o cada mes."
+          ],
+          "no": [
+            "Buscas asesoría fiscal personalizada.",
+            "Ya tienes la conciliación automatizada de punta a punta."
+          ]
+        },
+        {
+          "tipo": "faq",
+          "titulo": "Preguntas frecuentes",
+          "preguntas": [
+            {
+              "pregunta": "¿Tiene coste?",
+              "respuesta": "No. Es gratuito."
+            },
+            {
+              "pregunta": "¿Habrá grabación?",
+              "respuesta": "Sí. Si te inscribes, te la enviamos aunque no puedas asistir."
+            },
+            {
+              "pregunta": "¿Necesito ser cliente de Nimbo?",
+              "respuesta": "No. Lo que contamos sirve con cualquier ERP."
+            }
+          ]
+        }
+      ]
+    },
+    "gracias": {
+      "titulo": "Tienes tu plaza",
+      "texto": "Te hemos enviado la confirmación por email. Añade el webinar a tu calendario para no olvidarte.",
+      "anadir_calendario": true,
+      "pasos": [
+        {
+          "titulo": "Antes del webinar",
+          "texto": "Apunta cuántas facturas concilias al mes y cuánto tardas: lo usaremos en la demo para calcular tu caso."
+        },
+        {
+          "titulo": "El día antes",
+          "texto": "Te llega el enlace de acceso por email (y por WhatsApp, si lo pediste)."
+        },
+        {
+          "titulo": "Durante el webinar",
+          "texto": "Ten a mano una duda real de tu conciliación: la resolvemos en directo si da tiempo."
+        }
+      ],
+      "botones": [
+        {
+          "texto": "Confírmame por WhatsApp",
+          "href": "https://wa.me/34600000000?text=Hola%2C%20me%20he%20inscrito%20al%20webinar%20de%20Nimbo"
+        }
+      ]
+    }
+  }
+}

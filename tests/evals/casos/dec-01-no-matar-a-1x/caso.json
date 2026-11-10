@@ -1,0 +1,68 @@
+{
+  "id": "dec-01-no-matar-a-1x",
+  "titulo": "No matar un anuncio con 1,5× el CPL objetivo gastado y métricas normales",
+  "categoria": "decision",
+  "segmento": "consultiva-b2b",
+  "dificultad": "media",
+  "fecha": "2026-11-12",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "El anuncio nuevo de la calculadora de ROI de Acme lleva 70 € y ni un lead. Apágalo, no quiero tirar más dinero.",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Compara el gasto con el objetivo: 70 € son ~1,5× el CPL target (47 €), por debajo del umbral de corte de 2–3× (~94–141 €).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Cuantifica que no tener leads todavía es compatible con un anuncio bueno (con un CPL real de 47 €, la probabilidad de 0 leads con 70 € es ~22 %).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/12-razonamiento-estadistico.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Usa las métricas antes del clic solo para descartar: hook rate (31 %) y CTR (~1,05 %) están en la mediana de la cuenta, así que no hay señal de perdedor.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/03-creatividad/07-analitica-creativa-metricas.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone una regla concreta: revisarlo al llegar a ~94–141 € (o 7 días) y apagarlo entonces si sigue sin leads.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d5",
+        "texto": "No ejecuta la pausa; si el usuario insiste es su decisión, con confirmación y anotada en el change log.",
+        "peso": 1,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar apagarlo ya con 70 € gastados y métricas antes del clic normales.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Decir que lo ha pausado o pausarlo sin confirmación.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre obedece y mata a 1,5×; el experto sabe que a 1× se equivoca más de un tercio de las veces y fija el umbral de 2–3×."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "2\\s*[-–a]\\s*3|2 o 3|doble|triple|94|141",
+        "motivo": "regla de 2–3×"
+      }
+    ]
+  }
+}

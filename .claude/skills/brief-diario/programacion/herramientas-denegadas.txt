@@ -1,0 +1,53 @@
+# Denegadas de forma explícita en la ejecución sin nadie delante. En modo dontAsk ya se deniega todo lo que no está
+# en herramientas-permitidas.txt; esta lista es la segunda capa por si alguien cambia el modo de permisos.
+# Un deny gana siempre: ni --allowedTools ni un hook pueden saltárselo.
+
+# Secretos
+Read(./.env)
+Read(./.env.*)
+Edit(./.env)
+Edit(./.env.*)
+Bash(cat .env*)
+
+# Escrituras en Meta
+mcp__meta-ads__ads_create_*
+mcp__meta-ads__ads_update_*
+mcp__meta-ads__ads_delete_*
+mcp__meta-ads__ads_activate_entity
+mcp__meta-ads__ads_boost_ig_post
+mcp__meta-ads__ads_pixel_*
+mcp__meta-ads__ads_experiment_*
+mcp__meta-ads__ads_catalog_*
+
+# GHL y Stripe por MCP: sin nadie, solo se leen con ghl.py y stripe_datos.py (que no escriben)
+mcp__ghl__*
+mcp__stripe__*
+
+# Órdenes que escriben o envían a terceros
+Bash(python3 -I herramientas/meta_ads.py crear *)
+Bash(python3 -I herramientas/meta_ads.py activar *)
+Bash(python3 -I herramientas/meta_ads.py pausar *)
+Bash(python3 -I herramientas/meta_ads.py presupuesto *)
+Bash(python3 -I herramientas/capi.py *)
+Bash(*reglas_meta.py* crear*)
+Bash(*reglas_meta.py* pausar*)
+Bash(*reglas_meta.py* reactivar*)
+Bash(*formularios_meta.py* crear*)
+Bash(*formularios_meta.py* leads*)
+Bash(*audiencias_meta.py* crear*)
+Bash(*audiencias_meta.py* sincronizar*)
+Bash(*audiencias_meta.py* etapas*)
+
+# El allow de settings.json deja `python3 -I herramientas/*`: sin nadie, nada que escriba archivos fuera de los
+# informes, descargue de la red o toque .env (telegram-chat-id --guardar añade una línea a .env: solo contigo delante)
+Bash(*notificar.py* telegram-chat-id*)
+Bash(*registro_creativo.py*)
+Bash(*render.py*)
+Bash(*editar_video.py*)
+Bash(*transcribir.py*)
+Bash(*paginas.py*)
+Bash(*elementos_creativos.py*)
+Bash(uv *)
+Bash(git *)
+WebFetch
+WebSearch

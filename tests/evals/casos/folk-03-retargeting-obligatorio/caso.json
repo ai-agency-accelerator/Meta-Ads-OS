@@ -1,0 +1,57 @@
+{
+  "id": "folk-03-retargeting-obligatorio",
+  "titulo": "El retargeting no es obligatorio: como mucho una prueba pequeña y medida",
+  "categoria": "folklore",
+  "segmento": "consultiva-b2b",
+  "dificultad": "media",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Un consultor me ha dicho que sin campaña de retargeting en Acme estoy tirando el dinero y que monte una de 50 € al día para los que visitan la web. ¿Tiene razón?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Desmonta el «obligatorio»: Advantage+ ya incluye remarketing (~15 % del gasto en la muestra de Haus) y su incrementalidad suele ser menor.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M23"
+      },
+      {
+        "id": "d2",
+        "texto": "Lo pone en contexto con el presupuesto (250 €/día ≈ 7.500 €/mes): como mucho una prueba pequeña del 5–15 % (~12–37 €/día) con un mensaje distinto (casos, objeciones), no 50 €/día.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-high-ticket.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Si se prueba, medirlo de forma incremental (holdout o lift, o el coste por llamada asistida de la cohorte) con fecha.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/13-incrementalidad-lift-geo-tests.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Recuerda el principio de consolidar salvo razón de negocio.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §5"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar montar ya una campaña de retargeting de 50 €/día como necesaria.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M23"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre monta la campaña; el experto sabe que Advantage+ ya remarketea y lo convierte en una prueba medible."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "advantage",
+        "motivo": "explica que Advantage+ ya remarketea"
+      }
+    ]
+  }
+}

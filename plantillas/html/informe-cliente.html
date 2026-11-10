@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>{{titulo}} · {{cliente}}</title>
+<!--
+  Informe de cliente para PDF A4 (sin datos personales: solo agregados e IDs).
+  Datos: ver plantillas/html/README.md · ejemplo: plantillas/html/ejemplos/informe-cliente.json
+  Render: uv run --extra render python -I herramientas/render.py pdf plantillas/html/informe-cliente.html \
+          --datos <datos.json> --salida clientes/<slug>/informes/<AAAA-MM-DD>_informe.pdf --cliente <slug>
+-->
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm;
+          @bottom-left { content: "{{cliente}} · {{periodo.desde}} a {{periodo.hasta}}"; font-family: var(--fuente-texto); font-size: 8pt; color: #64748B; }
+          @bottom-right { content: counter(page) " / " counter(pages); font-family: var(--fuente-texto); font-size: 8pt; color: #64748B; } }
+  @page portada { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--fuente-texto); font-weight: var(--peso-texto); font-size: 10pt; line-height: 1.5; color: #1E293B;
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); color: var(--color-secundario); letter-spacing: -.01em; }
+
+  /* ── Portada ── */
+  .portada { page: portada; break-after: page; position: relative; width: 210mm; height: 297mm; overflow: hidden;
+             background: var(--color-primario); color: var(--color-texto-sobre-primario); padding: 26mm 22mm; display: flex; flex-direction: column; }
+  .portada::before { content: ""; position: absolute; width: 150mm; height: 150mm; right: -50mm; bottom: -40mm; border-radius: 50%;
+                     border: 22mm solid color-mix(in srgb, var(--color-texto-sobre-primario) 9%, transparent); }
+  .portada::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5mm; background: var(--color-acento); }
+  .portada .logo img { height: 15mm; width: auto; max-width: 90mm; }
+  .portada .logo .marca-texto { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: 20pt; }
+  .portada .centro { margin-top: auto; margin-bottom: auto; position: relative; }
+  .portada .etiqueta { font-family: var(--fuente-titulos); font-weight: 700; font-size: 10pt; letter-spacing: .14em; text-transform: uppercase;
+                       color: var(--color-acento); display: flex; align-items: center; gap: 4mm; }
+  .portada .etiqueta::before { content: ""; width: 12mm; height: 1.6mm; border-radius: 1mm; background: var(--color-acento); }
+  .portada h1 { color: inherit; font-size: 34pt; line-height: 1.06; margin: 6mm 0 4mm; max-width: 150mm; letter-spacing: -.02em; }
+  .portada .cliente { font-family: var(--fuente-titulos); font-weight: 700; font-size: 18pt; opacity: .95; }
+  .portada .datos { position: relative; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 4mm 12mm;
+                    font-size: 9.5pt; border-top: .3mm solid color-mix(in srgb, var(--color-texto-sobre-primario) 35%, transparent); padding-top: 6mm; }
+  .portada .datos dt { font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; opacity: .7; margin-bottom: 1mm; }
+  .portada .datos dd { font-weight: 700; }
+
+  /* ── Secciones ── */
+  section.bloque { margin-bottom: 9mm; }
+  section.bloque > h2 { font-size: 15pt; margin-bottom: 4mm; display: flex; align-items: center; gap: 3mm; break-after: avoid; }
+  section.bloque > h2::before { content: ""; width: 2mm; height: 6mm; border-radius: 1mm; background: var(--color-primario); }
+  .cabecera-doc { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8mm; padding-bottom: 4mm;
+                  border-bottom: .3mm solid #E2E8F0; font-size: 8.5pt; color: #64748B; }
+  .cabecera-doc img { height: 8mm; width: auto; }
+  .cabecera-doc .marca-texto { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: 12pt; color: var(--color-secundario); }
+
+  .veredicto { background: color-mix(in srgb, var(--color-primario) 8%, #FFFFFF); border-left: 1.6mm solid var(--color-primario);
+               padding: 4mm 5mm; border-radius: 0 2mm 2mm 0; font-size: 11pt; font-weight: 600; color: var(--color-secundario); margin-bottom: 4mm; }
+  ul.puntos { list-style: none; display: grid; gap: 2.2mm; }
+  ul.puntos li { position: relative; padding-left: 6mm; }
+  ul.puntos li::before { content: ""; position: absolute; left: 0; top: 2mm; width: 2.2mm; height: 2.2mm; border-radius: 50%; background: var(--color-acento); }
+
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .kpi { border: .3mm solid #E2E8F0; border-radius: 3mm; padding: 4mm 4.5mm; break-inside: avoid; background: #FFFFFF; }
+  .kpi .nombre { font-size: 8pt; letter-spacing: .08em; text-transform: uppercase; color: #64748B; font-weight: 700; }
+  .kpi .valor { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: 20pt; color: var(--color-secundario);
+                line-height: 1.15; margin: 1.5mm 0 2mm; font-variant-numeric: tabular-nums; }
+  .kpi .variacion { display: inline-flex; align-items: center; gap: 1.2mm; font-size: 8.5pt; font-weight: 700; padding: .6mm 2.4mm;
+                    border-radius: 10mm; background: #E2E8F0; color: #475569; }
+  .kpi .variacion::before { content: "●"; font-size: 8.5pt; line-height: 1; }
+  .kpi .t-sube::before { content: "▲"; } .kpi .t-baja::before { content: "▼"; }
+  .kpi .l-buena { background: #DCFCE7; color: #047857; } .kpi .l-mala { background: #FEE2E2; color: #B91C1C; }
+  .kpi .nota { font-size: 8pt; color: #64748B; margin-top: 2mm; line-height: 1.35; }
+
+  .embudo { display: grid; gap: 2mm; break-inside: avoid; }
+  .etapa { display: grid; grid-template-columns: 38mm 1fr 18mm; align-items: center; gap: 3mm; font-size: 9pt; break-inside: avoid; }
+  .etapa .barra { height: 7mm; border-radius: 1.5mm; background: #EEF2F7; overflow: hidden; }
+  .etapa .barra i { display: block; height: 100%; border-radius: 1.5mm; background: var(--color-primario); }
+  .etapa:nth-child(n+3) .barra i { background: color-mix(in srgb, var(--color-primario) 75%, var(--color-acento)); }
+  .etapa .num { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .etapa .num small { display: block; font-weight: 500; color: #64748B; font-size: 7.5pt; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-family: var(--fuente-titulos); font-weight: 700; font-size: 11pt; color: var(--color-secundario);
+            margin-bottom: 2.5mm; caption-side: top; }
+  thead th { text-align: right; font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase; color: #64748B; font-weight: 700;
+             padding: 2mm 2.5mm; border-bottom: .5mm solid var(--color-secundario); }
+  tbody td { text-align: right; padding: 2.2mm 2.5mm; border-bottom: .25mm solid #E2E8F0; vertical-align: top; }
+  th:first-child, td:first-child { text-align: left; }
+  tbody td:first-child { word-break: break-word; max-width: 70mm; font-weight: 600; color: var(--color-secundario); }
+  tbody tr:nth-child(even) td { background: #F8FAFC; }
+  tr { break-inside: avoid; }
+  .tabla { margin-bottom: 6mm; break-inside: auto; }
+  .tabla .nota { font-size: 7.8pt; color: #64748B; margin-top: 1.8mm; }
+  table.texto td, table.texto th { text-align: left; }
+  table.texto td:last-child, table.texto th:last-child { white-space: nowrap; }
+
+  .pasos li { break-inside: avoid; }
+  .pasos .meta { color: #64748B; font-size: 8.5pt; }
+  .medicion { background: #F8FAFC; border: .3mm solid #E2E8F0; border-radius: 3mm; padding: 4mm 5mm; font-size: 8.8pt; color: #334155; break-inside: avoid; }
+  .medicion ul.puntos li::before { background: #94A3B8; }
+</style>
+</head>
+<body>
+
+<section class="portada">
+  <div class="logo">
+    {{#marca.logo.claro}}<img src="{{marca.logo.claro}}" alt="{{marca.nombre}}">{{/marca.logo.claro}}
+    {{^marca.logo.claro}}<span class="marca-texto">{{marca.nombre}}</span>{{/marca.logo.claro}}
+  </div>
+  <div class="centro">
+    <p class="etiqueta">{{#etiqueta}}{{etiqueta}}{{/etiqueta}}{{^etiqueta}}Informe de Meta Ads{{/etiqueta}}</p>
+    <h1>{{titulo}}</h1>
+    <p class="cliente">{{cliente}}</p>
+  </div>
+  <dl class="datos">
+    <div><dt>Periodo</dt><dd>{{periodo.desde}} a {{periodo.hasta}}</dd></div>
+    <div><dt>Ventana de atribución</dt><dd>{{ventana_atribucion}}</dd></div>
+    <div><dt>Fecha del informe</dt><dd>{{#fecha}}{{fecha}}{{/fecha}}{{^fecha}}{{hoy}}{{/fecha}}</dd></div>
+    {{#periodo.comparado_con}}<div><dt>Comparado con</dt><dd>{{periodo.comparado_con}}</dd></div>{{/periodo.comparado_con}}
+    {{#agencia}}<div><dt>Preparado por</dt><dd>{{agencia}}</dd></div>{{/agencia}}
+  </dl>
+</section>
+
+<header class="cabecera-doc">
+  {{#marca.logo.principal}}<img src="{{marca.logo.principal}}" alt="{{marca.nombre}}">{{/marca.logo.principal}}
+  {{^marca.logo.principal}}<span class="marca-texto">{{marca.nombre}}</span>{{/marca.logo.principal}}
+  <span>{{titulo}} · {{periodo.desde}} a {{periodo.hasta}}</span>
+</header>
+
+<section class="bloque">
+  <h2>Resumen ejecutivo</h2>
+  {{#veredicto}}<p class="veredicto">{{veredicto}}</p>{{/veredicto}}
+  {{#resumen?}}<ul class="puntos">{{#resumen}}<li>{{.}}</li>{{/resumen}}</ul>{{/resumen?}}
+</section>
+
+{{#kpis?}}
+<section class="bloque">
+  <h2>Indicadores clave</h2>
+  <div class="kpis">
+    {{#kpis}}
+    <div class="kpi">
+      <div class="nombre">{{nombre}}</div>
+      <div class="valor">{{valor}}</div>
+      {{#variacion}}<span class="variacion t-{{#tendencia}}{{tendencia}}{{/tendencia}}{{^tendencia}}igual{{/tendencia}} l-{{#lectura}}{{lectura}}{{/lectura}}{{^lectura}}neutra{{/lectura}}">{{variacion}}</span>{{/variacion}}
+      {{#nota}}<div class="nota">{{nota}}</div>{{/nota}}
+    </div>
+    {{/kpis}}
+  </div>
+</section>
+{{/kpis?}}
+
+{{#embudo?}}
+<section class="bloque">
+  <h2>{{#embudo_titulo}}{{embudo_titulo}}{{/embudo_titulo}}{{^embudo_titulo}}Embudo del periodo{{/embudo_titulo}}</h2>
+  <div class="embudo">
+    {{#embudo}}
+    <div class="etapa"><span>{{etapa}}</span><span class="barra"><i style="width: {{pct}}%"></i></span><span class="num">{{valor}}<small>{{pct}} %</small></span></div>
+    {{/embudo}}
+  </div>
+</section>
+{{/embudo?}}
+
+{{#tablas?}}
+<section class="bloque">
+  <h2>{{#tablas_titulo}}{{tablas_titulo}}{{/tablas_titulo}}{{^tablas_titulo}}Campañas y anuncios{{/tablas_titulo}}</h2>
+  {{#tablas}}
+  <div class="tabla">
+    <table>
+      <caption>{{titulo}}</caption>
+      <thead><tr>{{#columnas}}<th>{{.}}</th>{{/columnas}}</tr></thead>
+      <tbody>{{#filas}}<tr>{{#.}}<td>{{.}}</td>{{/.}}</tr>{{/filas}}</tbody>
+    </table>
+    {{#nota}}<p class="nota">{{nota}}</p>{{/nota}}
+  </div>
+  {{/tablas}}
+</section>
+{{/tablas?}}
+
+{{#decisiones?}}
+<section class="bloque">
+  <h2>Decisiones y cuándo las evaluamos</h2>
+  <table class="texto">
+    <colgroup><col style="width: 34%"><col style="width: 31%"><col style="width: 22%"><col style="width: 13%"></colgroup>
+    <thead><tr><th>Decisión</th><th>Motivo o hipótesis</th><th>Métrica de éxito</th><th>Evaluación</th></tr></thead>
+    <tbody>{{#decisiones}}<tr><td>{{decision}}</td><td>{{motivo}}</td><td>{{metrica}}</td><td>{{fecha_evaluacion}}</td></tr>{{/decisiones}}</tbody>
+  </table>
+</section>
+{{/decisiones?}}
+
+{{#proximos_pasos?}}
+<section class="bloque">
+  <h2>Próximos pasos</h2>
+  <ul class="puntos pasos">
+    {{#proximos_pasos}}<li>{{accion}}{{#responsable}} <span class="meta">· {{responsable}}</span>{{/responsable}}{{#fecha}} <span class="meta">· {{fecha}}</span>{{/fecha}}</li>{{/proximos_pasos}}
+  </ul>
+</section>
+{{/proximos_pasos?}}
+
+<section class="bloque">
+  <h2>Cómo medimos</h2>
+  <div class="medicion">
+    <ul class="puntos">
+      <li>Periodo: {{periodo.desde}} a {{periodo.hasta}}{{#periodo.comparado_con}}, comparado con {{periodo.comparado_con}}{{/periodo.comparado_con}}. Ventana de atribución: {{ventana_atribucion}}.</li>
+      {{#medicion}}<li>{{.}}</li>{{/medicion}}
+    </ul>
+  </div>
+</section>
+
+</body>
+</html>

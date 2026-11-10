@@ -1,0 +1,23 @@
+/* stat.big_number — cifra sobre la imagen, sin tarjeta: solo tipografía y sombra suave (como las referencias). */
+.sbn .sbn-wrap{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ck-white)}
+.sbn-left .sbn-wrap{align-items:flex-start;text-align:left}
+.sbn .sbn-kicker{font:800 64px/1.02 var(--ck-sans);letter-spacing:-.02em;margin-bottom:.06em;white-space:nowrap}
+.sbn .sbn-row{display:flex;align-items:baseline;justify-content:center;white-space:nowrap;color:var(--tone);line-height:1}
+/* (regla de estilo: nunca serif cursiva): la cifra va siempre en Montserrat 900; .sbn-serif queda
+   como alias por si algún plan o componente la pide */
+.sbn-sans .sbn-row,.sbn-serif .sbn-row{font-family:var(--ck-sans);font-style:normal;font-weight:900;letter-spacing:-.045em;text-shadow:var(--ck-text-shadow-hero)}
+.sbn .sbn-pre{display:inline-block;margin-right:.02em}
+.sbn .sbn-suf{display:inline-block}
+.sbn .sbn-suf-word{font-size:.5em;margin-left:.16em}
+.sbn .sbn-suf-sym{font-size:.66em;margin-left:.04em}
+.sbn .sbn-label{font:800 64px/1.02 var(--ck-sans);letter-spacing:-.02em;margin-top:.02em;white-space:nowrap}
+/* coletilla: Montserrat 900 al cuerpo de la etiqueta (antes serif cursiva); hasta 2 líneas equilibradas */
+.sbn .sbn-tail{font-family:var(--ck-sans);font-style:normal;font-weight:900;line-height:1.04;letter-spacing:-.025em;margin-top:.08em;
+  padding:.02em .04em;white-space:normal;text-wrap:balance;box-sizing:border-box}
+/* lienzo claro (canvas paper/white/accent): tinta, sin sombras, y el número con banda de marcador oro */
+.gx-th-light .sbn-wrap,.gx-th-accent .sbn-wrap{color:var(--ck-ink)}
+.gx-th-light .gxx-ts,.gx-th-light .gxx-ts-hero,.gx-th-accent .gxx-ts,.gx-th-accent .gxx-ts-hero{text-shadow:none}
+.gx-th-light.sbn-serif .sbn-row,.gx-th-light.sbn-sans .sbn-row,.gx-th-accent.sbn-serif .sbn-row,.gx-th-accent.sbn-sans .sbn-row{text-shadow:none}
+.gx-th-light .sbn-mark .sbn-row{background:linear-gradient(180deg,transparent 64%,var(--ck-accent) 64%,var(--ck-accent) 86%,transparent 86%);padding:0 .08em}
+.sbn .sbn-src{margin-top:.9em;font:600 36px/1.2 var(--ck-sans);color:rgba(255,255,255,.66);letter-spacing:.005em;text-align:center;max-width:100%}
+.gx-th-light .sbn-src,.gx-th-accent .sbn-src{color:rgba(15,13,16,.62)}

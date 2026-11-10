@@ -1,0 +1,40 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "100000000000002",
+      "time": 1762851600500,
+      "messaging": [
+        {
+          "sender": {"id": "2000000000000001"},
+          "recipient": {"id": "100000000000002"},
+          "timestamp": 1762851600000,
+          "message": {
+            "mid": "m_EJEMPLO000000000000000001",
+            "text": "Hola, quiero el diagnóstico",
+            "referral": {
+              "ref": "diag-nov",
+              "ad_id": "120000000000000124",
+              "source": "ADS",
+              "type": "OPEN_THREAD",
+              "ads_context_data": {
+                "ad_title": "Diagnóstico de automatización en 20 minutos",
+                "post_id": "100000000000002_100000000000005"
+              }
+            }
+          }
+        },
+        {
+          "sender": {"id": "100000000000002"},
+          "recipient": {"id": "2000000000000001"},
+          "timestamp": 1762851601000,
+          "message": {
+            "mid": "m_EJEMPLO000000000000000002",
+            "is_echo": true,
+            "text": "Hola, ¿para qué equipo es el diagnóstico?"
+          }
+        }
+      ]
+    }
+  ]
+}

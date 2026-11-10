@@ -1,0 +1,51 @@
+{
+  "id": "ins-02-sin-capa-negocio",
+  "titulo": "Qué anuncio trae clientes de pago sin datos de Stripe ni de la app",
+  "categoria": "datos-insuficientes",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "/siguiente-anuncio nimbo — y dime qué anuncio trae más clientes de pago.",
+  "preambulo": "(Hoy es {fecha}. No tengo conectados Meta ni Stripe en esta sesión: solo te he dejado la exportación de Meta por anuncio en clientes/nimbo/datos/.)",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Dice que no puede saber qué anuncio trae clientes de pago: solo hay StartTrial de Meta, sin Stripe ni datos de la app por anuncio.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d2",
+        "texto": "Pide los datos concretos (stripe_datos.py por-anuncio o una exportación de la app con ad_id o utm_content, mismo periodo y pruebas con 14–21 días cumplidos).",
+        "peso": 2,
+        "fuente": ".claude/skills/siguiente-anuncio/SKILL.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Como mucho da una lectura provisional por pruebas, etiquetada como capa alta y no como clientes de pago.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Atribuir clientes de pago o activaciones a anuncios sin datos.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre responde con el anuncio de más pruebas; el experto dice qué falta y no confunde pruebas con clientes."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "stripe",
+        "motivo": "pide Stripe"
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "_leeme": [
+    "Plan de campaña para `python3 -I herramientas/meta_ads.py crear <plan> --cliente <slug> [--simular]`.",
+    "Cópialo a clientes/<slug>/planes/AAAA-MM-<nombre>.json y cámbialo. Las claves que empiezan por _ se ignoran.",
+    "Todo se crea EN PAUSA. Activar es otra orden (`activar --plan ... --confirmo`) y solo con el sí del momento.",
+    "Importes: presupuesto diario en la moneda de la ficha. CBO: pon campana.presupuesto_diario y quítalo de los conjuntos. ABO: al revés.",
+    "La suma diaria del plan no puede pasar de topes.cambio_dia de la ficha.",
+    "Nombres: nomenclatura del contrato (herramientas/nomenclatura.py). Campaña MERCADO_OBJETIVO_PROPOSITO_PUJA, conjunto AUDIENCIA_EVENTO, anuncio AAAAMMDD_angulo_concepto_formato_hN.",
+    "Test de hooks: un hook por conjunto, en ABO y con el mismo presupuesto. Varios hooks dentro de un conjunto no son un test: Meta da casi todo el gasto a uno en horas [EMPIRICAL, observado en tres campañas de una cuenta de servicios high-ticket].",
+    "pagina_id, instagram_id y pixel_id: si faltan, se usan los de la ficha (meta.pagina, meta.instagram, meta.dataset) y, si no, el único que tenga la cuenta (`meta_ads.py activos --cliente <slug>`).",
+    "Medios: video o imagen con ruta relativa al plan, a la carpeta del cliente o a la raíz (p. ej. creativos/20261116_tiempo-perdido/h1.mp4); o video_id / imagen_hash si ya están subidos.",
+    "Formulario instantáneo: en el conjunto, \"destino\": \"formulario\" y \"formulario_id\" (en el conjunto o en cada anuncio); sin url ni evento. cta: SIGN_UP, APPLY_NOW, GET_QUOTE, LEARN_MORE, SUBSCRIBE o DOWNLOAD.",
+    "Conversion Leads (formulario instantáneo con las etapas del CRM volviendo a Meta por CAPI): en el conjunto, \"optimizar\": \"QUALITY_LEAD\" y, si no es el de la ficha, \"dataset_crm\" con el dataset que recibe las etapas. Solo si el playbook lo justifica por volumen (mínimo en disputa [CONTESTED]: ≥200 leads/mes por prudencia); --simular lo avisa.",
+    "Publicación existente (de /organico-a-anuncios): en el anuncio, \"publicacion_ig\" (ID numérico del medio de Instagram) o \"publicacion_fb\" (<pagina>_<post>) en lugar de video o imagen. Los anuncios de colaboración no van por aquí: se crean en Ads Manager (/casos-y-creadores).",
+    "Ventas con user_device o user_os: meta_ads.py desactiva la expansión de dispositivos de la v27 salvo \"expansion_dispositivos\": true en el conjunto o el plan.",
+    "UTMs: por defecto las de la plantilla del sistema (con GHL, utm_source=fb_ad). Para cambiarlas, \"utm\" en el plan o en un anuncio.",
+    "Añadir anuncios a lo que ya existe: \"id\" en el conjunto (con sus anuncios, sin presupuesto ni segmentación) o \"campana\": {\"id\": ...} para crear conjuntos nuevos dentro de una campaña existente. Lo existente no se cambia, y `activar --plan` solo activa lo que creó el plan.",
+    "Los IDs con ceros y los dominios .example son de ejemplo: --simular los avisa y crear se niega hasta que los cambies.",
+    "Campos avanzados de la API: \"api\": {...} en campaña, conjunto o anuncio se envía tal cual."
+  ],
+  "campana": {
+    "nombre": "ES_LEADS_ADQ_HV",
+    "objetivo": "OUTCOME_LEADS",
+    "categorias_especiales": []
+  },
+  "evento": "LEAD",
+  "pagina_id": "000000000000000",
+  "instagram_id": "000000000000000",
+  "conjuntos": [
+    {
+      "nombre": "BROAD-H1_LEAD",
+      "presupuesto_diario": 20,
+      "inicio": "2026-11-16 08:00",
+      "segmentacion": {
+        "geo_locations": {"countries": ["ES"]},
+        "age_min": 25,
+        "excluded_custom_audiences": [{"id": "000000000000000"}],
+        "targeting_automation": {"advantage_audience": 1}
+      },
+      "anuncios": [
+        {
+          "nombre": "20261116_tiempo-perdido_demo-antes-despues_demo_h1",
+          "video": "creativos/20261116_tiempo-perdido/h1.mp4",
+          "miniatura": "creativos/20261116_tiempo-perdido/h1.jpg",
+          "texto": "Texto principal aprobado por el cliente y revisado por revisor-politicas.",
+          "titulo": "Diagnóstico de automatización gratis",
+          "descripcion": "30 minutos con el equipo de Acme Automations",
+          "cta": "LEARN_MORE",
+          "url": "https://acme-automations.example/diagnostico"
+        }
+      ]
+    },
+    {
+      "nombre": "BROAD-H2_LEAD",
+      "presupuesto_diario": 20,
+      "inicio": "2026-11-16 08:00",
+      "segmentacion": {
+        "geo_locations": {"countries": ["ES"]},
+        "age_min": 25,
+        "excluded_custom_audiences": [{"id": "000000000000000"}],
+        "targeting_automation": {"advantage_audience": 1}
+      },
+      "anuncios": [
+        {
+          "nombre": "20261116_tiempo-perdido_demo-antes-despues_demo_h2",
+          "video": "creativos/20261116_tiempo-perdido/h2.mp4",
+          "miniatura": "creativos/20261116_tiempo-perdido/h2.jpg",
+          "texto": "Texto principal aprobado por el cliente y revisado por revisor-politicas.",
+          "titulo": "Diagnóstico de automatización gratis",
+          "descripcion": "30 minutos con el equipo de Acme Automations",
+          "cta": "LEARN_MORE",
+          "url": "https://acme-automations.example/diagnostico"
+        }
+      ]
+    }
+  ]
+}

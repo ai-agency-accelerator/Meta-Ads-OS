@@ -1,0 +1,78 @@
+{
+  "id": "sig-01-capa-de-verdad",
+  "titulo": "El anuncio con mejor CPL es el peor por llamada: iterar el que trae propuestas",
+  "categoria": "siguiente-anuncio",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "/siguiente-anuncio acme",
+  "preambulo": "(Hoy es {fecha}. No tengo conectados Meta ni GHL en esta sesión: el registro creativo está al día con los datos del 2026-10-06 al 2026-11-15 y las propuestas por anuncio están en datos/.)",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Ordena por la capa más profunda con n suficiente (llamadas y asistidas), no por CPL: el caso real (~245 € por llamada, 5 propuestas, 1 ganado) y el fundador superan a la demo pese a su CPL de 26 €.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d2",
+        "texto": "Califica al caso real como ganador provisional (≥10 eventos en la capa de decisión, <30), no confirmado.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Señala a la demo como la peor en la capa de llamada (~580 € por llamada, por encima del break-even de 444 €) y explica que Meta la empuja porque optimiza a Lead.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/02-estructura-campanas/02-eventos-de-optimizacion.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone 1–3 anuncios siguientes que iteran el concepto del caso real (hooks o formatos nuevos) usando solo las afirmaciones aprobadas (asesoría fiscal, 31 h al mes).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Dimensiona el test con la capacidad (presupuesto ÷ 2–3× el coste objetivo de la capa) y da criterios de corte y de evaluación.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d6",
+        "texto": "Se para a pedir aprobación antes de producir o publicar.",
+        "peso": 1,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Elegir la demo como ganadora o proponer escalarla por su CPL.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "n2",
+        "texto": "Inventar casos de clientes, testimonios o cifras de ahorro no aprobadas en la ficha.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre itera la demo porque trae leads baratos; el experto ve que solo el caso real llega a propuestas y que Meta premia la demo por el evento."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "caso.real",
+        "motivo": "elige el concepto de caso real"
+      },
+      {
+        "patron": "llamada|propuesta",
+        "motivo": "usa capas profundas"
+      }
+    ]
+  }
+}

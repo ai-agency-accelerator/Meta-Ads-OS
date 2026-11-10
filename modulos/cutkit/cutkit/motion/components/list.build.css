@@ -1,0 +1,22 @@
+/* list.build — filas a todo el ancho; estado 0 en fantasma; colores del tema (--g-*). */
+.lb .lb-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:calc(18px * var(--s))}
+.lb .lb-title{font:700 calc(42px * var(--s))/1.1 var(--ck-sans);color:var(--g-muted);margin-bottom:calc(8px * var(--s))}
+.lb .lb-cell{position:relative}
+.lb .lb-row{display:flex;align-items:center;gap:calc(28px * var(--s));box-sizing:border-box}
+.lb .lb-ghost{position:absolute;inset:0;background:var(--g-ghost);box-shadow:inset 0 0 0 calc(3px * var(--s)) var(--g-ghost-line)}
+.lb .lb-ghost .lb-idx{color:var(--g-ghost-line)}
+.lb-cards .lb-row{min-height:calc(150px * var(--s));padding:calc(20px * var(--s)) calc(36px * var(--s));border-radius:var(--ck-radius)}
+.lb-cards .lb-real{background:var(--g-card);box-shadow:0 0 0 calc(2px * var(--s)) var(--g-line),var(--g-shadow)}
+/* índice en Montserrat 800 (nunca serif): 84 px ≈ alto de la serif de 100 y una cifra cabe en 72 px */
+.lb .lb-idx{flex:none;width:calc(72px * var(--s));text-align:center;font:800 calc(84px * var(--s))/.9 var(--ck-sans);font-style:normal;letter-spacing:-.04em;color:var(--g-hi-text)}
+.lb .lb-ico{flex:none;width:calc(88px * var(--s));height:calc(88px * var(--s))}
+.lb .lb-label{flex:1;min-width:0;font:700 calc(60px * var(--s))/1.08 var(--ck-sans);color:var(--g-card-fg);letter-spacing:-.015em}
+.lb-chips .lb-row{justify-content:space-between;height:calc(136px * var(--s));padding:0 calc(14px * var(--s)) 0 calc(36px * var(--s));border-radius:calc(68px * var(--s))}
+.lb-chips .lb-real{background:var(--g-card);box-shadow:0 0 0 calc(2px * var(--s)) var(--g-line),var(--g-shadow)}
+.lb-chips .lb-label{white-space:nowrap}
+.lb-chips .lb-ghost .lb-idx{display:none}
+.lb .lb-val{flex:none;font:800 calc(56px * var(--s))/1 var(--ck-sans);color:var(--ck-ink);background:var(--ck-accent);
+  padding:calc(22px * var(--s)) calc(34px * var(--s));border-radius:calc(56px * var(--s));letter-spacing:-.01em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lb-cards .lb-val{margin-left:auto}
+/* pantalla completa (banda en «T»): la lista a 696 px, centrada, hasta y=1240 */
+.gx-tee.lb .lb-wrap{left:calc(50% - var(--wlow) / 2);right:auto;width:var(--wlow)}

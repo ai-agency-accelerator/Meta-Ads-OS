@@ -1,0 +1,78 @@
+{
+  "id": "dec-06-iterar-ganador",
+  "titulo": "Fatiga real del ganador: iterar el concepto con la capacidad de test de 40 €/día",
+  "categoria": "decision",
+  "segmento": "agencia-local",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "/siguiente-anuncio clinica-sonrisa",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Diagnostica fatiga real con la definición oficial: coste por cita ~2,2× su histórico (de ~60 € a ~130 €) y el aviso «Fatiga creativa» de Meta, con el CTR cayendo y el alcance plano como señales de apoyo.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Propone primero iterar el concepto ganador (mismo caso real con hooks, primeros segundos o formato nuevos) y, en paralelo, un ángulo nuevo.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Respeta la capacidad de test de 40 €/día (1–2 piezas nuevas a la vez) y da criterios de corte y evaluación con el coste por cita (target 127 €, corte a 2–3×).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d4",
+        "texto": "No apaga ni borra el original de golpe mientras entran las iteraciones (Meta aconseja mantenerlo activo).",
+        "peso": 1,
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Respeta las reglas de la clínica: sin antes y después ni promesas, sin preguntas de salud, y la gerente aprueba cada anuncio.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/08-cuenta-politicas-seguridad/07-categorias-especiales-y-sensibles.md"
+      },
+      {
+        "id": "d6",
+        "texto": "Se para a pedir aprobación: son propuestas, no cambios hechos.",
+        "peso": 1,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Usar «frecuencia > 3» como criterio de fatiga o atribuirla solo a la frecuencia.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M37"
+      },
+      {
+        "id": "n2",
+        "texto": "Proponer antes y después o promesas de resultado.",
+        "fuente": "meta-ads-kb/08-cuenta-politicas-seguridad/07-categorias-especiales-y-sensibles.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre cambia todo porque la frecuencia pasó de 3; el experto confirma la fatiga por coste frente al histórico e itera lo que funcionaba con la capacidad que permite el presupuesto."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "fatiga",
+        "motivo": "nombra la fatiga"
+      },
+      {
+        "patron": "itera|variante|nuevo hook|nuevos hooks|version",
+        "motivo": "itera el concepto"
+      }
+    ]
+  }
+}

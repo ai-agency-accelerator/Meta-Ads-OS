@@ -1,0 +1,8 @@
+/* callout.arrow — trazo a mano grueso y redondo con sombra corta (sin resplandor de color). */
+.cla{position:absolute;pointer-events:none}
+.cla svg{position:absolute;left:0;top:0;overflow:visible}
+.cla .cla-stroke{fill:none;stroke:var(--col);stroke-width:11;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.40)) drop-shadow(0 8px 18px rgba(0,0,0,.25))}
+.cla .cla-ring{stroke-width:10}
+.cla .cla-label{position:absolute;left:0;top:0;max-width:560px}
+.cla .cla-text{font:800 60px/1.04 var(--ck-sans);letter-spacing:-.02em;color:var(--ck-white)}

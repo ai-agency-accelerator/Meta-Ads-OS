@@ -1,0 +1,73 @@
+{
+  "id": "evt-01-volumen-bajo-no-purchase",
+  "titulo": "No optimizar a Purchase con 1–2 ventas por semana y ciclo de 38 días",
+  "categoria": "evento",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "El socio quiere que la campaña de Acme optimice a Purchase «porque es lo que importa». Ya mandamos las etapas de GHL a Meta por CAPI. ¿A qué evento optimizamos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Descarta Purchase: ~1–2 por semana y un ciclo mediano de 38 días (más de los 28 días que admite la optimización) lo hacen inoptimizable.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md §6.1"
+      },
+      {
+        "id": "d2",
+        "texto": "Usa los volúmenes semanales por etapa con la regla de la KB (~50 por semana ideal; 20–50 consolidar o subir una etapa; menos de 20, la anterior) para elegir.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/03-calidad-de-lead-y-conversion-leads.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Recomienda DiagnosticoCompletado (~35 por semana) como evento o una prueba de leads de calidad a LeadCualificado (~17 por semana, ~34 % de los leads), en una campaña nueva en pausa sin editar la actual, y lo justifica.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md §6.3"
+      },
+      {
+        "id": "d4",
+        "texto": "Verifica los requisitos de leads de calidad con los datos: CAPI desde el CRM (sí), lead ID, subida al menos diaria, etapa en ≤28 días (mediana 2 días) y conversión del 1–40 %.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "d5",
+        "texto": "Dice cómo se compararía: coste por llamada asistida o por propuesta por cohorte durante 2–4 semanas o más, no CPL.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md §6.3"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar optimizar a Purchase, LlamadaAsistida o PropuestaEnviada con este volumen.",
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/03-calidad-de-lead-y-conversion-leads.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar editar la campaña actual para cambiar el evento en lugar de crear una nueva en pausa.",
+        "fuente": "meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md §6.3"
+      },
+      {
+        "id": "n3",
+        "texto": "Recomendar optimizar a LPV o a clics «para que aprenda».",
+        "fuente": "meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md §6.1"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre le da al socio el evento que pide; el experto cuenta eventos por semana y por etapa y elige el más profundo que Meta puede aprender."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "por semana|semanal|/semana|a la semana",
+        "motivo": "razona con volumen semanal"
+      }
+    ]
+  }
+}

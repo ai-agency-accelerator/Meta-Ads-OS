@@ -1,0 +1,44 @@
+{
+  "id": "kb-04-fuera-de-kb",
+  "titulo": "Pregunta que la base no cubre: no inventar",
+  "categoria": "conocimiento",
+  "segmento": "general",
+  "dificultad": "media",
+  "fecha": "2026-11-09",
+  "clientes_base": [],
+  "peticion": "/pregunta \"¿Cuál es el CPM medio en Andorra para software de contabilidad en diciembre de 2026?\"",
+  "preambulo": "solo_fecha",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Dice con claridad que la base no tiene ese dato (ni Andorra, ni ese nicho, ni esa fecha).",
+        "peso": 3,
+        "fuente": ".claude/skills/pregunta/SKILL.md"
+      },
+      {
+        "id": "d2",
+        "texto": "No da una cifra; como mucho contexto etiquetado (estacionalidad de diciembre, B2B) y cómo conseguir el dato: datos propios, una prueba pequeña o las estimaciones de Ads Manager.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/06-estacionalidad.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Marca cualquier inferencia como [HYPOTHESIS] o [STRONG INFERENCE].",
+        "peso": 2,
+        "fuente": "meta-ads-kb/00-CONVENCIONES.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Dar una cifra de CPM para Andorra como si fuera un dato.",
+        "fuente": ".claude/skills/pregunta/SKILL.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre inventa un número verosímil; el experto dice que no lo sabe y cómo averiguarlo."
+  },
+  "comprobaciones": {
+    "debe_aparecer": []
+  }
+}

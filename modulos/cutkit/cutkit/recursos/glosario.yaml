@@ -1,0 +1,15 @@
+# Correcciones del ASR palabra a palabra: clave = expresión regular (sin anclas; se aplica a la palabra completa, sin
+# distinguir mayúsculas) → texto que se muestra en pantalla. Solo errores recurrentes y siglas.
+# Cada cliente puede tener el suyo en clientes/<cliente>/marca/glosario.yaml (mismo formato; manda sobre este) con sus
+# nombres propios: marca, producto, herramientas que menciona.
+palabras:
+  "ia": "IA"
+  "crm": "CRM"
+  "saas": "SaaS"
+  "roi": "ROI"
+  "kpi|kpis": "KPI"
+  "api|apis": "API"
+  "cpa": "CPA"
+  "cpl": "CPL"
+  "ugc": "UGC"
+  "whatsapp|wasap|guasap": "WhatsApp"

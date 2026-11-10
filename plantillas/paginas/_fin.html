@@ -1,0 +1,28 @@
+</main>
+<footer class="pos-pie">
+  <div class="pos-contenedor pos-pie__fila">
+    <p>{{pie.texto}}</p>
+    <nav class="pos-pie__enlaces" aria-label="Información legal">
+      {{#pie.enlaces}}<a href="{{href}}">{{texto}}</a>
+      {{/pie.enlaces}}{{#consentimiento.mostrar}}<button type="button" data-pos-preferencias>Preferencias de cookies</button>{{/consentimiento.mostrar}}
+    </nav>
+  </div>
+</footer>
+{{#barra?}}<div class="pos-barra" data-pos-barra aria-hidden="true">
+  <a class="pos-boton" href="{{barra.href}}" tabindex="-1">{{barra.texto}}</a>
+</div>
+{{/barra?}}{{#consentimiento.mostrar}}<div class="pos-consentimiento" data-pos-consentimiento hidden>
+  <section class="pos-consentimiento__caja" aria-labelledby="pos-consentimiento-titulo">
+    <h2 class="pos-consentimiento__titulo" id="pos-consentimiento-titulo">{{consentimiento.titulo}}</h2>
+    <p>{{consentimiento.texto}}{{#consentimiento.politica?}} <a href="{{consentimiento.politica}}">Política de cookies</a>.{{/consentimiento.politica?}}</p>
+    <div class="pos-consentimiento__acciones">
+      <button type="button" class="pos-boton pos-boton--neutro" data-pos-rechazar>{{consentimiento.rechazar}}</button>
+      <button type="button" class="pos-boton pos-boton--neutro" data-pos-aceptar>{{consentimiento.aceptar}}</button>
+    </div>
+  </section>
+</div>
+{{/consentimiento.mostrar}}</div>
+<!--pos:scripts-->
+<!--/pos:fragmento-->
+</body>
+</html>

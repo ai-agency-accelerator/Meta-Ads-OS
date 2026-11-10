@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 120" width="540" height="120" role="img" aria-label="Acme Automations (marca ficticia de ejemplo)">
+  <rect x="0" y="0" width="120" height="120" rx="30" fill="#FFFFFF" fill-opacity="0.14"/>
+  <path d="M30 94 L60 28 L90 94" fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 71 H76" fill="none" stroke="#FFB020" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="60" cy="28" r="10" fill="#FFB020"/>
+  <text x="146" y="70" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif" font-size="58" font-weight="800" letter-spacing="-1.5" fill="#FFFFFF">Acme</text>
+  <text x="148" y="104" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif" font-size="21" font-weight="700" letter-spacing="6.5" fill="#FFB020">AUTOMATIONS</text>
+</svg>

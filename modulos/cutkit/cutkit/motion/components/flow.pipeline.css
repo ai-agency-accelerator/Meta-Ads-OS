@@ -1,0 +1,110 @@
+/* flow.pipeline v2 — papel arriba, tinta abajo, el logo como luz del plano. Sombras de una sola luz cenital (--g-shadow*). */
+.fp .fp-wrap{position:absolute;inset:0}
+.fp .fp-box{position:absolute;top:0;bottom:0;transform-origin:50% 50%}
+.fp .fp-box > *{position:absolute;box-sizing:border-box}
+.fp .fp-label{left:0;right:0;text-align:center;font:800 calc(48px * var(--s))/1.05 var(--ck-sans);color:var(--g-fg);letter-spacing:-.02em;white-space:nowrap;z-index:1}
+.fp .fp-label .gx-ch{transform-origin:50% 80%}
+.fp .fp-card{background:var(--g-card);color:var(--g-card-fg);box-shadow:var(--g-card-edge),var(--g-shadow);border-radius:calc(26px * var(--s));padding:calc(20px * var(--s)) calc(20px * var(--s)) calc(22px * var(--s));
+  text-align:center;box-shadow:var(--g-shadow);transform-origin:50% 50%;z-index:2}
+.fp .fp-eyebrow{font:600 max(30px, calc(28px * var(--s)))/1 var(--ck-sans);color:var(--g-eyebrow);margin-bottom:calc(10px * var(--s))}
+.fp .fp-ctext{font:700 calc(40px * var(--s))/1.14 var(--ck-sans);letter-spacing:-.015em;text-wrap:balance}
+.fp .fp-link{width:4px;border-radius:2px;background:var(--g-muted);transform-origin:50% 0;z-index:1}
+.fp .fp-halo{border-radius:50%;background:radial-gradient(circle,rgba(22,21,20,.05) 0%,rgba(22,21,20,0) 60%);pointer-events:none;z-index:0}   /* neutro (sin rosa; antes rgba(255,224,233)) */
+.gx-th-dark .fp-halo{background:radial-gradient(circle,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 60%)}
+.fp .fp-grp{display:flex;flex-direction:row;align-items:center;gap:calc(26px * var(--s));white-space:nowrap;z-index:4}
+.fp .fp-tile{position:relative;flex:none;border-radius:24%;background:#FFFFFF;box-shadow:var(--g-shadow)}
+.fp .fp-logo{position:absolute;inset:16%}
+.fp .fp-tile-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 calc(48px * var(--s))/1 var(--ck-sans);color:var(--ck-ink)}
+.fp .fp-mlabel{font:900 calc(var(--tile, 170px) * .56)/1 var(--ck-sans);color:var(--ck-ink);letter-spacing:-.03em}
+.gx-th-dark .fp-mlabel{color:#FFFFFF}
+.fp .fp-out{background:var(--g-inv);border-radius:calc(22px * var(--s));display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:calc(4px * var(--s));box-shadow:var(--g-shadow-ink, 0 10px 24px rgba(0,0,0,.3));transform-origin:50% 50%;z-index:3}
+.fp .fp-okey{font:500 calc(32px * var(--s))/1.05 var(--ck-mono);color:var(--g-inv-key);letter-spacing:-.02em;white-space:nowrap}
+.fp .fp-oval{font:700 calc(40px * var(--s))/1.05 var(--ck-mono);color:var(--g-inv-fg);letter-spacing:-.02em;white-space:nowrap}
+/* encuadre B: salidas apiladas, clave y valor en una línea (styleframe 07) */
+.fp .fp-out.fp-out-row{flex-direction:row;gap:.4em;padding:0 calc(28px * var(--s))}
+.fp .fp-out-row .fp-okey{font-size:calc(40px * var(--s))}
+.fp .fp-out-row .fp-oval{font-size:calc(46px * var(--s))}
+/* layout vertical (styleframe 07) */
+.fpv .fpv-card{display:flex;align-items:flex-start;gap:calc(16px * var(--s));text-align:left;padding:calc(18px * var(--s)) calc(26px * var(--s)) calc(20px * var(--s));border-radius:calc(22px * var(--s))}
+.fpv .fpv-card .fp-eyebrow{flex:none;min-width:calc(96px * var(--s));margin:0;font-size:30px;line-height:1.12;padding-top:1px}
+.fpv .fpv-card .fp-ctext{flex:1;min-width:0;font-size:calc(32px * var(--s));line-height:1.12;text-wrap:pretty}
+.fpv .fpv-grp{flex-direction:column;gap:calc(4px * var(--s))}
+.fpv .fpv-mlabel{font:900 36px/1 var(--ck-sans);letter-spacing:-.03em}
+.fpv .fpv-arrow{width:16px;z-index:1;transform-origin:50% 0}
+.fpv .fpv-arrow i{position:absolute;left:7px;top:0;bottom:6px;width:2px;background:var(--g-muted)}
+.fpv .fpv-arrow::after{content:"";position:absolute;left:2px;bottom:0;width:8px;height:8px;border-right:2px solid var(--g-muted);border-bottom:2px solid var(--g-muted);transform:rotate(45deg);transform-origin:50% 50%}
+.fpv .fpv-bar{flex-direction:row;align-items:center;justify-content:center;gap:calc(18px * var(--s));padding:0 calc(26px * var(--s));border-radius:calc(20px * var(--s))}
+.fpv .fpv-tab{flex:none;font:600 30px/1 var(--ck-sans);color:var(--g-tab-fg);background:var(--g-tab-bg);border-radius:calc(12px * var(--s));padding:calc(8px * var(--s)) calc(14px * var(--s))}
+.fpv .fpv-kv{display:flex;align-items:baseline;gap:.35em;white-space:nowrap}
+.fpv .fpv-kv .fp-okey{font:500 40px/1 var(--ck-mono);color:var(--g-inv-key);letter-spacing:-.02em}
+.fpv .fpv-kv .fp-oval{font:700 40px/1 var(--ck-mono);color:var(--g-inv-fg);letter-spacing:-.02em}
+/* huella de la ficha que ya ha pasado por Nimbo: papel translúcido con borde discontinuo, texto apagado */
+.fpv .fpv-ghost{background:var(--g-ghost);box-shadow:none;outline:2px dashed var(--g-ghost-line);outline-offset:-2px;z-index:1}
+.fpv .fpv-ghost .fp-ctext{color:var(--g-muted);opacity:.75}
+.fpv .fpv-ghost .fp-eyebrow{color:var(--g-muted);opacity:.65}
+/* `inputs: "tiles"`: baldosas con glifo, icono central en el oro del kit, post en esqueleto, rótulos ≥ 48 px */
+.fpt .fpt-tile,.fpt .fpt-hub{position:absolute;border-radius:24%;background:#FFFFFF;box-shadow:0 0 0 2px var(--g-line),var(--g-shadow);transform-origin:50% 50%;z-index:3}
+.gx-th-dark.fpt .fpt-tile,.gx-th-dark.fpt .fpt-hub{background:#F4F2EE}
+.fpt .fpt-ic{position:absolute;inset:24%}
+.fpt .fpt-hub{z-index:4}
+.fpt .fpt-hub-ic{position:absolute;inset:16%}
+.fpt .fpt-hub-ring{position:absolute;inset:-2px;border-radius:24%;box-shadow:0 0 0 calc(5px * var(--s)) #161514;pointer-events:none}
+.gx-th-dark.fpt .fpt-hub-ring{box-shadow:0 0 0 calc(5px * var(--s)) var(--ck-accent)}
+/* la máscara de subida recorta solo en vertical (clip-path); con overflow:hidden un rótulo de 48 px más
+   ancho que su columna («Animación») salía cortado por los dos lados */
+.fpt .fpt-lab-m,.fpt .fpt-cap-m{position:absolute;left:0;right:0;overflow:visible;clip-path:inset(0 -400px);display:flex;justify-content:center;align-items:flex-start;padding-top:2px}
+.fpt .fpt-cap-m{right:auto}
+.fpt .fp-label{position:relative;left:auto;right:auto;white-space:nowrap}
+.fpt .fpt-hlab{font-weight:900}
+.fpt .fpt-post{position:absolute;border-radius:calc(28px * var(--s));background:#FFFFFF;box-shadow:0 0 0 2px var(--g-line),var(--g-shadow);transform-origin:50% 50%;
+  display:flex;flex-direction:column;gap:calc(18px * var(--s));padding:calc(24px * var(--s));box-sizing:border-box;z-index:2}
+.fpt .fpt-ph{display:flex;align-items:center;gap:calc(16px * var(--s));flex:none}
+.fpt .fpt-av{width:calc(64px * var(--s));height:calc(64px * var(--s));border-radius:50%;background:var(--ck-accent);flex:none;box-shadow:inset 0 0 0 calc(4px * var(--s)) #161514}
+.fpt .fpt-ls{display:flex;flex-direction:column;gap:calc(12px * var(--s));flex:1}
+.fpt .fpt-ls i{display:block;height:calc(16px * var(--s));border-radius:99px;background:#161514;transform-origin:0 50%}
+.fpt .fpt-l1{width:62%}.fpt .fpt-l2{width:38%}
+.fpt .fpt-ls i.fpt-l2{background:rgba(22,21,20,.32)}
+.fpt .fpt-img{flex:1;border-radius:calc(18px * var(--s));background:#EDECE8;position:relative;overflow:hidden;transform-origin:50% 0}
+.fpt .fpt-img-g{position:absolute;inset:14% 22%}
+.fpt .fpt-img-g svg{width:100%;height:100%;fill:#C9C6BE}
+/* tira de clip (paso de transformación) y marco de la red en la tarjeta de post */
+.fpt .fpt-strip{position:absolute;border-radius:calc(16px * var(--s));background-color:#161514;z-index:2;
+  --hole:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 calc(10px * var(--s)),transparent calc(10px * var(--s)) calc(26px * var(--s)));
+  background-image:var(--hole),var(--hole);background-repeat:no-repeat;background-size:100% calc(6px * var(--s)),100% calc(6px * var(--s));
+  background-position:0 calc(3px * var(--s)),0 calc(100% - 3px * var(--s))}
+.fpt .fpt-frame{position:absolute;display:block;border-radius:calc(6px * var(--s));background:#4A4744;transform-origin:50% 50%}
+.fpt .fpt-ls i.fpt-hide{display:none}
+.fpt .fpt-plogo{position:relative;flex:none;width:calc(54px * var(--s));height:calc(54px * var(--s));margin-left:auto;transform-origin:50% 50%}
+.fpt .fpt-tx{display:block;flex:none;height:calc(14px * var(--s));width:92%;border-radius:99px;background:rgba(22,21,20,.22);transform-origin:0 50%}
+.fpt .fpt-tx2{width:64%}
+.fpt .fpt-acts{flex:none;display:flex;gap:calc(26px * var(--s));align-items:center}
+.fpt .fpt-act{width:calc(46px * var(--s));height:calc(46px * var(--s));min-width:40px;min-height:40px;transform-origin:50% 50%}
+.fpt .fpt-post-linkedin .fpt-acts{justify-content:space-around}
+.fpt .fpt-post-instagram .fpt-av{box-shadow:0 0 0 calc(4px * var(--s)) #FFFFFF,0 0 0 calc(8px * var(--s)) var(--ck-accent)}
+.fpt .fpt-post-instagram .fpt-img{border-radius:calc(10px * var(--s))}
+/* `agent`: agente → vías → app. Insignia de tinta con el robot en oro (= viz.layers_control),
+   ranuras en fantasma desde el corte, vías de 260 px y app de ≥ 320 px claras, conectores de circuito del kit y aro de oro */
+.fpa .fpa-svg{position:absolute;overflow:visible;z-index:1;pointer-events:none}
+.fpa .fpa-ghost-lane{fill:none;stroke:var(--g-ghost-line);stroke-linecap:round;stroke-linejoin:round}
+.fpa .fpa-slot{position:absolute;box-sizing:border-box;border-radius:22%;border:calc(3px * var(--s)) dashed var(--g-ghost-line);background:#161617;z-index:3}
+/* ranura opaca (el carril y el pulso pasan POR DETRÁS, como por dentro de la vía que la ocupará) */
+.gx-th-light.fpa .fpa-slot{background:#E8E8E6}
+.gx-th-accent.fpa .fpa-slot{background:#E9BA19}
+.fpa .fpa-via,.fpa .fpa-app{position:absolute;border-radius:22%;background:#FFFFFF;box-shadow:0 0 0 2px var(--g-line),var(--g-shadow);transform-origin:50% 50%;z-index:4}
+.gx-th-dark.fpa .fpa-via,.gx-th-dark.fpa .fpa-app{background:#F4F2EE}
+.fpa .fpa-app{border-radius:24%;z-index:5}
+.fpa .fpa-via-ic{position:absolute}
+.fpa .fpa-app-ic{position:absolute;inset:16%}
+.fpa .fpa-via-lm{position:absolute;left:0;right:0;display:flex;justify-content:center;align-items:flex-start;clip-path:inset(0 -60px)}
+.fpa .fpa-via-lab{display:inline-block;font:800 calc(52px * var(--s))/1.12 var(--ck-sans);color:#161514;letter-spacing:-.02em;white-space:nowrap;will-change:transform}
+.fpa .fpa-ring{position:absolute;inset:calc(-9px * var(--s));border-radius:26%;pointer-events:none;
+  box-shadow:0 0 0 calc(6px * var(--s)) var(--ck-accent),0 0 calc(40px * var(--s)) rgba(254,202,26,.42)}
+.fpa .fpa-badge{position:absolute;border-radius:50%;background:#161514;display:flex;align-items:center;justify-content:center;transform-origin:50% 50%;z-index:3;
+  box-shadow:0 0 0 1px rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.22)}
+.gx-th-dark.fpa .fpa-badge{background:#26262A;box-shadow:0 0 0 calc(3px * var(--s)) #0B0B0C,0 0 0 calc(4px * var(--s)) rgba(255,255,255,.14),0 8px 18px rgba(0,0,0,.45)}
+.fpa .fpa-badge-gl{width:62%;height:62%;fill:none;stroke:#FECA1A;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.fpa .fpa-badge-gl .f{fill:#FECA1A;stroke:none}
+.fpa .fpa-lab-m{position:absolute;left:0;right:0;display:flex;justify-content:center;align-items:flex-start;clip-path:inset(0 -400px)}
+.fpa .fpa-lab{display:inline-block;font:800 calc(50px * var(--s))/1.1 var(--ck-sans);color:var(--g-fg);letter-spacing:-.02em;white-space:nowrap;will-change:transform}
+.fpa .gx-pulse{z-index:2}

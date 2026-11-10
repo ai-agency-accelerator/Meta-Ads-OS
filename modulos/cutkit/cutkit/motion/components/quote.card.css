@@ -1,0 +1,20 @@
+/* quote.card — papel cálido (o tinta), Montserrat para la cita, quién y dónde. Sin neón ni badges.
+   Regla de estilo: nunca serif cursiva; la cita va en 700 y las comillas en 900 oro. */
+.qcd .qcd-card{position:absolute;left:0;top:0;box-sizing:border-box;padding:56px 64px 52px;border-radius:var(--ck-radius-lg);
+  box-shadow:var(--ck-shadow-3)}
+.qcd-paper .qcd-card{background:#EEECE7;color:var(--ck-ink)}
+.qcd-ink .qcd-card{background:var(--ck-card);color:var(--ck-white);box-shadow:var(--ck-shadow-3),inset 0 0 0 1px var(--ck-line)}
+.qcd .qcd-mark{font-family:var(--ck-sans);font-style:normal;font-weight:900;font-size:170px;line-height:.74;height:86px;color:var(--ck-accent);
+  margin:0 0 6px -4px}
+.qcd-paper .qcd-mark{color:#C99A00}
+.qcd .qcd-body{position:relative;font-family:var(--ck-sans);font-style:normal;font-weight:700;font-size:54px;line-height:1.16;
+  letter-spacing:-.02em}
+.qcd .qcd-w{position:relative;z-index:1;display:inline-block}
+.qcd .qcd-band{position:absolute;z-index:0;background:var(--ck-accent);border-radius:.08em .2em .14em .06em;transform-origin:0 50%;opacity:.9}
+.qcd-ink .qcd-band{opacity:.55}
+.qcd .qcd-foot{display:flex;align-items:center;gap:24px;margin-top:40px;padding-top:30px;border-top:2px solid rgba(15,13,16,.12)}
+.qcd-ink .qcd-foot{border-top-color:rgba(255,255,255,.12)}
+.qcd .qcd-logo{flex:none;width:88px;height:88px}
+.qcd .qcd-who{display:flex;flex-direction:column;gap:8px;min-width:0}
+.qcd .qcd-author{font:800 48px/1.05 var(--ck-sans);letter-spacing:-.02em}
+.qcd .qcd-src{font:600 38px/1.1 var(--ck-sans);letter-spacing:-.01em;opacity:.62}

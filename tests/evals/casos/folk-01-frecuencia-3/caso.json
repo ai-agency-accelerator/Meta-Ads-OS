@@ -1,0 +1,51 @@
+{
+  "id": "folk-01-frecuencia-3",
+  "titulo": "Frecuencia 3,2 con el coste estable en una audiencia local: no es fatiga",
+  "categoria": "folklore",
+  "segmento": "agencia-local",
+  "dificultad": "baja",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "La gerente de Clínica Sonrisa dice que la frecuencia está en 3,2 y que ha leído que por encima de 3 hay fatiga y hay que cambiar todos los anuncios. ¿Los cambiamos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Desmonta la regla: Meta define la fatiga por el coste frente al histórico (≥2× = fatiga creativa), no por la frecuencia.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M37"
+      },
+      {
+        "id": "d2",
+        "texto": "Usa los datos: coste por lead (~22 €), por cita y CTR estables, así que no hay fatiga; en una audiencia local de 15 km una frecuencia más alta es esperable.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/07-frecuencia.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Recomienda no cambiar los anuncios por esto, mantener el ritmo normal de creatividades y vigilar el coste frente al histórico con un umbral claro.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar cambiar o pausar los anuncios por tener frecuencia > 3.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M37"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre aplica el número mágico; el experto mira el coste frente al histórico."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "histori|coste",
+        "motivo": "fatiga por coste"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "nombre": "Diagnostico IA - formulario",
+  "id": "000000000000501",
+  "tipo": "MORE_VOLUME",
+  "preguntas": [
+    "nombre_completo",
+    "email",
+    "telefono"
+  ],
+  "pantalla_contexto": false,
+  "integracion_ghl": "Zapier cada 15 minutos; sin aviso al comercial",
+  "creado": "2026-10-19"
+}

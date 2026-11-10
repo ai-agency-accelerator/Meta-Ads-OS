@@ -1,0 +1,72 @@
+{
+  "id": "diag-05-leads-no-cierran",
+  "titulo": "Formulario instantáneo barato que no cualifica: decidir por coste por llamada",
+  "categoria": "diagnostico",
+  "segmento": "consultiva-b2b",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Acme: los leads del formulario instantáneo salen a 18 € y los de la web a 34 €. Quiero pasar todo el presupuesto al formulario. ¿Te parece?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Compara por capas profundas y no por CPL: coste por cualificado (~200 € formulario frente a ~93 € web) y por llamada agendada (~700 € frente a ~156 €); el formulario sale peor.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d2",
+        "texto": "Identifica las causas: formulario «More volume» sin preguntas de cualificación y respuesta lenta (mediana de 6 h y solo el 48 % contactado en 24 h).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/02-instant-forms-a-fondo.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Propone arreglarlo antes de decidir: Higher intent con 2–3 preguntas que filtren (tamaño, proceso a automatizar, plazo), aviso inmediato y contacto en minutos.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/08-speed-to-lead-calendarios-show-rate.md"
+      },
+      {
+        "id": "d4",
+        "texto": "No condena los formularios instantáneos en general: con fricción y etapas del CRM por CAPI pueden funcionar.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M62"
+      },
+      {
+        "id": "d5",
+        "texto": "Recomienda no mover el presupuesto al formulario y, como mucho, reducirlo o dejarlo hasta que el arreglo se pueda medir, con fecha; cualquier cambio en Meta, con confirmación.",
+        "peso": 2,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar pasar todo o más presupuesto al formulario por su CPL más bajo.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "n2",
+        "texto": "Concluir que los formularios instantáneos siempre traen leads malos.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M62"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre compra el CPL barato; el experto cruza con GHL, ve que cada llamada cuesta 4–5 veces más y arregla formulario y respuesta antes de decidir."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "cualificad",
+        "motivo": "usa la cualificación"
+      },
+      {
+        "patron": "higher intent|mayor intencion|alta intencion|preguntas",
+        "motivo": "propone fricción en el formulario"
+      }
+    ]
+  }
+}

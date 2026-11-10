@@ -1,0 +1,46 @@
+/* viz.step — el paso N sobre el papel del board: carretera pequeña, «Paso N», nombre del paso y frases con rotulador. */
+.sp .sp-wrap{position:absolute;inset:0}
+.sp .sp-svg{position:absolute;left:0;top:0;overflow:visible}
+.sp .sp-ghost{fill:none;stroke:rgba(22,21,20,.10);stroke-width:calc(22px * var(--s));stroke-linecap:round}
+.sp .sp-outline{fill:none;stroke:#161514;stroke-width:calc(22px * var(--s));stroke-linecap:round}
+.sp .sp-seg{fill:none;stroke-width:calc(13px * var(--s));stroke-linecap:round}
+.sp .sp-node{position:absolute;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:900 max(30px, calc(30px * var(--s)))/1 var(--ck-sans);color:#FFFFFF;transform-origin:50% 50%;
+  box-shadow:0 0 0 calc(4px * var(--s)) #FFFFFF,0 0 0 calc(7px * var(--s)) #161514}
+.sp .sp-node.sp-cur{font-size:calc(42px * var(--s));box-shadow:0 0 0 calc(5px * var(--s)) #FFFFFF,0 0 0 calc(8px * var(--s)) #161514}
+.sp .sp-node.sp-next{background:#FFFFFF;color:rgba(22,21,20,.34);box-shadow:0 0 0 calc(4px * var(--s)) rgba(22,21,20,.16)}
+.sp .sp-pulse{position:absolute;border-radius:50%;box-shadow:0 0 0 calc(4px * var(--s)) #161514;pointer-events:none;transform-origin:50% 50%}
+.sp .sp-kick{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;
+  font:800 calc(34px * var(--s))/1 var(--ck-sans);color:rgba(22,21,20,.55);letter-spacing:.14em;text-transform:uppercase}
+.sp .sp-title{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;
+  font:900 calc(108px * var(--s))/1 var(--ck-sans);color:#161514;letter-spacing:-.035em}
+.sp .sp-title .gx-w{margin:0 .12em}
+.sp .sp-list{position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:flex-start}
+.sp .sp-row{display:flex;align-items:center;gap:calc(24px * var(--s))}
+.sp .sp-dot{flex:none;width:calc(18px * var(--s));height:calc(18px * var(--s));border-radius:50%;
+  box-shadow:0 0 0 calc(3px * var(--s)) #161514;transform-origin:50% 50%}
+.sp .sp-tx{white-space:nowrap;font:800 calc(52px * var(--s))/1.1 var(--ck-sans);color:#161514;letter-spacing:-.02em}
+.sp .sp-mk{position:relative;display:inline-block}
+.sp .sp-mk-bg{position:absolute;left:-.07em;right:-.07em;bottom:.06em;height:.44em;border-radius:.06em;background:#F2C230;
+  transform-origin:0 50%}
+.sp .sp-mk-t{position:relative}
+.sp .sp-foot .sp-tx{font-weight:700;color:rgba(22,21,20,.72);padding-left:calc(70px * var(--s))}
+.gx-th-dark.sp .sp-foot .sp-tx{color:rgba(255,255,255,.72)}
+.sp .sp-icon{flex:none;margin-right:calc(20px * var(--s));background:center/contain no-repeat}
+/* sobre tinta */
+.gx-th-dark.sp .sp-ghost{stroke:rgba(255,255,255,.12)}
+.gx-th-dark.sp .sp-outline{stroke:rgba(255,255,255,.92)}
+.gx-th-dark.sp .sp-title,.gx-th-dark.sp .sp-tx{color:#FFFFFF}
+.gx-th-dark.sp .sp-kick{color:rgba(255,255,255,.6)}
+.gx-th-dark.sp .sp-mk-t{color:#161514}
+/* casillas (tarjeta de resultado): cuadro con borde de tinta y la marca que se dibuja en oro */
+.sp .sp-box{flex:none;position:relative;width:calc(46px * var(--s));height:calc(46px * var(--s));border-radius:calc(10px * var(--s));
+  background:#FFFFFF;box-shadow:0 0 0 calc(4px * var(--s)) #161514;transform-origin:50% 50%}
+.sp .sp-tick{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sp .sp-tick path{fill:none;stroke:#161514;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.gx-th-dark.sp .sp-box{background:#FECA1A;box-shadow:0 0 0 calc(4px * var(--s)) #FECA1A}
+/* numerales (props.numbered): círculo oro con el número en tinta, en vez del punto de color */
+.sp .sp-dot.sp-num{width:calc(58px * var(--s));height:calc(58px * var(--s));display:flex;align-items:center;justify-content:center;
+  background:#F2C230;box-shadow:none;font:900 calc(34px * var(--s))/1 var(--ck-sans);color:#161514;font-style:normal}
+/* icono por punto (props.points[].icon, kit propio): sustituye al punto o numeral; entra con asiento y se mueve */
+.sp .sp-picon{flex:none;background:center/contain no-repeat;transform-origin:50% 60%;filter:drop-shadow(0 10px 16px rgba(0,0,0,.18))}

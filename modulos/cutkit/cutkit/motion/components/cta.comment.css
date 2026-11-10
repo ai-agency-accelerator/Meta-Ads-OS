@@ -1,0 +1,55 @@
+/* cta.comment — titular pegado encima de la caja de comentario, todo abajo en la zona segura; sin máscaras. */
+.cc .cc-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end}
+.cc .cc-block{display:flex;flex-direction:column;gap:18px}
+.cc .cc-head{display:flex;flex-direction:column;align-items:center;text-align:center;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.45)) drop-shadow(0 8px 26px rgba(0,0,0,.55))}
+.cc .cc-verb{font:800 72px/1.04 var(--ck-sans);color:var(--ck-white);letter-spacing:-.015em}
+.cc .cc-key{font:900 140px/1.02 var(--ck-sans);color:var(--ck-accent);letter-spacing:-.04em;white-space:nowrap}
+.cc .cc-sub{margin-top:6px;font:700 46px/1.12 var(--ck-sans);color:var(--ck-white)}
+.cc .cc-box{position:relative;display:flex;align-items:center;gap:20px;height:128px;box-sizing:border-box;padding:0 16px 0 18px;
+  border-radius:64px;background:rgba(250,249,247,.97);
+  box-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.35),0 30px 70px rgba(0,0,0,.35)}
+.cc .cc-av{flex:none;width:88px;height:88px;border-radius:50%;background:var(--ck-navy);position:relative;overflow:hidden}
+.cc .cc-av i{position:absolute;left:50%;top:22%;width:34%;height:34%;margin-left:-17%;border-radius:50%;background:rgba(255,255,255,.55)}
+.cc .cc-av::after{content:"";position:absolute;left:18%;right:18%;bottom:-20%;height:46%;border-radius:50% 50% 0 0;background:rgba(255,255,255,.55)}
+.cc .cc-field{position:relative;flex:1;min-width:0;height:100%;display:flex;align-items:center}
+.cc .cc-ph{position:absolute;left:0;top:50%;transform:translateY(-50%);font:500 44px/1 var(--ck-ui);color:rgba(15,13,16,.42);white-space:nowrap}
+.cc .cc-typed{font:700 50px/1 var(--ck-ui);color:var(--ck-ink);letter-spacing:.01em;white-space:nowrap}
+.cc .cc-caret{position:absolute;left:0;top:50%;width:4px;height:58px;margin-top:-29px;border-radius:2px;background:var(--ck-ink)}
+.cc .cc-send{flex:none;width:96px;height:96px;border-radius:50%;background:var(--ck-accent);display:flex;align-items:center;justify-content:center}
+.cc .cc-arrow{width:50px;height:50px;stroke:var(--ck-ink)}
+.cc .cc-heart{position:absolute;right:132px;top:50%;margin-top:-28px;width:56px;height:56px;fill:var(--ck-red);filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
+.cc .cc-inline{flex-direction:row;align-items:baseline;justify-content:center;gap:.3em;white-space:nowrap}
+.cc .cc-inline .cc-verb{font-weight:800}
+/* modo panel (mitad superior de un split con lienzo): centrado, grande y con el tema del lienzo */
+.cc-panel .cc-wrap{justify-content:center}
+.cc-panel .cc-block{gap:34px}
+.cc-panel .cc-head{filter:none}
+.cc-panel .cc-verb{font-size:96px;color:var(--g-fg)}
+.cc-panel .cc-key{font-size:190px;color:var(--g-hi-text)}
+.gx-th-dark.cc-panel .cc-key{color:var(--ck-accent)}
+.cc-panel .cc-sub{font-size:56px;color:var(--g-muted);margin-top:14px}
+.cc .cc-kin{position:relative;display:inline-block}
+.cc .cc-ktxt{position:relative}
+.cc .cc-kmark{position:absolute;left:-.04em;right:-.04em;bottom:.06em;height:.34em;border-radius:.05em;background:var(--ck-accent);transform-origin:0 50%}
+.cc-panel .cc-box{height:150px;border-radius:75px;padding:0 20px 0 22px;background:#FFFFFF;box-shadow:0 0 0 2px var(--g-line),var(--g-shadow)}
+.cc-panel .cc-av{width:104px;height:104px}
+.cc-panel .cc-ph{font-size:52px}
+.cc-panel .cc-typed{font-size:60px}
+.cc-panel .cc-caret{height:68px;margin-top:-34px}
+.cc-panel .cc-send{width:112px;height:112px}
+.cc-panel .cc-heart{right:150px;width:64px;height:64px;margin-top:-32px}
+/* panel bajo (outro a todo el ancho, ~400 px): caja y subtítulo compactos para que quepa «Y Te Mando el Acceso» */
+.cc-panel .cc-compact{gap:20px}
+.cc-panel .cc-compact .cc-sub{font-size:44px;margin-top:8px}
+.cc-panel .cc-compact .cc-box{height:116px;border-radius:58px}
+.cc-panel .cc-compact .cc-av{width:80px;height:80px}
+.cc-panel .cc-compact .cc-ph{font-size:42px}
+.cc-panel .cc-compact .cc-typed{font-size:48px}
+.cc-panel .cc-compact .cc-caret{height:54px;margin-top:-27px}
+.cc-panel .cc-compact .cc-send{width:88px;height:88px}
+.cc-panel .cc-compact .cc-heart{right:116px;width:52px;height:52px;margin-top:-26px}
+
+/* máscara del verbo (sube desde dentro en ~7 f) */
+.cc .cc-vmask{overflow:hidden;padding:.06em .12em .16em;margin:-.06em -.12em -.16em;display:block}
+.cc .cc-inline .cc-vmask{display:inline-block}

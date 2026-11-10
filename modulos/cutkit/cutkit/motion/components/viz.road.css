@@ -1,0 +1,24 @@
+/* viz.road — la carretera del board («Cómo montar una agencia de automatización desde cero»): tramo rojo, curva amarilla
+   y tramo azul con borde de tinta; nodos numerados con aro blanco; rótulos en tinta. Sobre papel (o tinta). */
+.rd .rd-wrap{position:absolute;inset:0}
+.rd .rd-svg{position:absolute;left:0;top:0;overflow:visible}
+.rd .rd-ghost{fill:none;stroke:rgba(22,21,20,.10);stroke-width:calc(24px * var(--s));stroke-linecap:round}
+.rd .rd-outline{fill:none;stroke:#161514;stroke-width:calc(24px * var(--s));stroke-linecap:round}
+.rd .rd-seg{fill:none;stroke-width:calc(15px * var(--s));stroke-linecap:round}
+.rd .rd-node{position:absolute;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:900 calc(36px * var(--s))/1 var(--ck-sans);color:#FFFFFF;transform-origin:50% 50%;
+  box-shadow:0 0 0 calc(5px * var(--s)) #FFFFFF,0 0 0 calc(8px * var(--s)) #161514}
+.rd .rd-dots{position:absolute;inset:0;pointer-events:none}
+.rd .rd-dot{position:absolute;box-sizing:border-box;border-radius:50%;background:#FFFFFF;transform-origin:50% 50%;
+  border:calc(5px * var(--s)) solid #161514;box-shadow:0 calc(3px * var(--s)) calc(8px * var(--s)) rgba(0,0,0,.22)}
+.rd .rd-ring{position:absolute;inset:calc(-9px * var(--s));border-radius:50%;pointer-events:none;box-shadow:0 0 0 calc(4px * var(--s)) #161514}
+.rd .rd-label{position:absolute;display:flex;align-items:flex-start;justify-content:center;text-align:center;box-sizing:border-box;
+  font:800 calc(32px * var(--s))/1.08 var(--ck-sans);color:#161514;letter-spacing:-.015em;text-wrap:balance}
+.rd .rd-title{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;
+  font:900 calc(64px * var(--s))/1 var(--ck-sans);color:#161514;letter-spacing:-.03em;white-space:nowrap}
+/* sobre tinta */
+.gx-th-dark.rd .rd-ghost{stroke:rgba(255,255,255,.12)}
+.gx-th-dark.rd .rd-outline{stroke:rgba(255,255,255,.92)}
+.gx-th-dark.rd .rd-label,.gx-th-dark.rd .rd-title{color:#FFFFFF}
+.gx-th-dark.rd .rd-dot{border-color:var(--ck-accent)}
+.gx-th-dark.rd .rd-ring{box-shadow:0 0 0 calc(6px * var(--s)) var(--ck-accent)}

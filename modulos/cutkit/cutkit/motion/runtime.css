@@ -1,0 +1,112 @@
+/* cutkit · runtime.css — variables y base compartidas por TODOS los componentes de motion.
+ *
+ * Regla: los componentes no inventan colores, fuentes ni sombras fuera de estas variables.
+ * `--ck-accent-2` lo fija el runtime con `spec.tokens.subject_color` (color de marca del tema del vídeo).
+ * Las @font-face las escribe html.py (ficheros locales copiados a fonts/).
+ *
+ * Capas (z-index global, un único contexto de apilamiento en #ck-content):
+ *   dentro de #ck-content: bg 0 · cam 100 · layoutBack 200 · broll 300 · layoutFront 380 · graphic 400
+ *   fuera de #ck-content (no les afectan los filtros/transformaciones de las transiciones):
+ *   transition 600 · caption 650 (el subtítulo queda por encima de la luz: contraste) · overlay 700.
+ *   Los roots de cada item (div.clip) NO crean contexto de apilamiento: sus hijos usan CK.Z.* + item.z.
+ */
+:root {
+  /* tipografía */
+  --ck-sans: "Montserrat", "Inter", sans-serif;
+  /* Regla de estilo: nada de serif cursiva. `--ck-serif` se queda por
+     compatibilidad y apunta a Montserrat; el énfasis va con peso (800–900), tamaño u oro, nunca con otra familia. */
+  --ck-serif: "Montserrat", "Inter", sans-serif;
+  --ck-ui: "Inter", sans-serif;
+  --ck-mono: "JetBrains Mono", monospace;
+
+  /* color (marca por defecto) */
+  --ck-white: #FFFFFF;
+  --ck-ink: #0F0D10;
+  --ck-navy: #04121D;
+  --ck-accent: #FECA1A;            /* oro de la marca */
+  --ck-accent-2: #F386A1;          /* color del tema del vídeo (spec.tokens.subject_color) */
+  --ck-green: #41DA5A;
+  --ck-blue: #3A8AFF;
+  --ck-red: #F7211A;
+  --ck-muted: rgba(255, 255, 255, .62);
+  --ck-card: #F4F2EE;                 /* tarjeta = papel (las oscuras solo para estados apagados) */
+  --ck-card-ink: #0F0D10;             /* texto sobre la tarjeta de papel */
+  --ck-card-dark: rgba(18, 16, 22, .86);   /* estado apagado / secundario */
+  --ck-paper: #ECE8E1;                /* fondo papel de los paneles */
+  --ck-line: rgba(255, 255, 255, .10);   /* filete de tarjeta */
+  --ck-radius: 28px;
+  --ck-radius-sm: 16px;
+  --ck-radius-lg: 44px;
+
+  /* sombras en capas (elevación baja / media / alta: tokens profundidad.sombras) */
+  --ck-shadow-1: 0 1px 2px rgba(0,0,0,.30), 0 6px 18px rgba(0,0,0,.25);
+  --ck-shadow-2: 0 2px 4px rgba(0,0,0,.30), 0 12px 32px rgba(0,0,0,.32), 0 28px 60px rgba(0,0,0,.22);
+  --ck-shadow-3: 0 3px 6px rgba(0,0,0,.32), 0 24px 60px rgba(0,0,0,.40), 0 60px 120px rgba(0,0,0,.30);
+  --ck-text-shadow: 0 2px 3px rgba(0,0,0,.38), 0 4px 18px rgba(0,0,0,.45);
+  --ck-text-shadow-hero: 0 3px 6px rgba(0,0,0,.35), 0 10px 34px rgba(0,0,0,.50);
+
+  /* rejilla */
+  --ck-grid: 8px;
+  --ck-safe-top: 288px;
+  --ck-safe-bottom: 672px;
+  --ck-safe-left: 65px;
+  --ck-safe-right: 192px;
+}
+
+html, body { margin: 0; padding: 0; background: #000; }
+body { -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ck-ink);
+  color: var(--ck-white);
+  font-family: var(--ck-sans);
+}
+
+/* escenario: todo es absoluto y del tamaño del lienzo */
+#ck-stage, #ck-content { position: absolute; inset: 0; }
+#ck-content { z-index: 0; }                       /* contexto de apilamiento de la escena */
+#ck-bg { position: absolute; inset: 0; z-index: 0; background: var(--ck-ink); }
+
+/* pila de cámara: layout (encuadre por layout) > push (zoom lento) > move (punch/reframe) > frame > A-roll */
+.ck-cam { position: absolute; inset: 0; z-index: 100; transform-origin: 0 0; }
+.ck-cam > div, .ck-cam > div > div, .ck-cam > div > div > div { position: absolute; inset: 0; transform-origin: 0 0; }
+#aroll { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* vídeo 50/50 del presentador (misma toma ya montada): solo su mitad de abajo (clip en línea), por encima del A-roll */
+.ck-split-cam { position: absolute; inset: 0; z-index: 105; display: none; }
+.ck-split-cam video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* relleno lateral (split con escala < 1): copia de la placa ESTIRADA en horizontal hasta el ancho del lienzo, alineada en
+   vertical (sin desenfoque); la placa la tapa salvo en los bordes, fundidos 64 px. Nunca barras ni copia desenfocada. */
+.ck-cam-bg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 90; transform-origin: 0 0; overflow: hidden; display: none; }
+.ck-cam-bg video, .ck-cam-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+
+/* roots de los items: sin z-index propio (no crean contexto de apilamiento) */
+.ck-item { position: absolute; inset: 0; pointer-events: none; }
+
+/* envoltorio de media (sin data-start) > zoom (sin data-start) > <video|img data-start> */
+/* display:none por defecto: el runtime lo enciende SOLO en [t0, t1) y solo si un componente lo ha colocado
+   (CK.util.placeMedia). Así ni su fondo/sombra ni un <img> sin colocar aparecen fuera de su ventana. */
+.ck-mwrap { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; z-index: 310; transform-origin: 50% 50%; display: none; }
+.ck-mzoom { position: absolute; inset: 0; transform-origin: 0 0; }
+.ck-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* utilidades tipográficas */
+.ck-sans  { font-family: var(--ck-sans); }
+.ck-serif { font-family: var(--ck-sans); font-style: normal; font-weight: 800; }   /* alias histórico: ya no es serif */
+.ck-ui    { font-family: var(--ck-ui); }
+.ck-mono  { font-family: var(--ck-mono); }
+.ck-ts    { text-shadow: var(--ck-text-shadow); }
+.ck-nowrap { white-space: nowrap; }
+.ck-word, .ck-char { display: inline-block; }
+.ck-card {
+  background: var(--ck-card);
+  color: var(--ck-card-ink);
+  border-radius: var(--ck-radius);
+  box-shadow: var(--ck-shadow-2);
+}
+.ck-card-dark { background: var(--ck-card-dark); color: var(--ck-white); border-radius: var(--ck-radius);
+  box-shadow: var(--ck-shadow-2), inset 0 0 0 1px var(--ck-line); }
+.ck-fill { position: absolute; inset: 0; }

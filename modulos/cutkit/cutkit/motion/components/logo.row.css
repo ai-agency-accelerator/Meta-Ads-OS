@@ -1,0 +1,39 @@
+/* logo.row — baldosas grandes e iguales (logo o texto); estado 0 opcional en fantasma con «?». Colores del tema (--g-*). */
+.lr .lr-wrap{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.lr .lr-row{position:relative;display:flex;align-items:flex-start;justify-content:center;gap:0;width:max-content}
+.lr .lr-cell{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:26px}
+.lr .lr-slot,.lr .lr-tile{width:var(--tile);height:var(--tile);border-radius:calc(var(--tile) * .24)}
+/* la ranura fantasma es SOLO el contorno (sin relleno ni «?»: con el «?» parecían imágenes rotas) */
+.lr .lr-slot{position:absolute;left:50%;margin-left:calc(var(--tile) / -2);top:0;background:transparent;box-shadow:inset 0 0 0 3px var(--g-ghost-line)}
+/* (con `ghost` sobre tinta, el contorno al 24 % se leía como pantalla en negro): más visible */
+.gx-th-dark.lr.lr-ghosts .lr-slot{box-shadow:inset 0 0 0 3px rgba(255,255,255,.38);background:rgba(255,255,255,.07)}
+.lr .lr-tile{position:relative;flex:none;background:#FFFFFF;box-shadow:0 0 0 2px var(--g-line),var(--g-shadow)}
+.gx-th-dark.lr .lr-tile{background:#F4F2EE}
+.lr .lr-logo{position:absolute;inset:19%}
+.lr .lr-textile{display:flex;align-items:center;justify-content:center}
+.lr .lr-glyph{width:46%;height:46%;fill:none;stroke:#161514;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.lr .lr-glyph .f{fill:#161514;stroke:none}
+.lr .lr-mono{font:900 calc(var(--tile) * .34)/1 var(--ck-sans);color:#161514;letter-spacing:-.03em}
+.lr .lr-label{font:800 64px/1.05 var(--ck-sans);color:var(--g-fg);letter-spacing:-.015em;white-space:nowrap;text-align:center;text-wrap:balance;text-shadow:var(--g-tshadow)}
+/* circuito (`connect`) por debajo de las baldosas y fusión (`merge`) en un icono final */
+.lr .lr-wires{position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:0}
+.lr .lr-row > .gx-pulse{z-index:0}
+.lr .gx-pulse{z-index:1}
+.lr .lr-merge{position:absolute;z-index:3;transform-origin:50% 50%}
+.lr .lr-merge-ic{position:absolute;inset:17%}
+.lr .lr-mlab-m{position:absolute;overflow:hidden;display:flex;justify-content:center;z-index:3;padding:.08em 0 .12em}
+.lr .lr-mlab{white-space:nowrap}
+/* sobre tinta, el contorno fantasma algo más presente (respira entre el 100 y el 50 %) */
+.gx-th-dark.lr .lr-slot{box-shadow:inset 0 0 0 3px rgba(255,255,255,.32)}
+/* item `hot`: el foco del plano, aro de oro en la baldosa y rótulo en oro */
+.lr .lr-hot .lr-tile{box-shadow:0 0 0 calc(var(--tile) * .035) var(--ck-accent),var(--g-shadow)}
+.lr .lr-hot .lr-label{color:var(--ck-accent)}
+/* el oro no se lee como TEXTO sobre blanco; en lienzo
+   claro el foco conserva su aro de oro y el rótulo va en tinta (sobre tinta, igual que antes) */
+.gx-th-light.lr .lr-hot .lr-label{color:var(--ck-ink)}
+/* cue `cross`: disco con «×» en el punto medio del tramo que se rompe (rojo del kit; `cross_tone: ink` en tinta) */
+.lr .lr-cross{position:absolute;z-index:4;border-radius:50%;background:var(--ck-red, #F7211A);box-shadow:0 0 0 calc(var(--tile) * .022) #FFFFFF,var(--g-shadow);pointer-events:none}
+.lr .lr-cross-ink{background:#161514}
+.lr .lr-cross-g{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#FFFFFF;stroke-width:6;stroke-linecap:round}
+/* cue `hot`: el aro de oro entra en su palabra (la baldosa no lleva `lr-hot` hasta entonces) */
+.lr .lr-hotring{position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 calc(var(--tile) * .035) var(--ck-accent);pointer-events:none}

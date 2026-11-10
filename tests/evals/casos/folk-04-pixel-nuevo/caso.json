@@ -1,0 +1,57 @@
+{
+  "id": "folk-04-pixel-nuevo",
+  "titulo": "Ni píxel nuevo ni cuenta nueva para «empezar de cero»",
+  "categoria": "folklore",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "Nimbo lleva tres semanas con el coste por prueba subiendo. El fundador ha leído que el píxel está «quemado» y que hay que crear un píxel nuevo y una cuenta publicitaria nueva para empezar de cero. ¿Lo hacemos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Desmonta el mito: no hay mecanismo documentado de píxel «quemado»; uno nuevo pierde el historial de eventos (es un coste, no una ventaja).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M58"
+      },
+      {
+        "id": "d2",
+        "texto": "Advierte que una cuenta nueva para empezar de cero divide aprendizajes y puede rozar la circunvención o activar controles de cuentas nuevas.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M61"
+      },
+      {
+        "id": "d3",
+        "texto": "Diagnostica de arriba abajo con los datos: el CPM sube ~28 % (Q4) y el CTR baja ~8 %; la activación se mantiene, así que las palancas son creatividad y oferta, no el píxel.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone un siguiente paso concreto (p. ej., lote creativo nuevo o revisar la fatiga por anuncio) con criterio de evaluación.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar crear un píxel, un dataset o una cuenta publicitaria nuevos.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M58"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre resetea; el experto descompone el coste y protege el historial."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "cpm",
+        "motivo": "descompone el coste"
+      }
+    ]
+  }
+}

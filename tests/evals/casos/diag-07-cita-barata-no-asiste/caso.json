@@ -1,0 +1,68 @@
+{
+  "id": "diag-07-cita-barata-no-asiste",
+  "titulo": "La cita más barata es la que no asiste: decidir por asistida",
+  "categoria": "diagnostico",
+  "segmento": "agencia-local",
+  "dificultad": "alta",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "Clínica Sonrisa: el anuncio del blanqueamiento de regalo es el que más citas trae y más baratas (38 € la cita). ¿Le subo el presupuesto y apago los otros dos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Calcula la asistencia con las citas ya celebradas (regalo 2 de 9 ≈ 22 %, frente a 4 de 5 y 2 de 3) y el coste por asistida (~250 € el regalo, por encima del target de 195 €, frente a ~95 € y ~120 €).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/09-sales-feedback-loop.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Decide con la capa más profunda disponible (asistida y aceptado), no con el coste por cita: el regalo atrae a gente que no viene.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d3",
+        "texto": "Avisa de que el n es pequeño y de que quedan 4 citas pendientes del regalo, así que la lectura es provisional; no apaga los otros dos anuncios.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/12-razonamiento-estadistico.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone arreglar el proceso: citas en 72 h o menos (la mediana del regalo es 11 días) y recordatorio humano la víspera.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-negocio-local.md §9"
+      },
+      {
+        "id": "d5",
+        "texto": "Propone revisar la oferta: el regalo condicionado a asistir o a empezar el tratamiento, o quitarlo.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/03-creatividad/09-oferta-y-diagnostico-ad-oferta-landing-ventas.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Subir el presupuesto del anuncio del regalo o apagar los otros por su coste por cita.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "n2",
+        "texto": "Proponer preguntas de salud en el formulario para filtrar.",
+        "fuente": "meta-ads-kb/14-playbooks/playbook-negocio-local.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre premia la cita barata; el experto mira asistencia y aceptación, ve que el regalo atrae cazadores de gangas y arregla oferta y agenda."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "asist|show",
+        "motivo": "usa la asistencia"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+/* section.title — ordinal en Montserrat 900 oro, filete y título Montserrat; fondo azul noche (firma) o papel.
+   Regla de estilo: nunca serif cursiva; `number_style: serif` se pinta igual que «sans». */
+.stt .stt-wrap{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ck-white)}
+.stt .stt-kicker{font:700 52px/1.05 var(--ck-sans);letter-spacing:-.01em;opacity:.8;margin-bottom:10px}
+.stt .stt-num{font-family:var(--ck-sans);font-style:normal;font-weight:900;font-size:340px;line-height:.9;color:var(--tone);
+  letter-spacing:-.05em;padding:0 .04em;white-space:nowrap}
+.stt .stt-rule{width:150px;height:8px;border-radius:4px;background:var(--tone);margin:26px 0 34px;transform-origin:50% 50%}
+.stt .stt-title{font:900 104px/1.0 var(--ck-sans);letter-spacing:-.035em}
+.stt .stt-wm{display:inline-block;overflow:hidden;padding:.14em .08em;margin:-.14em -.08em;vertical-align:top}
+.stt .stt-wi{display:inline-block}
+.stt-paper .stt-wrap{color:var(--ck-ink)}
+.stt-paper .stt-num{color:#C99A00}
+.stt-paper .stt-rule{background:#C99A00}

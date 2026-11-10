@@ -1,0 +1,19 @@
+/* title.lockup_hero — Montserrat para todo: conectores 600–900 y la héroe en 900 gigante (color --lh-hero, banda oro en
+   claro). Regla de estilo: nunca serif cursiva. Sin máscaras; sombra solo en tema oscuro. */
+.lh .lh-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;--lh-hero:var(--g-hero)}
+.lh-left .lh-wrap{align-items:flex-start}
+.lh-center .lh-wrap{align-items:center;text-align:center}
+.lh .lh-pos-top{justify-content:flex-start}
+.lh .lh-pos-bottom{justify-content:flex-end}
+.gx-th-dark.lh .lh-wrap{filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)) drop-shadow(0 8px 24px rgba(0,0,0,.35))}
+.lh .lh-line{white-space:nowrap;color:var(--g-fg);line-height:1.02;transform-origin:50% 60%}
+.lh-left .lh-line{transform-origin:0 60%}
+.lh .lh-lead{font:600 84px/1.02 var(--ck-sans);color:var(--g-muted);letter-spacing:-.01em;margin-bottom:.12em}
+.lh .lh-word{font:900 150px/1.02 var(--ck-sans);letter-spacing:-.04em}
+.lh .lh-hero{font:900 184px/1.02 var(--ck-sans);font-style:normal;color:var(--lh-hero);letter-spacing:-.045em;margin-top:-.02em;padding:0 .06em}   /* el padding contiene la banda oro (.lh-mark, −0,06 em) */
+.lh-scrim{position:absolute;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.38) 55%,rgba(0,0,0,0) 100%)}
+.lh .lh-in{position:relative;display:inline-block}
+.lh .lh-txt{position:relative}
+.lh .lh-mark{position:absolute;left:-.06em;right:-.06em;bottom:.08em;height:.36em;border-radius:.06em;background:var(--ck-accent);transform-origin:0 50%}
+.gx-th-light.lh .lh-lead{color:var(--ck-ink);font-weight:700}
+.gx-th-accent.lh .lh-lead{color:var(--ck-ink);font-weight:700}

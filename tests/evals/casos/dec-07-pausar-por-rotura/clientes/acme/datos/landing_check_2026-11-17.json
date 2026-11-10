@@ -1,0 +1,20 @@
+{
+  "url": "https://acme-automations.example/diagnostico",
+  "comprobado": "2026-11-17 09:40",
+  "intentos": [
+    {
+      "hora": "09:38",
+      "estado_http": 500
+    },
+    {
+      "hora": "09:39",
+      "estado_http": 500
+    },
+    {
+      "hora": "09:40",
+      "estado_http": 500
+    }
+  ],
+  "ultima_respuesta_correcta": "2026-11-16 13:52 (registro del servidor)",
+  "nota": "El proveedor de hosting tiene una incidencia abierta desde las 14:05 del 2026-11-16."
+}

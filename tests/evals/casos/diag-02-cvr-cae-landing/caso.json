@@ -1,0 +1,72 @@
+{
+  "id": "diag-02-cvr-cae-landing",
+  "titulo": "La CVR cae a la mitad tras añadir un cuestionario, pero la calidad sube",
+  "categoria": "diagnostico",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Desde que cambiamos la landing de Acme el 3 de noviembre el CPL se ha duplicado (de 34 a 68 €). El socio dice que la landing nueva es un desastre y que volvamos hoy mismo a la anterior. ¿Tiene razón?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Localiza el cambio en la conversión clic→lead (de 3,8 % a 1,9 %) con CPM y CTR estables, y lo interpreta como el efecto esperado de añadir fricción a propósito, no como una avería.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md §1"
+      },
+      {
+        "id": "d2",
+        "texto": "Juzga con capas más profundas: la cualificación sube del ~36 % al ~58 % y el coste por llamada agendada queda parecido (~159 € frente a ~167 €); el CPL no es la métrica.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d3",
+        "texto": "Señala que las asistidas y propuestas de la cohorte nueva no han madurado (7 llamadas pendientes) y que el n es pequeño, así que aún no hay veredicto; fija fecha y métrica (coste por llamada asistida, ~2026-12-01 como dice el change log o después).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/11-cuando-no-tocar-una-campana.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Descarta una rotura de medición: Meta (72) y GHL (74) cuadran en el periodo nuevo.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/16-checklist-qa-y-diagnostico-tracking.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Recomienda no volver hoy a la landing anterior; como mucho propone mejorar el punto de abandono (pregunta 6, presupuesto) con una prueba controlada.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/03-creatividad/15-landing-pages-y-cro-trafico-meta.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar volver a la landing anterior basándose en el CPL o en la tasa de conversión.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "n2",
+        "texto": "Dar por perdedora o ganadora definitiva la landing nueva con las llamadas asistidas aún sin madurar.",
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/11-cuando-no-tocar-una-campana.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre ve el CPL doble y revierte; el experto ve que la fricción era el objetivo, mide coste por llamada y espera a que madure la cohorte."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "llamada",
+        "motivo": "juzga por llamadas, no por CPL"
+      },
+      {
+        "patron": "cualificad",
+        "motivo": "usa la tasa de cualificación"
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Plantilla de launchd para el brief diario de Meta Ads OS. No la copies a mano: instalar-mac.sh rellena los
+  marcadores __...__ y la deja en ~/Library/LaunchAgents/com.meta-ads-os.brief-diario.plist.
+
+  - StartCalendarInterval: cada día a la hora elegida. Si el Mac está dormido a esa hora, launchd la lanza al
+    despertar; si está apagado, no.
+  - RunAtLoad: también al iniciar sesión, para recuperar el brief si el Mac estaba apagado. Con la opción
+    «si-falta», brief.sh no hace nada si aún no es la hora o si hoy ya se intentó.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.meta-ads-os.brief-diario</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__RAIZ__/.claude/skills/brief-diario/programacion/brief.sh</string>
+    <string>--si-falta</string>
+    <string>__HORA__</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__RAIZ__</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>__PATH__</string>
+    <key>CLAUDE_BIN</key>
+    <string>__CLAUDE_BIN__</string>
+    <key>PYTHON_BIN</key>
+    <string>__PYTHON_BIN__</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>__H__</integer>
+    <key>Minute</key>
+    <integer>__M__</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>__RAIZ__/logs/brief-diario-launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>__RAIZ__/logs/brief-diario-launchd.log</string>
+</dict>
+</plist>

@@ -1,0 +1,23 @@
+{{> inicio}}
+<section class="pos-hero" data-pos-hero aria-labelledby="pos-titular">
+<div class="pos-contenedor">
+<div class="pos-hero__rejilla pos-hero__rejilla--media">
+<div class="pos-hero__texto">
+<h1 class="pos-titular" id="pos-titular">{{hero.titular}}</h1>
+{{#hero.entradilla?}}<p class="pos-entradilla">{{hero.entradilla}}</p>
+{{/hero.entradilla?}}{{#webinar.evento}}<div class="pos-fecha">
+<div><p class="pos-fecha__dia">{{dia}}</p><p class="pos-fecha__mes">{{mes}}</p></div>
+<div class="pos-fecha__detalle"><p class="pos-fecha__hora">{{dia_semana}}, {{hora}}</p><p>{{zona}}{{#duracion?}}. Dura {{duracion}}{{/duracion?}}{{#plataforma?}}, en {{plataforma}}{{/plataforma?}}.</p>{{#otras_zonas?}}<p class="pos-fecha__zonas">{{#otras_zonas}}<span>{{pais}}: {{hora_local}}</span>{{/otras_zonas}}</p>{{/otras_zonas?}}</div>
+</div>
+<p class="pos-cuenta" data-pos-cuenta="{{inicio_iso}}" aria-live="off"></p>
+{{/webinar.evento}}{{#hero.cta?}}<div class="pos-acciones"><a class="pos-boton" href="{{hero.cta.href}}">{{hero.cta.texto}}</a></div>
+{{/hero.cta?}}{{#hero.prueba?}}<p class="pos-prueba-breve">{{hero.prueba}}</p>
+{{/hero.prueba?}}</div>
+<div class="pos-hero__media">
+{{#hero.imagen}}<img src="{{src}}" alt="{{alt}}" width="{{ancho}}" height="{{alto}}" fetchpriority="high" decoding="async">
+{{/hero.imagen}}{{#hero.video}}{{> video}}{{/hero.video}}{{#webinar.formulario}}{{> formulario}}{{/webinar.formulario}}</div>
+</div>
+</div>
+</section>
+{{> secciones}}
+{{> fin}}

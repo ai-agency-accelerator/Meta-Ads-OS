@@ -1,0 +1,37 @@
+/* timeline.steps — eje vertical, marca en Montserrat 800 del color con significado, texto directo.
+   Regla de estilo: nunca serif cursiva. Cifra a 64 px en el aro de 108 (72 en el de 118). */
+.tls .tls-wrap{position:absolute;left:0;top:0;display:flex;flex-direction:column;gap:44px;color:var(--ck-white)}
+.tls .tls-title{font:800 68px/1.04 var(--ck-sans);letter-spacing:-.02em;white-space:nowrap}
+.tls .tls-list{position:relative;display:flex;flex-direction:column;gap:var(--gap)}
+.tls .tls-axis{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.tls .tls-row{position:relative;display:flex;align-items:center;gap:34px}
+.tls .tls-mk{flex:none;width:108px;height:108px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 3px var(--tone),0 8px 22px rgba(0,0,0,.30)}
+.tls .tls-mk-t{font-family:var(--ck-sans);font-style:normal;font-weight:800;font-size:64px;line-height:1;letter-spacing:-.03em;color:var(--tone)}
+.tls .tls-mk-text{width:auto;min-width:108px;height:84px;border-radius:42px;padding:0 26px;box-sizing:border-box}
+.tls .tls-mk-text .tls-mk-t{font-size:44px}
+.tls .tls-mk-dot{width:40px;height:40px;margin:0 34px;background:var(--tone);box-shadow:0 0 0 8px rgba(255,255,255,.12)}
+.tls .tls-txt{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tls .tls-label{font:800 58px/1.05 var(--ck-sans);letter-spacing:-.02em;text-shadow:var(--ck-text-shadow)}
+.tls .tls-sub{font:600 42px/1.12 var(--ck-sans);color:rgba(255,255,255,.74);letter-spacing:-.01em;text-shadow:var(--ck-text-shadow)}
+.tls-paper .tls-wrap{color:var(--ck-ink)}
+.tls-paper .tls-label,.tls-paper .tls-sub,.tls-paper .tls-title{text-shadow:none}
+.tls-paper .tls-sub{color:rgba(15,13,16,.62)}
+.tls-paper .tls-mk{background:rgba(15,13,16,.04);box-shadow:inset 0 0 0 3px var(--tone)}
+/* premium (kit v11): marcas en tarjeta del tema con número en Montserrat; el paso en foco con aro de oro (--on) */
+.tls .tls-mk{--on:0;background:var(--g-card, rgba(255,255,255,.07));box-shadow:var(--g-card-edge, none),inset 0 0 0 calc(4px * var(--on)) var(--ck-accent),var(--g-shadow-chip, 0 8px 22px rgba(0,0,0,.3))}
+.tls .tls-mk-t{color:var(--g-fg, var(--ck-white))}
+.tls .tls-seg{stroke:var(--g-ghost-line, rgba(255,255,255,.42))}
+.tls-paper .tls-wrap{color:var(--g-fg, var(--ck-ink))}
+.tls-paper .tls-mk{background:var(--g-card, #FFFFFF)}
+.tls-paper .tls-sub{color:var(--g-muted, rgba(15,13,16,.62))}
+/* bloque centrado en el eje (tema del panel): la lista toma su ancho natural y se centra; marcas y etiquetas más grandes */
+.tls-center .tls-wrap{align-items:center}
+.tls-center .tls-list{align-self:center}
+.tls-center .tls-mk{width:118px;height:118px}
+.tls-center .tls-mk-t{font-size:72px}
+.tls-center .tls-label{font-size:70px}
+.tls-center .tls-row{gap:40px}
+/* marcador «dot» en el bloque centrado: punto macizo del tono (no un aro vacío de 118 px) */
+.tls-center.tls-dots .tls-mk{width:34px;height:34px;margin:0 6px;background:var(--tone);box-shadow:none}
+.tls-center.tls-dots .tls-row{gap:30px}

@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "mcp__meta-ads__ads_get_*",
+      "mcp__meta-ads__ads_insights_*",
+      "mcp__meta-ads__ads_library_search",
+      "mcp__meta-ads__ads_pixel_event_read",
+      "mcp__meta-ads__ads_pixel_parameter_read",
+      "mcp__meta-ads__ads_experiment_list_tests",
+      "mcp__meta-ads__ads_experiment_check_eligibility",
+      "mcp__meta-ads__ads_experiment_abtest_get_test",
+      "mcp__meta-ads__ads_experiment_lift_get_test",
+      "mcp__meta-ads__ads_account_get_activity_logs",
+      "mcp__meta-ads__ads_catalog_get_*",
+      "mcp__meta-ads__ads_catalog_list_*",
+      "mcp__meta-ads__ads_catalog_search_product",
+      "mcp__meta-ads__ads_catalog_event_source_get*",
+      "mcp__ghl__search_operations",
+      "mcp__ghl__describe_operation",
+      "mcp__ghl__list_locations",
+      "mcp__ghl__search",
+      "mcp__ghl__fetch",
+      "mcp__stripe__stripe_api_read",
+      "mcp__stripe__stripe_api_search",
+      "mcp__stripe__stripe_api_details",
+      "mcp__stripe__get_stripe_account_info",
+      "mcp__stripe__get_balance_summary",
+      "mcp__stripe__search_stripe_documentation",
+      "mcp__stripe__stripe_analytics",
+      "mcp__stripe__search_stripe_resources",
+      "mcp__stripe__fetch_stripe_resources",
+      "mcp__stripe__retrieve_balance",
+      "mcp__stripe__list_*",
+      "Bash(python3 -I herramientas/*)",
+      "Bash(python -I herramientas/*)",
+      "Bash(py -3 -I herramientas/*)",
+      "Bash(python3 -I herramientas/notificar.py*)",
+      "Bash(uv run --project modulos/motor-ia motor status*)",
+      "Bash(uv run --project modulos/motor-ia motor costs*)",
+      "Bash(uv run --project modulos/motor-ia motor brand list*)",
+      "Bash(uv run --project modulos/motor-ia motor actor list*)",
+      "Bash(uv run --project modulos/motor-ia motor plan-import *)",
+      "Bash(MOTOR_MOCK=1 uv run --project modulos/motor-ia motor *)",
+      "Bash(MOTOR_DATA_DIR=* MOTOR_MOCK=1 uv run --project modulos/motor-ia motor *)",
+      "Bash(uv run --project modulos/cutkit ck *)",
+      "Bash(uv run --extra render python -I herramientas/render.py *)",
+      "Bash(ffprobe *)",
+      "Bash(ffmpeg *)",
+      "Bash(date +%F*)",
+      "Bash(mktemp -d*)",
+      "Bash(python3 -I scripts/instalacion.py*)",
+      "Bash(python -I scripts/instalacion.py*)",
+      "Bash(py -3 -I scripts/instalacion.py*)",
+      "Bash(python3 scripts/validar.py*)",
+      "Bash(python3 -I scripts/validar.py*)",
+      "Bash(bash scripts/instalar.sh --comprobar)",
+      "Bash(bash scripts/actualizar.sh --comprobar)"
+    ],
+    "ask": [
+      "mcp__meta-ads__ads_create_*",
+      "mcp__meta-ads__ads_update_*",
+      "mcp__meta-ads__ads_activate_entity",
+      "mcp__ghl__execute_operation",
+      "mcp__meta-ads__ads_pixel_event_create",
+      "mcp__meta-ads__ads_pixel_event_update",
+      "mcp__meta-ads__ads_pixel_parameter_create",
+      "mcp__meta-ads__ads_pixel_parameter_update",
+      "mcp__meta-ads__ads_experiment_abtest_create_test",
+      "mcp__meta-ads__ads_experiment_abtest_update_test",
+      "mcp__meta-ads__ads_experiment_lift_create_test",
+      "mcp__meta-ads__ads_catalog_create*",
+      "mcp__meta-ads__ads_catalog_update*",
+      "mcp__meta-ads__ads_catalog_product_create",
+      "mcp__meta-ads__ads_catalog_event_source_connect",
+      "mcp__meta-ads__ads_catalog_event_source_disconnect",
+      "Bash(*meta_ads.py* crear*)",
+      "Bash(*meta_ads.py* activar*)",
+      "Bash(*meta_ads.py* presupuesto*)",
+      "Bash(*meta_ads.py* pausar*)",
+      "Bash(*capi.py* enviar*)",
+      "Bash(*formularios_meta.py* crear*)",
+      "Bash(*formularios_meta.py* leads*)",
+      "Bash(*reglas_meta.py* crear*)",
+      "Bash(*reglas_meta.py* pausar*)",
+      "Bash(*reglas_meta.py* reactivar*)",
+      "Bash(*audiencias_meta.py* crear*)",
+      "Bash(*audiencias_meta.py* sincronizar*)",
+      "Bash(ffmpeg -y *)",
+      "Bash(ffmpeg * -y *)",
+      "Bash(ffmpeg * -y)",
+      "Bash(ffmpeg *://*)",
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(unlink *)",
+      "Bash(trash *)",
+      "Bash(git clean*)",
+      "Bash(find * -delete*)",
+      "Edit(./.claude/settings.json)",
+      "Edit(./.claude/settings.local.json)",
+      "Edit(./.claude/hooks/**)"
+    ],
+    "deny": [
+      "mcp__meta-ads__ads_boost_ig_post",
+      "mcp__meta-ads__ads_delete_*",
+      "mcp__meta-ads__ads_delete_custom_audience",
+      "mcp__meta-ads__ads_pixel_event_delete",
+      "mcp__meta-ads__ads_pixel_parameter_delete",
+      "mcp__meta-ads__ads_catalog_delete_product",
+      "mcp__meta-ads__ads_catalog_product_set_delete",
+      "mcp__meta-ads__ads_catalog_product_feed_delete",
+      "mcp__meta-ads__ads_catalog_product_feed_delete_rule",
+      "mcp__stripe__stripe_api_write",
+      "mcp__stripe__send_money",
+      "mcp__stripe__transfer_money",
+      "mcp__stripe__convert_currency",
+      "mcp__stripe__setup_recipient",
+      "mcp__stripe__atlas_company_formation",
+      "mcp__stripe__send_stripe_feedback",
+      "mcp__stripe__create_*",
+      "mcp__stripe__update_*",
+      "mcp__stripe__cancel_*",
+      "mcp__stripe__finalize_*",
+      "mcp__stripe__delete_*",
+      "mcp__stripe-*__stripe_api_write",
+      "mcp__stripe-*__send_money",
+      "mcp__stripe-*__transfer_money",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Bash(cat .env*)",
+      "Bash(cat ./.env*)",
+      "Bash(less .env*)",
+      "Bash(more .env*)",
+      "Bash(head .env*)",
+      "Bash(tail .env*)",
+      "Bash(source .env*)",
+      "Bash(. .env*)",
+      "Bash(printenv*)",
+      "Bash(env)",
+      "Bash(git add .env*)",
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(rm -Rf *)",
+      "Bash(rm -r -f *)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/contexto_sesion.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/contexto_sesion.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/contexto_sesion.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__meta-ads__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\"",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__ghl.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__stripe.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\"",
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/motor_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/motor_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/motor_guard.py\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/eventos_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/eventos_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/eventos_guard.py\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/control_publicacion.py\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/secretos.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/secretos.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/secretos.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/datos_personales.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/datos_personales.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/datos_personales.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__meta-ads__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/meta_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__ghl.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/ghl_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__stripe.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/stripe_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\" || python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\" || py -3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/registro_obligatorio.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

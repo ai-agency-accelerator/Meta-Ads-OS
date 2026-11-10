@@ -1,0 +1,30 @@
+{
+  "object": "instagram",
+  "entry": [
+    {
+      "id": "170000000000003",
+      "time": 1762851600500,
+      "messaging": [
+        {
+          "sender": {"id": "3000000000000001"},
+          "recipient": {"id": "170000000000003"},
+          "timestamp": 1762851600000,
+          "message": {
+            "mid": "aWdfZAG1faXRlbToxOklHTWVzc2FnZAUlEOjE3EJEMPLO",
+            "text": "Info del diagnóstico, por favor",
+            "referral": {
+              "ref": "diag-nov",
+              "ad_id": "120000000000000125",
+              "source": "ADS",
+              "type": "OPEN_THREAD",
+              "ads_context_data": {
+                "ad_title": "Diagnóstico de automatización en 20 minutos",
+                "photo_url": "https://imagen.example/anuncio.jpg"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

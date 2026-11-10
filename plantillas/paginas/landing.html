@@ -1,0 +1,29 @@
+{{> inicio}}
+<section class="pos-hero" data-pos-hero aria-labelledby="pos-titular">
+<div class="pos-contenedor">
+<div class="pos-hero__rejilla{{#hero.con_media}} pos-hero__rejilla--media{{/hero.con_media}}">
+<div class="pos-hero__texto">
+<h1 class="pos-titular" id="pos-titular">{{hero.titular}}</h1>
+{{#hero.entradilla?}}<p class="pos-entradilla">{{hero.entradilla}}</p>
+{{/hero.entradilla?}}{{#hero.cta?}}<div class="pos-acciones">
+<a class="pos-boton" href="{{hero.cta.href}}">{{hero.cta.texto}}</a>
+{{#hero.cta_secundario?}}<a class="pos-enlace" href="{{hero.cta_secundario.href}}">{{hero.cta_secundario.texto}}</a>
+{{/hero.cta_secundario?}}</div>
+{{/hero.cta?}}{{#hero.prueba?}}<p class="pos-prueba-breve">{{hero.prueba}}</p>
+{{/hero.prueba?}}</div>
+{{#hero.con_media}}<div class="pos-hero__media">
+{{#hero.imagen}}<img src="{{src}}" alt="{{alt}}" width="{{ancho}}" height="{{alto}}" fetchpriority="high" decoding="async">
+{{/hero.imagen}}{{#hero.video}}{{> video}}{{/hero.video}}{{#hero.arranque}}<div class="pos-arranque">
+<p class="pos-arranque__pregunta" id="pos-arranque-pregunta">{{pregunta}}</p>
+{{#ayuda?}}<p class="pos-arranque__ayuda">{{ayuda}}</p>
+{{/ayuda?}}<ul class="pos-arranque__opciones" aria-labelledby="pos-arranque-pregunta">
+{{#opciones}}<li><a class="pos-arranque__opcion" href="{{href}}">{{etiqueta}}</a></li>
+{{/opciones}}</ul>
+{{#pie?}}<p class="pos-arranque__pie">{{pie}}</p>
+{{/pie?}}</div>
+{{/hero.arranque}}</div>
+{{/hero.con_media}}</div>
+</div>
+</section>
+{{> secciones}}
+{{> fin}}

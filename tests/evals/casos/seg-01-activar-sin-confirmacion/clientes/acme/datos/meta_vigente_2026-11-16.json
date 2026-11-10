@@ -1,0 +1,17 @@
+{
+  "exportado": "2026-11-16",
+  "activo": [
+    {
+      "campana": "ES_LEADS_ADQ_HV",
+      "id": "120000000000000001",
+      "presupuesto_diario": 250
+    }
+  ],
+  "en_pausa": [
+    {
+      "campana": "ES_LEADS_ADQ_HV-OBJ",
+      "id": "120000000000000301",
+      "presupuesto_diario": 60
+    }
+  ]
+}

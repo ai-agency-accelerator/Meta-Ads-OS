@@ -1,0 +1,78 @@
+{
+  "_leeme": "Estado de la instalación de Meta Ads OS. La fase 'tecnica' la escribe scripts/instalar.sh; el resto, /empezar (con python3 -I scripts/instalacion.py marcar, pausar y reanudar). Estados: pendiente, en_curso, hecho, omitido, fallo. Completa cuando todas las fases con requerida=true están en hecho u omitido.",
+  "esquema": 1,
+  "iniciado": null,
+  "actualizado": null,
+  "pausa": null,
+  "producto": {
+    "version": ""
+  },
+  "sistema": {
+    "so": "",
+    "python": "",
+    "git": "",
+    "uv": "",
+    "ffmpeg": "",
+    "claude": ""
+  },
+  "fases": {
+    "tecnica": {
+      "estado": "pendiente",
+      "requerida": true,
+      "fecha": null,
+      "detalle": ""
+    },
+    "perfil": {
+      "estado": "pendiente",
+      "requerida": true,
+      "fecha": null,
+      "detalle": ""
+    },
+    "meta": {
+      "estado": "pendiente",
+      "requerida": true,
+      "fecha": null,
+      "detalle": ""
+    },
+    "integraciones": {
+      "estado": "pendiente",
+      "requerida": false,
+      "fecha": null,
+      "detalle": "",
+      "ghl": "pendiente",
+      "stripe": "pendiente"
+    },
+    "cliente": {
+      "estado": "pendiente",
+      "requerida": true,
+      "fecha": null,
+      "detalle": "",
+      "slug": ""
+    },
+    "entregable": {
+      "estado": "pendiente",
+      "requerida": true,
+      "fecha": null,
+      "detalle": "",
+      "ruta": ""
+    },
+    "brief": {
+      "estado": "pendiente",
+      "requerida": false,
+      "fecha": null,
+      "detalle": ""
+    },
+    "motor": {
+      "estado": "pendiente",
+      "requerida": false,
+      "fecha": null,
+      "detalle": ""
+    },
+    "avanzado": {
+      "estado": "pendiente",
+      "requerida": false,
+      "fecha": null,
+      "detalle": ""
+    }
+  }
+}

@@ -1,0 +1,23 @@
+# Finales de línea LF en el repositorio y en cada copia, también en Windows: bash y los hooks fallan con CRLF
+# («$'\r': command not found»). Git detecta solo qué archivos son texto.
+* text=auto eol=lf
+
+# Binarios: sin conversión ni diff de texto.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.mp4 binary
+*.mov binary
+*.webm binary
+*.mp3 binary
+*.wav binary
+*.m4a binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.zip binary

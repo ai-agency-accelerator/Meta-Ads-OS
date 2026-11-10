@@ -1,0 +1,40 @@
+# ── Instancia de cada operador (nunca se versiona en el producto) ──
+/contexto/*
+!/contexto/README.md
+/clientes/*
+!/clientes/README.md
+/aprendizajes/*
+!/aprendizajes/README.md
+/logs/
+/informes/
+/tests/evals/resultados/
+.claude/settings.local.json
+
+# ── Secretos ──
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# ── Módulos de vídeo: datos, entornos y cachés ──
+modulos/motor-ia/data/
+modulos/motor-ia/logs/
+**/.venv/
+**/*.egg-info/
+.pytest_cache/
+**/__pycache__/
+*.pyc
+
+# ── Medios pesados ──
+*.mp4
+*.mov
+*.webm
+*.m4a
+*.wav
+*.gif
+
+# ── Sistema ──
+.DS_Store
+Thumbs.db

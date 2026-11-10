@@ -1,0 +1,28 @@
+/* viz.layer — agente / capa (oro) / herramientas sobre papel; tinta #161514, oro de la firma. */
+.ly .ly-wrap{position:absolute;inset:0}
+.ly .ly-band{position:absolute;box-sizing:border-box;border-radius:calc(30px * var(--s));display:flex;align-items:center;
+  justify-content:center;gap:calc(30px * var(--s));transform-origin:50% 50%}
+.ly .ly-top,.ly .ly-bot{background:#FFFFFF;border:calc(5px * var(--s)) solid #161514}
+.ly .ly-mid{background:#FECA1A;border:calc(5px * var(--s)) solid #161514;flex-direction:column;gap:calc(2px * var(--s));
+  box-shadow:0 calc(8px * var(--s)) calc(22px * var(--s)) rgba(0,0,0,.16);z-index:2}
+.ly .ly-name{font:900 calc(78px * var(--s))/1 var(--ck-sans);color:#161514;letter-spacing:-.02em;white-space:nowrap}
+.ly .ly-sub{font:800 calc(30px * var(--s))/1 var(--ck-sans);color:rgba(22,21,20,.72);letter-spacing:.08em;text-transform:uppercase}
+.ly .ly-label{font:800 calc(40px * var(--s))/1.05 var(--ck-sans);color:#161514;letter-spacing:-.015em;white-space:nowrap}
+.ly .ly-logos{display:flex;gap:calc(18px * var(--s))}
+.ly .ly-logo{width:calc(92px * var(--s));height:calc(92px * var(--s));transform-origin:50% 50%}
+.ly .ly-logo-img{width:100%;height:100%}
+.ly .ly-tiles{display:flex;gap:calc(14px * var(--s))}
+.ly .ly-tile{width:calc(74px * var(--s));height:calc(74px * var(--s));border-radius:22%;background:#161514;display:flex;
+  align-items:center;justify-content:center;transform-origin:50% 50%}
+.ly .ly-glyph{width:52%;display:flex;flex-direction:column;gap:14%}
+.ly .ly-bar{display:block;height:calc(7px * var(--s));border-radius:99px;background:#FFFFFF}
+.ly .ly-bar-1{width:72%}.ly .ly-bar-2{width:46%}
+.ly .ly-line{position:absolute;background:#161514;border-radius:99px}
+.ly .ly-dot{position:absolute;left:0;top:0;width:calc(22px * var(--s));height:calc(22px * var(--s));border-radius:50%;
+  background:#FFFFFF;border:calc(5px * var(--s)) solid #161514;box-sizing:border-box;z-index:3}
+.ly .ly-warn{position:absolute;left:50%;padding:calc(10px * var(--s)) calc(24px * var(--s));
+  border-radius:999px;background:#D83024;color:#FFFFFF;font:800 calc(32px * var(--s))/1 var(--ck-sans);white-space:nowrap;z-index:4}
+/* baldosas de estado con icono del kit / glifo en el oro del kit */
+.ly .ly-tile-ic{background:#FFFFFF;box-shadow:inset 0 0 0 calc(4px * var(--s)) #161514;width:calc(84px * var(--s));height:calc(84px * var(--s))}
+.ly .ly-tic{position:absolute;inset:18%}
+.ly .ly-tile-ic{position:relative}

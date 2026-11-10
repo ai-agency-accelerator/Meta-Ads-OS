@@ -1,0 +1,185 @@
+{
+  "name": "Páginas → CRM + Conversions API (Meta Ads OS)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Páginas (paginas.py) → CRM + Conversions API (Meta Ads OS)\n\n**Qué hace.** Recibe cada envío de las páginas generadas (payload v1), lo guarda siempre en tu CRM y, solo si la persona dio permiso (`enviar_a_meta: true`), manda sus eventos a la Conversions API con el mismo `event_name` y `event_id` que el píxel, para que deduplique.\n\n**Antes de activar**\n1. Rellena los `<<…>>`: la URL del CRM y «Configuración (rellena esto)».\n2. Credencial al importar: Query Auth (nombre `access_token`) en «Enviar a la Conversions API». El token, solo ahí.\n3. En el entorno de n8n: `NODE_FUNCTION_ALLOW_BUILTIN=crypto`.\n4. CORS: en «Páginas · envío», opción «Allowed Origins (CORS)» con el dominio de tus páginas; o `tracking.webhook.modo: \"texto\"` en el config de las páginas.\n5. Sin `TEST_EVENT_CODE` no sale nada hacia Meta. El envío real exige `ENVIO_REAL_APROBADO: true` con el sí del cliente.\n\nLos nombres de los eventos no se tocan: son los del contrato §16.\nGuía: plantillas/integraciones/paginas/README.md",
+        "height": 560,
+        "width": 560
+      },
+      "name": "Léeme",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "meta-ads-os-paginas",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "name": "Páginas · envío",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lee el envío v1 de las páginas de paginas.py (plantillas/paginas/README.md). Con webhook.modo «texto» llega como\n// texto y se convierte. Lo que no venga de las páginas se rechaza: cualquiera que conozca la URL puede llamarla.\nconst salida = [];\nfor (const item of $input.all()) {\n  let envio = item.json.body;\n  if (typeof envio === 'string') {\n    try {\n      envio = JSON.parse(envio);\n    } catch (e) {\n      throw new Error('El cuerpo no es JSON: no parece un envío de las páginas.');\n    }\n  }\n  if (!envio || envio.origen !== 'meta-ads-os/paginas' || envio.version !== 1) {\n    throw new Error('No es un envío v1 de paginas.py (origen «meta-ads-os/paginas», version 1).');\n  }\n  // La IP no viaja en el cuerpo: es la de la petición (detrás de un proxy, X-Forwarded-For o CF-Connecting-IP).\n  const cabeceras = item.json.headers || {};\n  const ip = String(cabeceras['cf-connecting-ip'] || String(cabeceras['x-forwarded-for'] || '').split(',')[0]).trim();\n  salida.push({ json: { envio, ip } });\n}\nreturn salida;\n"
+      },
+      "name": "Leer envío",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "<<URL_CRM: endpoint de tu CRM que crea o actualiza el contacto con los campos, las UTMs, el ad_id y las respuestas>>",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.envio) }}",
+        "options": {}
+      },
+      "name": "Guardar en el CRM (siempre)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rellena esto una vez por cliente. Nada de tokens aquí: el token va en la credencial del nodo «Enviar a la\n// Conversions API» (Query Auth, nombre access_token).\nconst CONFIG = {\n  DATASET_ID: '<<DATASET_ID: el dataset del píxel de las páginas>>',\n  // Código de Events Manager → Probar eventos. Mientras exista, todo va como prueba.\n  TEST_EVENT_CODE: '<<TEST_EVENT_CODE: código de Probar eventos>>',\n  // Solo con el sí del cliente, después de verificar las pruebas: true y TEST_EVENT_CODE vacío.\n  ENVIO_REAL_APROBADO: false,\n  // Prefijo de país para los teléfonos escritos sin + (34 España, 52 México, 57 Colombia…). Vacío: no se mandan.\n  PREFIJO_TELEFONO: '34',\n};\nreturn $input.all().map((item) => ({ json: { ...item.json, config: CONFIG } }));\n"
+      },
+      "name": "Configuración (rellena esto)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// La regla del consentimiento (contrato §17). A la CAPI solo va lo que la página marca con enviar_a_meta = true: lo\n// pone con «Aceptar» o con base_legal_servidor = interes_legitimo. Con base «consentimiento» se exige además\n// consentimiento_marketing = «si»; si algo llega incoherente, no sale. Lo demás no va a Meta: ya está en el CRM.\n// Los event_name llegan con el nombre del contrato §16 (Lead, DiagnosticoCompletado, CompleteRegistration…) y no se\n// cambian: con el mismo event_name y event_id que el píxel, Meta deduplica.\n// Normaliza y hashea como herramientas/capi.py. Necesita el módulo crypto (NODE_FUNCTION_ALLOW_BUILTIN=crypto).\nconst crypto = require('crypto');\nconst sha256 = (t) => crypto.createHash('sha256').update(t, 'utf8').digest('hex');\n\nfunction permitido(e) {\n  if (e.enviar_a_meta !== true) return false;\n  const base = e.base_legal_servidor || 'consentimiento';\n  if (base === 'consentimiento') return e.consentimiento_marketing === 'si';\n  return base === 'interes_legitimo';\n}\nfunction email(v) {\n  const t = String(v || '').trim().toLowerCase();\n  return /^[\\w.+-]+@[\\w-]+\\.[\\w.-]+$/.test(t) ? t : '';\n}\nfunction telefono(v, prefijo) {\n  const bruto = String(v || '').trim();\n  const internacional = bruto.startsWith('+') || bruto.startsWith('00');\n  let d = bruto.replace(/\\D/g, '');\n  if (d.startsWith('00')) d = d.slice(2);\n  let r = '';\n  if (internacional) {\n    r = d;\n  } else if (prefijo) {\n    const p = String(prefijo).replace(/\\D/g, '');\n    r = d.startsWith(p) && d.length >= p.length + 8 ? d : p + d.replace(/^0+/, '');\n  }\n  return r.length >= 7 && r.length <= 15 ? r : '';\n}\nfunction nombre(v) {\n  return String(v || '').trim().toLowerCase().normalize('NFC').replace(/[^\\p{L}\\p{N}]/gu, '');\n}\n\nconst salida = [];\nfor (const item of $input.all()) {\n  const e = item.json.envio || {};\n  if (!permitido(e)) continue; // sin permiso: nada hacia Meta\n  const c = item.json.config || {};\n  const ud = {};\n  const em = email(e.email);\n  if (em) ud.em = [sha256(em)];\n  const ph = telefono(e.telefono, c.PREFIJO_TELEFONO);\n  if (ph) ud.ph = [sha256(ph)];\n  if (e.nombre && e.apellidos) { // con un solo campo «nombre» (nombre completo) no se manda: fn es el nombre de pila\n    ud.fn = [sha256(nombre(e.nombre))];\n    ud.ln = [sha256(nombre(e.apellidos))];\n  }\n  if (e.client_user_agent) ud.client_user_agent = e.client_user_agent;\n  if (item.json.ip) ud.client_ip_address = item.json.ip;\n  if (e.fbc) ud.fbc = e.fbc;\n  if (e.fbp) ud.fbp = e.fbp;\n  const eventos = [];\n  for (const ev of e.eventos || []) {\n    if (!ev.event_name || !ev.event_id) {\n      throw new Error('Evento sin event_name o sin event_id con enviar_a_meta = true: el envío no es de paginas.py o está roto.');\n    }\n    const out = { event_name: ev.event_name, event_id: ev.event_id, event_time: e.event_time,\n      action_source: 'website', event_source_url: e.event_source_url, user_data: ud };\n    const cd = {};\n    if (ev.value !== undefined && ev.value !== null) { cd.value = Number(ev.value); cd.currency = ev.currency; }\n    if (e.content_name) cd.content_name = e.content_name;\n    if (Object.keys(cd).length) out.custom_data = cd;\n    eventos.push(out);\n  }\n  if (eventos.length) salida.push({ json: { ...item.json, eventos } });\n}\nreturn salida;\n"
+      },
+      "name": "Consentimiento → eventos CAPI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Monta el cuerpo para POST /{dataset}/events. Por defecto solo sale con test_event_code: el envío real exige\n// ENVIO_REAL_APROBADO = true en Configuración (igual que `capi.py enviar --real --confirmo`).\nconst salida = [];\nfor (const item of $input.all()) {\n  const j = item.json;\n  const c = j.config || {};\n  const dataset = String(c.DATASET_ID || '');\n  if (!/^\\d{6,20}$/.test(dataset)) throw new Error('Rellena DATASET_ID en Configuración.');\n  const cuerpo = { data: j.eventos };\n  const codigo = String(c.TEST_EVENT_CODE || '').trim();\n  if (codigo && !codigo.startsWith('<<')) {\n    cuerpo.test_event_code = codigo;\n  } else if (c.ENVIO_REAL_APROBADO !== true) {\n    throw new Error('Sin TEST_EVENT_CODE no se envía nada: un evento real de prueba ensucia el dataset. '\n      + 'Para producción, ENVIO_REAL_APROBADO = true con el sí del cliente.');\n  }\n  salida.push({ json: { cuerpo, dataset } });\n}\nreturn salida;\n"
+      },
+      "name": "Montar payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v27.0/{{ $json.dataset }}/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.cuerpo) }}",
+        "options": {}
+      },
+      "name": "Enviar a la Conversions API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Páginas · envío": {
+      "main": [
+        [
+          {
+            "node": "Leer envío",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer envío": {
+      "main": [
+        [
+          {
+            "node": "Guardar en el CRM (siempre)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Configuración (rellena esto)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración (rellena esto)": {
+      "main": [
+        [
+          {
+            "node": "Consentimiento → eventos CAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consentimiento → eventos CAPI": {
+      "main": [
+        [
+          {
+            "node": "Montar payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar payload": {
+      "main": [
+        [
+          {
+            "node": "Enviar a la Conversions API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "active": false
+}

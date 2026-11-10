@@ -1,0 +1,91 @@
+# Perfil «anuncio»: vídeo para anuncios de Meta (Reels, Stories y Feed).
+# Se monta en 9:16 (1080×1920) y se entrega también en 4:5 (1080×1350), cada formato con su propia maquetación.
+# Fuentes: meta-ads-kb/07-instagram-placements-mensajeria/03-specs-safe-zones-formatos.md (specs, zonas seguras,
+# tolerancia de ratio del 1 %, música con licencia) y meta-ads-kb/03-creatividad/04-formatos-y-estilos.md (9:16 con
+# audio y elementos clave en la zona segura).
+# Lo usan `ck anuncio` (montaje directo) y el montaje avanzado (`ck new --fmt anuncio`).
+id: anuncio
+canvas: {width: 1080, height: 1920, fps: 30}
+
+# Zona segura 9:16 [OFFICIAL META]: 14 % arriba (269 px), 35 % abajo (672 px), 6 % a cada lado (65 px).
+# Franja derecha de botones de Reels desde y≈1152, ~227 px de ancho [STRONG INFERENCE] (medición de terceros).
+safe_zone: {top: 269, bottom: 672, left: 65, right: 227, right_from_y: 1152}
+loudness: {lufs: -14.0, true_peak: -1.5}     # [HYPOTHESIS] objetivo habitual de redes; Meta no publica uno
+
+outro: {enabled: false}
+
+layout_defaults:
+  layout.full_face: {max_scale: 1.15}
+
+captions:
+  # Subtítulos en el tercio central (no abajo: la interfaz tapa el 35 % inferior) [STRONG INFERENCE].
+  rail_shared: true
+  rail_y_full: 0.60       # gráficos a pantalla completa: raíl en y≈1152
+  rail_chin_gap: 70       # cara completa: el raíl a 70 px bajo el mentón
+  rail_max_px: 1180       # nunca más abajo: la base queda por encima de y=1248 (inicio del 35 % inferior)
+  rail_y: 0.58
+  max_words: 3
+  lead_frames: 1
+
+music:
+  # Sin cama por defecto: en anuncios de Reels no se puede usar música con licencia comercial [OFFICIAL META].
+  # Activa una pista propia o libre de derechos para publicidad con `ck anuncio --musica <archivo>` o
+  # `tokens.music_track` en el plan avanzado.
+  enabled: false
+  gain_lu: -18.0          # la cama ~18 LU por debajo de la voz [HYPOTHESIS]
+  brief:
+    mood: "fondo discreto y moderno para un anuncio de software o servicios, con impulso, nada épico"
+    bpm: 100
+    instruments: "sintetizadores suaves, bajo redondo, percusión ligera"
+    avoid: "voces, melodía protagonista, drops agresivos"
+  dropout_before_reveal: true
+
+sfx:
+  every_animation: true   # cada animación visible lleva un sonido sutil
+  max_per_min: 18         # tope de gestos sonoros por minuto [HYPOTHESIS]
+  racimo_1s_max: 2
+  max_hits: 2
+  max_lead_ms: 40         # nunca más de 40 ms antes de la imagen (ITU-R BT.1359)
+
+componentes_vetados: []   # componentes que el director no puede usar en este perfil
+
+style_default: firma
+
+# ── Montaje directo (`ck anuncio`) ──
+# Cuerpos en unidades de libass: el cuerpo es el alto de línea (winAscent + winDescent), ~1,2 veces el em de la fuente.
+anuncio:
+  formatos:
+    9x16:
+      width: 1080
+      height: 1920
+      zona_segura: {top: 269, bottom: 672, left: 65, right: 65, franja_derecha: {x: 853, desde_y: 1152}}
+      hook: {y: 300, ancho_max: 950, cuerpo: 96, cuerpo_min: 62}
+      subtitulos: {y_centro: 1060, cuerpo: 90, ancho_max: 900}
+      cta: {y: 860, cuerpo: 78, ancho_max: 860}
+      logo: {y: 640, alto: 150}
+      etiqueta_ia: {x: 65, y: 1215, cuerpo: 32}
+    4x5:
+      width: 1080
+      height: 1350
+      # Feed: la interfaz queda fuera de la imagen; margen interior del 5 % [HYPOTHESIS]
+      zona_segura: {top: 68, bottom: 68, left: 54, right: 54}
+      hook: {y: 96, ancho_max: 960, cuerpo: 90, cuerpo_min: 58}
+      subtitulos: {y_centro: 1050, cuerpo: 84, ancho_max: 920}
+      cta: {y: 640, cuerpo: 74, ancho_max: 880}
+      logo: {y: 440, alto: 140}
+      etiqueta_ia: {x: 54, y: 1250, cuerpo: 30}
+  hook:
+    inicio_max: 2.0       # el hook tiene que estar en pantalla dentro de los 2 primeros segundos
+    duracion: 2.5         # se mantiene hasta 2,5 s [HYPOTHESIS]; la QA avisa si dura más de 3,5 s
+  subtitulos:
+    palabras_max: 3
+    caracteres_max: 18
+  cta:
+    duracion: 2.5         # últimos segundos con la llamada a la acción y el logo
+  silencios:
+    umbral_db: -35        # por debajo del pico de voz se considera silencio [HYPOTHESIS]
+    minimo: 0.35          # solo se quitan silencios de ≥ 0,35 s
+    margen: 0.08          # se deja este aire antes y después de la voz
+  calidad:
+    duracion_max_recomendada: 60    # aviso por encima [HYPOTHESIS]; Reels admite hasta 15 min
+    lufs_tolerancia: 1.5

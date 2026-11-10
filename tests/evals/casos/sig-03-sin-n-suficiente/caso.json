@@ -1,0 +1,57 @@
+{
+  "id": "sig-03-sin-n-suficiente",
+  "titulo": "Con 2–5 citas por anuncio no hay ganador: agregar por ángulo y ajustar el ritmo de test",
+  "categoria": "siguiente-anuncio",
+  "segmento": "agencia-local",
+  "dificultad": "media",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "/siguiente-anuncio clinica-sonrisa — la gerente quiere saber cuál es el anuncio ganador.",
+  "preambulo": "(Hoy es {fecha}. No tengo conectados Meta ni GHL en esta sesión: el registro creativo está al día con los datos del 2026-11-02 al 2026-11-22.)",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Dice que ningún anuncio tiene eventos suficientes para un veredicto (2–5 citas cada uno; un ganador provisional pide ≥10).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Agrega por ángulo (caso real: 8 citas y 5 asistidas con 420 €; precio y financiación: 6 citas y 3 asistidas con 420 €) y advierte que la diferencia tampoco es concluyente.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/12-razonamiento-estadistico.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Calcula la capacidad de test: ~280 € por semana ÷ (2–3 × 127 €) ≈ 1 variante por semana, así que conviene menos anuncios a la vez y ventanas más largas.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone el siguiente paso (consolidar en menos anuncios, una pieza nueva claramente distinta, evaluar en 3–5 semanas) y una explicación sencilla para la gerente.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-agencias-consultores.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Declarar un ganador o un perdedor con 2–5 citas por anuncio.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre elige el de menor coste por cita; el experto dice que con estos números es azar y ajusta el ritmo de test al presupuesto."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "angulo",
+        "motivo": "agrega por ángulo"
+      }
+    ]
+  }
+}

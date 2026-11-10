@@ -1,0 +1,28 @@
+<form class="pos-formulario{{#plano}} pos-formulario--plano{{/plano}}" id="{{dom_id}}" action="#" method="post" novalidate data-pos-formulario="{{id}}" data-evento="{{evento}}" data-tipo-envio="{{tipo_envio}}" data-siguiente="{{siguiente}}" data-alternativa="{{alternativa}}" data-mensaje-ok="{{mensaje_ok}}"{{#titulo?}} aria-labelledby="{{dom_id}}-titulo"{{/titulo?}}>
+  {{#titulo?}}<h2 class="pos-formulario__titulo" id="{{dom_id}}-titulo" tabindex="-1">{{titulo}}</h2>
+  {{/titulo?}}{{#texto?}}<p class="pos-texto-suave">{{texto}}</p>
+  {{/texto?}}{{#filas}}{{#doble}}<div class="pos-campos-fila">{{/doble}}
+  {{#campos}}{{#es_casilla}}<div class="pos-casilla">
+    <input type="checkbox" id="{{dom_id}}" name="{{nombre}}" data-pos-campo="casilla" data-etiqueta="{{etiqueta}}"{{#requerido}} required{{/requerido}}>
+    <label for="{{dom_id}}">{{etiqueta}}</label>
+  </div>{{/es_casilla}}{{^es_casilla}}<div class="pos-campo">
+    <label class="pos-etiqueta" for="{{dom_id}}">{{etiqueta}}{{^requerido}} <span class="pos-opcional">(opcional)</span>{{/requerido}}</label>
+    {{#ayuda?}}<p class="pos-ayuda" id="{{dom_id}}-ayuda">{{ayuda}}</p>
+    {{/ayuda?}}{{#es_input}}<input class="pos-input" id="{{dom_id}}" name="{{nombre}}" type="{{tipo_html}}" data-pos-campo="{{validacion}}" data-etiqueta="{{etiqueta}}"{{#autocomplete?}} autocomplete="{{autocomplete}}"{{/autocomplete?}}{{#inputmode?}} inputmode="{{inputmode}}"{{/inputmode?}}{{#sin_corrector}} autocapitalize="off" spellcheck="false"{{/sin_corrector}}{{#placeholder?}} placeholder="{{placeholder}}"{{/placeholder?}}{{#maxlength?}} maxlength="{{maxlength}}"{{/maxlength?}}{{#requerido}} required{{/requerido}}{{#ayuda?}} aria-describedby="{{dom_id}}-ayuda"{{/ayuda?}}>{{/es_input}}{{#es_select}}<select class="pos-select" id="{{dom_id}}" name="{{nombre}}" data-pos-campo="texto" data-etiqueta="{{etiqueta}}"{{#requerido}} required{{/requerido}}{{#ayuda?}} aria-describedby="{{dom_id}}-ayuda"{{/ayuda?}}>
+      <option value="">Elige una opción</option>
+      {{#opciones}}<option value="{{valor}}">{{texto}}</option>
+      {{/opciones}}</select>{{/es_select}}{{#es_textarea}}<textarea class="pos-textarea" id="{{dom_id}}" name="{{nombre}}" data-pos-campo="texto" data-etiqueta="{{etiqueta}}" rows="4"{{#maxlength?}} maxlength="{{maxlength}}"{{/maxlength?}}{{#placeholder?}} placeholder="{{placeholder}}"{{/placeholder?}}{{#requerido}} required{{/requerido}}{{#ayuda?}} aria-describedby="{{dom_id}}-ayuda"{{/ayuda?}}></textarea>{{/es_textarea}}
+  </div>{{/es_casilla}}
+  {{/campos}}{{#doble}}</div>{{/doble}}
+  {{/filas}}<div class="pos-trampa" aria-hidden="true">
+    <label for="{{dom_id}}-web2">No rellenes este campo</label>
+    <input type="text" id="{{dom_id}}-web2" name="web2" tabindex="-1" autocomplete="off">
+  </div>
+  {{#consentimientos}}<div class="pos-casilla">
+    <input type="checkbox" id="{{dom_id}}" name="{{nombre}}" data-pos-campo="casilla" data-etiqueta="{{etiqueta_corta}}">
+    <label for="{{dom_id}}">{{texto}} <span class="pos-opcional">(opcional)</span></label>
+  </div>
+  {{/consentimientos}}<button type="submit" class="pos-boton pos-boton--bloque">{{boton}}</button>
+  <p class="pos-estado" data-pos-estado role="status" aria-live="polite"></p>
+  <p class="pos-legal">{{legal}}{{#privacidad?}} Más información en la <a href="{{privacidad}}">política de privacidad</a>.{{/privacidad?}}</p>
+</form>

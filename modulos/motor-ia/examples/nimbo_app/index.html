@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nimbo · Seguimiento de leads automático</title>
+<!-- App web FICTICIA para pruebas del motor (capturas «reales» de una app con Playwright). Nimbo no existe. -->
+<style>
+  :root { --brand:#2F5BEA; --brand2:#E9EEFF; --ink:#141824; --muted:#667085; --card:#FFFFFF; --bg:#F5F6FA; --ok:#12B76A; --warn:#F79009; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); }
+  .screen { display: none; padding: 54px 18px 30px; min-height: 100vh; }
+  body[data-screen="home"] #home, body[data-screen="flujo"] #flujo, body[data-screen="informe"] #informe { display: block; }
+  .top { display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; }
+  .logo { font-weight: 800; font-size: 26px; letter-spacing:-0.5px; }
+  .logo span { color: var(--brand); }
+  .avatar { width:36px; height:36px; border-radius:50%; background: linear-gradient(135deg,#9BB0FF,#2F5BEA); }
+  h1 { font-size: 24px; letter-spacing:-0.4px; margin: 6px 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+  .chips { display:flex; gap:8px; overflow:hidden; margin-bottom: 18px; }
+  .chip { padding: 8px 12px; border-radius: 999px; background: #fff; font-size: 13px; font-weight:600; color: var(--muted); border:1px solid #E4E7EC; white-space:nowrap; }
+  .chip.on { background: var(--ink); color:#fff; border-color: var(--ink); }
+  .card { background: var(--card); border-radius: 18px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.05); }
+  .card h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
+  .lead { display:flex; align-items:center; gap:12px; padding: 9px 0; border-top: 1px solid #F0F1F5; }
+  .lead:first-of-type { border-top: 0; }
+  .ini { width:42px; height:42px; border-radius: 50%; flex: none; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; font-size:15px; }
+  .c1{background:#7A5AF8} .c2{background:#0BA5EC} .c3{background:#F04438} .c4{background:#12B76A} .c5{background:#F79009}
+  .lead b { display:block; font-size: 15px; }
+  .lead small { color: var(--muted); font-size: 12.5px; }
+  .pill { margin-left:auto; font-size: 12px; font-weight:700; padding: 5px 9px; border-radius: 999px; white-space:nowrap; }
+  .pill.ok { color: var(--ok); background: #E7F8F0; } .pill.wait { color: var(--warn); background: #FEF4E6; } .pill.new { color: var(--brand); background: var(--brand2); }
+  .cta { display:block; text-align:center; background: var(--brand); color:#fff; font-weight:700; padding: 15px; border-radius: 16px; margin-top: 14px; font-size: 16px; }
+  .step { display:flex; gap:12px; align-items:flex-start; padding: 12px 0; border-top:1px solid #F0F1F5; }
+  .step:first-child { border-top:0; }
+  .dot { width:28px; height:28px; border-radius:9px; background: var(--brand2); color: var(--brand); font-weight:800; display:flex; align-items:center; justify-content:center; flex:none; font-size:14px; }
+  .step b { display:block; font-size:15px; } .step small { color: var(--muted); font-size:13px; }
+  .switch { margin-left:auto; width:44px; height:26px; border-radius:999px; background: var(--ok); position:relative; flex:none; }
+  .switch::after { content:""; position:absolute; right:3px; top:3px; width:20px; height:20px; border-radius:50%; background:#fff; }
+  .stats { display:flex; gap:10px; margin: 6px 0 16px; }
+  .stat { flex:1; background:#fff; border-radius:14px; padding:12px 8px; text-align:center; }
+  .stat b { display:block; font-size:20px; } .stat small { color: var(--muted); font-size:12px; }
+  .bars { display:flex; align-items:flex-end; gap:8px; height:120px; padding: 6px 4px 0; }
+  .bar { flex:1; background: var(--brand); border-radius: 8px 8px 3px 3px; opacity:.85; }
+  .days { display:flex; gap:8px; padding: 6px 4px 0; } .days span { flex:1; text-align:center; font-size:12px; color: var(--muted); }
+  .note { background: var(--brand2); color: var(--brand); border-radius: 14px; padding: 12px 14px; font-weight:700; font-size:14px; margin: 4px 0 14px; }
+</style>
+</head>
+<body data-screen="home">
+<section class="screen" id="home">
+  <div class="top"><div class="logo">nimb<span>o</span></div><div class="avatar"></div></div>
+  <h1>Leads de hoy</h1>
+  <p class="sub">5 nuevos · todos contactados de forma automática</p>
+  <div class="chips"><div class="chip on">Hoy</div><div class="chip">Sin responder</div><div class="chip">Con cita</div><div class="chip">Formularios</div></div>
+  <div class="card"><h3>Entrada</h3>
+    <div class="lead"><div class="ini c1">LM</div><div><b>Laura M.</b><small>Formulario · hace 3 min</small></div><div class="pill ok">Contactada</div></div>
+    <div class="lead"><div class="ini c2">JR</div><div><b>Javier R.</b><small>WhatsApp · hace 12 min</small></div><div class="pill ok">Cita pedida</div></div>
+    <div class="lead"><div class="ini c3">AS</div><div><b>Ana S.</b><small>Formulario · hace 40 min</small></div><div class="pill wait">Esperando</div></div>
+    <div class="lead"><div class="ini c4">MP</div><div><b>Marcos P.</b><small>Web · hace 1 h</small></div><div class="pill ok">Contactado</div></div>
+    <div class="lead"><div class="ini c5">CG</div><div><b>Carmen G.</b><small>Formulario · hace 2 h</small></div><div class="pill new">Nuevo</div></div>
+  </div>
+  <a class="cta">Ver flujos activos</a>
+</section>
+
+<section class="screen" id="flujo">
+  <div class="top"><div class="logo">nimb<span>o</span></div><div class="avatar"></div></div>
+  <h1>Seguimiento de leads</h1>
+  <p class="sub">Flujo activo · se ejecuta con cada formulario nuevo</p>
+  <div class="card">
+    <div class="step"><div class="dot">1</div><div><b>Llega un formulario</b><small>Formulario instantáneo o web</small></div><div class="switch"></div></div>
+    <div class="step"><div class="dot">2</div><div><b>Mensaje de bienvenida</b><small>Al momento, con su nombre</small></div><div class="switch"></div></div>
+    <div class="step"><div class="dot">3</div><div><b>Enlace para reservar</b><small>Calendario del equipo comercial</small></div><div class="switch"></div></div>
+    <div class="step"><div class="dot">4</div><div><b>Recordatorio</b><small>Si no reserva en 24 h</small></div><div class="switch"></div></div>
+    <div class="step"><div class="dot">5</div><div><b>Aviso al comercial</b><small>Cuando hay cita confirmada</small></div><div class="switch"></div></div>
+  </div>
+  <a class="cta">Editar flujo</a>
+</section>
+
+<section class="screen" id="informe">
+  <div class="top"><div class="logo">nimb<span>o</span></div><div class="avatar"></div></div>
+  <h1>Resumen de la semana</h1>
+  <p class="sub">Del lunes al domingo · todos los canales</p>
+  <div class="stats"><div class="stat"><b>48</b><small>leads</small></div><div class="stat"><b>2 min</b><small>1.ª respuesta</small></div><div class="stat"><b>17</b><small>citas</small></div></div>
+  <div class="note">Ningún lead se ha quedado sin respuesta esta semana</div>
+  <div class="card"><h3>Leads por día</h3>
+    <div class="bars"><div class="bar" style="height:55%"></div><div class="bar" style="height:72%"></div><div class="bar" style="height:64%"></div><div class="bar" style="height:90%"></div><div class="bar" style="height:78%"></div><div class="bar" style="height:30%"></div><div class="bar" style="height:22%"></div></div>
+    <div class="days"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+  </div>
+  <a class="cta">Descargar informe</a>
+</section>
+<script>
+  const s = new URLSearchParams(location.search).get('s'); if (s) document.body.dataset.screen = s;
+</script>
+</body>
+</html>

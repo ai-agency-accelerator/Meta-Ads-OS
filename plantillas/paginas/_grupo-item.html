@@ -1,0 +1,6 @@
+<div class="pos-grupo__item" data-pos-grupo-item>
+<div class="pos-grupo__cabecera">
+<p class="pos-grupo__titulo">{{etiqueta_item}} <span data-pos-grupo-numero>{{numero}}</span></p>
+<button type="button" class="pos-grupo__quitar" data-pos-grupo-quitar>Quitar<span class="pos-oculto"> {{etiqueta_item_min}} <span data-pos-grupo-numero>{{numero}}</span></span></button>
+</div>
+{{#campos}}{{> campo-diag}}{{/campos}}</div>

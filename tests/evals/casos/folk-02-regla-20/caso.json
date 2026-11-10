@@ -1,0 +1,62 @@
+{
+  "id": "folk-02-regla-20",
+  "titulo": "La regla del 20 % no existe: subir 250 → 300 de una vez con criterio",
+  "categoria": "folklore",
+  "segmento": "consultiva-b2b",
+  "dificultad": "baja",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Quiero subir el presupuesto de Acme de 250 a 300 € al día, pero me han dicho que nunca suba más de un 20 % de golpe o se resetea el aprendizaje. ¿Lo hago en dos veces?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Dice que la regla del 20 % no es oficial (Meta habla de magnitud; es un ritmo prudente, no una ley).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M05"
+      },
+      {
+        "id": "d2",
+        "texto": "Explica que 250 → 300 (+20 %) se puede hacer de una vez y que partirlo no aporta; el ritmo prudente es de 15–30 % cada 3–7 días.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Comprueba antes la economía y la capacidad (coste por cualificado frente al target, 9 de 12 llamadas) y que 300 cabe en los topes.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md §1"
+      },
+      {
+        "id": "d4",
+        "texto": "Fija evaluación (≥7 días, coste incremental) y pide confirmación sin ejecutar.",
+        "peso": 2,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Presentar la regla del 20 % como norma oficial o necesaria.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M05"
+      },
+      {
+        "id": "n2",
+        "texto": "Ejecutar el cambio o decir que lo ha hecho.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre parte la subida en dos por superstición; el experto la justifica por economía y capacidad."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "20\\s?%",
+        "motivo": "trata la regla del 20 %"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+/* lower_third.name — filete oro + nombre Montserrat 800 + cargo; sin placa oscura (sombra de texto suave). */
+.lt3{position:absolute;display:flex;align-items:center;gap:24px;pointer-events:none;color:var(--ck-white)}
+.lt3-right{flex-direction:row-reverse;text-align:right}
+.lt3 .lt3-logo{flex:none;width:104px;height:104px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.lt3 .lt3-bar{flex:none;align-self:stretch;width:9px;border-radius:5px;background:var(--tone);transform-origin:50% 0;
+  box-shadow:0 4px 12px rgba(0,0,0,.30)}
+.lt3 .lt3-txt{display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.lt3 .lt3-name{font:800 70px/1.02 var(--ck-sans);letter-spacing:-.025em;white-space:nowrap}
+.lt3 .lt3-role{font:600 44px/1.1 var(--ck-sans);letter-spacing:-.01em;color:rgba(255,255,255,.86);white-space:nowrap}
+.lt3 .lt3-plated{position:relative;padding:14px 30px 18px 26px}
+.lt3 .lt3-plate{position:absolute;inset:0;z-index:-1;border-radius:0 18px 18px 0;background:rgba(4,18,29,.84);transform-origin:0 50%;
+  box-shadow:0 10px 30px rgba(0,0,0,.30)}
+.lt3-right .lt3-plate{border-radius:18px 0 0 18px;transform-origin:100% 50%}
+.lt3 .lt3-plated .gxx-mi{text-shadow:none}
+.lt3 .lt3-bar{position:relative;z-index:2;margin-right:-24px;border-radius:5px 0 0 5px}
+.lt3-right .lt3-bar{margin-right:0;margin-left:-24px;border-radius:0 5px 5px 0}
+.lt3 .lt3-txt{isolation:isolate}

@@ -1,0 +1,63 @@
+{
+  "id": "sig-02-saas-activacion",
+  "titulo": "La prueba barata no activa: iterar el anuncio que trae clientes de pago",
+  "categoria": "siguiente-anuncio",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-23",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "/siguiente-anuncio nimbo",
+  "preambulo": "(Hoy es {fecha}. No tengo conectados Meta ni Stripe en esta sesión: el registro creativo está al día con las pruebas del 2026-10-12 al 2026-11-08, ya maduras; mira también datos/.)",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Usa activación y pago por anuncio: la demo de pantalla (~104 € por activada, ~223 € por cliente de pago) gana al contador de horas (~240 € por activada, 840 € por pago) pese a su coste por prueba más alto (52 € frente a 28 €).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Lo trata como provisional (15 activaciones, 7 pagos), no como confirmado.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Propone 1–3 anuncios que iteran el concepto de la demo para gestorías y limitar o cortar el contador de horas (activación del 12 %).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Señala que Meta optimiza StartTrial y por eso favorece al anuncio de pruebas baratas; recomienda enviar la activación por CAPI y medirla por anuncio.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Comprueba la madurez de las cohortes (prueba de 14 días) antes de comparar pagos.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/12-attribution-lag.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Elegir el contador de horas como ganador por su coste por prueba.",
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre celebra el coste por prueba de 28 €; el experto ve un 12 % de activación y elige el anuncio que convierte en pago."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "activ",
+        "motivo": "decide con la activación"
+      }
+    ]
+  }
+}

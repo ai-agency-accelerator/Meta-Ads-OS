@@ -1,0 +1,152 @@
+# Mapa animación → sonido del montaje avanzado de cutkit. Lo lee `cutkit.audio.sfxplan` cuando el perfil tiene
+# `sfx.every_animation: true`: cada animación visible lleva su sonido, sutil y variado. Los sonidos salen de los EVENTOS
+# visuales reales (`window.__ckEvents` → versions/<vid>/events.json) y suenan 20 ms antes del primer fotograma visible.
+# Los ficheros son los id de la biblioteca sintética CC0 (`ck instalar` → datos/sfx/) o de tu biblioteca (CK_SFX_DIR).
+#
+# - Procesado de móvil en todo salvo subgraves: paso alto 250 Hz + campana +4 dB a 3 kHz (`eq_movil`). Ninguna muestra
+#   con centroide < `centroide_min_hz` entra por esa cadena (quedaría en un soplo inaudible), salvo `excepcion_centroide`.
+# - Papeles y niveles (LU respecto a la voz a corto plazo): entrada −16…−14 · acento −12…−10 · textura −18.
+# - Sin pisar consonantes: si un arranque de palabra cae a −10…+50 ms, el SFX se corre ≤ 40 ms; si no puede, −3 dB.
+# - Densidad: tope del perfil `sfx.max_per_min` en GESTOS por minuto (un gesto = un sonido con sus capas); al pasarse se
+#   quitan los eventos internos de cada bloque y nunca el primero, un corte de layout ni nada del gancho (t < 8 s).
+#   Guardas: ≤ `sfx.racimo_1s_max` gestos en 1 s; dos SFX a < `dedupe_s` → queda el de más prioridad.
+# - Paletas: `ficheros` rotan; `reserva` entra si los principales ya suenan 4 veces en ese minuto; `tono` en semitonos
+#   enteros; `retardo_ms` = cuánto tarda la pieza en verse tras arrancar el tween; `sync: pico` alinea el máximo del
+#   sonido (aires) y no su ataque; `capa` suma otro fichero a `rel` dB; `pulsacion` usa una sola tecla del tecleo.
+# - Opciones de una entrada del mapa (tras paleta y papel): «lu=-18» nivel propio; «ms=70» retardo propio;
+#   «prop=ring» solo suena si `props.ring` del item no es false; `escalera`, `sustituye`, `protegido`, `opcional`.
+# - Mapa: «componente@variante» (props.style, props.mode o props.inputs) manda sobre «componente»; una clave
+#   «evento+s» suena s segundos después de ese evento. `props.sfx: false` en un bloque animado está prohibido (lo avisan
+#   `ck validate` y la QA `sfx.silent_block`): para quitar un sonido, `props.sfx_skip: ["evento:n"]`; para bajarlo,
+#   `props.sfx_rel`.
+
+centroide_min_hz: 250
+# Ficheros reservados: solo suenan en su paleta (la firma); fuera de ella suena el sustituto, sin tono.
+reservados:
+  firma_1: {paletas: [foco_oferta], sustituto: [pop_1, pop_2]}
+  brillo_3: {paletas: [foco_oferta], sustituto: [brillo_1]}
+
+niveles: {entrada: -15.0, acento: -11.0, textura: -18.0}
+variacion_lu: 1.0            # ± sobre el nivel del papel, determinista
+dedupe_s: 0.25               # dos SFX a menos de esto: queda el de más prioridad
+eq_movil: {hp: 250, peak_hz: 3000, peak_db: 4.0}
+
+paletas:
+  aire_corto:    {ficheros: [aire_2, aire_1, aire_3], max_s: 0.30, tono: [-2, 2], sync: pico}
+  pop_suave:     {ficheros: [pop_1, pop_2, click_1], reserva: [tick_1, bip_1], max_s: 0.30, tono: [0, 0], retardo_ms: 20}
+  click_ui:      {ficheros: [click_1, tick_1, click_2], max_s: 0.12, tono: [-1, 1], retardo_ms: 20}
+  click_pliega:  {ficheros: [click_2], max_s: 0.20, tono: [-1, 0]}
+  resaltado:     {ficheros: [click_1, tick_1], max_s: 0.12, tono: [1, 3], retardo_ms: 20}
+  tecla:         {ficheros: [tecleo_1, tecleo_2], max_s: 0.10, tono: [-1, 1], pulsacion: true, escalera_min_s: 0.03}
+  acento:        {ficheros: [pop_1, bip_1, pop_2], max_s: 0.45, tono: [0, 0], retardo_ms: 20}
+  sello:         {ficheros: [toc_1], max_s: 0.15, tono: [-1, 0], capa: {fichero: click_2, rel: -5}, retardo_ms: 20, brillo_por_voz: false}
+  tic_suave:     {ficheros: [tick_1], reserva: [click_1, tick_3, tick_2], max_s: 0.10, tono: [-1, 0], retardo_ms: 20}
+  # eventos que los componentes emiten en el fotograma del impacto: sin `retardo_ms`
+  trazo_suave:   {ficheros: [aire_3, aire_1], max_s: 0.20, tono: [0, 1], sync: pico}
+  pulso:         {ficheros: [brillo_2], reserva: [brillo_1], max_s: 0.25, tono: [0, 1], capa: {fichero: aire_3, rel: -8}}
+  encaje:        {ficheros: [toc_1], max_s: 0.12, tono: [-2, -1], capa: {fichero: click_2, rel: -10}, brillo_por_voz: false}
+  clic_apagado:  {ficheros: [click_2], max_s: 0.07, tono: [-2, -2], brillo_por_voz: false}
+  tic_capa:      {ficheros: [tick_2, tick_3], max_s: 0.08, tono: [0, 0], escalera_min_s: 0.06}
+  sello_ding:    {ficheros: [ding_1], reserva: [bip_1], max_s: 0.45, tono: [0, 0], capa: {fichero: brillo_2, rel: -8}}
+  # la flecha o el rotulador se dibuja: la primera tinta se ve ~90 ms después de arrancar
+  trazo:         {ficheros: [aire_3], max_s: 0.25, tono: [0, 1], sync: pico, retardo_ms: 90}
+  encendido:     {ficheros: [pop_1], max_s: 0.40, tono: [0, 0], capa: {fichero: brillo_1, rel: -6}, retardo_ms: 20}
+  clavar:        {ficheros: [pop_3], max_s: 0.25, tono: [-2, -2], capa: {fichero: click_2, rel: -5}, retardo_ms: 20, brillo_por_voz: false}
+  brillo:        {ficheros: [brillo_1, brillo_2], max_s: 0.30, tono: [0, 1]}
+  aviso:         {ficheros: [ding_1, ding_2], max_s: 0.50, tono: [0, 0], retardo_ms: 20}
+  giro:          {ficheros: [aire_2], max_s: 0.25, tono: [0, 1], sync: pico, capa: {fichero: click_2, rel: -8}, retardo_ms: 20}
+  visto:         {ficheros: [pop_2, bip_1], max_s: 0.30, tono: [0, 0], capa: {fichero: brillo_1, rel: -8}, retardo_ms: 20}
+  circuito:      {ficheros: [tick_2, tick_3], max_s: 0.22, tono: [0, 1], retardo_ms: 20}
+  # piezas que vuelan y se funden en un icono: el aire pica antes del golpe, mientras vuelan
+  juntar:        {ficheros: [bip_1, pop_1], max_s: 0.40, tono: [0, 0], capa: {fichero: aire_1, rel: -8, offset_s: -0.20}, retardo_ms: 20}
+  # la aguja barre la vuelta: tic-tac rápido muy bajo; `protegido`: ni el tope ni la guarda de racimo lo quitan
+  reloj_barrido: {ficheros: [reloj_barrido_1], max_s: 0.75, tono: [0, 0], nivel_lu: -20.0, protegido: true}
+  # viz.offer_grid: UNA firma para el foco de cada oferta (mismo fichero en todas): pluck + brillo. `firma: true`: la
+  #   QA de repetición no la cuenta; `nivel_lu` fijo; `ancla_corte_s`: si hay un corte de layout ≤ 0,1 s antes del foco,
+  #   suena en el corte
+  foco_oferta:   {ficheros: [firma_1], max_s: 0.40, tono: [0, 0], capa: {fichero: brillo_3, rel: -6}, paso_st: 0, nivel_lu: -12.0,
+                  firma: true, ancla_corte_s: 0.1, excepcion_centroide: true}
+
+texturas:
+  reloj:         {fichero: tictac_1, rel_lu: -24.0, max_s: 1.6, fade_in: 0.03, fade_out: 0.35, eventos: [number], inicio: palabra_siguiente}
+
+eventos:
+  compare.vs:          {enter: [aire_corto, entrada], option: [pop_suave, entrada, escalera], flatten: [juntar, entrada],
+                        lock: [click_ui, acento], layers: [tic_suave, textura], dock: [encaje, entrada, "lu=-17", "ms=-70"]}
+  logo.reveal:         {logo: [pop_suave, entrada], mark: [trazo, acento, "ms=-60", "lu=-15"]}
+  logo.row:            {logo: [pop_suave, entrada, escalera, "ms=50"], enter: [tic_suave, textura, "lu=-20"], connect: [circuito, entrada, escalera],
+                        merge: [juntar, acento], off: [clic_apagado, textura, escalera, "lu=-21"]}
+  demo.snippet:        {enter: [click_ui, entrada], highlight: [resaltado, entrada], check: [visto, acento, escalera],
+                        field: [tecla, textura, escalera]}
+  flow.pipeline:       {enter: [aire_corto, entrada], logo: [pop_suave, entrada], card_drop: [pop_suave, entrada, escalera],
+                        lock: [click_pliega, entrada], flip: [giro, entrada, sustituye],
+                        clip: [brillo, entrada], trim: [click_pliega, entrada],
+                        link: [trazo_suave, entrada, escalera, "lu=-18"], pulse: [pulso, textura, escalera, "lu=-19"],
+                        agent: [pop_suave, entrada]}
+  flow.pipeline@tiles: {merge: [juntar, acento], lock: [aviso, acento]}
+  media.capture_plane: {enter: [aire_corto, entrada]}
+  media.slot:          {media.enter: [tic_suave, textura, "lu=-20"]}
+  media.ui_focus:      {media.enter: [tic_suave, textura, "lu=-20"], media.focus: [aire_corto, textura, "lu=-20"],
+                        media.ring: [trazo, entrada, "ms=0", "prop=ring"]}
+  keyword.highlight:   {mark: [trazo, acento], replace: [pop_suave, entrada]}
+  scene.capture3d:     {enter: [aire_corto, entrada]}
+  stat.big_number:     {enter: [pop_suave, entrada], number: [acento, acento]}
+  title.behind_subject: {enter: [aire_corto, entrada], title.land: [acento, acento]}
+  title.lockup_grid:   {word: [click_ui, entrada, escalera, opcional]}
+  cta.comment:         {type: [tecla, textura, escalera, protegido], like: [pop_suave, entrada, "lu=-16", protegido]}
+  viz.decision:        {enter: [aire_corto, entrada], option: [click_ui, textura, escalera], flip: [click_ui, entrada]}
+  viz.token_stream:    {enter: [aire_corto, entrada], token: [tecla, textura], choose: [acento, acento]}
+  timeline.steps:      {enter: [aire_corto, entrada], step: [pop_suave, entrada, escalera], mark: [trazo, acento]}
+  card.lesson:         {enter: [aire_corto, entrada], stamp: [sello, acento], play: [click_ui, entrada], badge: [sello, acento]}
+  caption.lockup:      {lockup.enter: [pop_suave, entrada, "lu=-22"], lockup.hero: [trazo, acento]}
+  viz.decision@inbox:  {stamp: [sello, acento, sustituye], choose: [sello, acento, sustituye]}
+  viz.decision@route:  {arrow: [trazo, entrada], light: [encendido, acento, sustituye], choose: [encendido, acento, sustituye]}
+  viz.decision@meter:  {tick: [click_ui, entrada, escalera], option: [click_ui, entrada, escalera],
+                        land: [clavar, acento, sustituye], choose: [clavar, acento, sustituye]}
+  viz.puzzle:          {enter: [aire_corto, entrada], slide: [aire_corto, entrada], snap: [click_pliega, acento], shine: [brillo, entrada]}
+  viz.layers_control:  {enter: [aire_corto, entrada], build: [tic_capa, entrada, escalera, sustituye, "lu=-18"], toggle: [click_ui, entrada],
+                        seal: [sello_ding, acento, "lu=-12"]}
+  viz.offer_grid:      {enter: [aire_corto, entrada], tile: [pop_suave, textura, escalera, "ms=70"], focus: [foco_oferta, acento],
+                        name: [aire_corto, textura], pick: [clavar, acento], carry: [brillo, textura],
+                        "carry+0.2": [aire_corto, textura], spread: [aire_corto, entrada], connect: [circuito, entrada, escalera],
+                        merge: [juntar, acento], note: [resaltado, entrada]}
+  label.mode_tag:      {enter: [click_ui, textura, escalera]}
+  viz.many_to_one:     {enter: [pop_suave, textura], dim: [aire_corto, textura], pick: [encendido, acento]}
+  viz.shapes@dial:     {dial: [reloj_barrido, entrada], dial_end: [encendido, acento]}
+  viz.shapes:          {enter: [aire_corto, entrada], morph: [pop_suave, entrada, escalera], note: [resaltado, entrada],
+                        opps: [aire_corto, textura], node: [pop_suave, entrada], spread: [aire_corto, textura],
+                        client: [encendido, acento], lap: [click_ui, textura], station: [click_ui, entrada, escalera],
+                        best: [encendido, acento]}
+  viz.projects:        {enter: [aire_corto, entrada], row: [click_ui, entrada], note: [resaltado, entrada],
+                        copy: [aire_corto, entrada], vary: [encendido, acento], item: [click_ui, textura, escalera],
+                        base: [resaltado, entrada], stamp: [sello, acento], best: [encendido, acento],
+                        toggle: [click_ui, textura]}
+  viz.projects@grow:   {card: [pop_suave, entrada], grow: [brillo, entrada]}
+  viz.crm:             {enter: [aire_corto, entrada], row: [pop_suave, textura, escalera], dim: [aire_corto, textura],
+                        light: [encendido, acento, escalera]}
+  viz.road:            {enter: [aire_corto, entrada], node: [pop_suave, textura, escalera, "lu=-24", "ms=70"], highlight: [resaltado, entrada]}
+  viz.gauges:          {enter: [aire_corto, entrada], fill: [aire_corto, entrada], limit: [click_ui, textura]}
+  viz.capture_cam:     {enter: [tic_suave, textura, "lu=-20"], sheet: [aire_corto, textura], mark: [trazo, acento, "ms=-60", "lu=-15"], box: [resaltado, acento], row: [pop_suave, entrada], lit: [click_ui, entrada, escalera, "lu=-20"]}
+  viz.sessions:        {pop: [pop_suave, entrada], arrange: [aire_corto, textura], hop: [click_ui, textura, escalera], marker: [pop_suave, textura],
+                        fly: [juntar, acento], logo: [encendido, acento], swing: [aviso, acento], wire: [circuito, entrada], pulse: [pulso, textura, escalera],
+                        dim: [aire_corto, textura], mark: [trazo, acento, "ms=-60", "lu=-15"]}
+  viz.session_tree:    {head: [pop_suave, entrada], row: [pop_suave, textura, escalera], dim: [aire_corto, textura], flag: [encendido, acento],
+                        born: [pop_suave, entrada], tree: [aire_corto, entrada], agent: [pop_suave, textura], light: [encendido, acento],
+                        fly: [aire_corto, entrada], branch: [trazo, textura], pin: [clavar, entrada], glow: [brillo, textura]}
+  viz.search_tasks:    {enter: [aire_corto, entrada], burst: [aviso, acento], found: [resaltado, acento], tick: [click_ui, textura],
+                        swap: [aire_corto, entrada], mark: [trazo, acento]}
+  viz.step:            {enter: [aire_corto, entrada]}
+  viz.layer:           {enter: [aire_corto, entrada], land: [pop_suave, textura], warn: [clavar, entrada], node: [click_ui, textura]}
+  viz.scope:           {enter: [aire_corto, entrada], grow: [pop_suave, textura, escalera], warn: [clavar, entrada], mark: [trazo, acento]}
+  viz.duel_board:      {enter: [aire_corto, entrada], land: [pop_suave, entrada], row: [click_ui, textura],
+                        value: [pop_suave, entrada], highlight: [resaltado, entrada], node: [click_ui, textura],
+                        stop: [clavar, entrada], pick: [encendido, acento]}
+  viz.mode_ladder:     {enter: [aire_corto, entrada], tile: [pop_suave, textura, escalera], land: [pop_suave, textura, escalera],
+                        highlight: [resaltado, entrada, escalera], option: [click_ui, textura], name: [aire_corto, textura],
+                        label: [click_ui, textura]}
+  title.lockup_hero:   {word: [pop_suave, entrada, escalera]}
+  list.build:          {option: [pop_suave, entrada, escalera]}
+
+cues:
+  viz.puzzle:          {right: [aire_corto, entrada], lock: [click_pliega, acento]}
+  callout.arrow:       {point: [trazo, entrada, sustituye, "lu=-18", "ms=230"]}

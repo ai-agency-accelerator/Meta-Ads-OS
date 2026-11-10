@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Meta Ads OS — Guía completa</title>
+<style>
+:root{
+  --bg:#ffffff;--fg:#0a0a0a;--muted:#5c5c5c;--line:rgba(10,10,10,.14);--line-strong:#0a0a0a;
+  --soft:#f4f4f2;--code:#efefec;--strong-bg:#0a0a0a;--strong-fg:#ffffff;
+  --warn:#b42318;--warn-soft:#fdf0ee;--ok:#1e7a3c;
+  --rojo:#d92d20;--ambar:#e0a106;--verde:#2e9e5b;--blanco:#d4d4d4;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121315;--fg:#ececea;--muted:#a3a3a0;--line:rgba(255,255,255,.14);--line-strong:#ececea;
+    --soft:#1c1d20;--code:#25272b;--strong-bg:#ececea;--strong-fg:#121315;
+    --warn:#ff8f80;--warn-soft:#2a1816;--ok:#6fd08f;
+  }
+}
+@page{size:A4;margin:18mm 16mm 18mm}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.62;font-size:16.5px}
+main{max-width:800px;margin:0 auto;padding:0 16px 64px}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:2px}
+.portada{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0 24px;border-bottom:3px solid var(--line-strong)}
+.portada .k{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.portada h1{font-size:clamp(2.6rem,9vw,4.2rem);line-height:1.02;margin:14px 0 18px;letter-spacing:-.02em}
+.portada p{font-size:1.18rem;color:var(--muted);max-width:560px}
+.portada .cifras{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0}
+.portada .cifras span{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.86rem}
+.portada .pie{margin-top:40px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:12px}
+nav.indice{padding:36px 0 8px}
+nav.indice h2{border:0;margin-bottom:10px}
+nav.indice ol{list-style:none;margin:0;columns:2;column-gap:28px}
+nav.indice li{break-inside:avoid;margin:0;padding:5px 0;border-bottom:1px solid var(--line)}
+nav.indice a{text-decoration:none;display:flex;gap:10px}
+nav.indice a:hover{text-decoration:underline}
+nav.indice .n{color:var(--muted);font-variant-numeric:tabular-nums;min-width:1.6em}
+section{padding-top:44px}
+h2{font-size:1.65rem;line-height:1.2;border-bottom:3px solid var(--line-strong);padding-bottom:8px;margin-bottom:16px;letter-spacing:-.01em}
+h2 .num{color:var(--muted);font-weight:400}
+h3{font-size:1.12rem;margin:24px 0 8px}
+h4{font-size:1rem;margin:16px 0 4px}
+p{margin:9px 0}
+ul,ol{margin:9px 0 9px 22px}
+li{margin:4px 0}
+b,strong{font-weight:650}
+.mut{color:var(--muted)}
+.peq{font-size:.88rem}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:.86em;overflow-wrap:anywhere}
+pre{background:var(--code);border-radius:8px;padding:12px 14px;margin:12px 0;overflow-x:auto;font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:.82rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+pre code{background:none;padding:0;font-size:inherit}
+.tabla{overflow-x:auto;margin:12px 0;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line-strong);padding:6px 8px;vertical-align:bottom}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.grupo td{font-weight:700;padding-top:14px;border-bottom:2px solid var(--line-strong);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+td.c1{white-space:nowrap}
+.caja{background:var(--soft);border-radius:8px;padding:14px 18px;margin:14px 0}
+.caja > b:first-child{display:block;margin-bottom:4px}
+.destacado{background:var(--strong-bg);color:var(--strong-fg);border-radius:8px;padding:16px 20px;margin:16px 0;font-size:1.04rem}
+.destacado code{background:rgba(127,127,127,.28);color:inherit}
+.aviso{border:1px solid var(--line);border-left:4px solid var(--warn);background:var(--warn-soft);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:.95rem}
+.aviso > b:first-child{color:var(--warn)}
+.paso{display:flex;gap:14px;margin:16px 0}
+.paso .n{flex:0 0 30px;height:30px;background:var(--strong-bg);color:var(--strong-fg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+.paso > div:last-child{min-width:0;flex:1}
+.dialogo{border-left:3px solid var(--line-strong);padding:6px 16px;margin:10px 0;font-style:italic;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.tarjeta{border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.tarjeta > b:first-child{display:block;margin-bottom:2px}
+.tarjeta p{margin:4px 0;font-size:.93rem}
+.fases{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.fases li{margin:0}
+.fases a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.85rem;line-height:1.3}
+.fases a b{display:block;font-size:1rem}
+.fase{border:1px solid var(--line);border-radius:10px;margin:18px 0;overflow:hidden}
+.fase-cab{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--soft)}
+.chip{display:inline-block;background:var(--strong-bg);color:var(--strong-fg);border-radius:6px;padding:1px 8px;font-weight:700;font-size:.9rem}
+.fase-cab h3{margin:0;font-size:1.08rem}
+.fase dl{display:grid;grid-template-columns:128px 1fr;gap:6px 14px;padding:12px 14px}
+.fase dt{font-weight:650;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.fase dd{margin:0;font-size:.95rem}
+.fase dd ul{margin:2px 0 2px 18px}
+.sem{display:inline-block;width:.8em;height:.8em;border-radius:50%;vertical-align:-1px;margin-right:4px;border:1px solid var(--line)}
+.sem.r{background:var(--rojo)}.sem.a{background:var(--ambar)}.sem.v{background:var(--verde)}.sem.b{background:var(--blanco)}
+.etq{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.78em;border:1px solid var(--line);border-radius:4px;padding:0 4px;white-space:nowrap}
+.volver{margin-top:22px;font-size:.85rem}
+.volver a{color:var(--muted)}
+.glos td:first-child{font-weight:650;width:30%}
+.cierre{margin-top:28px}
+@media (max-width:640px){
+  body{font-size:16px}
+  nav.indice ol{columns:1}
+  .grid2{grid-template-columns:1fr}
+  .fase dl{grid-template-columns:1fr;gap:2px}
+  .fase dt{padding-top:8px}
+  td.c1{white-space:normal}
+  h2{font-size:1.42rem}
+}
+@media print{
+  :root{
+    --bg:#ffffff;--fg:#0a0a0a;--muted:#555555;--line:rgba(10,10,10,.18);--line-strong:#0a0a0a;
+    --soft:#f3f3f1;--code:#efefec;--strong-bg:#0a0a0a;--strong-fg:#ffffff;--warn:#b42318;--warn-soft:#ffffff;
+  }
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:10pt;line-height:1.45;background:#fff;color:#0a0a0a}
+  main{max-width:none;padding:0}
+  p,ul,ol{margin-top:6px;margin-bottom:6px}
+  li{margin:2px 0}
+  h3{margin:16px 0 6px}
+  td{padding:5px 7px}
+  .caja,.aviso,.destacado{padding:10px 14px;margin:10px 0}
+  .paso{margin:10px 0}
+  .fase{margin:12px 0}
+  .fase dl{padding:8px 12px;gap:4px 12px}
+  pre{padding:9px 12px;font-size:8pt}
+  .solo-pantalla{display:none !important}
+  a{text-decoration:none}
+  .portada{height:255mm;min-height:0;border-bottom:0;padding:0;break-after:page}
+  .portada h1{font-size:46pt}
+  nav.indice{padding-top:0;break-after:page}
+  section{padding-top:0;break-before:page}
+  h2{font-size:17pt;margin-bottom:12px}
+  h2,h3,h4,.fase-cab{break-after:avoid}
+  .tabla{overflow:visible}
+  table{font-size:8.6pt}
+  thead{display:table-header-group}
+  tr,.paso,.caja,.aviso,.destacado,.tarjeta,pre,.fase dl > *{break-inside:avoid}
+  .fase{break-inside:auto}
+  .destacado{background:#fff;color:#0a0a0a;border:2px solid #0a0a0a}
+  .destacado code{background:#efefec}
+  .paso .n{border:1.5px solid #0a0a0a}
+  .aviso{background:#fff}
+  pre{white-space:pre-wrap}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="portada">
+  <div class="k">Guía completa · de cero a operativo</div>
+  <h1>Meta Ads OS</h1>
+  <p>El sistema operativo para llevar Meta Ads como un equipo experto, dentro de Claude Code. Qué contiene, cómo se usa y cómo te protege, explicado paso a paso aunque nunca hayas lanzado una campaña.</p>
+  <div class="cifras"><span>50 skills</span><span>20 agentes</span><span>10 guardas</span><span>5 workflows</span><span>25 herramientas</span><span>motor de vídeo IA + cutkit</span></div>
+  <div class="pie">Versión 0.1.0 · Guía al 2026-11-10 · Licencia MIT · Si un dato de esta guía choca con el sistema, manda el sistema: la documentación viva está en <code>docs/</code>.</div>
+</header>
+
+<nav class="indice" id="indice" aria-label="Índice">
+<h2>Índice</h2>
+<ol>
+<li><a href="#que-es"><span class="n">01</span>¿Qué es esto?</a></li>
+<li><a href="#antes"><span class="n">02</span>Qué necesitas y qué cuesta</a></li>
+<li><a href="#instalacion"><span class="n">03</span>Instalación y <code>/empezar</code></a></li>
+<li><a href="#dia"><span class="n">04</span>Un día normal</a></li>
+<li><a href="#mapa"><span class="n">05</span>El mapa: qué es tuyo y qué es del producto</a></li>
+<li><a href="#fases"><span class="n">06</span>El recorrido por fases F0–F6</a></li>
+<li><a href="#skills"><span class="n">07</span>Las 50 skills</a></li>
+<li><a href="#agentes"><span class="n">08</span>Los 20 agentes: tu equipo</a></li>
+<li><a href="#workflows"><span class="n">09</span>Los 5 workflows</a></li>
+<li><a href="#seguridad"><span class="n">10</span>Las 10 guardas y la seguridad</a></li>
+<li><a href="#clientes"><span class="n">11</span>Trabajar con clientes</a></li>
+<li><a href="#video"><span class="n">12</span>Vídeo: propio y con IA</a></li>
+<li><a href="#conexiones"><span class="n">13</span>Conectar datos reales</a></li>
+<li><a href="#chuleta"><span class="n">14</span>Chuleta de comandos</a></li>
+<li><a href="#faq"><span class="n">15</span>Preguntas frecuentes</a></li>
+<li><a href="#glosario"><span class="n">16</span>Glosario</a></li>
+</ol>
+<div class="caja"><b>Cómo leer esta guía</b>Si tienes prisa, lee la 01, la 03, la 06 y la 10: qué es, cómo se pone en marcha, el camino de cada cliente y cómo te protege. La 14 es la chuleta para tener a mano. Cada palabra rara se explica la primera vez y está también en el glosario (16).</div>
+</nav>
+
+<!-- 01 -->
+<section id="que-es">
+<h2><span class="num">01 ·</span> ¿Qué es esto?</h2>
+<p>Imagina que llevas Meta Ads con un equipo completo: alguien que hace los números, alguien que revisa que la medición funcione, un creativo, un revisor de políticas y <b>una sola persona con permiso para tocar la cuenta</b>. Meta Ads OS monta ese equipo dentro de Claude Code, con un método de trabajo y con frenos.</p>
+<h3>Las piezas, en lenguaje llano</h3>
+<ul>
+<li><b>Claude</b>: la inteligencia artificial de la empresa Anthropic.</li>
+<li><b>Claude Code</b>: el programa donde trabajas con Claude. Le escribes en español normal y él trabaja: no hace falta saber programar.</li>
+<li><b>Meta Ads</b>: la publicidad de Meta en Facebook, Instagram, Messenger y WhatsApp.</li>
+<li><b>Meta Ads OS</b>: una carpeta que le da a Claude conocimiento, método, especialistas y protecciones para llevar Meta Ads de principio a fin. «OS» viene de <i>Operating System</i>, sistema operativo.</li>
+</ul>
+<div class="tabla"><table>
+<thead><tr><th>Pieza</th><th>Cuántas</th><th>En una frase</th></tr></thead>
+<tbody>
+<tr><td><b>Base de conocimiento</b> (<code>meta-ads-kb/</code>)</td><td>1</td><td>Unas 470.000 palabras sobre Meta Ads, verificadas con fuentes y etiquetadas por evidencia, más el método de trabajo y playbooks por modelo de negocio</td></tr>
+<tr><td><b>Skills</b></td><td>50</td><td>Los comandos que empiezan por <code>/</code> (<code>/empezar</code>, <code>/economia</code>…), ordenados por fases</td></tr>
+<tr><td><b>Agentes</b></td><td>20</td><td>Especialistas a los que Claude delega: analista, auditor, tracking, creativo, revisor de políticas, operador…</td></tr>
+<tr><td><b>Guardas</b> (hooks)</td><td>10</td><td>Vigilantes automáticos que dejan pasar, te preguntan o bloquean: dinero, mensajes, pagos, secretos…</td></tr>
+<tr><td><b>Modos profundos</b> (workflows)</td><td>5</td><td>Varios agentes en paralelo para lo importante. Avisan del coste antes</td></tr>
+<tr><td><b>Herramientas</b></td><td>25</td><td>Scripts de Python para lo exacto: cálculos, lecturas de Meta, GoHighLevel y Stripe, páginas, render y vídeo</td></tr>
+<tr><td><b>Módulos de vídeo</b></td><td>2</td><td>El motor de vídeo con IA (opcional, con tu clave, gasta dinero) y cutkit para montar tu propio vídeo (gratis, en tu ordenador)</td></tr>
+<tr><td><b>Estilos de salida</b></td><td>2</td><td><code>profesor</code> (te explica el porqué) u <code>operador</code> (directo al grano)</td></tr>
+</tbody></table></div>
+
+<h3>Para quién es</h3>
+<p>Para <b>consultoras y agencias de IA y automatización, y empresas SaaS</b> que usan Meta Ads para dos cosas:</p>
+<ul>
+<li><b>captar sus propios clientes</b>: servicios de precio alto con llamada de venta, o un SaaS con prueba gratuita o demo;</li>
+<li><b>llevar Meta Ads a sus clientes</b>, con un espacio y un historial por cliente.</li>
+</ul>
+
+<h3>Qué hace, de principio a fin</h3>
+<p>Configura la cuenta según en qué punto estés, construye tus páginas de captación y tu formulario, decide cuál es el siguiente anuncio con resultados de negocio reales, produce el anuncio (vídeo con IA, vídeo propio o imagen), lo lanza <b>en pausa</b> con todas las comprobaciones, deja la cuenta protegida con reglas automáticas y te manda cada mañana un resumen de tus cuentas sin tocar nada.</p>
+
+<h3>Qué no hace</h3>
+<ul>
+<li>Otras plataformas (Google Ads, TikTok Ads…): solo Meta.</li>
+<li>Publicar tus páginas: las construye y las valida en tu ordenador, pero las subes tú a tu hosting o a GoHighLevel.</li>
+<li>Escribir a tus leads: deja los textos y los flujos preparados; los activas tú.</li>
+<li>Moderar comentarios de anuncios, ni conectarse a tu WhatsApp, Messenger o Instagram (la medición de mensajería la envía tu automatización).</li>
+<li>Un panel web: todo vive en tu carpeta y en Claude Code.</li>
+</ul>
+
+<div class="destacado"><b>Cómo piensa el sistema</b> (resumen de <code>meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md</code>):
+<ol style="margin-top:8px">
+<li>Meta optimiza el evento que le das, no tu negocio. Elegir ese evento es la decisión más cara.</li>
+<li>Decide con la <b>capa más baja de verdad</b> que tengas: venta o cliente de pago &gt; cita, asistencia o prueba activada &gt; lead cualificado &gt; coste por lead. El CTR y similares solo sirven para descartar perdedores.</li>
+<li>Paciencia: un cambio no se evalúa con menos de 7 días, menos de 30–50 eventos o la ventana de atribución sin madurar, salvo que algo esté roto.</li>
+<li>Consolidar por defecto. No se duplican campañas para escalar.</li>
+<li>Un anuncio sin conversiones se para a 2–3 veces el coste objetivo, nunca a 1 vez.</li>
+<li>Escalar mirando el coste del último euro, no la media.</li>
+<li>Cada afirmación importante lleva su etiqueta de evidencia: <span class="etq">[OFFICIAL META]</span> <span class="etq">[EMPIRICAL]</span> <span class="etq">[STRONG INFERENCE]</span> <span class="etq">[HYPOTHESIS]</span> <span class="etq">[CONTESTED]</span>.</li>
+</ol></div>
+<p class="mut peq">Las siglas (CPA, CPL, CTR…) están en el <a href="#glosario">glosario</a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 02 -->
+<section id="antes">
+<h2><span class="num">02 ·</span> Qué necesitas y qué cuesta</h2>
+<h3>Requisitos</h3>
+<div class="tabla"><table>
+<thead><tr><th>Qué</th><th>Para qué</th><th>Cómo saber si lo tienes</th></tr></thead>
+<tbody>
+<tr><td><b>Un ordenador</b> Mac, Windows o Linux</td><td>Ahí vive el sistema</td><td>—</td></tr>
+<tr><td><b>Claude Code</b> con un plan de Claude <b>Pro o superior</b></td><td>Es donde trabajas. En la terminal o en la app de escritorio</td><td>Inicia sesión con tu cuenta de Claude</td></tr>
+<tr><td><b>Git</b> (en Windows, Git para Windows, que trae Git Bash)</td><td>Descargar y actualizar el sistema</td><td><code>git --version</code></td></tr>
+<tr><td><b>Python 3.10 o superior</b> y <b>uv</b></td><td>Las herramientas y los módulos de vídeo</td><td><code>python3 --version</code> · <code>uv --version</code></td></tr>
+<tr><td>FFmpeg <span class="mut">(opcional)</span></td><td>Solo para montar o editar vídeo</td><td><code>ffmpeg -version</code></td></tr>
+<tr><td>Una cuenta de Meta Business con cuenta publicitaria <span class="mut">(opcional para instalar)</span></td><td>Trabajar con cuentas reales. Si empiezas de cero, <code>/configurar-meta</code> te guía</td><td>—</td></tr>
+</tbody></table></div>
+<p>No te preocupes si te falta algo: el instalador lo detecta y te da la orden exacta para tu sistema.</p>
+<div class="aviso"><b>Dónde poner la carpeta.</b> En una carpeta normal de tu usuario (por ejemplo, <code>~/meta-ads-os</code>). <b>No</b> dentro de OneDrive, iCloud Drive, Dropbox ni Google Drive: la sincronización choca con git y con los entornos de Python. En Windows, no uses el Python de la Microsoft Store.</div>
+
+<h3>Lo que cuesta</h3>
+<div class="tabla"><table>
+<thead><tr><th>Concepto</th><th>Coste</th></tr></thead>
+<tbody>
+<tr><td><b>Meta Ads OS</b></td><td>Gratis (licencia MIT)</td></tr>
+<tr><td><b>Claude Code</b></td><td>Un plan de Claude <b>Pro como mínimo</b>, que pagas a Anthropic. Con uso intensivo (varios clientes, modos profundos), el plan Max te da margen. Los agentes de trabajo de volumen usan un modelo más barato para que el plan rinda</td></tr>
+<tr><td><b>Modos profundos</b> (workflows)</td><td>Consumen bastante más uso de Claude: por eso te avisan del coste aproximado y esperan tu sí</td></tr>
+<tr><td><b>Brief diario</b></td><td>Cada brief gasta uso de tu suscripción de Claude, como una conversación de unos minutos (más cuantos más clientes). Leer Meta, GoHighLevel y Stripe y enviarlo por Telegram, Slack o email no cuesta nada</td></tr>
+<tr><td><b>Inversión en Meta</b></td><td>La tuya (o la de tu cliente), con los topes que fijes en la ficha de cada cliente</td></tr>
+<tr><td><b>Motor de vídeo con IA</b> <span class="mut">(opcional)</span></td><td>Lo cobra Google (Gemini) en tu cuenta, con tu clave. El sistema lo frena en <b>5 $ por defecto</b> y pide confirmación con el coste antes de cada orden de pago. Medido en octubre de 2026: un anuncio de 20–30 s, unos 4–6,5 $</td></tr>
+<tr><td><b>cutkit</b> (vídeo propio)</td><td>Sin coste: monta en tu ordenador. Solo sus opciones de pago (por ejemplo, subtítulos con OpenAI, unos 0,006 $/min con tu clave) piden confirmación</td></tr>
+<tr><td><b>GoHighLevel, Stripe, Telegram</b></td><td>Tus propias cuentas. El sistema solo lee</td></tr>
+</tbody></table></div>
+<div class="aviso"><b>Los precios de terceros cambian.</b> Lo que cobran Anthropic, Google o Meta no depende de este sistema. La referencia viva está en <code>README.md</code> (apartado «Lo que cuesta») y, para el motor, en <a href="guias/video-ia.md"><code>docs/guias/video-ia.md</code></a> §7. Comprueba siempre antes de presupuestar.</div>
+
+<h3>Cuentas que quizá necesites</h3>
+<ul>
+<li><b>Meta</b>: un Business Portfolio con una cuenta publicitaria (tuya o de un cliente que te dé acceso de partner).</li>
+<li><b>Google AI Studio</b>: solo si vas a usar el motor de vídeo con IA.</li>
+<li><b>Telegram</b> (o un email o un Slack): solo para recibir el brief diario.</li>
+<li><b>GoHighLevel</b> y <b>Stripe</b>: solo si ya los usas.</li>
+</ul>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 03 -->
+<section id="instalacion">
+<h2><span class="num">03 ·</span> Instalación y <code>/empezar</code></h2>
+<div class="paso"><div class="n">1</div><div><b>Clona el repositorio.</b> Con git, en una terminal (en Windows, en <b>Git Bash</b>):
+<pre><code>cd ~
+git clone https://github.com/ai-agency-accelerator/Meta-Ads-OS.git meta-ads-os</code></pre>
+<b>Clónalo, no lo descargues como ZIP</b>: sin git no hay actualizaciones. Si ya lo descargaste en ZIP, <a href="primeros-pasos.md">Primeros pasos</a> explica cómo pasarte a un clon sin perder nada.</div></div>
+
+<div class="paso"><div class="n">2</div><div><b>Abre Claude Code en esa carpeta</b> (en la terminal, <code>cd meta-ads-os &amp;&amp; claude</code>, o con la app de escritorio). La primera vez te hará dos preguntas. <b>Responde que sí a las dos:</b>
+<ul>
+<li><b>Confiar en la carpeta</b>: activa los permisos, las guardas de seguridad y los estilos del proyecto.</li>
+<li><b>Aprobar el servidor MCP <code>meta-ads</code></b>: es el conector oficial de Meta. Aprobarlo no da acceso a nada todavía; el acceso lo das tú al iniciar sesión con Meta más adelante.</li>
+</ul></div></div>
+
+<div class="paso"><div class="n">3</div><div><b>Mira el aviso de inicio.</b> Cada vez que abres una sesión, una guarda (<code>contexto_sesion</code>) te enseña un resumen de seis líneas como mucho: estado de la instalación, conexiones, clientes y su fase, evaluaciones vencidas y si ya tienes el brief de hoy. Mientras la instalación no esté completa, la última línea dice <b>«Siguiente: /empezar»</b>. Cuando lo esté, dirá «Siguiente: /hoy».</div></div>
+
+<div class="paso"><div class="n">4</div><div><b>Escribe <code>/empezar</code>.</b> Claude ejecuta por ti el instalador (<code>bash scripts/instalar.sh</code>), comprueba que todo está bien y sigue con tu configuración guiada.</div></div>
+
+<h3>Cómo es <code>/empezar</code></h3>
+<ul>
+<li><b>Es una conversación, no un formulario</b>: una pregunta por turno. Si no sabes algo, di «no lo sé»: lo apunta como «(por definir)» y sigue; siempre hay una skill que lo resolverá después.</li>
+<li><b>Unos 30 minutos.</b> Si pasáis de 20, lo opcional queda apuntado para después.</li>
+<li><b>Se puede retomar.</b> Guarda al cerrar cada paso. Si paras o se corta la sesión, escribe <code>/empezar</code> otra vez y sigue donde lo dejaste («Seguimos donde lo dejamos…»).</li>
+<li><b>Solo lee</b> en Meta, GoHighLevel y Stripe.</li>
+</ul>
+
+<div class="tabla"><table>
+<thead><tr><th>Paso</th><th>Qué pasa</th><th>Tiempo</th><th>Dónde queda</th></tr></thead>
+<tbody>
+<tr><td>1. Técnica</td><td>Instalador y <code>/doctor</code> (la revisión de salud)</td><td>2–5 min</td><td><code>contexto/instalacion.json</code></td></tr>
+<tr><td>2. Perfil</td><td>Tu empresa (sin datos de contacto), si eres agencia, consultora, SaaS o negocio, para qué lo usas, tu nivel (principiante, intermedio o avanzado) y tu stack (web, CRM, pagos, automatizaciones)</td><td>3–5 min</td><td><code>contexto/operador.md</code> (se carga en cada sesión) y la cabecera de <code>contexto/preferencias.md</code> (nivel y estilo)</td></tr>
+<tr><td>3. Meta</td><td>Si ya tienes portfolio y cuenta publicitaria, <code>/conectar meta</code>: inicias sesión con tu cuenta de Meta, sin claves. Si empiezas de cero, o eres agencia y aún no tienes acceso, se apunta y tu primer entregable lo tiene en cuenta</td><td>5–8 min</td><td>—</td></tr>
+<tr><td>4. Integraciones <span class="mut">(opcional)</span></td><td>GoHighLevel y Stripe, si los usas. Añadir una conexión obliga a reiniciar Claude Code: ciérralo, ábrelo en la carpeta y escribe <code>/empezar</code></td><td>≤5 min</td><td>—</td></tr>
+<tr><td>5. Primer cliente</td><td><code>/cliente-nuevo</code> en modo rápido: tu propio negocio o el de un cliente. Los topes de gasto pueden quedar a 0: entonces el sistema no deja crear ni subir presupuesto hasta que los fijes</td><td>5 min</td><td><code>clientes/&lt;slug&gt;/ficha.md</code> y <code>estado.md</code></td></tr>
+<tr><td>6. Primer entregable</td><td>Uno, según tu situación (tabla de abajo)</td><td>≤10 min</td><td>La carpeta del cliente</td></tr>
+</tbody></table></div>
+
+<div class="tabla"><table>
+<thead><tr><th>Tu situación</th><th>Tu primer entregable</th></tr></thead>
+<tbody>
+<tr><td>No sabes cuánto puedes pagar por un cliente</td><td>Break-even y objetivo por etapa con <code>/economia</code>, guardados en la ficha</td></tr>
+<tr><td>Sabes tu economía, pero no tienes cuenta o no tiene señal</td><td>Plan de configuración de Meta para tu situación</td></tr>
+<tr><td>Ya hay gasto en la cuenta</td><td>Foto inicial: 4 semanas por campaña, coste por resultado frente al break-even, 3 hallazgos y qué no tocar todavía</td></tr>
+<tr><td>Eres agencia y aún no tienes acceso a la cuenta del cliente</td><td>El mensaje para pedir acceso como partner y la checklist para cuando llegue</td></tr>
+</tbody></table></div>
+
+<p>Al terminar te dice qué ha quedado hecho, dónde está y <b>un</b> siguiente paso, y te recuerda las tres entradas del día a día: <code>/hoy</code>, <code>/pregunta</code> y <code>/menu</code>. Después te ofrece dos opcionales: programar el brief diario y, si vas a hacer vídeo con IA, <code>/motor instalar</code>.</p>
+
+<div class="caja"><b>Elige cómo te habla: el estilo de salida</b><code>profesor</code> explica el porqué de cada decisión, define los términos y enlaza el archivo de la base donde profundizar (recomendado si eres principiante o intermedio). <code>operador</code> va directo: conclusión, números y siguiente acción. <code>/empezar</code> anota tu elección, pero anotarla no lo activa: actívalo en <code>/config</code> → estilo de salida (es un comando propio de Claude Code) o pide a Claude que lo deje fijo en <code>.claude/settings.local.json</code>. Se nota desde la siguiente sesión.</div>
+
+<div class="aviso"><b>Claves y tokens, nunca en el chat.</b> Cuando haga falta una clave, la pegas tú en el archivo <code>.env</code> con tu editor. Si alguna vez pegas una en el chat, revócala y crea otra (sección <a href="#seguridad">10</a>).</div>
+
+<h3>Si algo falla</h3>
+<ul>
+<li><code>/doctor</code> revisa la instalación y las conexiones y te da el arreglo concreto de cada fallo para tu sistema.</li>
+<li>El instalador se puede repetir siempre (<code>bash scripts/instalar.sh</code>): repara sin pisar lo que ya tienes. Con <code>--comprobar</code> solo revisa los requisitos; con <code>--instalar-uv</code> instala uv si te falta. Su última línea dice <code>RESULTADO: listo</code> o <code>RESULTADO: faltan requisitos</code>.</li>
+<li><code>/empezar reiniciar</code> vuelve a preguntar perfil, cliente y entregable. <b>No borra nada</b>: te enseña lo que hay y te pregunta qué cambiar.</li>
+<li>Si <code>/empezar</code> no aparece: Claude Code tiene que estar abierto <b>en la carpeta del proyecto</b> (no en una superior) y tienes que haber aceptado confiar en ella.</li>
+</ul>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 04 -->
+<section id="dia">
+<h2><span class="num">04 ·</span> Un día normal</h2>
+<p>Cuatro entradas y un brief. No necesitas memorizar el catálogo:</p>
+<div class="tabla"><table>
+<thead><tr><th>Escribe</th><th>Y obtienes</th></tr></thead>
+<tbody>
+<tr><td class="c1"><code>/hoy</code></td><td>Qué toca hoy en cada cliente: semáforo del brief, evaluaciones vencidas, siguiente paso de su fase, informes pendientes y cola de producción. Acaba con 1–3 acciones ordenadas. Es gratis: lee tus archivos y no llama a Meta</td></tr>
+<tr><td class="c1"><code>/pregunta "&lt;duda&gt;"</code></td><td>La respuesta desde la base de conocimiento, con el archivo y la etiqueta de evidencia, a tu nivel. Para conceptos, no para analizar una cuenta</td></tr>
+<tr><td class="c1"><code>/siguiente-anuncio &lt;cliente&gt;</code></td><td>Los próximos 1–3 anuncios, elegidos con ventas, citas o pruebas reales (no con el coste por lead) y listos para producir</td></tr>
+<tr><td class="c1"><code>/menu</code></td><td>Todo el catálogo ordenado por fases. Con filtro: <code>/menu F3</code> o <code>/menu tracking</code></td></tr>
+<tr><td class="c1"><code>/brief-diario programar</code></td><td>Un resumen de salud de tus cuentas cada mañana por Telegram, email o Slack, en solo lectura</td></tr>
+</tbody></table></div>
+
+<h3>Por la mañana</h3>
+<p>Si programaste el brief, te llega al móvil antes de abrir nada. Un ejemplo ficticio con tres clientes:</p>
+<pre><code>Brief diario · 2026-11-10 · 🔴 1 · 🟡 1 · 🟢 1
+
+🔴 Clínica Sonrisa — Lead a 0 en el dataset desde ayer a mediodía con 95 €/día activos.
+→ Envía un lead de prueba desde la landing; si no aparece en Events Manager,
+  /diagnostico clinica-sonrisa "tracking roto". No pauses nada.
+
+🟡 Acme Automations — Presupuesto de un conjunto subido en Meta el 2026-11-09 sin anotar.
+→ Averigua quién lo hizo y anótalo en el change log.
+
+🟢 Nimbo — En ritmo (96 %), 14 pruebas iniciadas ayer (banda 8–21), señal bien.</code></pre>
+<div class="tabla"><table>
+<thead><tr><th>Color</th><th>Cuándo</th><th>Qué haces</th></tr></thead>
+<tbody>
+<tr><td class="c1"><span class="sem r"></span>Rojo</td><td>Algo está roto: cuenta deshabilitada, evento principal a 0 con gasto, gasto muy por encima del presupuesto, anuncios principales rechazados, leads que no llegan al CRM</td><td>La acción que dice el mensaje, hoy</td></tr>
+<tr><td class="c1"><span class="sem a"></span>Amarillo</td><td>Algo raro que aún no es una rotura: gasto por debajo del ritmo, resultado fuera de lo normal, un cambio sin anotar</td><td>Vigilar; mañana lo vuelve a mirar</td></tr>
+<tr><td class="c1"><span class="sem v"></span>Verde</td><td>En ritmo, con señal y sin rechazos</td><td>Nada. Con el CPA de ayer no se decide nada</td></tr>
+<tr><td class="c1"><span class="sem b"></span>Blanco</td><td>Sin campañas activas o sin acceso a los datos</td><td>Si debería tener datos, revisa la conexión</td></tr>
+</tbody></table></div>
+<p>El brief <b>solo lee</b>: nunca pausa, ni sube presupuestos, ni «arregla» nada por su cuenta, tampoco cuando se ejecuta solo de madrugada. Decides tú después. Luego abres Claude Code, miras el aviso de inicio y escribes <code>/hoy</code>.</p>
+
+<h3>Durante el día: pide las cosas con normalidad</h3>
+<div class="dialogo">«¿Por qué ha subido el CPA de Acme desde el martes?»<br>«Calcúlame cuánto puede pagar Nimbo por cada prueba gratuita»<br>«¿Qué es la deduplicación y por qué me importa?»</div>
+<p>Claude reconoce qué le pides y usa la skill adecuada (<code>/diagnostico</code>, <code>/economia</code>, <code>/pregunta</code>…). También puedes escribir tú el comando. Las skills que escriben en Meta o gastan dinero solo se ejecutan cuando las escribes tú (sección <a href="#skills">07</a>).</p>
+
+<h3>Montar el brief diario (unos 15 minutos)</h3>
+<ol>
+<li><b>Pruébalo a mano</b>: <code>/brief-diario</code>. Tarda de 2 a 6 minutos según el número de clientes.</li>
+<li><b>Crea un bot de Telegram</b> con @BotFather (la cuenta oficial) y pega su token tú en <code>.env</code> como <code>TELEGRAM_BOT_TOKEN</code>. Escríbele «hola» a tu bot y saca tu chat con <code>python3 -I herramientas/notificar.py telegram-chat-id --guardar</code>. Pruébalo con <code>python3 -I herramientas/notificar.py probar --canal telegram</code>.</li>
+<li><b>Prográmalo</b>: <code>/brief-diario programar</code>. Te pregunta la hora (por defecto, 08:00 de tu ordenador), qué clientes y el método.</li>
+<li><b>Mañana comprueba que ha llegado.</b></li>
+</ol>
+<div class="tabla"><table>
+<thead><tr><th>Método</th><th>Qué necesitas</th><th>Elígelo si</th></tr></thead>
+<tbody>
+<tr><td><b>desktop</b> (por defecto)</td><td>Claude Desktop abierto y el ordenador despierto</td><td>Usas Claude Desktop a diario</td></tr>
+<tr><td><b>sistema</b></td><td>El ordenador encendido y tu sesión iniciada; no hace falta abrir nada</td><td>Trabajas en la terminal o no quieres depender de la app</td></tr>
+<tr><td><b>nube</b> (ligero, experimental)</td><td>Tu copia en GitHub y Meta como conector de claude.ai</td><td>Tu ordenador suele estar apagado por la mañana y te basta un aviso: no ve tus fichas ni tu change log</td></tr>
+</tbody></table></div>
+<p>Usa <b>un solo método</b>: con dos te llegará dos veces. Si prefieres email (con contraseña de aplicación) o Slack (con un webhook), también vale. En Mac con el método sistema, la carpeta no puede estar en Escritorio, Documentos, Descargas ni iCloud Drive. Guía completa: <a href="guias/brief-diario.md"><code>docs/guias/brief-diario.md</code></a>.</p>
+
+<h3>La cadencia: día, semana y mes</h3>
+<div class="tabla"><table>
+<thead><tr><th>Cada</th><th>Qué</th><th>Para qué</th></tr></thead>
+<tbody>
+<tr><td>Día</td><td>Brief diario y <code>/hoy</code></td><td>Detectar roturas: gasto fuera de ritmo, rechazos, señal caída. <b>No</b> para optimizar</td></tr>
+<tr><td>Semana</td><td><code>/informe-semanal &lt;cliente&gt;</code> sobre la última semana natural completa</td><td>Evaluar los cambios que vencen y decidir como mucho 3 cosas</td></tr>
+<tr><td>Mes</td><td><code>/revision-mensual &lt;cliente&gt;</code></td><td>Economía vigente, coste marginal, incrementalidad, aprendizajes por ángulo y plan del mes</td></tr>
+</tbody></table></div>
+<div class="aviso"><b>Error típico: tocar una campaña cada dos días.</b> Un cambio no se evalúa con menos de 7 días, menos de 30–50 eventos o con la ventana de atribución sin madurar, salvo que algo esté roto. La guarda <code>meta_guard</code> te avisa si vuelves a cambiar algo que se cambió hace menos de 7 días.</div>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 05 -->
+<section id="mapa">
+<h2><span class="num">05 ·</span> El mapa: qué es tuyo y qué es del producto</h2>
+<p>La carpeta tiene dos partes. El <b>producto</b> es lo que descargas y actualizas. Tu <b>instancia</b> son tus datos: viven solo en tu ordenador, git no los sube y las actualizaciones no los tocan.</p>
+<pre><code>meta-ads-os/
+├── CLAUDE.md        Cómo trabaja el sistema (se carga en cada sesión)
+├── .claude/         Skills, agentes, guardas, workflows, estilos y permisos
+├── meta-ads-kb/     Base de conocimiento de Meta Ads
+├── herramientas/    Scripts de Python
+├── modulos/         Motor de vídeo con IA y cutkit (opcionales)
+├── plantillas/      Cliente, contexto, plan de campaña, páginas, integraciones…
+├── docs/            Documentación (esta guía incluida)
+├── scripts/         Instalar, actualizar, migraciones y validación
+├── tests/           Tests sin red
+│
+├── contexto/        ┐
+├── clientes/        │
+├── aprendizajes/    │ Tu instancia: no se sube a git
+├── informes/        │
+├── logs/            │
+└── .env             ┘</code></pre>
+
+<div class="tabla"><table>
+<thead><tr><th>Lo tuyo</th><th>Qué guarda</th></tr></thead>
+<tbody>
+<tr><td><code>contexto/</code></td><td>Tu perfil (<code>operador.md</code>, que se carga en cada sesión), tus preferencias (nivel, estilo, brief, presupuesto del motor) y el estado de la instalación</td></tr>
+<tr><td><code>clientes/</code></td><td>Una carpeta por cliente: ficha, fase, change log, registro creativo, informes, planes, creativos, páginas y <code>privado/</code> (sección <a href="#clientes">11</a>)</td></tr>
+<tr><td><code>aprendizajes/</code></td><td>Lo que has visto en tus cuentas y contradice la base, con su evidencia</td></tr>
+<tr><td><code>informes/</code></td><td>Los briefs diarios globales</td></tr>
+<tr><td><code>logs/</code></td><td>El registro de cada llamada y de cada decisión de las guardas, sin tokens ni datos personales</td></tr>
+<tr><td><code>.env</code></td><td>Tus claves. Con permisos que solo te dejan leerlo a ti. Claude no puede leerlo</td></tr>
+</tbody></table></div>
+
+<h3>Actualizar</h3>
+<p>Escribe <code>/actualizar</code>. Te enseña qué trae la versión nueva antes de tocar nada, actualiza con <code>git pull --ff-only</code>, aplica las migraciones de datos que declare esa versión (copiando antes lo que cambian a <code>logs/copias-migracion/</code>) y pasa <code>/doctor</code>. Para ver solo si hay versión nueva: <code>/actualizar comprobar</code>. Las novedades de cada versión están en <code>CHANGELOG.md</code>.</p>
+
+<h3>Adaptarlo sin romper nada</h3>
+<p>No edites los archivos del producto: cada cambio choca con las actualizaciones (y <code>/actualizar</code> se para a explicarte cómo guardarlo aparte). Tus reglas van en <code>contexto/operador.md</code>, apartado «Reglas propias»: se cargan en cada sesión y nunca chocan.</p>
+
+<h3>Copias de seguridad</h3>
+<p>Git no guarda tu instancia, así que la copia es cosa tuya. Copia de vez en cuando <code>clientes/</code>, <code>contexto/</code>, <code>aprendizajes/</code> e <code>informes/</code> a tu nube o a un repositorio <b>privado</b> propio.</p>
+<ul>
+<li><code>clientes/&lt;slug&gt;/privado/</code> tiene datos personales de leads: si lo copias, que sea a un sitio cifrado y con acceso restringido, o déjalo fuera.</li>
+<li><code>.env</code> no se copia a ningún sitio compartido: guarda tus claves en un gestor de contraseñas y, si cambias de ordenador, vuelve a pegarlas en un <code>.env</code> nuevo.</li>
+</ul>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 06 -->
+<section id="fases">
+<h2><span class="num">06 ·</span> El recorrido por fases F0–F6</h2>
+<p>Meta Ads OS no es un catálogo de comandos: es un camino. Cada cliente (o tu propio negocio) avanza por siete fases, y el sistema sabe en cuál está y qué le falta.</p>
+<div class="destacado"><b>El orden importa:</b> economía y señal antes que creatividad, y creatividad antes que presupuesto. Saltarse una fase es la forma más cara de aprender.</div>
+<ol class="fases" aria-label="Fases">
+<li><a href="#f0"><b>F0</b>Negocio y oferta</a></li>
+<li><a href="#f1"><b>F1</b>Infraestructura y señal</a></li>
+<li><a href="#f2"><b>F2</b>Investigación</a></li>
+<li><a href="#f3"><b>F3</b>Creatividad</a></li>
+<li><a href="#f4"><b>F4</b>Lanzamiento</a></li>
+<li><a href="#f5"><b>F5</b>Operación</a></li>
+<li><a href="#f6"><b>F6</b>Escalado</a></li>
+</ol>
+
+<h3>Cómo sabe el sistema en qué fase estás</h3>
+<p>Cada cliente tiene <code>clientes/&lt;slug&gt;/estado.md</code>: una cabecera con la fase y una checklist donde cada punto dice cómo se comprueba.</p>
+<pre><code>---
+fase: F1
+actualizado: 2026-11-09
+---
+- [x] F0.economia — Break-even y target por etapa en la ficha (verifica: archivo)
+- [ ] F1.dataset — Dataset con el evento principal recibiendo datos por navegador y servidor (verifica: mcp)</code></pre>
+<ul>
+<li><b>La fase actual es la primera con puntos sin marcar.</b> Un punto se marca cuando está verificado, no cuando «más o menos» está.</li>
+<li><code>(verifica: …)</code> dice cómo: <code>mcp</code> (se comprueba en Meta), <code>ghl</code> o <code>stripe</code> (en tu sistema de negocio), <code>archivo</code> (existe el entregable) o <code>usuario</code> (lo confirmas tú).</li>
+<li><code>herramientas/estado.py</code> lo calcula sin coste y sin llamar a nadie. Lo usan <code>/hoy</code>, el brief y el aviso de inicio.</li>
+</ul>
+
+<div class="fase" id="f0">
+<div class="fase-cab"><span class="chip">F0</span><h3>Negocio y oferta</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Saber cuánto puedes pagar por un cliente y qué camino de conversión vas a usar, antes de gastar un euro.</dd>
+<dt>Hecho cuando</dt><dd><ul><li>La ficha tiene oferta, precio, mercado y stack.</li><li>Break-even y objetivo por etapa (lead, cualificado, cita, asistencia, venta; o registro, prueba, pago) en la ficha.</li><li>Oferta revisada y camino de conversión elegido.</li><li>La ficha tiene el tope por cambio y el tope total diario.</li></ul></dd>
+<dt>Skills</dt><dd><code>/cliente-nuevo</code> · <code>/economia</code> (con <code>prevision</code> para planes y propuestas: inversión → leads, citas, ventas y coste por cliente esperables, con bandas) · <code>/oferta</code> · <code>/disenar-funnel</code> · <code>/iman-de-leads</code> (un diagnóstico o una calculadora que da valor y precualifica)</dd>
+<dt>Agentes</dt><dd><code>analista-cuantitativo</code> (los números), <code>estratega-creativo</code> (la oferta), <code>especialista-funnel</code> (el camino)</dd>
+<dt>Error típico</dt><dd>Perseguir un coste por lead más bajo sin saber cuánto vale un lead. El máximo sale de lo que te deja cada venta y de cada tasa del camino; la asistencia y el cierre suelen pesar más que el coste por lead.</dd>
+</dl>
+</div>
+<p class="peq mut">Si vendes proyectos de IA o automatización con llamada y propuesta, tu playbook es <code>meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md</code>: qué evento optimizar según tu volumen y cuántas llamadas puedes atender antes de que Meta sea el límite.</p>
+
+<div class="fase" id="f1">
+<div class="fase-cab"><span class="chip">F1</span><h3>Infraestructura y señal</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Que Meta reciba el evento que de verdad te importa, por navegador y por servidor, sin duplicados, y que haya topes de gasto en los dos lados (en la ficha y en Meta).</dd>
+<dt>Hecho cuando</dt><dd><ul><li>Business Portfolio con verificación en dos pasos y roles correctos; cuenta publicitaria activa con método de pago; Página e Instagram vinculados; dominio verificado.</li><li>El dataset recibe el evento principal por navegador y servidor, con deduplicación correcta y calidad de coincidencia revisada.</li><li>Las etapas del CRM, Stripe o tu backend llegan a Meta, si aplica.</li><li>Reglas del Ads MCP server y límite de gasto de la cuenta puestos en Meta.</li><li>Landing revisada, o formulario instantáneo probado con un lead de prueba en el CRM.</li></ul></dd>
+<dt>Skills</dt><dd><code>/configurar-meta</code> (de cero, sin señal, cuenta heredada o agencia entrando como partner) · <code>/implementar-capi</code> (web y mensajería) · <code>/audiencias</code> · <code>/construir-landing</code> · <code>/formulario-instantaneo</code> · <code>/landing</code> (audita una página ya publicada) · <code>/conectar</code></dd>
+<dt>Agentes</dt><dd><code>especialista-tracking</code> (diagnostica la señal), <code>ingeniero-capi</code> (la construye y la prueba), <code>especialista-crm</code> (qué etapas devolver), <code>especialista-funnel</code></dd>
+<dt>Error típico</dt><dd>Mandar eventos reales «para probar»: ensucian el dataset y lo que Meta optimiza. Las pruebas van siempre con <code>test_event_code</code>, y la guarda <code>eventos_guard</code> te lo recuerda.</dd>
+</dl>
+</div>
+<p class="peq mut">El sistema construye las páginas pero no las despliega: tú subes la carpeta a tu hosting o la pegas en GoHighLevel.</p>
+
+<div class="fase" id="f2">
+<div class="fase-cab"><span class="chip">F2</span><h3>Investigación</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Saber qué dice el mercado antes de escribir un solo anuncio: qué anuncia la competencia, con qué palabras habla tu cliente y qué ángulos quedan libres.</dd>
+<dt>Hecho cuando</dt><dd>Competencia analizada, voz del cliente extraída y matriz de ángulos guardada en <code>investigacion/</code>.</dd>
+<dt>Skills</dt><dd><code>/competencia</code> (con <code>vigilar</code>, una foto semanal de anuncios nuevos, retirados y los más longevos) · <code>/voz-cliente</code>. Modo profundo: workflow <code>investigacion-mercado</code>.</dd>
+<dt>Agentes</dt><dd><code>investigador-competencia</code></dd>
+<dt>Error típico</dt><dd>Copiar el anuncio que más tiempo lleva activo de un competidor. La longevidad es una pista, no una prueba de que sea rentable.</dd>
+</dl>
+</div>
+
+<div class="fase" id="f3">
+<div class="fase-cab"><span class="chip">F3</span><h3>Creatividad</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Conceptos de verdad distintos, producidos, criticados y con veredicto de políticas: de 2 a 4 hasta 100 €/día, de 3 a 6 hasta 500 €/día y de 8 a 15 por encima.</dd>
+<dt>Hecho cuando</dt><dd>Al menos 2 conceptos distintos con brief hasta 100 €/día (3 por encima), y las piezas producidas, criticadas y con veredicto de políticas en su <code>LEEME.md</code>.</dd>
+<dt>Skills</dt><dd><code>/brief-creativo</code> (cuenta u oferta nueva) o <code>/siguiente-anuncio</code> (ya hay datos) · <code>/casos-y-creadores</code> · <code>/organico-a-anuncios</code> · <code>/producir-video</code> · <code>/producir-estatico</code> · <code>/variantes</code> · <code>/revisar-anuncio</code> · <code>/analisis-creativo</code>. Modos profundos: <code>estudio-creativo</code> y <code>lote-creativo</code>.</dd>
+<dt>Agentes</dt><dd><code>estratega-creativo</code>, <code>redactor-anuncios</code>, <code>productor-ugc</code>, <code>editor-video</code>, <code>disenador-estaticos</code>, <code>critico-creativo</code> y <code>revisor-politicas</code></dd>
+<dt>Error típico</dt><dd>Llamar «conceptos» a tres variantes con otro color o tres palabras distintas en el hook. Eso son iteraciones: un concepto nuevo cambia el ángulo, la persona, el argumento central o el formato.</dd>
+</dl>
+</div>
+<p class="peq mut">En venta consultiva, la prueba real (un cliente con su sector y cifras aprobadas) suele pesar más que cualquier pieza generada. Las cifras y citas solo salen de la sección «Afirmaciones aprobadas» de la ficha.</p>
+
+<div class="fase" id="f4">
+<div class="fase-cab"><span class="chip">F4</span><h3>Lanzamiento</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Un plan aprobado, creado en pausa, revisado en las previsualizaciones y activado con tu confirmación.</dd>
+<dt>Hecho cuando</dt><dd>Plan de campaña aprobado en <code>planes/</code>; campaña creada en pausa con previsualizaciones revisadas; activada con confirmación y anotada en el change log.</dd>
+<dt>Skills</dt><dd><code>/lanzar-campana</code> (con comprobaciones de economía, señal, oferta, funnel y creatividad) · <code>/publicar-anuncios</code> (sube un lote a una campaña existente) · <code>/test-creativo</code> · <code>/webinar</code>. Modo profundo: <code>lanzamiento-completo</code>.</dd>
+<dt>Agentes</dt><dd><code>revisor-estrategia</code> revisa el plan antes de enseñártelo; <code>operador-meta</code> lo ejecuta y es <b>el único</b> que puede escribir en Meta.</dd>
+<dt>Error típico</dt><dd>Una campaña por anuncio «para controlarlo mejor». Consolidar es la regla; separar necesita una razón de negocio.</dd>
+</dl>
+</div>
+
+<div class="fase" id="f5">
+<div class="fase-cab"><span class="chip">F5</span><h3>Operación</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Una cadencia que se cumple sola y decisiones con paciencia y con la capa más baja de verdad disponible.</dd>
+<dt>Hecho cuando</dt><dd>Brief diario e informe semanal en marcha; registro creativo actualizado en los últimos 7 días; sin evaluaciones vencidas en el change log; reglas automáticas creadas y revisadas tras el modo sombra.</dd>
+<dt>Skills</dt><dd><code>/brief-diario</code> · <code>/informe-semanal</code> · <code>/revision-mensual</code> · <code>/diagnostico</code> · <code>/ejecutar-cambio</code> · <code>/embudo</code> · <code>/rescate-cuenta</code> · <code>/reglas-automaticas</code> · <code>/seguimiento-leads</code> · <code>/anuncios-por-etapa</code></dd>
+<dt>Agentes</dt><dd><code>analista-meta</code>, <code>especialista-crm</code>, <code>revisor-estrategia</code> y <code>operador-meta</code></dd>
+<dt>Error típico</dt><dd>Tocar una campaña cada dos días (ver la cadencia de la sección <a href="#dia">04</a>).</dd>
+</dl>
+</div>
+<p class="peq mut"><code>/reglas-automaticas</code> deja reglas dentro de Meta que actúan aunque tu ordenador esté apagado: pausar un anuncio que ha gastado varias veces el coste objetivo sin convertir (4 veces en cuentas pequeñas, 3 con volumen), pausar el gasto fuera de tope y avisar. Arrancan en <b>modo sombra</b>: durante 1–2 semanas las pausas por conversión solo avisan, y después pasas a activas las que acertaron. Solo pausan o avisan: nunca suben presupuesto ni borran.</p>
+
+<div class="fase" id="f6">
+<div class="fase-cab"><span class="chip">F6</span><h3>Escalado</h3></div>
+<dl>
+<dt>Objetivo</dt><dd>Crecer mientras el coste del siguiente cliente siga por debajo del break-even.</dd>
+<dt>Hecho cuando</dt><dd>Se cumplen las condiciones de <code>/escalar</code>.</dd>
+<dt>Skills</dt><dd><code>/escalar</code> (condiciones previas, coste marginal, palanca correcta y plan por escalones dentro de los topes) · <code>/auditoria</code> (revisión completa cuando algo no cuadra o cada trimestre)</dd>
+<dt>Agentes</dt><dd><code>analista-cuantitativo</code> y <code>auditor-cuenta</code></dd>
+<dt>Error típico</dt><dd>Escalar mirando el CPA medio. El que importa es el del último euro.</dd>
+</dl>
+</div>
+
+<h3>El circuito del siguiente anuncio</h3>
+<p>Con la cuenta en marcha, la creatividad deja de ser intuición y se convierte en un circuito cerrado:</p>
+<div class="paso"><div class="n">1</div><div><b>Registro creativo.</b> <code>herramientas/registro_creativo.py</code> cruza cada anuncio con sus resultados de negocio (de GoHighLevel o Stripe) en <code>registro-creativo.csv</code>. El ángulo, el concepto, el formato y el hook salen del nombre del anuncio: por eso los nombres siguen una nomenclatura fija.</div></div>
+<div class="paso"><div class="n">2</div><div><b>Decisión.</b> <code>/siguiente-anuncio</code> elige ganadores con la capa más baja de verdad que tenga datos suficientes. Servicios: venta &gt; cita o asistencia &gt; cualificado &gt; coste por lead. SaaS: cliente de pago &gt; prueba activada &gt; prueba &gt; registro.</div></div>
+<div class="paso"><div class="n">3</div><div><b>Producción.</b> <code>/producir-video</code> o <code>/producir-estatico</code>, con crítica y revisión de políticas.</div></div>
+<div class="paso"><div class="n">4</div><div><b>Publicación.</b> <code>/publicar-anuncios</code>, en pausa y con las mejoras automáticas de Meta desactivadas.</div></div>
+<div class="paso"><div class="n">5</div><div><b>Lectura.</b> El brief y el informe semanal alimentan otra vez el registro.</div></div>
+<p>Recorrido completo, con cada punto de la checklist: <a href="recorrido.md"><code>docs/recorrido.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 07 -->
+<section id="skills">
+<h2><span class="num">07 ·</span> Las 50 skills</h2>
+<p><b>Una skill es un comando</b>: escribes <code>/nombre</code> y Claude sigue sus pasos, que citan la base de conocimiento. Claude también puede usar una skill por su cuenta cuando la conversación lo pide, <b>salvo las marcadas (manual)</b>: escriben en Meta, gastan dinero o actualizan el sistema, así que solo se ejecutan cuando tú las escribes.</p>
+<p>Algunas aceptan <code>profundo</code>: lanzan un modo profundo con varios agentes (sección <a href="#workflows">09</a>) y antes te dicen el coste aproximado. Detalle y ejemplos de cada una: <a href="catalogo/skills.md"><code>docs/catalogo/skills.md</code></a>.</p>
+<div class="tabla"><table>
+<thead><tr><th>Skill</th><th>Para qué</th></tr></thead>
+<tbody>
+<tr class="grupo"><td colspan="2">Entradas (4)</td></tr>
+<tr><td class="c1"><code>/empezar</code></td><td>Puesta en marcha guiada y reanudable, unos 30 minutos</td></tr>
+<tr><td class="c1"><code>/hoy</code></td><td>Qué toca hoy en cada cliente, sin coste; acaba en 1–3 acciones</td></tr>
+<tr><td class="c1"><code>/pregunta</code></td><td>Dudas de Meta respondidas desde la base, con archivo y etiqueta de evidencia</td></tr>
+<tr><td class="c1"><code>/siguiente-anuncio</code></td><td>Los próximos 1–3 anuncios, con hipótesis, test, vía de producción y coste</td></tr>
+<tr class="grupo"><td colspan="2">Sistema (5)</td></tr>
+<tr><td class="c1"><code>/menu</code> <span class="mut">(manual)</span></td><td>El mapa del sistema por fases, con por dónde empezar</td></tr>
+<tr><td class="c1"><code>/doctor</code></td><td>Revisa la instalación y las conexiones, con el arreglo de cada fallo</td></tr>
+<tr><td class="c1"><code>/actualizar</code> <span class="mut">(manual)</span></td><td>Versión nueva sin tocar tus datos</td></tr>
+<tr><td class="c1"><code>/conectar</code></td><td>Conecta y verifica Meta, GoHighLevel y Stripe; con <code>--avanzado</code>, el token de Meta</td></tr>
+<tr><td class="c1"><code>/motor</code></td><td>Estado, gasto, proyectos e instalación del motor de vídeo con IA. Consúltala antes de producir</td></tr>
+<tr class="grupo"><td colspan="2">F0 · Negocio y oferta (5)</td></tr>
+<tr><td class="c1"><code>/cliente-nuevo</code></td><td>Alta de un cliente o de tu negocio, con su ficha y su estado</td></tr>
+<tr><td class="c1"><code>/economia</code></td><td>Cuánto puedes pagar por lead, cita, venta, prueba o cliente de pago; <code>prevision</code> para propuestas</td></tr>
+<tr><td class="c1"><code>/oferta</code></td><td>Construir o mejorar la oferta antes de gastar</td></tr>
+<tr><td class="c1"><code>/disenar-funnel</code></td><td>Elegir el camino de conversión, su evento de optimización y el coste máximo por etapa</td></tr>
+<tr><td class="c1"><code>/iman-de-leads</code></td><td>Diagnóstico o calculadora que da valor y precualifica</td></tr>
+<tr class="grupo"><td colspan="2">F1 · Infraestructura y señal (6)</td></tr>
+<tr><td class="c1"><code>/configurar-meta</code></td><td>Dejar Meta listo según tu situación, con los topes del lado de Meta</td></tr>
+<tr><td class="c1"><code>/implementar-capi</code></td><td>La señal de vuelta: píxel y Conversions API desde GoHighLevel, n8n, Make, Stripe, tu backend o la mensajería</td></tr>
+<tr><td class="c1"><code>/audiencias</code></td><td>Listas del CRM o de Stripe en Meta: excluir clientes, semillas por valor, segmentos por etapa</td></tr>
+<tr><td class="c1"><code>/construir-landing</code></td><td>Genera en local landing, diagnóstico, reserva, gracias o registro a un taller. No las publica</td></tr>
+<tr><td class="c1"><code>/formulario-instantaneo</code> <span class="mut">(manual)</span></td><td>El formulario de Meta con preguntas que filtran antes de la llamada</td></tr>
+<tr><td class="c1"><code>/landing</code></td><td>Audita una landing o un formulario ya publicados</td></tr>
+<tr class="grupo"><td colspan="2">F2 · Investigación (2)</td></tr>
+<tr><td class="c1"><code>/competencia</code></td><td>Anuncios, landings, ofertas e Instagram de la competencia, con patrones y huecos</td></tr>
+<tr><td class="c1"><code>/voz-cliente</code></td><td>Deseos, dolores, objeciones y lenguaje literal de tus clientes</td></tr>
+<tr class="grupo"><td colspan="2">F3 · Creatividad (8)</td></tr>
+<tr><td class="c1"><code>/brief-creativo</code></td><td>Ángulos, conceptos, hooks, briefs y plan de test de un lote</td></tr>
+<tr><td class="c1"><code>/producir-video</code> <span class="mut">(manual)</span></td><td>Un vídeo por la vía <code>ia</code> (gasta dinero), <code>propio</code> o <code>hibrido</code></td></tr>
+<tr><td class="c1"><code>/producir-estatico</code></td><td>Imágenes y carruseles con plantillas HTML y la marca del cliente</td></tr>
+<tr><td class="c1"><code>/variantes</code></td><td>Iteraciones de una pieza: hooks, CTA, subtítulos, formatos y música (casi gratis); voz o idioma (de pago)</td></tr>
+<tr><td class="c1"><code>/revisar-anuncio</code></td><td>Revisión de políticas antes de publicar, con veredicto en el <code>LEEME.md</code></td></tr>
+<tr><td class="c1"><code>/analisis-creativo</code></td><td>Qué elementos de tus anuncios se asocian a ganar y cuántos conceptos producir al mes</td></tr>
+<tr><td class="c1"><code>/casos-y-creadores</code></td><td>Casos de clientes con permiso y anuncios de colaboración</td></tr>
+<tr><td class="c1"><code>/organico-a-anuncios</code></td><td>Publicaciones propias que ya funcionaron, convertidas en anuncio</td></tr>
+<tr class="grupo"><td colspan="2">F4 · Lanzamiento (4)</td></tr>
+<tr><td class="c1"><code>/lanzar-campana</code> <span class="mut">(manual)</span></td><td>Campaña nueva con comprobaciones, plan aprobado, creación en pausa y activación solo con tu sí</td></tr>
+<tr><td class="c1"><code>/publicar-anuncios</code> <span class="mut">(manual)</span></td><td>Sube un lote aprobado a una campaña que ya existe, en pausa</td></tr>
+<tr><td class="c1"><code>/test-creativo</code></td><td>Diseña o lee un experimento con potencia estadística</td></tr>
+<tr><td class="c1"><code>/webinar</code></td><td>Un webinar o taller de captación de punta a punta</td></tr>
+<tr class="grupo"><td colspan="2">F5 · Operación (10)</td></tr>
+<tr><td class="c1"><code>/brief-diario</code></td><td>Salud diaria de tus cuentas en solo lectura; <code>programar</code> la deja automática</td></tr>
+<tr><td class="c1"><code>/informe-semanal</code></td><td>Informe interno de la última semana completa, con como mucho 3 decisiones</td></tr>
+<tr><td class="c1"><code>/revision-mensual</code></td><td>Economía, coste marginal, incrementalidad, aprendizajes por ángulo y plan del mes</td></tr>
+<tr><td class="c1"><code>/diagnostico</code></td><td>Un síntoma concreto («sube el CPA»), con datos reales, hasta una causa y una acción</td></tr>
+<tr><td class="c1"><code>/ejecutar-cambio</code> <span class="mut">(manual)</span></td><td>Un cambio con plan, regla de paciencia, topes, aprobación y change log</td></tr>
+<tr><td class="c1"><code>/embudo</code></td><td>El dinero después del clic: cohortes desde GoHighLevel o Stripe y dónde se rompe</td></tr>
+<tr><td class="c1"><code>/rescate-cuenta</code></td><td>Rechazos en cadena, restricciones, hackeos o fallos de pago. Nunca circunvención</td></tr>
+<tr><td class="c1"><code>/reglas-automaticas</code> <span class="mut">(manual)</span></td><td>Reglas dentro de Meta que pausan o avisan aunque tu ordenador esté apagado</td></tr>
+<tr><td class="c1"><code>/seguimiento-leads</code></td><td>Respuesta rápida, recordatorios, no-shows y propuestas abiertas en GoHighLevel. Nunca envía mensajes</td></tr>
+<tr><td class="c1"><code>/anuncios-por-etapa</code> <span class="mut">(manual)</span></td><td>Anuncios pequeños para etapas del CRM (no vino, propuesta abierta, «ahora no»), con grupo de control</td></tr>
+<tr class="grupo"><td colspan="2">F6 · Escalado (2)</td></tr>
+<tr><td class="c1"><code>/escalar</code></td><td>Si se puede escalar y cómo, por escalones y dentro de los topes</td></tr>
+<tr><td class="c1"><code>/auditoria</code></td><td>Auditoría completa P0–P3 de una cuenta, solo lectura, con plan 30/60/90</td></tr>
+<tr class="grupo"><td colspan="2">Agencia y aprendizaje (4)</td></tr>
+<tr><td class="c1"><code>/informe-cliente</code></td><td>El informe interno, convertido en uno para el cliente con tu marca. Nunca se envía solo</td></tr>
+<tr><td class="c1"><code>/auditoria-express</code></td><td>Auditoría de un prospecto con fuentes públicas, sin acceso a su cuenta, para venderle</td></tr>
+<tr><td class="c1"><code>/entrenar</code></td><td>Escenarios prácticos que respondes tú y corrige <code>mentor-meta</code></td></tr>
+<tr><td class="c1"><code>/novedades-meta</code></td><td>Qué ha cambiado en Meta, verificado, y a qué clientes afecta</td></tr>
+</tbody></table></div>
+<p class="mut peq">¿Echas algo en falta? Prueba <code>/menu &lt;palabra&gt;</code> o <code>/pregunta</code>: casi siempre hay una skill que lo cubre.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 08 -->
+<section id="agentes">
+<h2><span class="num">08 ·</span> Los 20 agentes: tu equipo</h2>
+<p>Un agente es un especialista al que Claude delega una parte del trabajo. Cada uno tiene una <b>lista cerrada de herramientas</b>: un agente de solo lectura no puede escribir en Meta, GoHighLevel ni Stripe aunque quiera. No hace falta llamarlos: las skills los invocan cuando toca. Si quieres uno en concreto, pídelo por su nombre («que lo revise <code>revisor-estrategia</code>»).</p>
+<div class="tabla"><table>
+<thead><tr><th>Agente</th><th>Qué hace por ti</th></tr></thead>
+<tbody>
+<tr class="grupo"><td colspan="2">Datos y análisis</td></tr>
+<tr><td class="c1"><code>analista-meta</code></td><td>Saca y descompone los datos de una cuenta: salud diaria, informe semanal, por qué cambió el CPA, anomalías, fatiga y errores de entrega</td></tr>
+<tr><td class="c1"><code>analista-cuantitativo</code></td><td>Todo lo que es un número con supuestos: economía, previsiones, coste marginal, tests, incrementalidad y reparto de presupuesto</td></tr>
+<tr><td class="c1"><code>auditor-cuenta</code></td><td>Auditoría P0–P3 de una cuenta entera, o en modo express para un prospecto</td></tr>
+<tr class="grupo"><td colspan="2">Señal y negocio</td></tr>
+<tr><td class="c1"><code>especialista-tracking</code></td><td>Diagnostica la señal que ya existe: píxel, Conversions API, datasets, deduplicación, atribución y discrepancias con GA4, el CRM o Stripe</td></tr>
+<tr><td class="c1"><code>ingeniero-capi</code></td><td>Construye y prueba la señal de vuelta (GoHighLevel, n8n, Make, Stripe, backend y mensajería), solo con <code>test_event_code</code></td></tr>
+<tr><td class="c1"><code>especialista-crm</code></td><td>Lleva cada anuncio hasta el dinero: leads, citas, asistencia, ventas y cobro, o registros, pruebas y suscripciones; velocidad de respuesta y calidad del lead</td></tr>
+<tr><td class="c1"><code>especialista-funnel</code></td><td>El recorrido después del clic: camino de conversión, landings, diagnósticos y formularios, y dónde se rompe</td></tr>
+<tr class="grupo"><td colspan="2">Creatividad</td></tr>
+<tr><td class="c1"><code>estratega-creativo</code></td><td>Oferta, ángulos, conceptos y hooks; decide el siguiente anuncio con el registro creativo y escribe briefs</td></tr>
+<tr><td class="c1"><code>redactor-anuncios</code></td><td>El texto final en volumen y en la voz del cliente</td></tr>
+<tr><td class="c1"><code>investigador-competencia</code></td><td>Recoge y clasifica anuncios, landings y ofertas de la competencia, y la voz del cliente en reseñas y foros</td></tr>
+<tr><td class="c1"><code>productor-ugc</code></td><td>Convierte un guion aprobado en vídeo con el motor de IA, con confirmación de gasto y control de calidad</td></tr>
+<tr><td class="c1"><code>editor-video</code></td><td>Monta tu vídeo (fundador, equipo, creador o demo de pantalla) con cutkit: hook en 2 s, subtítulos, marca y zonas seguras</td></tr>
+<tr><td class="c1"><code>disenador-estaticos</code></td><td>Imágenes y carruseles en 1:1, 4:5 y 9:16 con la marca del cliente y fotos o capturas reales</td></tr>
+<tr class="grupo"><td colspan="2">Revisión</td></tr>
+<tr><td class="c1"><code>critico-creativo</code></td><td>Mira cada pieza como alguien que hace scroll: primeros 2 s, sin sonido, legibilidad, claridad de la oferta</td></tr>
+<tr><td class="c1"><code>revisor-politicas</code></td><td>Detecta rechazos probables antes de publicar y reescribe en una versión que sigue vendiendo</td></tr>
+<tr><td class="c1"><code>revisor-estrategia</code></td><td>El abogado del diablo de cada plan: principios, mitos, regla de paciencia, ruido estadístico y topes</td></tr>
+<tr class="grupo"><td colspan="2">Ejecución</td></tr>
+<tr><td class="c1"><code>operador-meta</code></td><td><b>El único que escribe en Meta</b> (y el único que hace escrituras aprobadas en GoHighLevel). Solo con un plan que hayas aprobado en la conversación: crea en pausa, cambia presupuestos o pujas, deja reglas, formularios y audiencias, y lo anota todo en el change log</td></tr>
+<tr class="grupo"><td colspan="2">Cliente y conocimiento</td></tr>
+<tr><td class="c1"><code>gestor-cliente</code></td><td>Informes en el lenguaje del cliente, reuniones, expectativas y peticiones de acceso (borradores que nunca envía)</td></tr>
+<tr><td class="c1"><code>mentor-meta</code></td><td>Responde dudas desde la base, a tu nivel, y corrige tus escenarios de <code>/entrenar</code>. No mira cuentas</td></tr>
+<tr><td class="c1"><code>curador-conocimiento</code></td><td>Vigila y verifica novedades de Meta y registra lo aprendido en tus cuentas</td></tr>
+</tbody></table></div>
+<div class="caja"><b>Por qué algunos asistentes no son agentes</b><code>/empezar</code>, <code>/configurar-meta</code>, <code>/conectar</code> y <code>/brief-diario programar</code> son skills que se ejecutan en tu conversación: un agente no puede hacerte preguntas a mitad de su tarea, y estas guías necesitan conversar contigo paso a paso.</div>
+<p class="mut peq">Algunos agentes usan el mismo modelo que tu conversación (para razonar a fondo) y otros, uno más barato para el trabajo de volumen, para que el sistema rinda con el plan Pro. Detalle: <a href="catalogo/agentes.md"><code>docs/catalogo/agentes.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 09 -->
+<section id="workflows">
+<h2><span class="num">09 ·</span> Los 5 workflows: los modos profundos</h2>
+<p>Un workflow coordina a varios agentes en paralelo y en fases, con verificación cruzada entre ellos. Da mejores resultados que una skill sola cuando hay mucho en juego, a cambio de <b>bastante más uso de Claude</b>.</p>
+<ul>
+<li><b>Siempre se lanzan desde su skill</b>, con la palabra <code>profundo</code> (o <code>--lote</code>). Antes te dicen cuántos agentes usarán y el coste aproximado, y esperan tu sí.</li>
+<li><b>Ninguno escribe en Meta, GoHighLevel ni Stripe</b>, ni ejecuta órdenes de pago del motor de vídeo. Terminan en un informe, unos briefs, unas piezas o un plan que apruebas tú.</li>
+<li>Con el plan Pro, resérvalos para lo que lo merece: una cuenta heredada, un lanzamiento, un lote importante.</li>
+</ul>
+<div class="tabla"><table>
+<thead><tr><th>Workflow</th><th>Se lanza con</th><th>Qué hace</th><th>Agentes · coste</th></tr></thead>
+<tbody>
+<tr><td><code>auditoria-profunda</code></td><td><code>/auditoria profundo &lt;cliente&gt;</code></td><td>Cuenta, señal, políticas y funnel en paralelo; otro agente intenta refutar cada hallazgo grave; informe único con plan 30/60/90</td><td>≈7–13 · alto</td></tr>
+<tr><td><code>investigacion-mercado</code></td><td><code>/competencia profundo &lt;cliente&gt;</code> · <code>/voz-cliente profundo &lt;cliente&gt;</code></td><td>Ad Library, landings, voz del cliente y economía del nicho → matriz de ángulos priorizada</td><td>≈5–8 · medio</td></tr>
+<tr><td><code>estudio-creativo</code></td><td><code>/siguiente-anuncio &lt;cliente&gt; profundo</code> · <code>/brief-creativo profundo &lt;cliente&gt;</code></td><td>Ganadores con la capa más baja de verdad → ángulos → jueces → briefs con guion → políticas</td><td>≈11–17 con 3 conceptos · alto</td></tr>
+<tr><td><code>lote-creativo</code></td><td><code>/producir-video &lt;cliente&gt; &lt;lote&gt; --lote</code> · <code>/producir-estatico &lt;cliente&gt; &lt;lote&gt; --lote</code></td><td>Producción en paralelo sin gastar → crítica y políticas por pieza → arreglos</td><td>≈9–14 con 3 piezas · medio-alto</td></tr>
+<tr><td><code>lanzamiento-completo</code></td><td><code>/lanzar-campana &lt;cliente&gt; profundo</code></td><td>Comprobaciones de economía, funnel y señal (una en rojo para el lanzamiento) → textos → políticas → plan dentro de los topes → revisión</td><td>≈8–9, hasta ≈30 si tiene que investigar · alto</td></tr>
+</tbody></table></div>
+<h3>Cuándo merece la pena</h3>
+<div class="tabla"><table>
+<thead><tr><th>Situación</th><th>Normal</th><th>Profundo</th></tr></thead>
+<tbody>
+<tr><td>Revisión trimestral de una cuenta que va bien</td><td><code>/auditoria</code></td><td>—</td></tr>
+<tr><td>Cuenta heredada o con problemas, antes de un cambio grande</td><td>—</td><td><code>auditoria-profunda</code></td></tr>
+<tr><td>Nicho o cliente nuevo sin investigación previa</td><td>—</td><td><code>investigacion-mercado</code></td></tr>
+<tr><td>Siguiente anuncio de una cuenta con datos</td><td><code>/siguiente-anuncio</code></td><td><code>estudio-creativo</code> si el lote es grande o la cuenta está estancada</td></tr>
+<tr><td>Lote de varias piezas para publicar juntas</td><td>—</td><td><code>lote-creativo</code></td></tr>
+<tr><td>Primer lanzamiento de un cliente nuevo</td><td>—</td><td><code>lanzamiento-completo</code></td></tr>
+</tbody></table></div>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 10 -->
+<section id="seguridad">
+<h2><span class="num">10 ·</span> Las 10 guardas y la seguridad</h2>
+<div class="destacado"><b>Lo más importante de esta guía.</b> Meta Ads OS trabaja con <b>dinero real</b> (tu inversión y la de tus clientes), con <b>personas reales</b> (los contactos de tu CRM) y con <b>claves</b> que dan acceso a todo eso. Por eso la seguridad no depende de que Claude «se porte bien»: está en varias capas que se vigilan entre sí.</div>
+
+<h3>La regla</h3>
+<div class="tabla"><table>
+<thead><tr><th>Acción</th><th>Qué pasa</th></tr></thead>
+<tbody>
+<tr><td><b>Leer</b> (métricas, configuración, CRM, Stripe)</td><td>Libre, sin preguntar</td></tr>
+<tr><td><b>Escribir</b> (crear, cambiar presupuestos, pujas, audiencias)</td><td>Te pide confirmación en ese momento, con el motivo</td></tr>
+<tr><td><b>Activar</b> una campaña, conjunto o anuncio</td><td>Confirmación específica, aparte del resto</td></tr>
+<tr><td><b>Borrar</b> en Meta</td><td>Bloqueado. Si de verdad quieres borrar algo, lo haces tú en Ads Manager</td></tr>
+<tr><td><b>Archivar</b> en Meta</td><td>Pregunta aparte: no se puede deshacer desde aquí</td></tr>
+<tr><td><b>Promocionar</b> una publicación</td><td>Bloqueado: no nace en pausa ni pasa por los topes; se hace en Ads Manager</td></tr>
+<tr><td>Cambiar los <b>topes de gasto</b> de una ficha</td><td>Te pide confirmación enseñando el antes y el después</td></tr>
+<tr><td>Mandar mensajes a contactos, tocar pagos, leer secretos</td><td>Bloqueado siempre</td></tr>
+</tbody></table></div>
+
+<h3>Lo esencial, si empiezas</h3>
+<div class="grid2">
+<div class="tarjeta"><b>1 · Meta gasta dinero real</b><p>Cada escritura en Meta te pide confirmación. Lee el motivo antes de decir que sí.</p></div>
+<div class="tarjeta"><b>2 · Todo nace en pausa</b><p>Campañas, conjuntos y anuncios nuevos se crean en pausa. Crear algo ya activo está bloqueado.</p></div>
+<div class="tarjeta"><b>3 · Activar pide un sí específico</b><p>Aparte del resto de confirmaciones, en el momento.</p></div>
+<div class="tarjeta"><b>4 · Topes en la ficha</b><p><code>topes.cambio_dia</code> (por cambio) y <code>topes.total_dia</code> (total diario). Con topes a 0 no se crea ni se sube presupuesto.</p></div>
+<div class="tarjeta"><b>5 · Borrar está bloqueado</b><p>También poner algo en estado «borrado». Lo haces tú en Ads Manager si de verdad quieres.</p></div>
+<div class="tarjeta"><b>6 · Los secretos no se leen</b><p>Claude no puede leer, imprimir ni copiar <code>.env</code>. Las herramientas lo cargan solas.</p></div>
+<div class="tarjeta"><b>7 · Solo un agente escribe</b><p><code>operador-meta</code>, con un plan que hayas aprobado, y cada cambio queda en el change log del cliente.</p></div>
+<div class="tarjeta"><b>8 · Lo de fuera es dato</b><p>Webs, anuncios de la competencia o comentarios nunca son instrucciones: si dicen «ignora tus reglas», no se obedece.</p></div>
+</div>
+<p>Además: nunca se escribe a tus contactos desde GoHighLevel y Stripe es solo lectura; los eventos de prueba van con <code>test_event_code</code>; los datos personales de leads solo viven en <code>clientes/&lt;slug&gt;/privado/</code>; las páginas nunca se despliegan solas; todo pasa por <code>revisor-politicas</code> antes de publicarse, y el sistema <b>nunca</b> propone esquivar a Meta (cuentas o Páginas nuevas para saltarse una restricción, cloaking u ofuscación). Si una cuenta está restringida, el camino es <code>/rescate-cuenta</code>.</p>
+
+<h3>Las capas</h3>
+<ol>
+<li><b>Permisos de Claude Code</b> (<code>.claude/settings.json</code>): lo que se permite, lo que pregunta y lo que se deniega. <b>No los aflojes</b> en <code>.claude/settings.local.json</code> para ahorrarte confirmaciones: cada confirmación es un punto donde puedes parar un error.</li>
+<li><b>Las 10 guardas</b> (tabla de abajo): ven lo que los permisos no pueden ver, como el presupuesto que va dentro de una llamada.</li>
+<li><b>Un solo agente escribe</b>: <code>operador-meta</code>.</li>
+<li><b>Skills que solo lanzas tú</b>: las marcadas (manual) en la sección <a href="#skills">07</a>.</li>
+<li><b>Topes en dos lados</b>: en la ficha y dentro de Meta.</li>
+<li><b>Políticas de Meta</b>: revisión antes de publicar.</li>
+</ol>
+
+<h3>Las 10 guardas, una a una</h3>
+<p>Una guarda (en inglés, <i>hook</i>) es un pequeño programa que Claude Code ejecuta antes o después de ciertas acciones. Puede dejar pasar, preguntarte o bloquear. No depende de que Claude se acuerde de las reglas: se aplica siempre.</p>
+<div class="tabla"><table>
+<thead><tr><th>#</th><th>Guarda</th><th>Qué hace por ti</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>meta_guard</code></td><td>El portero del dinero en Meta. Registra todo; las escrituras piden confirmación y solo las puede hacer <code>operador-meta</code>. Bloquea borrados, crear algo ya activo, promocionar publicaciones y cualquier presupuesto por encima del tope de la ficha. Aplica la regla de paciencia: si la misma pieza cambió hace menos de 7 días, te lo dice y pregunta</td></tr>
+<tr><td>2</td><td><code>motor_guard</code></td><td>Pide confirmación con el coste antes de cada orden de pago del motor de vídeo y de las opciones de pago de cutkit</td></tr>
+<tr><td>3</td><td><code>ghl_guard</code></td><td>Bloquea en GoHighLevel los mensajes a contactos (SMS, WhatsApp, email, llamadas), los borrados y las facturas</td></tr>
+<tr><td>4</td><td><code>stripe_guard</code></td><td>Stripe en solo lectura: cualquier creación, cambio, reembolso o cancelación se bloquea</td></tr>
+<tr><td>5</td><td><code>eventos_guard</code></td><td>Un envío a la Conversions API sin <code>test_event_code</code> te pide confirmación con un aviso fuerte</td></tr>
+<tr><td>6</td><td><code>control_publicacion</code></td><td>Antes de crear un anuncio, comprueba que su nombre cumple la nomenclatura (si no, te propone el correcto) y que la pieza tiene veredicto de políticas</td></tr>
+<tr><td>7</td><td><code>datos_personales</code></td><td>Si algo con emails, teléfonos o listas de personas se va a guardar fuera de <code>privado/</code>, te pregunta. Si alguien cambia los topes de una ficha, te enseña el antes y el después</td></tr>
+<tr><td>8</td><td><code>secretos</code></td><td>Bloquea leer, imprimir, copiar o cargar <code>.env</code> y mostrar variables con claves</td></tr>
+<tr><td>9</td><td><code>registro_obligatorio</code></td><td>Si hubo escrituras en Meta, GoHighLevel o Stripe sin anotar en el change log, no deja terminar y dice cuáles faltan</td></tr>
+<tr><td>10</td><td><code>contexto_sesion</code></td><td>Al abrir una sesión, el resumen de seis líneas como mucho (sección <a href="#instalacion">03</a>)</td></tr>
+</tbody></table></div>
+<p>Si una guarda falla por dentro, <b>falla cerrada</b> en lo que toca dinero: una escritura en Meta que no ha podido comprobar se bloquea («no he podido comprobar los topes»). Así un error nunca abre la puerta a gastar sin preguntar. Todo queda en <code>logs/</code>, sin tokens ni datos personales. Catálogo técnico: <a href="catalogo/hooks.md"><code>docs/catalogo/hooks.md</code></a>.</p>
+
+<h3>Los topes, en dos lados</h3>
+<div class="tabla"><table>
+<thead><tr><th>Tope</th><th>Dónde</th><th>Lo aplica</th></tr></thead>
+<tbody>
+<tr><td><b>Por cambio</b> (<code>topes.cambio_dia</code>)</td><td>Cada presupuesto diario que llega en una llamada o en un plan</td><td><code>meta_guard</code>: si lo supera, lo bloquea</td></tr>
+<tr><td><b>Total diario</b> (<code>topes.total_dia</code>)</td><td>La suma de lo activo en la cuenta</td><td><code>meta_guard</code>, si tienes el token avanzado (sección <a href="#conexiones">13</a>)</td></tr>
+<tr><td>Límite del Ads MCP server</td><td>Business Settings → Ads MCP server → «Budgets set above this amount → Blocked»</td><td>Meta, en su servidor. No está verificado si compara el presupuesto diario o el total: ponlo pensando en el diario</td></tr>
+<tr><td>Límite de gasto de la cuenta</td><td>Configuración de pagos de la cuenta publicitaria</td><td>Meta, en su servidor</td></tr>
+<tr><td>Reglas automáticas del sistema</td><td>Dentro de la cuenta, con <code>/reglas-automaticas</code></td><td>Meta, aunque tu ordenador esté apagado: solo pausan o avisan</td></tr>
+</tbody></table></div>
+<p>Los topes son decisión tuya, no de Claude. El motor de vídeo con IA tiene su propio tope (5 $ por defecto, sección <a href="#video">12</a>).</p>
+
+<h3>Si algo ha salido mal</h3>
+<div class="tabla"><table>
+<thead><tr><th>Pasa</th><th>Qué hacer</th></tr></thead>
+<tbody>
+<tr><td>Se ha creado algo que no querías</td><td>Está en pausa: revísalo en Ads Manager. El change log y <code>logs/cambios.jsonl</code> dicen qué se hizo y cuándo</td></tr>
+<tr><td>Un cambio no ha funcionado</td><td>No lo deshagas a ciegas: <code>/ejecutar-cambio &lt;cliente&gt; "revertir &lt;cambio&gt;"</code>, con su motivo en el change log</td></tr>
+<tr><td>Una guarda te bloquea algo que sí quieres hacer</td><td>Lee su motivo. Si es correcto, hazlo tú a mano en Ads Manager; si crees que la guarda se equivoca, apúntalo en <code>aprendizajes/</code></td></tr>
+<tr><td>Claude no da el trabajo por terminado y habla de escrituras sin anotar</td><td>Es <code>registro_obligatorio</code>: deja que las anote (o anótalas tú) y termina</td></tr>
+<tr><td>Has pegado una clave en el chat</td><td>Los cuatro pasos de abajo</td></tr>
+</tbody></table></div>
+
+<div class="aviso"><b>Si se filtra una clave</b> (en el chat, una captura, un repositorio o un mensaje):
+<ol>
+<li><b>Revócala ya</b> en su panel: Business Settings en Meta, Private Integrations en GoHighLevel, API keys en Stripe, @BotFather en Telegram, el webhook en Slack o la clave en Google AI Studio.</li>
+<li>Crea una nueva y pégala tú en <code>.env</code>.</li>
+<li>Si estaba en un repositorio, borrar el archivo no basta: sigue en el historial. Revocarla es lo que la inutiliza.</li>
+<li>Revisa <code>logs/cambios.jsonl</code> y el historial de la cuenta en Ads Manager por si alguien la ha usado.</li>
+</ol></div>
+<p>Usa siempre la clave con <b>menos permisos</b> que sirva: token de solo lectura en GoHighLevel, clave restringida de lectura en Stripe, usuario del sistema con solo los activos necesarios en Meta. Detalle completo: <a href="seguridad.md"><code>docs/seguridad.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 11 -->
+<section id="clientes">
+<h2><span class="num">11 ·</span> Trabajar con clientes</h2>
+<h3>Empieza por tu propia captación</h3>
+<p>Si aún no llevas Meta Ads a nadie, el primer cliente eres tú: <code>/cliente-nuevo</code> con <code>relacion: propio</code>. Aprendes el sistema con tu dinero y sales con un caso propio que enseñar. Si vendes proyectos de IA o automatización a pymes, tu playbook es <code>meta-ads-kb/14-playbooks/playbook-consultoras-ia-automatizacion.md</code>, con el ejemplo completo de Acme.</p>
+
+<h3>Un espacio por cliente</h3>
+<p><code>/cliente-nuevo "Acme Automations"</code> crea <code>clientes/acme-automations/</code>. Ese nombre corto de carpeta es el <b>slug</b> del cliente: lo usarás en los comandos (<code>/hoy acme-automations</code>).</p>
+<div class="tabla"><table>
+<thead><tr><th>Archivo o carpeta</th><th>Para qué</th></tr></thead>
+<tbody>
+<tr><td><code>ficha.md</code></td><td>Su negocio, su economía, sus IDs de Meta, su CRM y sus <b>topes</b>. La cabecera la leen las herramientas y las guardas</td></tr>
+<tr><td><code>estado.md</code></td><td>En qué fase está y qué le falta: lo que verás en <code>/hoy</code></td></tr>
+<tr><td><code>change-log.md</code></td><td>Cada cambio con su motivo y su fecha de evaluación: tu defensa en cualquier reunión</td></tr>
+<tr><td><code>registro-creativo.csv</code></td><td>Cada anuncio con sus resultados de negocio: qué ángulo vende en esa cuenta</td></tr>
+<tr><td><code>informes/</code>, <code>auditorias/</code>, <code>planes/</code>, <code>creativos/</code>, <code>investigacion/</code></td><td>Los entregables</td></tr>
+<tr><td><code>paginas/</code></td><td>Las páginas de captación generadas, listas para subir</td></tr>
+<tr><td><code>marca/</code></td><td>Logo, colores y tipografías del cliente para imágenes, vídeo y páginas</td></tr>
+<tr><td><code>privado/</code></td><td>Exportaciones con datos personales de sus leads. Nunca se comparte</td></tr>
+</tbody></table></div>
+<p>Los datos de un cliente nunca se mezclan con los de otro: las herramientas reciben <code>--cliente &lt;slug&gt;</code> y leen solo su ficha, sus claves y su carpeta.</p>
+
+<h3>La ficha</h3>
+<p>La cabecera recoge, entre otras cosas: el tipo de negocio, si es tu negocio (<code>propio</code>) o un cliente de tu agencia (<code>cliente</code>), moneda, zona horaria, mercados, los IDs de Meta, el evento principal, la ventana de atribución (por defecto, 7 días tras el clic y 1 tras ver el anuncio), los topes, el CRM, si usa Stripe y la política de mejoras automáticas de Meta (por defecto, desactivadas). Debajo van el negocio, la economía, la medición, las reglas propias del cliente y las <b>afirmaciones aprobadas</b>: las únicas cifras y frases que pueden salir en un anuncio.</p>
+<div class="aviso"><b>Sin ficha no hay recomendaciones de presupuesto ni de objetivos.</b> El sistema te pedirá primero <code>/cliente-nuevo</code>. El campo <code>estado</code> de la ficha (prospecto, activo o pausa) decide qué clientes miran el brief diario (solo los activos) y <code>/hoy</code> (los activos completos, los prospectos en una línea; los de pausa no salen).</div>
+
+<h3>El change log</h3>
+<p>Cada cambio en la cuenta (tuyo, de un agente o de Meta) queda en una fila: fecha y hora, quién, nivel, objeto (con su ID), el cambio <b>de → a</b>, el motivo o la hipótesis, la métrica de éxito, la fecha de evaluación y el resultado. Un ejemplo ficticio: «presupuesto del conjunto principal de 50 a 80 €/día · hipótesis: hay margen bajo el break-even · métrica: coste por cita · se evalúa a los 7 días». Cuando llega la fecha, <code>/hoy</code> te lo recuerda y <code>/informe-semanal</code> lo evalúa.</p>
+
+<h3>Nombres que cuentan</h3>
+<p>Los anuncios siguen una nomenclatura fija para que el registro creativo sepa qué ángulo o qué hook ganó. Por ejemplo, una campaña <code>ES_LEADS_ADQ_HV</code> y un anuncio <code>20261110_tiempo-perdido_demo-antes-despues_demo_h2</code> (fecha, ángulo, concepto, formato y hook). <code>herramientas/nomenclatura.py</code> los genera y los valida, y la guarda <code>control_publicacion</code> te propone el nombre correcto si no cumple.</p>
+
+<h3>Entrar en la cuenta de un cliente</h3>
+<p>La forma correcta es el <b>acceso de partner</b>, no que el cliente te haga administrador de su portfolio:</p>
+<ol>
+<li>Tu agencia tiene su propio Business Portfolio, con tu equipo dentro.</li>
+<li>El cliente añade a tu agencia como partner y le comparte la cuenta publicitaria, la Página, Instagram y el dataset con las tareas mínimas.</li>
+<li>Desde tu portfolio, asignas esos activos a las personas de tu equipo.</li>
+</ol>
+<p>Los activos se quedan <b>en el portfolio del cliente</b>. Si algún día os separáis, el cliente conserva su historial y tú solo pierdes el acceso. Si aún no tienes acceso, <code>/configurar-meta &lt;cliente&gt; agencia</code> te prepara el mensaje para pedirlo.</p>
+
+<h3>Con varios clientes</h3>
+<p>La cadencia de la sección <a href="#dia">04</a> vale igual: un solo brief con todos tus clientes, <code>/hoy</code> al empezar, y cada semana y cada mes el informe interno más el del cliente (<code>/informe-cliente &lt;cliente&gt; semanal</code> o <code>mensual</code>). <code>/informe-cliente</code> nunca envía nada: deja el informe en Markdown y PDF para que lo revises y lo mandes tú. Las reglas automáticas se ponen una vez por cuenta.</p>
+<p><b>El indicador del contrato</b>: acuerda con el cliente el coste por cita, por lead cualificado o por venta, no el coste por lead, y deja por escrito que la calidad depende de que su equipo conteste a tiempo. <code>/embudo</code> te dice si el problema es de marketing o de ventas.</p>
+<p><b>Para vender</b>: <code>/auditoria-express "&lt;prospecto&gt;"</code> (auditoría con fuentes públicas, sin acceso a su cuenta), <code>/economia prevision</code> (escenarios con bandas para la propuesta) y <code>/casos-y-creadores</code> (tus proyectos convertidos en casos con permiso). Montar la señal de vuelta con <code>/implementar-capi</code> es un servicio que encaja de forma natural en una agencia de automatización.</p>
+<p><b>En equipo</b>: cada persona tiene su instalación y <b>cada cliente lo lleva una persona</b>, para que el historial no se divida. Si compartís carpetas de clientes, que sea en un repositorio <b>privado</b> aparte, sin las carpetas <code>privado/</code>.</p>
+
+<h3>Cuando dejas de llevar a un cliente</h3>
+<ol>
+<li>Pon <code>estado: pausa</code> en su ficha.</li>
+<li>Revoca el token que usabas para su cuenta y quita su conexión de GoHighLevel.</li>
+<li>Pide al cliente que retire el acceso de partner de tu agencia (o retíralo tú).</li>
+<li>Entrégale lo que es suyo (informes, creativos, change log) y archiva su carpeta. Lo de <code>privado/</code> se trata según vuestro contrato y el RGPD.</li>
+</ol>
+
+<div class="caja"><b>Si eres un SaaS</b>Un registro no es un cliente. Optimiza para el evento que predice ingresos y tiene volumen (la prueba <b>activada</b>, enviada desde tu backend por la Conversions API, o la suscripción) y decide con cliente de pago &gt; prueba activada &gt; prueba &gt; registro. Mide con LTV:CAC y payback. Para unir pagos con anuncios, el alta tiene que guardar de dónde viene el cliente en los metadatos de Stripe. Todo en <a href="saas.md"><code>docs/saas.md</code></a>.</div>
+<p>Más en <a href="agencias.md"><code>docs/agencias.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 12 -->
+<section id="video">
+<h2><span class="num">12 ·</span> Vídeo: propio y con IA</h2>
+<p>Hay tres vías de vídeo, más las imágenes estáticas:</p>
+<ul>
+<li><b>Vídeo propio</b>: grabas tú (el fundador, alguien del equipo, un cliente con permiso o una demo de pantalla) y <b>cutkit</b> lo monta. Gratis y en tu ordenador.</li>
+<li><b>Vídeo con IA</b>: el <b>motor</b> genera una presentadora sintética con tu producto real. Opcional, con tu clave de Google y gastando dinero real.</li>
+<li><b>Híbrido</b>: tu toma principal con planos de apoyo generados por el motor.</li>
+</ul>
+<p>Las tres se piden con <code>/producir-video &lt;cliente&gt; &lt;brief&gt; propio|ia|hibrido</code>. Las imágenes y carruseles, con <code>/producir-estatico</code>.</p>
+
+<h3>Qué funciona primero</h3>
+<p>Para consultoras, B2B y SaaS, la base de conocimiento ordena las opciones de mejor a peor combinando evidencia, coste y riesgo legal <span class="etq">[STRONG INFERENCE]</span>. En B2B el comprador compra confianza, y la confianza la da la <b>prueba real</b>: la IA sirve para editar, variar y escalar lo real, no para fingir personas.</p>
+<div class="tabla"><table>
+<thead><tr><th>#</th><th>Opción</th><th>¿Rótulo de IA?</th><th>En el sistema</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>Fundador a cámara</b> (móvil + cutkit)</td><td>No</td><td><code>/producir-video … propio</code></td></tr>
+<tr><td>2</td><td><b>Caso o testimonio real con cifras</b>, con permiso firmado</td><td>No</td><td><code>/casos-y-creadores</code> + vía propio</td></tr>
+<tr><td>3</td><td><b>Estáticos y carruseles</b> con capturas, gráficos o fotos reales</td><td>No (zona gris si generas una escena realista)</td><td><code>/producir-estatico</code></td></tr>
+<tr><td>4</td><td><b>Demo del sistema con la voz real</b>, sin cara</td><td>No</td><td>Vía propio</td></tr>
+<tr><td>5</td><td>Estático animado o antes/después animado</td><td>No</td><td>Montaje avanzado de cutkit</td></tr>
+<tr><td>6</td><td>Demo o explicador con voz IA genérica</td><td>Zona gris: rotúlalo</td><td>Herramienta de voz que uses</td></tr>
+<tr><td>7</td><td>Hooks nuevos con voz clonada o lip-sync sobre vídeo real</td><td><b>Sí, obligatorio</b></td><td>Con consentimiento y contrato de cesión</td></tr>
+<tr><td>8</td><td>Clon digital del fundador, solo para variantes</td><td><b>Sí, obligatorio</b></td><td>Con consentimiento y contrato de cesión</td></tr>
+<tr><td>9</td><td>Presentadora o avatar IA rotulado, <b>solo como experimento</b></td><td><b>Sí, obligatorio</b>, desde el primer segundo</td><td>El motor (<code>/producir-video … ia</code>)</td></tr>
+<tr><td>10</td><td>Avatar que finge ser cliente, experto o empleado</td><td>Rotularlo no lo arregla: <b>nunca</b></td><td>—</td></tr>
+</tbody></table></div>
+<ul>
+<li><b>Por anuncio gana lo humano; la IA gana por cartera</b> (más conceptos por el mismo dinero) <span class="etq">[EMPIRICAL]</span>, con datos anecdóticos sin auditar.</li>
+<li><b>Si el fundador no quiere salir en cámara</b>, baja por 3, 4, 5 y 6, en ese orden. Si hay un caso de cliente, va por delante. <b>No saltes al avatar.</b></li>
+<li><b>Cada lote</b> lleva al menos una pieza de 1, 2 o 4 y uno o dos estáticos.</li>
+<li><b>Juzga por coste por lead cualificado o por reunión</b>, no por cuánta gente se queda los primeros segundos.</li>
+</ul>
+<p class="mut peq">Fuente: <code>meta-ads-kb/03-creatividad/16-ia-generativa-en-anuncios-que-funciona.md</code> §2. En ecommerce el orden no se traslada tal cual.</p>
+
+<h3>Vídeo propio con cutkit</h3>
+<p>cutkit monta en tu ordenador, sin coste y sin enviar tu vídeo a ningún sitio. Convierte una grabación en anuncios 9:16 (Reels y Stories) y 4:5 (Feed), con el hook en los 2 primeros segundos, subtítulos, la marca del cliente y todo el texto dentro de las zonas que no tapa la interfaz de Meta.</p>
+<ol>
+<li><b>Instálalo</b>: <code>/producir-video &lt;cliente&gt; &lt;brief&gt; propio</code> lo instala la primera vez. Necesitas FFmpeg completo (con libass y libx264) y, para subtítulos automáticos gratis, whisper.cpp. Sin whisper.cpp puedes pasar tu propio archivo de subtítulos.</li>
+<li><b>Prepara la marca</b> en <code>clientes/&lt;cliente&gt;/marca/</code>: logo en PNG con fondo transparente, tipografía TTF u OTF estática (no variable ni WOFF), colores con buen contraste y música solo si tiene licencia para publicidad de pago.</li>
+<li><b>Graba bien</b>, que es lo que más pesa: en vertical (1080×1920 o más, 30 fps), con buen sonido (micro de solapa o el móvil a un palmo, sin eco ni música), luz de frente y nunca una ventana detrás. Empieza directamente con el hook, sin «hola, soy…», y graba 3–5 arranques distintos. En una demo de pantalla, <b>nada de datos personales</b>: usa una cuenta de demostración. Si sale otra persona, necesitas su permiso por escrito.</li>
+<li><b>Monta</b>: Claude lanza <code>ck anuncio</code> sobre tu grabación con el hook y la CTA. En medio minuto, más o menos, tienes el 9:16, el 4:5, los subtítulos y el <code>LEEME.md</code> de la pieza.</li>
+<li><b>Lee la revisión</b>: <code>pass</code> (todo bien), <code>warn</code> (lee los avisos y decide) o <code>fail</code> (no se entrega). Y <b>mira siempre el vídeo</b> en un móvil antes de darlo por bueno.</li>
+</ol>
+<p>Otro hook es otra pasada sobre la misma grabación: medio minuto y sin coste. Recuerda que otro hook es una iteración del mismo concepto, no un concepto nuevo. Guía: <a href="guias/video-propio.md"><code>docs/guias/video-propio.md</code></a>.</p>
+
+<h3>Vídeo con IA: el motor</h3>
+<p>Es una cadena completa: guion → fotograma clave → presentadora hablando → planos de corte con tu app o tu producto <b>real</b> → montaje con subtítulos, CTA y rótulo de IA → control de calidad que regenera <b>solo</b> la escena mala → variantes. La presentadora se crea una vez y sale igual en todos tus anuncios. <b>No sustituye a los clientes reales</b>: presenta, explica y demuestra; nunca testifica.</p>
+<ol>
+<li><b>Instálalo</b> con <code>/motor instalar</code> (FFmpeg es obligatorio) y crea una clave en Google AI Studio que pegas tú en <code>.env</code> como <code>GEMINI_API_KEY</code>. Mejor en un proyecto de Google con facturación solo para el motor. Puedes probar el recorrido entero con medios simulados, sin gastar.</li>
+<li><b>Presupuesto</b>: el guardián del motor tiene un tope global de <b>5 $ por defecto</b> y bloquea cualquier llamada que no quepa <b>antes</b> de enviarla. Con 5 $ puedes crear la presentadora y probar planos sueltos; un anuncio completo necesita más. Se sube en <code>contexto/preferencias.md</code> (<code>motor.presupuesto_usd</code>) o con <code>MOTOR_PRESUPUESTO_USD</code> en <code>.env</code>, que manda sobre el anterior.</li>
+<li><b>Cada orden de pago pide confirmación</b>, con el coste estimado antes. Si algo se para (saldo, cuota, presupuesto), lo hecho se conserva y se reanuda sin volver a pagarlo. Lo que salga mal se arregla por escena («regenera la escena 3»), nunca rehaciendo el anuncio.</li>
+</ol>
+<div class="tabla"><table>
+<thead><tr><th>Pieza (medido en octubre de 2026)</th><th>Coste aproximado</th></tr></thead>
+<tbody>
+<tr><td>Presentadora nueva (una vez)</td><td>≈0,3 $</td></tr>
+<tr><td>Anuncio de 20–30 s con control de calidad y arreglos</td><td>≈4–6,5 $</td></tr>
+<tr><td>Segundo de vídeo generado</td><td>≈0,10 $</td></tr>
+<tr><td>Imagen (fotograma clave o plano de producto)</td><td>≈0,07 $</td></tr>
+<tr><td>Variante de hook de texto, CTA, subtítulos, 4:5 o música</td><td>≈0,0004 $</td></tr>
+<tr><td>El mismo anuncio en otro idioma</td><td>≈3–4 $</td></tr>
+</tbody></table></div>
+<p class="mut peq">Los precios son de Google y cambian: el motor estima con su tabla y registra lo que realmente cobra el proveedor. Tu gasto real: <code>/motor</code>. Guía: <a href="guias/video-ia.md"><code>docs/guias/video-ia.md</code></a>.</p>
+
+<h3>El rótulo de IA es obligatorio cuando parece una persona real</h3>
+<div class="tabla"><table>
+<thead><tr><th>Caso</th><th>¿Rótulo de IA en la pieza?</th></tr></thead>
+<tbody>
+<tr><td>Voz real, montaje con IA (cortes, subtítulos, encuadre), gráficos y capturas reales</td><td>No</td></tr>
+<tr><td>Presentadora del motor, avatar realista, clon digital, voz clonada o lip-sync que hace decir algo nuevo</td><td><b>Sí, obligatorio</b> (art. 50 del Reglamento de IA de la UE), visible desde el primer segundo</td></tr>
+<tr><td>Voz IA genérica o planos realistas de lugares generados (B-roll del motor)</td><td>Zona gris: rotúlalo</td></tr>
+</tbody></table></div>
+<ul>
+<li><b>El rótulo va en la pieza, no en Meta.</b> Meta no exige declarar la IA en anuncios comerciales, y su etiqueta «AI info» va dentro de un menú y casi nunca salta con un vídeo montado fuera. No te cubre. Quien obliga es el art. 50 del Reglamento de IA, aplicable desde el 2026-08-02.</li>
+<li><b>Visible desde el primer segundo</b>, legible en el móvil y dentro de las zonas seguras. No basta un rótulo solo al final, solo en los metadatos o solo en el texto del anuncio (que se corta en «Ver más»). Textos de ejemplo: «Presentador generado con IA», «Voz generada con IA».</li>
+<li>El motor rotula de forma visible por defecto. En cutkit el rótulo viene <b>desactivado</b>: actívalo con <code>--etiqueta-ia</code> en los vídeos híbridos.</li>
+<li><b>Si produces para clientes, la obligación es de tu agencia</b>, no del cliente que solo encarga el anuncio: déjalo escrito en el contrato. Las multas llegan hasta 15 M€ o el 3 % de la facturación mundial, la cifra mayor (para pymes, la menor) <span class="etq">[OFFICIAL — regulador]</span>.</li>
+<li><b>El consentimiento no sustituye al rótulo</b>: cubre los derechos de la persona, no la transparencia con quien ve el anuncio.</li>
+<li><b>Sin testimonios falsos</b>: nada de «lo he probado» en boca de una presentadora sintética. <b>Sin personas reales</b> sin su permiso por escrito. <b>No quites</b> marcas de agua ni metadatos de autenticidad. Música, solo con licencia comercial.</li>
+</ul>
+<p class="mut peq">No es asesoría legal: consúltalo con tu asesoría antes de quitar un rótulo o vender clones y voces. Fuentes: <code>meta-ads-kb/03-creatividad/16-ia-generativa-en-anuncios-que-funciona.md</code> §5 y <code>docs/guias/video-ia.md</code> §8.</p>
+
+<h3>Entrega y publicación</h3>
+<p>Cada pieza se guarda en <code>clientes/&lt;slug&gt;/creativos/&lt;nombre&gt;/</code> con un <code>LEEME.md</code>: control de calidad, crítica, coste, afirmaciones y su fuente, rótulo de IA y veredicto de políticas. Después, <code>/revisar-anuncio</code> y <code>/publicar-anuncios</code>, en pausa. El conector oficial de Meta no sube vídeos: con el token avanzado los sube el sistema; sin él, te guía para subirlos en Ads Manager.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 13 -->
+<section id="conexiones">
+<h2><span class="num">13 ·</span> Conectar datos reales</h2>
+<p>Un <b>MCP</b> es un conector estándar que deja a Claude hablar con un servicio (Meta, GoHighLevel, Stripe). Todo se conecta en conversación con <code>/conectar</code>, que comprueba cada paso. Después de cualquier conexión, <code>/doctor</code> te dice si todo está en orden.</p>
+<div class="tabla"><table>
+<thead><tr><th>Conexión</th><th>Para qué</th><th>Cómo</th><th>¿Obligatoria?</th></tr></thead>
+<tbody>
+<tr><td><b>MCP oficial de Meta</b></td><td>Leer cuentas; crear en pausa campañas, conjuntos, anuncios y creatividades de imagen; cambios, audiencias y experimentos</td><td><code>/conectar meta</code>: inicias sesión con Meta, sin claves</td><td>Sí, para trabajar con cuentas</td></tr>
+<tr><td><b>Token avanzado de Meta</b></td><td>Subir vídeo e imagen, creatividades con las mejoras automáticas desactivadas, planes enteros, brief sin nadie delante y tope total diario</td><td><code>/conectar meta --avanzado</code> → <code>META_TOKEN</code> en <code>.env</code></td><td>No</td></tr>
+<tr><td><b>GoHighLevel</b></td><td>Leer contactos con su origen, oportunidades, citas, asistencia y pagos</td><td><code>/conectar ghl</code> y, para lecturas desatendidas, un token de solo lectura</td><td>Si usas GoHighLevel</td></tr>
+<tr><td><b>Stripe</b></td><td>Leer pruebas, suscripciones, pagos e ingresos recurrentes (SaaS)</td><td><code>/conectar stripe</code> y, para lecturas desatendidas, una clave restringida</td><td>Si cobras con Stripe</td></tr>
+<tr><td><b>Conversions API</b></td><td>Mandar eventos desde tu servidor (web y mensajería) y probarlos</td><td><code>/implementar-capi</code> → <code>META_CAPI_TOKEN</code></td><td>Para construir la señal</td></tr>
+<tr><td><b>Canal del brief</b></td><td>Recibir el brief diario</td><td><code>/brief-diario programar</code> → claves de Telegram, Slack o email</td><td>No</td></tr>
+<tr><td><b>Motor de vídeo con IA</b></td><td>Producir vídeo con IA</td><td><code>/motor instalar</code> → <code>GEMINI_API_KEY</code></td><td>No</td></tr>
+</tbody></table></div>
+
+<h3>Meta: dos vías</h3>
+<p><b>1. El MCP oficial</b> (<code>meta-ads</code>). Viene configurado. Lo autenticas en <code>/mcp</code> (comando propio de Claude Code) → <code>meta-ads</code> → <i>Authenticate</i>, con Facebook Login for Business. Entra con la persona que tiene acceso a las cuentas publicitarias: en una agencia, el usuario de la agencia que tiene el acceso de partner, no el del cliente. Lo que <b>no</b> hace: subir vídeo o imagen, crear creatividades que no sean de imagen única y crear portfolios o cuentas.</p>
+<p><b>2. El token avanzado</b>: un token de «usuario del sistema» de tu Business Portfolio, para <code>herramientas/meta_ads.py</code> y las herramientas de reglas, formularios y audiencias. Es opcional; se hace una vez por portfolio, en unos 15 minutos, con <code>/conectar meta --avanzado</code>. Sin él, todo funciona con el MCP y los vídeos se suben en Ads Manager. Estos tokens <b>no caducan</b> cuando alguien deja el equipo: revócalos en Business Settings cuando dejes de llevar a un cliente.</p>
+<p>Las dos vías las usa solo <code>operador-meta</code> y pasan por las mismas guardas.</p>
+<div class="aviso"><b>Pon los límites del lado de Meta.</b> En Business Settings → Integrations → Ads MCP server puedes bloquear acciones por cuenta y activar «Budgets set above this amount → Blocked». Las escrituras vienen permitidas por defecto, así que este paso importa: <code>/conectar meta</code> y <code>/configurar-meta</code> te guían para dejarlo igual que el tope por cambio de la ficha.</div>
+
+<h3>GoHighLevel y Stripe</h3>
+<p><code>/conectar ghl</code> y <code>/conectar stripe</code> añaden su MCP oficial solo en tu ordenador; después hay que <b>reiniciar Claude Code</b> y autenticar en <code>/mcp</code> (en Stripe, con la cuenta correcta: cuidado con el modo de prueba frente al real). Para las lecturas sin nadie delante (brief, registro creativo) se usa una clave <b>de solo lectura</b> en <code>.env</code>: token de integración privada en GoHighLevel, clave restringida en Stripe, nunca la secreta completa. Si llevas varias subcuentas de GoHighLevel, una conexión por cliente (<code>ghl-&lt;slug&gt;</code>).</p>
+<ul>
+<li>Devolver las etapas a Meta, para que aprenda quién compra, es otro paso: <code>/implementar-capi &lt;cliente&gt; ghl</code> o <code>stripe</code>. En Stripe, el alta tiene que guardar en los metadatos del cliente de dónde viene (UTMs, <code>ad_id</code>, <code>fbc</code> y <code>fbp</code>).</li>
+<li>Con GoHighLevel, los anuncios llevan <code>utm_source=fb_ad</code> en lugar de <code>facebook</code>. Lo dice la documentación de HighLevel, sin verificar con datos: compruébalo en tus primeros contactos.</li>
+</ul>
+
+<h3>Conversions API (CAPI)</h3>
+<p>La <b>Conversions API</b> manda a Meta los eventos desde tu servidor, tu CRM o tu automatización, no solo desde el navegador. <code>/implementar-capi</code> construye esa señal desde tu web, GoHighLevel, n8n, Make, Stripe o tu backend, y <code>herramientas/capi.py</code> la prueba. Las pruebas van <b>siempre</b> con el <code>test_event_code</code> de Events Manager: un evento real enviado «para probar» se queda en el dataset y Meta optimiza con él.</p>
+<p><b>Mensajería.</b> Si tus anuncios abren una conversación (Click to WhatsApp, Messenger o Instagram Direct), la misma API devuelve a Meta qué conversaciones fueron lead, lead cualificado o venta. Quien escucha los mensajes y envía los eventos es tu automatización (n8n, Make o tu backend), no el sistema.</p>
+
+<h3>El archivo <code>.env</code></h3>
+<p>Todas las claves viven en <code>.env</code>, en la raíz del proyecto. Lo crea el instalador, con permisos que solo te dejan leerlo a ti, y git no lo sube nunca. <b>Lo editas tú</b> (Claude no puede leerlo):</p>
+<div class="tabla"><table>
+<thead><tr><th>Sistema</th><th>Orden</th></tr></thead>
+<tbody>
+<tr><td>Mac</td><td><code>open -e .env</code></td></tr>
+<tr><td>Windows (Git Bash)</td><td><code>notepad .env</code></td></tr>
+<tr><td>Linux</td><td><code>nano .env</code></td></tr>
+</tbody></table></div>
+<p>Quita la <code>#</code> del principio de la variable que vas a usar y pon el valor justo después del <code>=</code>, sin comillas ni espacios. Para un cliente concreto, añade <code>_&lt;SLUG&gt;</code> al nombre, con el slug en mayúsculas y guiones bajos (por ejemplo, <code>GHL_TOKEN_ACME_AUTOMATIONS</code>): manda sobre la global. Cuando una versión nueva trae variables nuevas, <code>/actualizar</code> te dice sus nombres. Todas las variables: <a href="conexiones.md"><code>docs/conexiones.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 14 -->
+<section id="chuleta">
+<h2><span class="num">14 ·</span> Chuleta de comandos</h2>
+<div class="tabla"><table>
+<thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr class="grupo"><td colspan="2">Para empezar y cada día</td></tr>
+<tr><td class="c1"><code>/empezar</code></td><td>Puesta en marcha guiada; retoma donde lo dejaste</td></tr>
+<tr><td class="c1"><code>/empezar reiniciar</code></td><td>Vuelve a preguntar perfil, cliente y entregable, sin borrar nada</td></tr>
+<tr><td class="c1"><code>/hoy</code> · <code>/hoy &lt;cliente&gt;</code></td><td>Qué toca hoy</td></tr>
+<tr><td class="c1"><code>/pregunta "&lt;duda&gt;"</code></td><td>Una duda de Meta, con fuente</td></tr>
+<tr><td class="c1"><code>/siguiente-anuncio &lt;cliente&gt;</code></td><td>Qué anuncio producir después</td></tr>
+<tr><td class="c1"><code>/menu</code> · <code>/menu F3</code></td><td>Todo el catálogo, o una fase</td></tr>
+<tr class="grupo"><td colspan="2">Sistema y conexiones</td></tr>
+<tr><td class="c1"><code>/doctor</code></td><td>Revisión de salud con arreglos</td></tr>
+<tr><td class="c1"><code>/actualizar</code> · <code>/actualizar comprobar</code></td><td>Versión nueva, o solo ver si la hay</td></tr>
+<tr><td class="c1"><code>/conectar meta</code></td><td>Conectar el MCP oficial de Meta</td></tr>
+<tr><td class="c1"><code>/conectar meta --avanzado</code></td><td>El token avanzado (subir vídeo, brief desatendido)</td></tr>
+<tr><td class="c1"><code>/conectar ghl</code> · <code>/conectar stripe</code></td><td>GoHighLevel y Stripe, en solo lectura</td></tr>
+<tr><td class="c1"><code>/motor</code> · <code>/motor instalar</code></td><td>Estado y gasto del motor de vídeo, o instalarlo</td></tr>
+<tr class="grupo"><td colspan="2">Clientes, economía y señal</td></tr>
+<tr><td class="c1"><code>/cliente-nuevo "&lt;nombre&gt;"</code></td><td>Alta de un cliente o de tu negocio</td></tr>
+<tr><td class="c1"><code>/economia leadgen &lt;cliente&gt;</code></td><td>Cuánto puedes pagar por lead, cita o venta</td></tr>
+<tr><td class="c1"><code>/economia suscripcion &lt;cliente&gt;</code></td><td>Lo mismo para un SaaS: por prueba y por suscriptor</td></tr>
+<tr><td class="c1"><code>/economia prevision &lt;cliente&gt;</code></td><td>Escenarios para un plan o una propuesta</td></tr>
+<tr><td class="c1"><code>/configurar-meta &lt;cliente&gt; heredada</code></td><td>Dejar Meta listo (también: agencia)</td></tr>
+<tr><td class="c1"><code>/implementar-capi &lt;cliente&gt; ghl</code></td><td>La señal de vuelta a Meta (también: stripe, mensajeria…)</td></tr>
+<tr><td class="c1"><code>/construir-landing &lt;cliente&gt; diagnostico</code></td><td>Generar páginas de captación en local</td></tr>
+<tr class="grupo"><td colspan="2">Creatividad y lanzamiento</td></tr>
+<tr><td class="c1"><code>/competencia &lt;cliente&gt;</code></td><td>Qué anuncia la competencia</td></tr>
+<tr><td class="c1"><code>/brief-creativo &lt;cliente&gt;</code></td><td>Ángulos, conceptos y briefs de un lote</td></tr>
+<tr><td class="c1"><code>/producir-video &lt;cliente&gt; &lt;brief&gt; propio</code></td><td>Un vídeo (también: ia, hibrido)</td></tr>
+<tr><td class="c1"><code>/revisar-anuncio &lt;carpeta&gt; &lt;cliente&gt;</code></td><td>Políticas antes de publicar</td></tr>
+<tr><td class="c1"><code>/lanzar-campana &lt;cliente&gt;</code></td><td>Campaña nueva, en pausa, con tu aprobación</td></tr>
+<tr><td class="c1"><code>/publicar-anuncios &lt;cliente&gt; &lt;lote&gt;</code></td><td>Subir anuncios a una campaña existente</td></tr>
+<tr class="grupo"><td colspan="2">Operar y escalar</td></tr>
+<tr><td class="c1"><code>/brief-diario</code> · <code>/brief-diario programar</code></td><td>El brief ahora, o programarlo cada mañana</td></tr>
+<tr><td class="c1"><code>/informe-semanal &lt;cliente&gt;</code></td><td>La semana completa, con como mucho 3 decisiones</td></tr>
+<tr><td class="c1"><code>/revision-mensual &lt;cliente&gt; 2026-11</code></td><td>El mes y el plan del siguiente</td></tr>
+<tr><td class="c1"><code>/diagnostico &lt;cliente&gt; "&lt;síntoma&gt;"</code></td><td>Por qué pasa algo</td></tr>
+<tr><td class="c1"><code>/ejecutar-cambio &lt;cliente&gt; "&lt;cambio&gt;"</code></td><td>Un cambio en la cuenta, con plan y change log</td></tr>
+<tr><td class="c1"><code>/reglas-automaticas &lt;cliente&gt;</code></td><td>Protección 24/7 dentro de Meta</td></tr>
+<tr><td class="c1"><code>/escalar &lt;cliente&gt;</code></td><td>Si se puede escalar y cómo</td></tr>
+<tr><td class="c1"><code>/auditoria &lt;cliente&gt;</code> · <code>/auditoria profundo &lt;cliente&gt;</code></td><td>Auditoría completa, normal o profunda</td></tr>
+<tr class="grupo"><td colspan="2">Agencia</td></tr>
+<tr><td class="c1"><code>/informe-cliente &lt;cliente&gt; mensual</code></td><td>Informe para el cliente, con tu marca</td></tr>
+<tr><td class="c1"><code>/auditoria-express "&lt;prospecto&gt;"</code></td><td>Auditoría para vender, sin acceso</td></tr>
+<tr><td class="c1"><code>/entrenar</code></td><td>Practicar con escenarios corregidos</td></tr>
+<tr><td class="c1"><code>/novedades-meta</code></td><td>Qué ha cambiado en Meta y a quién afecta</td></tr>
+<tr class="grupo"><td colspan="2">De Claude Code (no son skills del sistema)</td></tr>
+<tr><td class="c1"><code>/mcp</code></td><td>Ver y autenticar conexiones (Meta, GoHighLevel, Stripe)</td></tr>
+<tr><td class="c1"><code>/config</code></td><td>Elegir el estilo de salida (<code>profesor</code> u <code>operador</code>)</td></tr>
+<tr class="grupo"><td colspan="2">En la terminal</td></tr>
+<tr><td class="c1"><code>bash scripts/instalar.sh</code></td><td>Instalar o reparar (se puede repetir siempre)</td></tr>
+<tr><td class="c1"><code>bash scripts/instalar.sh --comprobar</code></td><td>Solo revisar requisitos</td></tr>
+<tr><td class="c1"><code>python3 -I herramientas/notificar.py probar --canal telegram</code></td><td>Probar el envío del brief</td></tr>
+</tbody></table></div>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 15 -->
+<section id="faq">
+<h2><span class="num">15 ·</span> Preguntas frecuentes</h2>
+<h3>¿Necesito saber programar?</h3>
+<p>No. Todo se hace conversando con Claude Code. Lo más técnico que harás es pegar una clave en <code>.env</code> con tu editor, y el sistema te dice exactamente dónde.</p>
+<h3>¿Me basta el plan Pro de Claude?</h3>
+<p>Sí para el uso normal. Los modos profundos lanzan muchos agentes a la vez y consumen bastante más: resérvalos para lo importante. Si llevas muchos clientes o los usas a menudo, el plan Max te dará margen.</p>
+<h3>¿Funciona en Windows?</h3>
+<p>Sí, con Git Bash, que viene con Git para Windows. Todas las órdenes <code>bash scripts/…</code> se ejecutan desde Git Bash, nunca desde cmd ni PowerShell.</p>
+<h3>¿Necesito una cuenta de Meta para instalarlo?</h3>
+<p>No. Si empiezas de cero, <code>/empezar</code> lo apunta y tu primer entregable es el plan para montarla con <code>/configurar-meta</code>.</p>
+<h3>¿Y si no uso GoHighLevel ni Stripe?</h3>
+<p>Funciona igual. Sin CRM conectado, decide con lo que tiene (resultados de Meta y lo que le cuentes) y te avisa de que está decidiendo con una capa de verdad más alta de lo ideal. Con otro CRM, exporta los resultados por anuncio a un CSV con columnas como <code>ad_id</code>, <code>leads</code>, <code>citas</code> o <code>ventas</code>, y el registro creativo los cruza igual.</p>
+<h3>¿Puede gastar dinero sin que yo lo sepa?</h3>
+<p>No. Todo lo nuevo se crea en pausa; cada escritura en Meta te pide confirmación y activar pide otra aparte; ningún presupuesto puede superar el tope de la ficha, y además hay un límite configurado en el propio Meta. El motor de vídeo pide confirmación con el coste y se frena en 5 $ por defecto.</p>
+<h3>¿Puede escribir a mis leads o a mis clientes?</h3>
+<p>No. La guarda de GoHighLevel bloquea cualquier SMS, WhatsApp, email o llamada a contactos. Los mensajes para tus clientes de agencia los deja como borradores que envías tú.</p>
+<h3>¿Dónde quedan mis datos?</h3>
+<p>En tu ordenador: <code>contexto/</code>, <code>clientes/</code>, <code>aprendizajes/</code>, <code>informes/</code>, <code>logs/</code> y <code>.env</code> no se suben a ningún repositorio. Lo que Claude lee durante una sesión forma parte de tu conversación con Claude, como en cualquier uso de Claude Code; por eso los datos personales de leads se quedan en <code>privado/</code> y el análisis se hace con IDs y agregados.</p>
+<h3>¿Por qué no me deja evaluar un cambio a los dos días?</h3>
+<p>Porque con menos de 7 días, menos de 30–50 eventos o la ventana de atribución sin madurar, lo que ves es sobre todo ruido. Solo se actúa antes si algo está roto.</p>
+<h3>¿Por qué no elige los anuncios ganadores por el coste por lead?</h3>
+<p>Porque un lead barato que no va a la llamada o no compra es caro. El sistema decide con la capa más baja de verdad que tenga datos suficientes: venta &gt; cita o asistencia &gt; cualificado &gt; coste por lead (en SaaS, cliente de pago &gt; prueba activada &gt; prueba &gt; registro).</p>
+<h3>¿Por qué desactiva las mejoras automáticas de Meta?</h3>
+<p>Porque cambian tu anuncio sin avisarte (doblaje, música, recortes, textos generados) y entonces no sabes qué estás probando. Cada ficha tiene <code>mejoras_automaticas: off | revisar | on</code>; por defecto, <code>off</code>.</p>
+<h3>¿Qué significan <span class="etq">[OFFICIAL META]</span>, <span class="etq">[EMPIRICAL]</span>…?</h3>
+<p>Cuánta confianza merece cada afirmación: documentación oficial de Meta, observado en datos o casos, inferencia sólida, hipótesis o tema en disputa entre expertos. Están explicadas en <code>meta-ads-kb/00-CONVENCIONES.md</code>.</p>
+<h3>¿La base de conocimiento está al día?</h3>
+<p>Su estado está fechado en <code>meta-ads-kb/00-ESTADO-ACTUAL-2026.md</code>. <code>/novedades-meta</code> revisa lo que ha cambiado desde entonces, lo verifica y te dice a qué clientes afecta.</p>
+<h3>¿Tengo que usar vídeo con IA?</h3>
+<p>No. Hay vídeo propio, híbrido e imágenes estáticas, y para consultoras y SaaS lo real suele funcionar mejor (sección <a href="#video">12</a>). Ojo: el MCP oficial de Meta no sube vídeos; con el token avanzado los sube <code>/publicar-anuncios</code> y, sin él, se suben en Ads Manager.</p>
+<h3>¿Puedo cambiar una skill o un agente?</h3>
+<p>Puedes, pero cada cambio en un archivo del producto choca con las actualizaciones. Escribe tus reglas en <code>contexto/operador.md</code> → «Reglas propias».</p>
+<h3>He visto algo en mi cuenta que contradice la base. ¿Qué hago?</h3>
+<p>Regístralo con <code>/novedades-meta aprendizaje &lt;cliente&gt; "&lt;qué observaste&gt;"</code>: queda en <code>aprendizajes/</code> con su evidencia.</p>
+<p>Más preguntas: <a href="preguntas-frecuentes.md"><code>docs/preguntas-frecuentes.md</code></a>. Errores concretos: <a href="solucion-de-problemas.md"><code>docs/solucion-de-problemas.md</code></a>.</p>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+<!-- 16 -->
+<section id="glosario">
+<h2><span class="num">16 ·</span> Glosario</h2>
+<p>Las palabras que te vas a cruzar, en el orden en que suelen aparecer.</p>
+<div class="tabla"><table class="glos">
+<tbody>
+<tr class="grupo"><td colspan="2">Métricas y dinero</td></tr>
+<tr><td>CPA</td><td>Coste por adquisición: lo que pagas en Meta por cada resultado (un lead, una cita, una venta). Se descompone así: CPA = CPM / (1000 · CTR · CVR)</td></tr>
+<tr><td>CPL</td><td>Coste por lead: lo que pagas por cada persona que deja sus datos</td></tr>
+<tr><td>CPM</td><td>Coste por mil impresiones: lo que cuesta que tu anuncio se vea mil veces</td></tr>
+<tr><td>CTR</td><td>Porcentaje de quienes ven el anuncio que hacen clic</td></tr>
+<tr><td>CVR</td><td>Porcentaje de clics que acaban en el resultado que buscas</td></tr>
+<tr><td>ROAS</td><td>Ingresos atribuidos a los anuncios divididos entre lo gastado</td></tr>
+<tr><td>Break-even y target</td><td>Break-even: lo máximo que puedes pagar por un resultado sin perder dinero. Target (objetivo): lo que quieres pagar para ganar dinero. Los calcula <code>/economia</code></td></tr>
+<tr><td>CAC</td><td>Coste de adquisición de un cliente de pago</td></tr>
+<tr><td>LTV y payback</td><td>LTV: lo que te deja un cliente durante toda su relación contigo. Payback: cuánto tardas en recuperar lo que costó captarlo</td></tr>
+<tr><td>Coste marginal</td><td>Lo que cuesta el siguiente resultado al subir presupuesto, no la media. Con él se decide si escalar</td></tr>
+<tr><td>Capa más baja de verdad</td><td>El resultado más cercano al dinero que tenga datos suficientes: venta &gt; cita &gt; lead cualificado &gt; coste por lead</td></tr>
+<tr class="grupo"><td colspan="2">Meta</td></tr>
+<tr><td>Business Portfolio</td><td>El contenedor de empresa en Meta (antes, Business Manager): agrupa cuentas publicitarias, Páginas, datasets y personas</td></tr>
+<tr><td>Acceso de partner</td><td>La forma correcta de que una agencia entre en la cuenta de un cliente: el cliente comparte sus activos con el portfolio de la agencia y los conserva</td></tr>
+<tr><td>Campaña, conjunto y anuncio</td><td>Los tres niveles de Meta: la campaña fija el objetivo; el conjunto (ad set), presupuesto, público y evento; el anuncio, la pieza que se ve</td></tr>
+<tr><td>Evento de optimización</td><td>El resultado que le pides a Meta que consiga (lead, compra, cita…). Meta optimiza ese evento, no tu negocio: es la decisión más cara</td></tr>
+<tr><td>Fase de aprendizaje</td><td>El periodo tras lanzar o tras un cambio importante en que Meta aún aprende a quién mostrar el anuncio. La referencia oficial es de unos 50 eventos en 7 días</td></tr>
+<tr><td>Advantage+</td><td>El modo automatizado de Meta: presupuesto de campaña, público y ubicaciones automáticos. Es el estado por defecto de las campañas de Ventas, Leads y App</td></tr>
+<tr><td>Mejoras automáticas</td><td>Cambios que Meta puede hacer en tu anuncio (doblaje, música, recortes, textos generados). El sistema las desactiva por defecto</td></tr>
+<tr><td>Ventana de atribución</td><td>El plazo en que Meta atribuye una conversión a un anuncio: 1 o 7 días después del clic, 1 día después de interactuar sin clic (por ejemplo, ver 5 s de vídeo) o 1 día después de verlo. La de la ficha es, por defecto, 7 días clic + 1 día visualización. Cambiarla cambia también lo que Meta aprende</td></tr>
+<tr><td>Formulario instantáneo</td><td>Formulario de Meta que la persona rellena sin salir de Facebook o Instagram</td></tr>
+<tr><td>Conversion Leads</td><td>Optimizar hacia leads que luego convierten, con las etapas que tu CRM devuelve a Meta. Meta lo llama ahora «qualified leads»</td></tr>
+<tr><td>Ad Library</td><td>La biblioteca pública de anuncios de Meta: ves qué anuncia cualquiera, también tu competencia</td></tr>
+<tr><td>Reglas automáticas y modo sombra</td><td>Reglas que Meta ejecuta en sus servidores (pausar, avisar) aunque nadie esté mirando. Las del sistema arrancan en modo sombra: durante 1–2 semanas solo avisan, y después pasas a activas las que acertaron</td></tr>
+<tr class="grupo"><td colspan="2">Señal y medición</td></tr>
+<tr><td>Píxel</td><td>El código de Meta en tu web que le cuenta lo que pasa en el navegador (visitas, leads, compras)</td></tr>
+<tr><td>Dataset</td><td>El contenedor donde Meta recibe tus eventos, del navegador y del servidor. El ID del píxel es el ID del dataset</td></tr>
+<tr><td>CAPI (Conversions API)</td><td>El envío de esos eventos desde tu servidor, tu CRM o tu automatización, no solo desde el navegador</td></tr>
+<tr><td>Deduplicación y <code>event_id</code></td><td>Si el navegador y el servidor mandan el mismo evento, el mismo <code>event_id</code> hace que Meta lo cuente una sola vez</td></tr>
+<tr><td><code>test_event_code</code></td><td>El código de prueba de Events Manager. Con él, un evento de prueba no ensucia lo que Meta aprende</td></tr>
+<tr><td>Calidad de coincidencia (EMQ)</td><td>Nota de 0 a 10 de lo bien que Meta puede unir un evento con una persona. Meta recomienda 6 o más</td></tr>
+<tr><td>UTM</td><td>Etiquetas en el enlace del anuncio que dicen de dónde viene cada visita; con ellas tu CRM sabe qué anuncio trajo a cada contacto</td></tr>
+<tr><td>GHL</td><td>GoHighLevel, un CRM muy usado por agencias</td></tr>
+<tr class="grupo"><td colspan="2">Creatividad</td></tr>
+<tr><td>Hook</td><td>En un anuncio, el arranque (los primeros 2 segundos o la primera frase) que hace que alguien deje de hacer scroll. Ojo: en Claude Code, «hook» es otra cosa, una guarda automática (sección <a href="#seguridad">10</a>)</td></tr>
+<tr><td>Ángulo, concepto e iteración</td><td>El ángulo es el porqué del mensaje; el concepto, la idea concreta que lo cuenta. Cambiar el hook, el color o la CTA es una iteración del mismo concepto, no un concepto nuevo</td></tr>
+<tr><td>CTA</td><td>La llamada a la acción: lo que pides al final («Reserva tu llamada»)</td></tr>
+<tr><td>UGC</td><td>Vídeo con estética de contenido de usuario: alguien hablando a cámara, como en una publicación normal</td></tr>
+<tr><td>A-roll y B-roll</td><td>A-roll: la toma principal (alguien hablando). B-roll: los planos de apoyo o de contexto</td></tr>
+<tr><td>Zonas seguras</td><td>Las partes del vídeo que no tapa la interfaz de Meta. En 9:16, deja libres el 14 % de arriba, el 35 % de abajo y el 6 % de los lados</td></tr>
+<tr><td>Landing</td><td>La página a la que lleva el anuncio</td></tr>
+<tr class="grupo"><td colspan="2">El sistema</td></tr>
+<tr><td>Skill y agente</td><td>Una skill es un comando que empieza por <code>/</code>: Claude sigue sus pasos. Un agente es un especialista al que Claude delega, con una lista cerrada de herramientas</td></tr>
+<tr><td>Hook (guarda)</td><td>Un programa que Claude Code ejecuta antes o después de una acción para dejarla pasar, preguntarte o bloquearla</td></tr>
+<tr><td>Workflow (modo profundo)</td><td>Varios agentes en paralelo y en fases, con verificación cruzada. Más caro: avisa antes</td></tr>
+<tr><td>MCP</td><td>Un conector estándar que deja a Claude hablar con un servicio (Meta, GoHighLevel, Stripe)</td></tr>
+<tr><td>Token avanzado</td><td>Un token de «usuario del sistema» de Meta que desbloquea subir vídeo, planes enteros y el brief sin nadie delante</td></tr>
+<tr><td>Ficha</td><td>El archivo con todo lo de un cliente: negocio, economía, IDs de Meta, CRM y topes</td></tr>
+<tr><td>Slug</td><td>El nombre corto de la carpeta de un cliente (<code>acme-automations</code>), que usas en los comandos</td></tr>
+<tr><td>Topes</td><td>El máximo de presupuesto por cambio y el total diario de un cliente. Con topes a 0, no se crea ni se sube presupuesto</td></tr>
+<tr><td>Change log y registro creativo</td><td>El change log anota cada cambio en la cuenta (de → a, motivo, métrica y fecha de evaluación). El registro creativo cruza cada anuncio con sus resultados de negocio</td></tr>
+<tr><td>P0–P3</td><td>La gravedad de un hallazgo en una auditoría: P0 se arregla la primera semana; P3 puede esperar</td></tr>
+<tr><td>Etiquetas de evidencia</td><td><span class="etq">[OFFICIAL META]</span> confirmado por Meta · <span class="etq">[EMPIRICAL]</span> observado en casos o datos · <span class="etq">[STRONG INFERENCE]</span> varias señales sin confirmación · <span class="etq">[HYPOTHESIS]</span> plausible, no demostrado · <span class="etq">[CONTESTED]</span> los expertos discrepan</td></tr>
+</tbody></table></div>
+
+<div class="destacado cierre"><b>El resumen de todo:</b> clona y escribe <code>/empezar</code> (unos 30 minutos) · cada día, el brief y <code>/hoy</code> · cada cliente avanza de F0 a F6, con economía y señal antes que creatividad · todo nace en pausa y nada se activa sin tu sí · se decide con ventas y citas, no con el coste por lead · y cuando dudes, <code>/pregunta</code>.</div>
+<p class="volver solo-pantalla"><a href="#indice">↑ Volver al índice</a></p>
+</section>
+
+</main>
+</body>
+</html>

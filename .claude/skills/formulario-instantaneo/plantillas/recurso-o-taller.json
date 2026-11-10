@@ -1,0 +1,62 @@
+{
+  "_leeme": [
+    "Recurso descargable (guía, plantilla, checklist) o taller en directo: poca fricción para llenar el CRM de contactos que luego se nutren hasta pedir llamada. Más volumen, menos intención.",
+    "Sin lógica condicional: se crea entera por API con `formularios_meta.py crear`.",
+    "Dos preguntas de segmentación bastan para que el seguimiento (email, WhatsApp) sea distinto por tamaño e interés; `encaje` marca a quién pasar antes al comercial.",
+    "Variante taller: cambia `nombre` (acme_taller-<tema>_v1), la intro (fecha, hora, duración y qué se lleva), `parametros.oferta` a «taller» y el final a «Te mandamos el enlace del taller por email» con botón a la página del evento. Si el taller exige presencia, valora mayor_intencion.",
+    "El final usa un botón web con texto de descarga: el tipo DOWNLOAD de la API puede pedir subir el archivo al formulario (no verificado). Entrega el recurso también por email desde el CRM."
+  ],
+  "nombre": "acme_guia-que-automatizar_v1",
+  "tipo": "mas_volumen",
+  "idioma": "ES_ES",
+  "intro": {
+    "titulo": "Guía gratuita: qué automatizar primero en tu empresa",
+    "estilo": "parrafo",
+    "contenido": [
+      "12 páginas con los procesos que más se automatizan en pymes de servicios, qué hace falta para cada uno y por dónde empezar sin cambiar de herramientas. Te llega al email al momento."
+    ],
+    "boton": "Quiero la guía"
+  },
+  "preguntas": [
+    {
+      "clave": "tamano",
+      "tipo": "opciones",
+      "texto": "¿Cuántas personas trabajan en tu empresa?",
+      "opciones": [
+        {"clave": "solo_yo", "texto": "Solo yo"},
+        {"clave": "2_9", "texto": "De 2 a 9"},
+        {"clave": "10_49", "texto": "De 10 a 49"},
+        {"clave": "50_mas", "texto": "50 o más"}
+      ],
+      "encaje": ["10_49", "50_mas"]
+    },
+    {
+      "clave": "interes",
+      "tipo": "opciones",
+      "texto": "¿Qué te gustaría automatizar primero?",
+      "opciones": [
+        {"clave": "atencion", "texto": "Mensajes de clientes"},
+        {"clave": "comercial", "texto": "Seguimiento comercial"},
+        {"clave": "papeleo", "texto": "Papeleo y documentos"},
+        {"clave": "informes", "texto": "Informes y datos"}
+      ]
+    },
+    {"tipo": "nombre"},
+    {"tipo": "email"}
+  ],
+  "privacidad": {
+    "url": "https://acme-automations.example/privacidad",
+    "texto_enlace": "Política de privacidad de Acme Automations"
+  },
+  "final": {
+    "titulo": "¡Listo! Tu guía está en camino",
+    "texto": "Te la hemos enviado al email. También puedes descargarla ahora.",
+    "boton": "web",
+    "texto_boton": "Descargar la guía",
+    "url": "https://acme-automations.example/guia-que-automatizar",
+    "pais": "ES"
+  },
+  "parametros": {"oferta": "guia", "formulario": "recurso-o-taller", "version": "v1"},
+  "solo_anuncios": true,
+  "revision_politicas": "pendiente"
+}

@@ -1,0 +1,68 @@
+{
+  "id": "diag-08-fatiga-o-varianza",
+  "titulo": "Dos días malos con 3 pruebas al día son ruido, no fatiga",
+  "categoria": "diagnostico",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-11",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "El fundador de Nimbo me escribe alarmado (está en investigacion/): lunes y martes la prueba ha salido a 74 € y 69 €. Dice que es fatiga creativa y que cambiemos los anuncios hoy. ¿Es fatiga?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Explica que con 4–5 pruebas al día dos días con 3 pruebas entran en la variación normal y lo cuantifica (Poisson, banda o equivalente: con ~4,4 esperadas, ver 3 o menos pasa ~1 de cada 3 días).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/12-razonamiento-estadistico.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Revisa el contexto de 14 días y las métricas mecánicas (CPM, CTR y frecuencia estables) y concluye que no hay señal de fatiga; recuerda que Meta define fatiga por coste ≥2× el histórico de forma sostenida.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Recomienda no cambiar los anuncios y evaluar con la semana completa (lunes 2026-11-16) o con un umbral explícito.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/11-cuando-no-tocar-una-campana.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Menciona que los últimos días pueden estar incompletos por el retraso de atribución o que el backend cuadra con Meta.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/12-attribution-lag.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Da al fundador una respuesta corta y razonada que pueda aceptar.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-agencias-consultores.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Diagnosticar fatiga creativa con dos días de datos.",
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar cambiar, pausar o rotar los anuncios por estos dos días.",
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/11-cuando-no-tocar-una-campana.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre reacciona al día malo; el experto sabe cuánta varianza tiene un contador de 4 eventos diarios y no toca nada sin una semana completa."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "variaci|varianza|ruido|azar|aleatori|poisson|banda",
+        "motivo": "habla de varianza"
+      }
+    ]
+  }
+}

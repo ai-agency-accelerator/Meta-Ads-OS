@@ -1,0 +1,27 @@
+{
+  "campana": {
+    "nombre": "ES_TRIAL_ADQ_CC",
+    "id": "120000000000000111",
+    "objetivo": "OUTCOME_LEADS",
+    "creada": "2026-11-04",
+    "presupuesto_diario": 200,
+    "estrategia_puja": "COST_CAP",
+    "objetivo_coste_por_resultado": 25.0
+  },
+  "conjunto": {
+    "nombre": "BROAD-A+_TRIAL",
+    "evento": "StartTrial",
+    "advantage_audience": true,
+    "ubicaciones": "Advantage+"
+  },
+  "campana_anterior": {
+    "nombre": "ES_TRIAL_ADQ_LC",
+    "id": "120000000000000101",
+    "estado": "PAUSED",
+    "pausada": "2026-11-04",
+    "estrategia_puja": "LOWEST_COST_WITHOUT_CAP",
+    "coste_por_prueba_sep_oct": 45.2,
+    "pruebas_por_semana_sep_oct": 31
+  },
+  "anuncios": "los mismos 5 anuncios de la campaña anterior (mismo ID de publicación)"
+}

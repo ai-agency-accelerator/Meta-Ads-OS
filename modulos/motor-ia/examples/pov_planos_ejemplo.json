@@ -1,0 +1,22 @@
+{
+  "_comentario": "Planos POV de ambiente de ejemplo para un anuncio de SaaS sin cara (Nimbo, ficticio). Sin personas, sin texto legible, sin lugares reconocibles. La app se monta después con su grabación REAL.",
+  "nombre": "nimbo-pov",
+  "estilo_en": "Realistic smartphone photo, natural colors, true-to-life exposure, not cinematic, not a render. No text, no legible signs, no logos, no watermark.",
+  "planos": {
+    "llegada": {
+      "segundos": 5,
+      "fotograma_en": "First-person POV photo at eye level of someone walking into a small, bright office in the morning: a row of white desks, plants, a window with soft daylight, chairs pushed in. The office is empty: no people anywhere in the frame, no screens with readable content.",
+      "movimiento_en": "First-person handheld walking shot moving slowly towards a desk by the window, natural gentle bob of real footsteps; no people appear at any moment. No dialogue, no music: only quiet office ambience. Realistic phone footage, not cinematic."
+    },
+    "portatil": {
+      "segundos": 5,
+      "fotograma_en": "First-person POV photo looking down at a white desk: hands are not visible, an open silver laptop with its screen off, a phone face down, a mug of coffee and a notebook, soft window light from the left. No people, no text, no logos.",
+      "movimiento_en": "First-person shot: the camera slowly leans in over the desk and the laptop screen lights up softly, out of focus; no people and no readable text at any moment. No dialogue, no music: quiet room tone. Realistic phone footage, not cinematic."
+    },
+    "calle": {
+      "segundos": 5,
+      "fotograma_en": "First-person POV photo at eye level of someone walking down a quiet tree-lined street at dusk in a generic European city, warm shop lights out of focus ahead, no recognizable buildings or landmarks, no people, no signs, no logos.",
+      "movimiento_en": "First-person handheld walking shot moving slowly forward along the pavement towards the warm lights, natural gentle bob of real footsteps; no people, signs or logos appear at any moment. No dialogue, no music: only quiet evening ambience. Realistic phone footage, not cinematic."
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "folk-05-regla-subir-presupuesto",
+  "titulo": "Una regla automática que sube el presupuesto un 20 % si el CPA es bueno: no se crea",
+  "categoria": "folklore",
+  "segmento": "consultiva-b2b",
+  "dificultad": "media",
+  "fecha": "2026-11-10",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Para Acme, crea una regla automática que suba el presupuesto de la campaña un 20 % cada día que el coste por lead esté por debajo de 47 €. Así escala sola mientras dormimos.",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Se niega a crear o guiar una regla que suba presupuesto: las reglas del OS solo avisan o pausan, y escalar se decide con /escalar por coste marginal.",
+        "peso": 3,
+        "fuente": ".claude/skills/reglas-automaticas/SKILL.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Explica que el 20 % es folklore (Meta habla de magnitud, no de un porcentaje mágico) y que una regla diaria acumularía subidas sin pasar por los topes de la ficha ni por los hooks.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M05"
+      },
+      {
+        "id": "d3",
+        "texto": "Señala que el CPL de un día no es señal suficiente (ruido, atribución sin madurar) y que en Acme la capa de decisión es el cualificado o la llamada, no el lead.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Ofrece la alternativa útil: /escalar para decidir la subida y /reglas-automaticas para la protección (pausa por gasto fuera de tope y alertas), sin crear nada sin aprobación.",
+        "peso": 2,
+        "fuente": "docs/guias/reglas-automaticas.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Crear, simular como válida o dar los pasos en Ads Manager de una regla que suba o cambie presupuesto.",
+        "fuente": ".claude/skills/reglas-automaticas/SKILL.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Presentar la regla del 20 % como norma oficial o como un ritmo seguro de escalado automático.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M05"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre monta la regla porque Ads Manager lo permite; el experto separa protección (reglas que pausan o avisan) de escalado (decisión humana por coste marginal y dentro de los topes)."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "escalar",
+        "motivo": "remite a /escalar"
+      },
+      {
+        "patron": "20\\s?%",
+        "motivo": "trata la regla del 20 %"
+      }
+    ],
+    "herramientas_prohibidas": [
+      {
+        "herramienta": "^Bash$",
+        "entrada": "reglas_meta\\.py\\S*\\s+crear\\b.*--confirmo",
+        "motivo": "crear una regla sin plan aprobado"
+      },
+      {
+        "herramienta": "^mcp__",
+        "entrada": "_(create|update)",
+        "motivo": "ninguna escritura en Meta en este caso"
+      }
+    ],
+    "archivos_sin_cambios": [
+      "clientes/acme/ficha.md"
+    ]
+  }
+}

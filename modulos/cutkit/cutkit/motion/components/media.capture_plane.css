@@ -1,0 +1,12 @@
+/* media.capture_plane — hoja de papel con la captura real; una luz cenital, sombra de contacto y brillo. */
+.cp .cp-stage{position:absolute;inset:0}
+.cp .cp-sheet{position:absolute;border-radius:22px;overflow:hidden;background:#FFFFFF;
+  box-shadow:0 1px 1px rgba(30,24,14,.035),0 3px 8px rgba(30,24,14,.042),0 14px 32px rgba(30,24,14,.063),0 42px 80px -24px rgba(30,24,14,.112)}
+.cp .cp-pic{position:absolute;inset:0;background:center/contain no-repeat #FFFFFF}
+.cp .cp-contact{position:absolute;height:70px;border-radius:50%;filter:blur(8px);
+  background:radial-gradient(ellipse at center,rgba(30,24,14,.22) 0%,rgba(30,24,14,0) 70%)}
+.cp .cp-mark{position:absolute;border-radius:6px;background:#FECA1A;mix-blend-mode:multiply;transform-origin:0 50%}
+/* subrayado (vídeo y capturas oscuras): barra oro de 6 px bajo la base, mezcla normal, nunca encima del texto */
+.cp .cp-mark.cp-ul{mix-blend-mode:normal;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.cp .cp-sheen{position:absolute;top:-20%;bottom:-20%;left:0;width:38%;mix-blend-mode:screen;pointer-events:none;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.42) 50%,rgba(255,255,255,0) 70%)}

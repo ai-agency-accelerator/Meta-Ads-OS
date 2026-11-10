@@ -1,0 +1,68 @@
+{{#secciones}}<section class="pos-seccion{{#oscura}} pos-seccion--oscura{{/oscura}}" id="{{ancla}}"{{#titulo?}} aria-labelledby="{{ancla}}-titulo"{{/titulo?}}{{#oculta_barra}} data-pos-oculta-barra{{/oculta_barra}}>
+<div class="pos-contenedor">
+{{#cabecera_visible}}<div class="pos-cabecera-seccion">
+{{#titulo?}}<h2 id="{{ancla}}-titulo">{{titulo}}</h2>
+{{/titulo?}}{{#entradilla?}}<p>{{entradilla}}</p>
+{{/entradilla?}}</div>
+{{/cabecera_visible}}{{#es_dolor}}<ul class="pos-lista-dolor">
+{{#puntos}}<li>{{.}}</li>
+{{/puntos}}</ul>
+{{/es_dolor}}{{#es_lista}}<ul class="pos-lista-check pos-prosa">
+{{#puntos}}<li>{{.}}</li>
+{{/puntos}}</ul>
+{{/es_lista}}{{#es_pasos}}<ol class="pos-pasos">
+{{#pasos}}<li><h3>{{titulo}}</h3><p>{{texto}}</p></li>
+{{/pasos}}</ol>
+{{/es_pasos}}{{#es_beneficios}}<div class="pos-rejilla pos-rejilla--{{columnas}}">
+{{#tarjetas}}<article class="pos-tarjeta"><h3>{{titulo}}</h3><p>{{texto}}</p></article>
+{{/tarjetas}}</div>
+{{/es_beneficios}}{{#es_casos}}<div class="pos-casos{{#varios}} pos-casos--varios{{/varios}}">
+{{#casos}}<figure class="pos-caso">
+{{#cifra?}}<p class="pos-caso__cifra">{{cifra}}</p>
+{{/cifra?}}{{#cifra_texto?}}<p class="pos-caso__cifra-texto">{{cifra_texto}}</p>
+{{/cifra_texto?}}{{#cita?}}<blockquote><p>{{cita}}</p></blockquote>
+{{/cita?}}<figcaption><strong>{{autor}}</strong>{{#cargo?}}, {{cargo}}{{/cargo?}}</figcaption>
+</figure>
+{{/casos}}</div>
+{{#aviso?}}<p class="pos-aviso-casos">{{aviso}}</p>
+{{/aviso?}}{{/es_casos}}{{#es_logos}}<ul class="pos-logos">
+{{#logos}}<li><img src="{{src}}" alt="{{alt}}" width="{{ancho}}" height="{{alto}}" loading="lazy" decoding="async"></li>
+{{/logos}}</ul>
+{{/es_logos}}{{#es_para_quien}}<div class="pos-rejilla pos-rejilla--2">
+<div class="pos-tarjeta"><h3>{{titulo_si}}</h3><ul class="pos-lista-check">{{#si}}<li>{{.}}</li>{{/si}}</ul></div>
+<div class="pos-tarjeta"><h3>{{titulo_no}}</h3><ul class="pos-lista-check pos-lista-no">{{#no}}<li>{{.}}</li>{{/no}}</ul></div>
+</div>
+{{/es_para_quien}}{{#es_oferta}}<div class="pos-oferta">
+<div class="pos-oferta__caja">
+{{#incluye_titulo?}}<h3>{{incluye_titulo}}</h3>
+{{/incluye_titulo?}}<ul class="pos-lista-check">{{#incluye}}<li>{{.}}</li>{{/incluye}}</ul>
+{{#precio?}}<div><p class="pos-oferta__precio">{{precio}}</p>{{#precio_nota?}}<p class="pos-nota">{{precio_nota}}</p>{{/precio_nota?}}</div>
+{{/precio?}}{{#garantia?}}<p class="pos-oferta__garantia">{{garantia}}</p>
+{{/garantia?}}{{#cta?}}<div class="pos-acciones"><a class="pos-boton" href="{{cta.href}}">{{cta.texto}}</a></div>
+{{/cta?}}</div>
+{{#no_incluye?}}<div class="pos-oferta__no"><h3>{{no_incluye_titulo}}</h3><ul class="pos-lista-check pos-lista-no">{{#no_incluye}}<li>{{.}}</li>{{/no_incluye}}</ul></div>
+{{/no_incluye?}}</div>
+{{/es_oferta}}{{#es_ponentes}}<div class="pos-ponentes">
+{{#ponentes}}<article class="pos-ponente{{^foto}} pos-ponente--sin-foto{{/foto}}">{{#foto?}}<img src="{{foto}}" alt="" width="{{foto_ancho}}" height="{{foto_alto}}" loading="lazy" decoding="async">{{/foto?}}<div class="pos-prosa"><h3 class="pos-ponente__nombre">{{nombre}}</h3>{{#cargo?}}<p class="pos-texto-suave">{{cargo}}</p>{{/cargo?}}{{#bio?}}<p>{{bio}}</p>{{/bio?}}</div></article>
+{{/ponentes}}</div>
+{{/es_ponentes}}{{#es_video}}{{#video}}{{> video}}{{/video}}{{/es_video}}{{#es_texto}}<div class="pos-prosa">
+{{#parrafos}}<p>{{.}}</p>
+{{/parrafos}}</div>
+{{/es_texto}}{{#es_faq}}<div class="pos-faq">
+{{#preguntas}}<details><summary>{{pregunta}}</summary><div><p>{{respuesta}}</p></div></details>
+{{/preguntas}}</div>
+{{/es_faq}}{{#es_formulario}}<div class="pos-formulario-bloque">
+<div class="pos-cabecera-seccion">
+{{#titulo?}}<h2 id="{{ancla}}-titulo">{{titulo}}</h2>
+{{/titulo?}}{{#entradilla?}}<p>{{entradilla}}</p>
+{{/entradilla?}}{{#puntos?}}<ul class="pos-lista-check">{{#puntos}}<li>{{.}}</li>{{/puntos}}</ul>
+{{/puntos?}}</div>
+{{#formulario}}{{> formulario}}{{/formulario}}</div>
+{{/es_formulario}}{{#es_cierre}}<div class="pos-cierre">
+{{#titulo?}}<h2 id="{{ancla}}-titulo">{{titulo}}</h2>
+{{/titulo?}}{{#texto?}}<p>{{texto}}</p>
+{{/texto?}}{{#cta?}}<a class="pos-boton" href="{{cta.href}}">{{cta.texto}}</a>
+{{/cta?}}</div>
+{{/es_cierre}}</div>
+</section>
+{{/secciones}}

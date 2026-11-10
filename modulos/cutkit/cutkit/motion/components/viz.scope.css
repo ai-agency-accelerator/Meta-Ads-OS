@@ -1,0 +1,28 @@
+/* viz.scope — el alcance (recuadro discontinuo) y la solución que se desborda; piezas de tinta, blancas y rojas. */
+.sc .sc-wrap{position:absolute;inset:0}
+.sc .sc-svg{position:absolute;left:0;top:0;overflow:visible}
+.sc .sc-line{fill:none;stroke:#161514;stroke-width:calc(5px * var(--s));stroke-linecap:round}
+.sc .sc-bound{position:absolute;box-sizing:border-box;border:calc(5px * var(--s)) dashed rgba(22,21,20,.55);
+  border-radius:calc(30px * var(--s))}
+.sc .sc-tag{position:absolute;display:flex;align-items:center;padding:0 calc(20px * var(--s));border-radius:999px;
+  background:#161514;color:#FFFFFF;font:800 calc(30px * var(--s))/1 var(--ck-sans);letter-spacing:.06em;text-transform:uppercase}
+.sc .sc-tile{position:absolute;box-sizing:border-box;border-radius:22%;display:flex;align-items:center;justify-content:center;
+  transform-origin:50% 50%;box-shadow:0 calc(4px * var(--s)) calc(12px * var(--s)) rgba(0,0,0,.16)}
+.sc .sc-ink{background:#161514}
+.sc .sc-white{background:#FFFFFF;border:calc(5px * var(--s)) solid #161514}
+.sc .sc-red{background:#D83024;border:calc(5px * var(--s)) solid #161514}
+.sc .sc-core{background:#FFFFFF;border:calc(7px * var(--s)) solid #161514;z-index:2}
+.sc .sc-glyph{width:52%;display:flex;flex-direction:column;gap:14%}
+.sc .sc-bar{display:block;height:calc(8px * var(--s));border-radius:99px;background:#FFFFFF}
+.sc .sc-white .sc-bar,.sc .sc-core .sc-bar{background:#161514}
+.sc .sc-bar-1{width:72%}.sc .sc-bar-2{width:46%}
+.sc .sc-core .sc-bar{height:calc(12px * var(--s))}
+.sc .sc-label{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;
+  font:800 calc(56px * var(--s))/1.1 var(--ck-sans);color:#161514;letter-spacing:-.02em}
+.sc .sc-in{white-space:nowrap}
+.sc .sc-mk{position:relative;display:inline-block}
+.sc .sc-mk-bg{position:absolute;left:-.07em;right:-.07em;bottom:.06em;height:.44em;border-radius:.06em;background:#F2C230;transform-origin:0 50%}
+.sc .sc-mk-t{position:relative}
+.gx-th-dark.sc .sc-label{color:#FFFFFF}
+.gx-th-dark.sc .sc-line{stroke:rgba(255,255,255,.85)}
+.gx-th-dark.sc .sc-bound{border-color:rgba(255,255,255,.5)}

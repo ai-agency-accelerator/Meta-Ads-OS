@@ -1,0 +1,47 @@
+{
+  "_leeme": [
+    "Plan aprobado por el socio el 2026-11-12 para crear EN PAUSA; activar es otra orden."
+  ],
+  "campana": {
+    "nombre": "ES_LEADS_ADQ_HV-OBJ",
+    "objetivo": "OUTCOME_LEADS",
+    "categorias_especiales": []
+  },
+  "evento": "LEAD",
+  "conjuntos": [
+    {
+      "nombre": "BROAD-A+_LEAD",
+      "presupuesto_diario": 60,
+      "inicio": "2026-11-17 08:00",
+      "segmentacion": {
+        "geo_locations": {
+          "countries": [
+            "ES"
+          ]
+        },
+        "age_min": 25,
+        "targeting_automation": {
+          "advantage_audience": 1
+        }
+      },
+      "anuncios": [
+        {
+          "nombre": "20261112_objecion-precio_roi-calculadora_video_h1",
+          "video": "creativos/20261112_objecion-precio_roi-calculadora_video_h1/20261112_objecion-precio_roi-calculadora_video_h1_9x16.mp4",
+          "texto": "Calcula en 2 minutos cuántas horas pierde tu equipo en tareas repetitivas.",
+          "titulo": "Diagnóstico de automatización gratis",
+          "cta": "LEARN_MORE",
+          "url": "https://acme-automations.example/diagnostico"
+        },
+        {
+          "nombre": "20261112_objecion-precio_roi-calculadora_video_h2",
+          "video": "creativos/20261112_objecion-precio_roi-calculadora_video_h2/20261112_objecion-precio_roi-calculadora_video_h2_9x16.mp4",
+          "texto": "¿Cuánto te cuesta no automatizar? Haz el cálculo con nosotros.",
+          "titulo": "Diagnóstico de automatización gratis",
+          "cta": "LEARN_MORE",
+          "url": "https://acme-automations.example/diagnostico"
+        }
+      ]
+    }
+  ]
+}

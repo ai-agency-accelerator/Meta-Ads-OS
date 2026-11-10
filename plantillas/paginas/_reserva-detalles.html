@@ -1,0 +1,12 @@
+{{#reserva.puntos?}}<div class="pos-prosa">
+{{#reserva.puntos_titulo?}}<h2 class="pos-formulario__titulo">{{reserva.puntos_titulo}}</h2>
+{{/reserva.puntos_titulo?}}<ul class="pos-lista-check">
+{{#reserva.puntos}}<li>{{.}}</li>
+{{/reserva.puntos}}</ul>
+</div>
+{{/reserva.puntos?}}{{#reserva.anfitrion}}<div class="pos-anfitrion{{^foto}} pos-anfitrion--sin-foto{{/foto}}">
+{{#foto?}}<img src="{{foto}}" alt="" width="{{foto_ancho}}" height="{{foto_alto}}"{{#carga?}} loading="{{carga}}"{{/carga?}} decoding="async">
+{{/foto?}}<div><p class="pos-anfitrion__nombre">{{nombre}}</p>{{#cargo?}}<p class="pos-texto-suave">{{cargo}}</p>{{/cargo?}}</div>
+</div>
+{{/reserva.anfitrion}}{{#reserva.nota?}}<p class="pos-nota">{{reserva.nota}}</p>
+{{/reserva.nota?}}

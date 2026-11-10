@@ -1,0 +1,73 @@
+{
+  "id": "evt-03-local-qualified-leads",
+  "titulo": "Leads de calidad en una clínica sin CAPI y con 6 citas por semana: todavía no",
+  "categoria": "evento",
+  "segmento": "agencia-local",
+  "dificultad": "alta",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "¿Activamos «Maximizar el número de leads de calidad» en la campaña de Clínica Sonrisa? Tenemos unas 6 citas por semana.",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Señala el bloqueo: los leads de calidad exigen CAPI desde el CRM y la clínica no envía ninguna etapa de GHL a Meta.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "d2",
+        "texto": "Señala el volumen: ~5–6 citas por semana queda lejos de los ~20–30 eventos semanales de la etapa que se piden para dar el paso.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-lead-gen.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Advierte que es un negocio de salud: hay que revisar la categoría del dataset (puede restringir eventos de mitad de embudo) y no se pueden hacer preguntas de salud.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/08-cuenta-politicas-seguridad/07-categorias-especiales-y-sensibles.md §3.2"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone el camino: preguntas de filtro no sanitarias en el formulario (zona, disponibilidad, interés en financiar), registro de etapas en GHL en 48 h y montar la CAPI desde GHL antes de plantearlo.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/04-integraciones-crm.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Cuando toque, en una campaña nueva (duplicada) y no editando la que funciona, comparando por coste por asistida.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-lead-gen.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar activarlo ya.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "n2",
+        "texto": "Proponer preguntas sobre salud o síntomas en el formulario.",
+        "fuente": "meta-ads-kb/14-playbooks/playbook-negocio-local.md"
+      },
+      {
+        "id": "n3",
+        "texto": "Proponer renombrar eventos para esquivar una restricción de salud del dataset.",
+        "fuente": "meta-ads-kb/08-cuenta-politicas-seguridad/07-categorias-especiales-y-sensibles.md §3.2"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre activa la opción; el experto comprueba requisitos, volumen y restricciones de salud y prepara la señal primero."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "capi|conversions api",
+        "motivo": "requisito de CAPI"
+      }
+    ]
+  }
+}

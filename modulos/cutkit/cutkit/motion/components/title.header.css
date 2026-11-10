@@ -1,0 +1,5 @@
+/* title.header — cabecera fija pequeña (logo + nombre) arriba y centrada; nombre en Montserrat 900 como el héroe de logo.reveal */
+.th-wrap{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
+.th-logo{position:absolute;transform-origin:50% 50%}
+.th-text{position:absolute;white-space:nowrap;font:900 68px/1 var(--ck-sans);letter-spacing:-.035em;color:var(--ck-ink, #161514);
+  transform-origin:50% 50%}

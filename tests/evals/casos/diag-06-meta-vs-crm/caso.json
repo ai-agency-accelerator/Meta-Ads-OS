@@ -1,0 +1,73 @@
+{
+  "id": "diag-06-meta-vs-crm",
+  "titulo": "Meta cuenta más leads que GHL tras una migración: deduplicación rota y evento mal disparado",
+  "categoria": "diagnostico",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "/diagnostico acme \"Meta dice 74 leads en las dos últimas semanas y GHL solo 47\"",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Detecta que la deduplicación se rompió con la migración: los eventos de servidor llegan sin event_id desde el 2026-11-03 (0 %), así que navegador y servidor se suman.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/16-checklist-qa-y-diagnostico-tracking.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Detecta que el Lead del navegador se dispara al pulsar «Enviar» y no tras el envío correcto (con un 22 % de errores de validación), lo que infla los eventos.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/16-checklist-qa-y-diagnostico-tracking.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Propone el arreglo concreto: el mismo event_id generado en el envío y pasado al píxel y a GHL, el evento solo tras el envío correcto, y verificarlo con «Probar eventos» (test_event_code) y la tasa de deduplicación.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/02-implementacion-pixel-capi-paso-a-paso.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Para estas dos semanas decide con GHL (fuente de verdad); el CPL de Ads Manager está infravalorado y hay que re-baselinar tras el arreglo.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/11-meta-vs-ga4-shopify-crm-stripe.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Advierte que Meta ha optimizado con eventos inflados o duplicados y que no conviene hacer cambios de campaña hasta arreglar la señal.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/01-arquitectura-senales-pixel-capi-datasets.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar crear un píxel o dataset nuevo.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M58"
+      },
+      {
+        "id": "n2",
+        "texto": "Explicar la diferencia solo con la ventana de atribución o con que «Meta siempre infla», sin mirar deduplicación y disparo.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M64"
+      },
+      {
+        "id": "n3",
+        "texto": "Proponer enviar eventos reales de prueba a la CAPI sin test_event_code.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre culpa a la atribución; el experto cruza Events Manager con la fecha de la migración y encuentra event_id y disparo rotos."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "event_id|event id|deduplica",
+        "motivo": "encuentra la deduplicación"
+      }
+    ]
+  }
+}

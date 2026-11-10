@@ -1,0 +1,64 @@
+{
+  "_comentario": "Receta de ejemplo del estilo Flow con Nimbo (SaaS B2B ficticio). Sustituye marca_id, producto_id y actor por los tuyos (motor brand list · motor product list · motor actor list). Los textos *_en van en inglés porque son prompts; los segmentos, en el idioma del anuncio. Las pantallas reales de la app NO las pinta la IA: el montaje del motor las compone desde las capturas del producto.",
+  "nombre": "nimbo-escritorio",
+  "titulo": "Nimbo en el escritorio",
+  "marca_id": "brand_0000000000",
+  "producto_id": "prod_0000000000",
+  "actor": "@presentadora_01",
+  "idioma": "es-ES",
+  "plataforma": "reels",
+  "objetivo": "pruebas gratuitas del software",
+  "audiencia": "responsables comerciales de pymes de servicios que pierden leads por contestar tarde",
+  "semilla": 4242,
+  "producto_en": "the Nimbo web app, a blue and white sales dashboard, open on a silver laptop and on her phone; screens are seen at an angle and softly out of focus, never with readable text",
+  "ubicacion_en": "a small, real home office: a white desk with a silver laptop, a phone, a notebook, a mug and a plant, a shelf with folders behind, white walls",
+  "luz_en": "soft natural daylight from a window on the left",
+  "momento_en": "morning",
+  "vestuario_en": "a plain navy crew-neck sweater",
+  "pelo_en": "shoulder-length straight dark brown hair tucked behind one ear, natural and slightly imperfect",
+  "voz_en": "warm, confident 32-year-old woman from Spain",
+  "acento_en": "Spanish from Spain",
+  "referencias_producto": {
+    "panel": "producto:captura:0"
+  },
+  "segmentos": [
+    {"rol": "hook", "texto": "¿Cuánto tardas en contestar a un lead nuevo?", "en_pantalla": "¿Cuánto tardas en contestar?"},
+    {"rol": "problem", "texto": "Cada minuto que esperas, ese lead se enfría.", "en_pantalla": ""},
+    {"rol": "demo", "texto": "Mira: entra el formulario y Nimbo le escribe al momento.", "en_pantalla": ""},
+    {"rol": "solution", "texto": "Le manda el enlace para reservar y avisa al comercial.", "en_pantalla": ""},
+    {"rol": "cta", "texto": "Pruébalo catorce días gratis. Te lo dejo aquí abajo.", "en_pantalla": ""}
+  ],
+  "fotograma_clave": {
+    "escena_en": "Vertical 9:16 smartphone selfie photo taken by the woman herself with the phone's front camera at arm's length: she sits at her desk in front of the open laptop, turned towards the camera with a slightly raised eyebrow and a half smile, mouth slightly open mid-sentence, looking into the lens; the laptop screen is visible beside her, at an angle and out of focus",
+    "referencias": []
+  },
+  "generaciones": {
+    "a": {
+      "duracion_s": 10,
+      "referencias": ["panel"],
+      "planos": [
+        {"accion_en": "she sits at her desk filming a selfie, turns to the lens with a raised eyebrow", "dice": 0},
+        {"accion_en": "medium shot from the side: she glances at the laptop and taps the desk impatiently with two fingers", "dice": 1},
+        {"accion_en": "close-up: she picks up her phone from the desk and turns it towards the camera as a new notification lights up the screen, out of focus", "dice": 2}
+      ]
+    },
+    "b": {
+      "duracion_s": 10,
+      "continuidad_en": "Her hair is still tucked behind one ear and the same mug and plant stay on the desk.",
+      "planos": [
+        {"accion_en": "over-the-shoulder shot: she scrolls slowly on the laptop trackpad, the screen softly out of focus, and nods", "dice": 3},
+        {"accion_en": "back to the selfie at the desk: she smiles and points down towards the bottom of the frame", "dice": 4}
+      ]
+    }
+  },
+  "planos_producto": {
+    "escritorio": {
+      "prompt_en": "Vertical 9:16 photo of the white desk from a 45-degree angle: the silver laptop open with its screen turned slightly away from the camera, a phone face up beside it, a mug and a plant; nobody in the frame. Clean space in the upper third.",
+      "referencias": [],
+      "con_escena": true
+    }
+  },
+  "movimientos": {
+    "escritorio": "Vertical footage, very slow, smooth push-in towards the laptop on the white desk; soft daylight shifts gently. Nothing else moves. No people, no text, no logos, no music."
+  }
+}

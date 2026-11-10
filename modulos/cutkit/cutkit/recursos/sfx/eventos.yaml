@@ -1,0 +1,220 @@
+# Reglas evento → SFX de cutkit: cuándo suena cada efecto, a qué nivel respecto a la voz, con qué sincronía y qué
+# ficheros de la biblioteca sintética (CC0) usa. Las lee `cutkit.audio.sfx` y se copian en datos/sfx/catalogo.yaml
+# junto al inventario medido de los ficheros. Si añades tu biblioteca con CK_SFX_DIR, puedes citar sus id aquí.
+# Niveles en LU respecto a la voz a corto plazo; offset negativo = el sonido va antes del fotograma (nunca > 40 ms).
+version: 1
+convenciones: {normalizacion: 'Cada fichero se lleva a -20 LUFS con ganancia_a_-20_lufs_db. Referencia: M_max (momentáneo,
+    400 ms, con 0,5 s de silencio añadido) para eventos sueltos; I (integrado) para bucles, camas y ambientes. Después se
+    aplica nivel_rel_voz_lu: ganancia_final = ganancia_a_-20 + (loudness_voz_corto_plazo + nivel_rel_voz_lu - (-20)).',
+  nivel_rel_voz_lu: M_max del SFX ya colocado menos el loudness a corto plazo (3 s) de la voz alrededor del evento. Negativo
+    = por debajo., offset_ms: 'Desplazamiento del punto_sincronia_ms del fichero respecto al fotograma de referencia del
+    evento visual. Negativo = el sonido va antes. Límite duro: nunca más de 40 ms antes (umbral de detección ITU-R BT.1359:
+    +45 ms).', fotograma_ref: qué fotograma del motion es el 0 del evento., limitador: necesita_limitador se evalúa a -20
+    LUFS; el motor lo recalcula con la ganancia final (TP final <= -1 dBTP)., fps_ref: a 30 fps 1 fotograma = 33 ms; a 25
+    fps = 40 ms; a 60 fps = 17 ms, recortes: 'en ficheros-paquete, usar un recorte [inicio_ms, fin_ms] con su sync_ms; ganancia
+    aproximada por recorte.'}
+globales:
+  densidad: {short_max_sfx_min: 6, short_max_sfx_min_montaje: 10, largo_max_sfx_min: 3, max_heroe_por_short: 2, separacion_min_heroes_s: 20,
+    separacion_min_no_ui_s: 1.5, max_simultaneos: 2, max_usos_mismo_fichero_short: 2, nunca_mismo_fichero_seguido: true,
+    aparicion_texto_sonorizada_max_ratio: 0.25}
+  variacion:
+    whoosh_semitonos: [-2, 2]
+    pop_click_tick_semitonos: [-1, 1]
+    ding_semitonos: [-1, 1]
+    impacto_riser_semitonos: [-1, 0]
+    ganancia_db: [-1.5, 1.5]
+    contador_tono_ascendente_semitonos_total: [1, 3]
+    recorte_inicio_jitter_ms: [0, 10]
+  enmascaramiento_voz:
+    evitar_transitorio_sobre_silaba_tonica_de_palabra_clave_ms: 80
+    preferir_pausas_de_voz_ms_min: 120
+    filtro_paso_alto_sfx_hz: 120
+    recorte_banda_voz_db:
+      rango_hz: [1000, 4000]
+      db: -2
+      aplica_a: [whoosh_largo, glitch, brillo, tecleo, textura_datos]
+  silencio:
+    drop_out_musica_antes_remate_ms: [250, 600]
+    vacio_total_antes_impacto_ms: [150, 400]
+    max_drop_outs_por_short: 2
+    sin_sfx_bajo_frase_emocional: true
+    preferir_silencio_si: [voz_explica_paso_a_paso, cifra_dicha_en_voz, chiste_verbal, cambio_de_tono_serio]
+  musica_y_sfx: {no_riser_si_la_musica_ya_sube_en_ventana_s: 2, impacto_en_downbeat: true, cama_musical_rel_voz_lu: -19}
+eventos:
+  aparicion_texto:
+    descripcion: Texto o titular que aparece (fade, escala o máscara).
+    por_defecto: silencio
+    tipo_sfx: [whoosh_corto]
+    condicion: solo si entra con desplazamiento visible >= 15 % del ancho y es el titular de la escena
+    fotograma_ref: fotograma de máxima velocidad del desplazamiento (mitad del ease)
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu: [-16, -12]
+    duracion_sfx_ms: [200, 400]
+    ficheros: [aire_2, aire_1, aire_3]
+    prohibido: [sonorizar cada subtítulo o cada palabra, pop en cada línea]
+  palabra_destacada:
+    descripcion: Una palabra clave cambia de color, se subraya o salta de escala.
+    por_defecto: silencio
+    tipo_sfx: [pop, click, tick]
+    condicion: como mucho 1 cada 20 s y solo la palabra de la promesa o del remate
+    fotograma_ref: primer fotograma con el resaltado al 100 % (fin del overshoot de escala)
+    offset_ms: [-33, 0]
+    nivel_rel_voz_lu: [-18, -14]
+    duracion_sfx_ms: [30, 250]
+    ficheros: [firma_1, click_1, tick_1]
+    prohibido: [transitorio encima de la sílaba tónica de esa misma palabra (moverlo al hueco anterior)]
+  cifra_cuenta:
+    descripcion: Número que cuenta hasta su valor final.
+    tipo_sfx: [tick_contador, ding]
+    fotograma_ref: inicio del conteo (ticks) y fotograma del valor final (ding)
+    offset_ms:
+      ticks: 0
+      ding_final: [-20, 0]
+    nivel_rel_voz_lu:
+      ticks: [-20, -16]
+      ding_final: [-14, -10]
+    patron: ticks cada 50-120 ms durante el conteo, recortados a su duración con fundido de 20 ms; ding o pop en el valor
+      final
+    ficheros:
+      ticks: [tick_3, tick_2]
+      final: [ding_1, ding_2]
+    prohibido: [ticks si la voz dice la cifra a la vez (que mande la voz), contador de más de 1, 5 s]
+  tarjeta_entra:
+    descripcion: Tarjeta, captura o panel que entra deslizando.
+    tipo_sfx: [whoosh_corto, pop]
+    fotograma_ref: whoosh -> máxima velocidad; pop opcional -> fotograma de llegada (asentado)
+    offset_ms:
+      whoosh: [-20, 0]
+      pop: [-33, 0]
+    nivel_rel_voz_lu:
+      whoosh: [-14, -10]
+      pop: [-16, -12]
+    duracion_sfx_ms: [250, 600]
+    inicio_audible_antes_del_movimiento_ms: [60, 200]
+    ficheros: [aire_1, aire_medio_1]
+    prohibido: [pop y whoosh en todas las tarjetas, más de 1 tarjeta sonorizada cada 8 s]
+  transicion_luz:
+    descripcion: Destello, light leak o fundido a blanco entre planos.
+    tipo_sfx: [whoosh_inverso, whoosh_ascendente, brillo]
+    fotograma_ref: fotograma de máximo brillo (el corte)
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu: [-14, -10]
+    duracion_sfx_ms: [500, 1200]
+    ficheros: [subida_1, aire_medio_1, brillo_2]
+    prohibido: [brillo + whoosh + impacto juntos]
+  whip:
+    descripcion: Whip pan o barrido rápido entre planos.
+    tipo_sfx: [whoosh_corto]
+    fotograma_ref: fotograma del corte (mitad del desenfoque de movimiento)
+    offset_ms: [-15, 0]
+    nivel_rel_voz_lu: [-12, -8]
+    duracion_sfx_ms: [200, 450]
+    ficheros: [aire_1, aire_2, aire_medio_1]
+    prohibido: [whoosh en un corte seco sin movimiento]
+  transicion_escena:
+    descripcion: Cambio de bloque/escena con zoom o barrido amplio (sin voz encima).
+    tipo_sfx: [whoosh_medio, whoosh_largo]
+    fotograma_ref: fotograma de máxima velocidad o del corte
+    offset_ms: [-40, 0]
+    nivel_rel_voz_lu: [-10, -6]
+    duracion_sfx_ms: [600, 1500]
+    ficheros: [aire_medio_1, barrido_1]
+    prohibido: [más de 1 cada 20 s en Short, whoosh largo bajo voz]
+  glitch:
+    descripcion: Glitch visual (RGB split, saltos de fotograma, pantalla rota).
+    tipo_sfx: [glitch]
+    fotograma_ref: primer fotograma con glitch
+    offset_ms: 0
+    nivel_rel_voz_lu: [-14, -10]
+    duracion_sfx_ms: igual al glitch visual (100-400), recortar con fundido de 10 ms
+    ficheros: [glitch_1, glitch_2]
+    prohibido: [glitch como transición genérica, más de 2 por Short]
+  check:
+    descripcion: Aparece un check, un acierto o «funciona».
+    tipo_sfx: [ding]
+    fotograma_ref: fotograma en que el trazo del check se completa
+    offset_ms: [-33, 0]
+    nivel_rel_voz_lu: [-14, -10]
+    ficheros: [ding_2, ding_1, bip_1]
+  error:
+    descripcion: Aparece una X, un fallo o «no funciona».
+    tipo_sfx: [paquete_error, retro]
+    fotograma_ref: fotograma en que aparece la X
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu: [-14, -10]
+    ficheros: [error_1]
+  click_ui:
+    descripcion: Cursor que pulsa un botón real de la interfaz.
+    tipo_sfx: [click]
+    fotograma_ref: fotograma en que el botón se hunde o cambia de estado
+    offset_ms: 0
+    nivel_rel_voz_lu: [-20, -14]
+    ficheros: [click_2, click_1, tick_1]
+    cuenta_en_densidad: false
+    prohibido: [click sin cursor/botón visible]
+  tecleo:
+    descripcion: Se escribe un prompt en pantalla.
+    tipo_sfx: [tecleo]
+    fotograma_ref: primer carácter -> último carácter
+    offset_ms:
+      inicio: 0
+      fin: [0, 40]
+    nivel_rel_voz_lu: [-22, -16]
+    patron: recortar un tramo continuo de la duración del tecleo, fundidos de 15 ms; nunca sincronizar carácter a carácter
+    ficheros: [tecleo_1, tecleo_2]
+    cuenta_en_densidad: false
+    prohibido: [tecleo si el texto aparece de golpe, bloque de tecleo de más de 3 s bajo voz]
+  riser_revelacion:
+    descripcion: Subida de tensión antes de UNA revelación (resultado, cifra, antes/después).
+    tipo_sfx: [riser, whoosh_inverso]
+    fotograma_ref: fotograma de la revelación
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu:
+      pico: [-10, -6]
+    duracion_sfx_ms: [1000, 2500]
+    tras_el_pico: cortar la cola con fundido de 50-150 ms o taparla con el impacto
+    ficheros: [subida_1, aire_medio_1]
+    prohibido: [más de 1 por Short, riser si la música ya sube, riser sin revelación visual]
+  impacto_remate:
+    descripcion: Golpe en el remate, la revelación o el corte a negro final.
+    tipo_sfx: [impacto_sub, pop, impacto_grave]
+    capas:
+      cuerpo: impacto_sub
+      ataque_medio: [pop_3]
+    fotograma_ref: fotograma de la revelación (y downbeat si hay música)
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu:
+      impacto_sub: [-8, -4]
+      ataque_medio: [-14, -10]
+    duracion_sfx_ms: [800, 2500]
+    silencio_previo_ms: [150, 400]
+    ficheros: [impacto_1, impacto_2]
+    prohibido: [más de 2 por Short, impacto detrás de cada frase, impacto sin silencio o drop-out previo]
+  notificacion:
+    descripcion: Llega un mensaje, un email, una notificación de app.
+    tipo_sfx: [ding, bip_ui]
+    fotograma_ref: primer fotograma de la notificación
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu: [-16, -12]
+    ficheros: [ding_2, ding_1, pop_2]
+  aparece_elemento_clave:
+    descripcion: Pegatina, logo, flecha roja o icono que aparece (el foco único de la escena).
+    tipo_sfx: [pop, pop_tonal]
+    fotograma_ref: fotograma en que llega al 100 % de escala
+    offset_ms: [-33, 0]
+    nivel_rel_voz_lu: [-16, -12]
+    ficheros: [pop_1, pop_3, pop_2]
+  lista_vinetas:
+    descripcion: Viñetas o ítems que aparecen en secuencia.
+    tipo_sfx: [tick]
+    patron: 1 tick por ítem, tono +1 semitono por ítem, máx. 4
+    offset_ms: [-20, 0]
+    nivel_rel_voz_lu: [-20, -16]
+    ficheros: [tick_2, tick_1, click_1]
+  tension_tiempo:
+    descripcion: Presión de tiempo o espera (cuenta atrás, «en 30 segundos»).
+    tipo_sfx: [tictac, pulso_grave]
+    nivel_rel_voz_lu: [-24, -18]
+    ficheros: [tictac_1]
+    prohibido: [encima de la música a la vez (sustituye a la música)]
+

@@ -1,0 +1,53 @@
+# Herramientas que puede usar el brief diario cuando se ejecuta sin nadie delante (claude -p --permission-mode dontAsk).
+# Una regla por línea; las líneas con # se ignoran. Lo que no está aquí se deniega sin preguntar.
+# Lo leen brief.sh (Mac y Linux) y brief.ps1 (Windows; añade solo las variantes `python` y `py -3`).
+# Sintaxis: https://code.claude.com/docs/en/permissions. Las rutas sin / delante son relativas a la carpeta desde la
+# que se lanza claude (el lanzador entra antes en la raíz de la instancia).
+# Suma con el allow de .claude/settings.json (lecturas de Meta y `python3 -I herramientas/*`); los ask de ese archivo
+# (escrituras en Meta, borrados) se deniegan sin preguntar en dontAsk.
+
+# Leer archivos de la carpeta (el deny de .claude/settings.json sigue impidiendo leer .env)
+Read
+Glob
+Grep
+
+# Escribir: solo los informes del brief. Edit cubre Write según la documentación; Write va también explícito para no
+# depender de ello (settings.json no tiene ningún allow de escritura).
+Edit(informes/diario/**)
+Edit(clientes/*/informes/diario/**)
+Write(informes/diario/**)
+Write(clientes/*/informes/diario/**)
+
+# Fecha y hora
+Bash(date *)
+
+# Herramientas del sistema: solo subcomandos de lectura, la banda de ruido y el envío
+Bash(python3 -I herramientas/estado.py resumen *)
+Bash(python3 -I herramientas/estadistica.py banda *)
+Bash(python3 -I herramientas/meta_ads.py cuentas *)
+Bash(python3 -I herramientas/meta_ads.py vigente *)
+Bash(python3 -I herramientas/meta_ads.py anuncios *)
+Bash(python3 -I herramientas/meta_ads.py eventos *)
+Bash(python3 -I herramientas/reglas_meta.py historial *)
+Bash(python3 -I herramientas/ghl.py contactos *)
+Bash(python3 -I herramientas/ghl.py oportunidades *)
+Bash(python3 -I herramientas/ghl.py citas *)
+Bash(python3 -I herramientas/ghl.py por-anuncio *)
+Bash(python3 -I herramientas/stripe_datos.py suscripciones *)
+Bash(python3 -I herramientas/stripe_datos.py pagos *)
+Bash(python3 -I herramientas/notificar.py enviar *)
+
+# Meta (MCP oficial): solo lecturas
+mcp__meta-ads__ads_get_ad_accounts
+mcp__meta-ads__ads_get_ad_entities
+mcp__meta-ads__ads_get_errors
+mcp__meta-ads__ads_get_field_context
+mcp__meta-ads__ads_insights_anomaly_signal
+mcp__meta-ads__ads_insights_performance_trend
+mcp__meta-ads__ads_account_get_activity_logs
+mcp__meta-ads__ads_get_datasets
+mcp__meta-ads__ads_get_dataset_details
+mcp__meta-ads__ads_get_dataset_stats
+
+# Repartir clientes entre subagentes de solo lectura (con más de 3 clientes). Sin esto, el brief va en serie.
+Agent(analista-meta)

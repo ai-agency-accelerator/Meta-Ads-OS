@@ -1,0 +1,46 @@
+{
+  "dataset": "000000000000003",
+  "evento": "Lead",
+  "fuente": "Events Manager → Resumen (exportado 2026-11-16)",
+  "semanas": [
+    {
+      "desde": "2026-10-19",
+      "navegador": 50,
+      "servidor": 54,
+      "eventos_tras_deduplicar": 56,
+      "pct_navegador_con_event_id": 100,
+      "pct_servidor_con_event_id": 100,
+      "emq_servidor": 7.8
+    },
+    {
+      "desde": "2026-10-26",
+      "navegador": 49,
+      "servidor": 53,
+      "eventos_tras_deduplicar": 55,
+      "pct_navegador_con_event_id": 100,
+      "pct_servidor_con_event_id": 100,
+      "emq_servidor": 7.9
+    },
+    {
+      "desde": "2026-11-02",
+      "navegador": 37,
+      "servidor": 29,
+      "eventos_tras_deduplicar": 66,
+      "pct_navegador_con_event_id": 100,
+      "pct_servidor_con_event_id": 0,
+      "emq_servidor": 6.1
+    },
+    {
+      "desde": "2026-11-09",
+      "navegador": 37,
+      "servidor": 28,
+      "eventos_tras_deduplicar": 65,
+      "pct_navegador_con_event_id": 100,
+      "pct_servidor_con_event_id": 0,
+      "emq_servidor": 6.0
+    }
+  ],
+  "diagnosticos_events_manager": [
+    "Eventos del servidor sin parámetro event_id: la deduplicación no es posible (desde 2026-11-03)"
+  ]
+}

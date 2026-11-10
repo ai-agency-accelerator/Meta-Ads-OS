@@ -1,0 +1,41 @@
+{
+  "dataset": "000000000000003",
+  "exportado": "2026-11-09",
+  "eventos_ultimos_28_dias": {
+    "Lead": {
+      "navegador": 200,
+      "servidor": 202,
+      "deduplicacion_pct": 96
+    },
+    "DiagnosticoCompletado": {
+      "navegador": 140,
+      "servidor": 0
+    },
+    "LeadCualificado": {
+      "servidor": 68,
+      "fuente": "CAPI de GHL"
+    },
+    "Schedule": {
+      "servidor": 40
+    },
+    "LlamadaAsistida": {
+      "servidor": 30
+    },
+    "PropuestaEnviada": {
+      "servidor": 15
+    },
+    "Purchase": {
+      "servidor": 5
+    }
+  },
+  "lead_id_en_eventos_crm": true,
+  "frecuencia_subida_crm": "en tiempo real (webhook de GHL)",
+  "ciclo_lead_ganado_dias": {
+    "mediana": 38,
+    "p80": 60
+  },
+  "ciclo_lead_cualificado_dias": {
+    "mediana": 2,
+    "p80": 6
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "evt-02-saas-trial-vs-activacion",
+  "titulo": "SaaS con 12 activaciones por semana: mantener StartTrial y enviar la activación",
+  "categoria": "evento",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "El fundador de Nimbo quiere optimizar la campaña a Subscribe (pago) en vez de a StartTrial. ¿Es buena idea? Si no, ¿a qué optimizamos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Descarta Subscribe ahora: ~5–6 por semana es muy poco para optimizar.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/02-estructura-campanas/02-eventos-de-optimizacion.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Recomienda mantener StartTrial de momento y enviar la activación (10 o más documentos en 7 días) por CAPI desde el backend, con email o external_id, para medir el coste por activada por anuncio.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Da el umbral para cambiar: activación como evento cuando haya ~50 por semana (o una prueba en paralelo antes, marcada como discutible o hipótesis), en una campaña nueva en pausa.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Tiene en cuenta el tiempo: la activación ocurre en 7 días y debe enviarse en cuanto pase para caber en la ventana de 7 días tras el clic.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/12-attribution-lag.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Cambia la métrica de juicio de coste por prueba a coste por prueba activada.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar optimizar ya a Subscribe o Purchase.",
+        "fuente": "meta-ads-kb/02-estructura-campanas/02-eventos-de-optimizacion.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar LPV, clics o CompleteRegistration «para tener más volumen» sin matizarlo.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre optimiza al pago porque es lo que da dinero; el experto ve 5 eventos por semana y construye primero la señal de activación."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "activ",
+        "motivo": "habla de activación"
+      },
+      {
+        "patron": "capi|conversions api|servidor",
+        "motivo": "enviar la activación"
+      }
+    ]
+  }
+}

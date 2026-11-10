@@ -1,0 +1,70 @@
+{
+  "id": "kb-02-qualified-leads-requisitos",
+  "titulo": "Requisitos de los leads de calidad en 2026",
+  "categoria": "conocimiento",
+  "segmento": "general",
+  "dificultad": "baja",
+  "fecha": "2026-11-09",
+  "clientes_base": [],
+  "peticion": "/pregunta \"¿Qué necesito para optimizar a leads de calidad (qualified leads) en 2026? ¿Hay un mínimo de leads?\"",
+  "preambulo": "solo_fecha",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "CAPI desde el CRM obligatoria (campañas nuevas desde abril de 2026; las existentes, desde agosto de 2026).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §2"
+      },
+      {
+        "id": "d2",
+        "texto": "Requisitos: formularios instantáneos o web, lead ID, subida al menos diaria, etapa en ≤28 días, conversión del 1–40 %, 2–3 etapas o más.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "d3",
+        "texto": "No hay mínimo oficial de leads desde el 2025-10-30 (la guía de los 200 leads al mes está desfasada).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "d4",
+        "texto": "Aprendizaje de 2–4 semanas (guía) o 1–2 meses (FAQ); el CPL puede subir mientras baja el coste por lead de calidad.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/03-calidad-de-lead-y-conversion-leads.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Cita el archivo de la base y etiqueta la evidencia.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/00-CONVENCIONES.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Afirmar que hace falta un mínimo oficial de 200 leads al mes.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §6"
+      },
+      {
+        "id": "n2",
+        "texto": "Afirmar que funciona sin CAPI en campañas nuevas.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §2"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre repite requisitos de 2024; el experto consulta el estado vigente y da fechas."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "meta-ads-kb/",
+        "motivo": "cita la ruta de la base"
+      },
+      {
+        "patron": "\\[(official meta|empirical|strong inference|hypothesis|contested)\\]",
+        "motivo": "etiqueta la evidencia"
+      }
+    ]
+  }
+}

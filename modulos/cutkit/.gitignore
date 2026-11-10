@@ -1,0 +1,5 @@
+# Entorno y cachés regenerables de cutkit (se crean en el ordenador de cada usuario)
+.venv/
+datos/
+*.egg-info/
+__pycache__/

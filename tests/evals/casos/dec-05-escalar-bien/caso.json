@@ -1,0 +1,83 @@
+{
+  "id": "dec-05-escalar-bien",
+  "titulo": "Escalar un escalón dentro de topes y capacidad, con coste incremental y antes del pico",
+  "categoria": "decision",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "/escalar acme",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Revisa las condiciones con los datos: negocio dentro del target varias semanas (coste por cualificado ~109 € y por ganado ~1.100–1.330 € frente a 1.691 €), ~50 leads por semana, tracking verificado, pipeline creativo y capacidad (9 de 12 llamadas).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md §1"
+      },
+      {
+        "id": "d2",
+        "texto": "Calcula el coste incremental del escalón anterior (180 → 250 €/día: +490 € por semana para ~+2,25 llamadas ≈ 218 € por llamada incremental, bajo el break-even de 444 €) y lo usa para justificar el siguiente.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md §3"
+      },
+      {
+        "id": "d3",
+        "texto": "Propone un escalón dentro de los topes (250 → 275–300 €/día, ≤ cambio_dia 300 y total ≤ 400) comprobando que las llamadas esperadas (~10–11) caben en la capacidad de 12.",
+        "peso": 3,
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Define fecha de evaluación (≥7 días) y condición de reversión (coste incremental por llamada por encima del break-even, o coste por cualificado fuera del target en semana completa → volver a 250).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md §4"
+      },
+      {
+        "id": "d5",
+        "texto": "Tiene en cuenta que desde la semana del 2026-11-23 (Black Friday) el CPM sube sin más demanda B2B: evaluar el escalón antes y no seguir subiendo durante el pico.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/06-estacionalidad.md"
+      },
+      {
+        "id": "d6",
+        "texto": "Pide confirmación explícita y no ejecuta nada.",
+        "peso": 2,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Proponer un presupuesto por encima de los topes o que supere la capacidad de 12 llamadas.",
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Proponer duplicar el conjunto o la campaña para escalar.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §7"
+      },
+      {
+        "id": "n3",
+        "texto": "Decir que ha aplicado el cambio.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre sube «un 20 %» por costumbre; el experto lo justifica con el coste incremental, la capacidad y el calendario, y deja la reversión escrita."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "incremental|marginal",
+        "motivo": "usa coste marginal"
+      },
+      {
+        "patron": "capacidad|12 llamadas",
+        "motivo": "mira la capacidad"
+      }
+    ]
+  }
+}

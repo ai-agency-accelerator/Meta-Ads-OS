@@ -1,0 +1,29 @@
+{{> inicio}}
+<section class="pos-seccion" aria-labelledby="pos-titular">
+<div class="pos-contenedor pos-estrecho">
+<div class="pos-confirmacion">
+<span class="pos-confirmacion__icono" aria-hidden="true"></span>
+<h1 class="pos-titular" id="pos-titular">{{gracias.titulo}}</h1>
+{{#gracias.texto?}}<p class="pos-entradilla">{{gracias.texto}}</p>
+{{/gracias.texto?}}{{#gracias.evento_webinar}}<div class="pos-fecha">
+<div><p class="pos-fecha__dia">{{dia}}</p><p class="pos-fecha__mes">{{mes}}</p></div>
+<div class="pos-fecha__detalle"><p class="pos-fecha__hora">{{dia_semana}}, {{hora}}</p><p>{{zona}}</p>{{#otras_zonas?}}<p class="pos-fecha__zonas">{{#otras_zonas}}<span>{{pais}}: {{hora_local}}</span>{{/otras_zonas}}</p>{{/otras_zonas?}}</div>
+</div>
+<div class="pos-calendario-botones">
+<a class="pos-boton pos-boton--fantasma pos-boton--peque" href="{{ics}}" download data-pos-sin-atribucion>Añadir a mi calendario (.ics)</a>
+<a class="pos-boton pos-boton--fantasma pos-boton--peque" href="{{google}}" target="_blank" rel="noopener" data-pos-sin-atribucion>Añadir a Google Calendar</a>
+</div>
+{{/gracias.evento_webinar}}{{#gracias.pasos?}}<div class="pos-prosa">
+{{#gracias.pasos_titulo?}}<h2 class="pos-formulario__titulo">{{gracias.pasos_titulo}}</h2>
+{{/gracias.pasos_titulo?}}<ol class="pos-pasos pos-pasos--vertical">
+{{#gracias.pasos}}<li><h3>{{titulo}}</h3>{{#texto?}}<p>{{texto}}</p>{{/texto?}}</li>
+{{/gracias.pasos}}</ol>
+</div>
+{{/gracias.pasos?}}{{#gracias.video}}{{> video}}{{/gracias.video}}{{#gracias.recurso?}}<div class="pos-acciones"><a class="pos-boton" href="{{gracias.recurso.href}}">{{gracias.recurso.texto}}</a></div>
+{{/gracias.recurso?}}{{#gracias.botones?}}<div class="pos-acciones">
+{{#gracias.botones}}<a class="pos-boton pos-boton--fantasma" href="{{href}}"{{#whatsapp}} target="_blank" rel="noopener" data-pos-sin-atribucion{{/whatsapp}}>{{texto}}</a>
+{{/gracias.botones}}</div>
+{{/gracias.botones?}}</div>
+</div>
+</section>
+{{> fin}}

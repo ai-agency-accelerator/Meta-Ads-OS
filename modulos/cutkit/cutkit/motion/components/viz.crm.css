@@ -1,0 +1,38 @@
+/* viz.crm — lista de CRM en esqueleto: filas con glifo de usuario gris → oro, barras sin texto y píldora de estado */
+.crm .crm-wrap{position:absolute;inset:0}
+.crm .crm-tm{position:absolute;overflow:hidden;display:flex;justify-content:center;align-items:flex-end}
+.crm .crm-title{font:900 calc(72px * var(--s))/1.05 var(--ck-sans);color:var(--g-fg);letter-spacing:-.03em;white-space:nowrap}
+.crm .crm-card{position:absolute;border-radius:calc(30px * var(--s));background:var(--g-card);box-shadow:0 0 0 2px var(--g-line),var(--g-shadow);transform-origin:50% 50%}
+.crm .crm-row{position:absolute;left:calc(28px * var(--s));right:calc(28px * var(--s));display:flex;align-items:center;gap:calc(24px * var(--s));
+  border-bottom:2px solid var(--g-line);box-sizing:border-box}
+.crm .crm-row:last-child{border-bottom:none}
+.crm .crm-av{position:relative;flex:none;width:calc(76px * var(--s));height:calc(76px * var(--s));border-radius:50%;background:rgba(22,21,20,.06);transform-origin:50% 50%}
+.gx-th-dark.crm .crm-av{background:rgba(255,255,255,.08)}
+.crm .crm-ic{position:absolute;inset:18%}
+.crm .crm-ic-gray{opacity:.45}
+.crm .crm-bars{flex:1;display:flex;flex-direction:column;gap:calc(12px * var(--s))}
+.crm .crm-bars i{display:block;height:calc(16px * var(--s));border-radius:99px;background:rgba(22,21,20,.18)}
+.gx-th-dark.crm .crm-bars i{background:rgba(255,255,255,.2)}
+.crm .crm-b2{opacity:.6}
+.crm .crm-pill{flex:none;width:calc(96px * var(--s));height:calc(34px * var(--s));border-radius:999px;background:var(--ck-accent);
+  box-shadow:inset 0 0 0 calc(3px * var(--s)) #161514;transform-origin:50% 50%}
+/* `ink`: filas en tinta (se leen; el apagado de `dim` se nota) */
+.crm.crm-ink .crm-bars i{background:rgba(22,21,20,.5)}
+.crm.crm-ink .crm-ic-gray{opacity:.85}
+.crm.crm-ink .crm-av{background:rgba(22,21,20,.1)}
+.gx-th-dark.crm.crm-ink .crm-bars i{background:rgba(255,255,255,.55)}
+/* `stamp` / `stamp_sub`: sello de tinta sobre la tarjeta y su segunda línea en una píldora de tinta */
+.crm .crm-stamp{position:absolute;z-index:3;box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+  border-radius:calc(20px * var(--s));background:rgba(255,255,255,.95);box-shadow:inset 0 0 0 calc(7px * var(--s)) #161514,0 14px 30px rgba(0,0,0,.16)}
+.crm .crm-stamp-m{overflow:hidden;display:flex;justify-content:center;padding:.06em 0 .1em}
+.crm .crm-stamp-i{font:900 calc(76px * var(--s))/1.04 var(--ck-sans);color:#161514;letter-spacing:-.02em;white-space:nowrap}
+.crm .crm-stamp-sub{position:absolute;z-index:3;box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+  border-radius:999px;background:#161514;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+.crm .crm-stamp-si{font:800 calc(58px * var(--s))/1.04 var(--ck-sans);color:#FFFFFF;letter-spacing:-.015em;white-space:nowrap}
+
+/* `count`: cabecera DENTRO de la tarjeta, la cifra grande y su título
+   debajo, cada uno por su máscara (sin `count`, estas clases no existen) */
+.crm .crm-head{position:absolute;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:calc(8px * var(--s))}
+.crm .crm-cm,.crm .crm-tw{overflow:hidden;display:grid;padding:.06em .04em .12em;margin:-.06em -.04em -.12em}
+.crm .crm-count{font:900 calc(150px * var(--s))/1 var(--ck-sans);color:var(--g-fg);letter-spacing:-.04em;white-space:nowrap}
+.crm .crm-tw > .crm-title{grid-area:1/1}

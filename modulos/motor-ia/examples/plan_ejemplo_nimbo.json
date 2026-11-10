@@ -1,0 +1,43 @@
+{
+  "plans": [
+    {
+      "angle": {
+        "family": "pain",
+        "insight": "El lead que llega de un anuncio se enfría en minutos y nadie le contesta a tiempo.",
+        "promise": "Contestar a cada lead nuevo en menos de 5 minutos sin estar pendiente del móvil.",
+        "demo_idea": "Pantalla real de Nimbo: un lead entra y la respuesta sale sola.",
+        "hooks": ["¿Cuánto tardas en contestar a un lead nuevo?", "Tu lead ya está hablando con otro."],
+        "score": 0.8,
+        "why_it_works": "Pregunta directa a un dolor medible del público (agencias y SaaS con leads de Meta)."
+      },
+      "plan": {
+        "title": "Nimbo · lead frío",
+        "segments": [
+          {"role": "hook", "text": "¿Cuánto tardas en contestar a un lead nuevo?", "on_screen_text": "¿Cuánto tardas en contestar?", "emotion": "curious", "gesture": "leans toward the camera"},
+          {"role": "problem", "text": "Si tardas más de una hora, ese lead ya está hablando con otro.", "on_screen_text": "", "emotion": "serious"},
+          {"role": "solution", "text": "Nimbo contesta por ti en menos de cinco minutos, con tu tono.", "on_screen_text": "Respuesta en menos de 5 min", "emotion": "confident"},
+          {"role": "demo", "text": "Entra el lead, Nimbo responde y te avisa cuando quiere cita.", "on_screen_text": "", "emotion": "warm"},
+          {"role": "cta", "text": "Pruébalo catorce días gratis. Te lo dejo aquí abajo.", "on_screen_text": "Pruébalo 14 días gratis", "emotion": "friendly"}
+        ],
+        "cta_card": "Pruébalo 14 días gratis",
+        "continuity": {
+          "location_en": "bright home office with a wooden desk, a laptop and a plant, daylight from a side window",
+          "lighting_en": "soft natural daylight from the left, warm and even",
+          "wardrobe_en": "navy blue crew-neck sweater",
+          "hair_en": "shoulder-length dark hair, natural makeup",
+          "props_en": ["laptop", "coffee mug"],
+          "time_of_day": "morning"
+        },
+        "shots": [
+          {"shot_type": "talking_head", "segment_indexes": [0, 1, 2, 3, 4], "camera": "selfie_handheld",
+           "description_en": "She talks to the camera at her desk, natural selfie framing, slight handheld movement."},
+          {"shot_type": "app_screen", "segment_indexes": [3], "duration": 2.5, "uses_product": true,
+           "description_en": "Real Nimbo screen: a new lead arrives and the automatic reply is sent."}
+        ],
+        "audience": ["agencias de automatización", "SaaS B2B con leads de Meta"],
+        "production_notes": "Formato presentadora: la persona es sintética y no cuenta experiencias propias de uso. Solo afirmaciones aprobadas en la marca.",
+        "hook_product_overlay": false
+      }
+    }
+  ]
+}

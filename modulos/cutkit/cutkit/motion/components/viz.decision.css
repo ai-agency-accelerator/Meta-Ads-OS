@@ -1,0 +1,113 @@
+/* viz.decision v2 — plantilla de decisión de estudio + registro. Papel, tinta y una sola luz cenital (--g-shadow*). */
+.dc .dc-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center}
+/* registro: el texto de las píldoras nunca baja de 30 px (QA de legibilidad), también en split; lo demás se compacta */
+.dc .dc-reg{flex:none;width:100%;display:flex;justify-content:center;gap:max(12px, calc(16px * var(--s)));margin-bottom:max(20px, calc(36px * var(--s)))}
+.dc .dc-slot{position:relative;flex:1 1 0;max-width:max(306px, calc(300px * var(--s)));height:max(58px, calc(66px * var(--s)))}
+.dc .dc-slot-pend{position:absolute;inset:0;border-radius:999px;border:3px dashed rgba(22,21,20,.32);
+  display:flex;align-items:center;justify-content:center;font:600 clamp(30px, calc(30px * var(--s)), 32px)/1 var(--ck-sans);color:rgba(22,21,20,.5)}
+.gx-th-dark .dc-slot-pend{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.6)}
+.dc .dc-slot-fill{position:absolute;inset:0;border-radius:999px;background:var(--g-card);box-shadow:var(--g-shadow-chip);
+  display:flex;align-items:center;justify-content:center;gap:12px;transform-origin:50% 50%}
+.dc .dc-slot-lab{font:600 clamp(30px, calc(30px * var(--s)), 32px)/1 var(--ck-sans);color:var(--g-eyebrow);white-space:nowrap}
+.dc .dc-slot-badge{display:flex;align-items:center;gap:6px;background:var(--g-pick);color:var(--g-pick-fg);border-radius:16px;
+  padding:7px 13px;font:800 clamp(30px, calc(30px * var(--s)), 32px)/1 var(--ck-sans);white-space:nowrap}
+.dc .dc-slot-check{width:.8em;height:.8em;stroke:var(--ck-accent)}
+.dc .dc-tpl{position:relative;flex:none;width:100%;display:flex;flex-direction:column;align-items:center;transform-origin:50% 50%}
+.dc .dc-card{position:relative;width:82%;box-sizing:border-box;background:var(--g-card);color:var(--g-card-fg);border-radius:calc(30px * var(--s));
+  padding:calc(26px * var(--s)) calc(36px * var(--s)) calc(30px * var(--s));text-align:center;box-shadow:var(--g-shadow);transform-origin:50% 40%}
+.dc .dc-label{font:600 max(30px, calc(30px * var(--s)))/1 var(--ck-sans);color:var(--g-eyebrow);margin-bottom:calc(12px * var(--s))}
+.dc .dc-text{font:700 calc(44px * var(--s))/1.14 var(--ck-sans);letter-spacing:-.015em;color:var(--g-card-fg);text-wrap:balance}
+/* ejemplo genérico (`abstract`): antes serif cursiva; hoy Montserrat 500 frente al 700 normal (nunca
+   serif ni cursiva). Sin opacidad: textIn la anima y el contraste del texto clave se mantiene */
+.dc .dc-abstract{font-family:var(--ck-sans);font-style:normal;font-weight:500;letter-spacing:-.01em}
+.dc .dc-skel{display:flex;flex-direction:column;align-items:center;gap:calc(16px * var(--s));padding:calc(8px * var(--s)) 0}
+.dc .dc-skel i{display:block;height:calc(26px * var(--s));border-radius:calc(13px * var(--s));background:rgba(15,13,16,.12);width:80%}
+.dc .dc-skel i:nth-child(2){width:52%}
+.dc .dc-link{position:relative;height:calc(150px * var(--s));width:100%}
+.dc .dc-node{position:absolute;left:50%;top:50%;width:calc(110px * var(--s));height:calc(110px * var(--s));margin:calc(-55px * var(--s)) 0 0 calc(-55px * var(--s));
+  border-radius:24%;background:#FFFFFF;box-shadow:var(--g-shadow)}
+.dc .dc-node-logo{position:absolute;inset:17%}
+.dc .dc-node-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 max(30px, calc(28px * var(--s)))/1 var(--ck-sans);color:var(--ck-ink)}
+.dc .dc-q{margin:calc(28px * var(--s)) 0 calc(22px * var(--s));text-align:center;font:800 calc(46px * var(--s))/1.1 var(--ck-sans);color:var(--g-fg);
+  letter-spacing:-.02em;text-wrap:balance;text-shadow:var(--g-tshadow)}
+.dc .dc-opts{position:relative;display:grid;gap:calc(14px * var(--s)) calc(16px * var(--s));width:86%}
+.dc .dc-row.dc-n2{grid-template-columns:1fr 1fr;width:70%}
+.dc .dc-row.dc-n3{grid-template-columns:1fr 1fr 1fr}
+.dc .dc-row.dc-n4{grid-template-columns:1fr 1fr 1fr 1fr;width:96%}
+.dc .dc-row.dc-n1{grid-template-columns:1fr;width:50%}
+.dc .dc-grid{grid-template-columns:1fr 1fr;width:88%}
+.dc .dc-opt{position:relative;overflow:hidden;height:calc(88px * var(--s));border-radius:calc(20px * var(--s));
+  background:var(--g-dim-chip, rgba(255,255,255,.82));box-shadow:var(--g-shadow-chip);transform-origin:50% 50%}
+.dc .dc-grid .dc-opt{height:calc(84px * var(--s))}
+.dc .dc-ink{position:absolute;inset:0;background:var(--g-pick);box-shadow:var(--g-shadow-ink)}
+.dc .dc-opt-row{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:calc(12px * var(--s))}
+.dc .dc-opt-label{position:relative;font:700 calc(44px * var(--s))/1 var(--ck-sans);color:var(--g-fg);letter-spacing:-.015em;white-space:nowrap}
+.dc .dc-check{position:absolute;right:100%;top:50%;margin:-.36em .22em 0 0;width:.72em;height:.72em;stroke:var(--ck-accent)}
+.dc .dc-pct{position:relative;font:700 max(30px, calc(32px * var(--s)))/1 var(--ck-sans);color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
+.dc .dc-shine{position:absolute;top:0;bottom:0;left:0;width:60%;z-index:3;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.7) 50%,rgba(255,255,255,0) 80%)}
+.dc .dc-note{margin-top:calc(18px * var(--s));font:700 calc(36px * var(--s))/1.15 var(--ck-sans);color:var(--g-fg);max-width:100%;text-align:center;text-wrap:balance;text-shadow:var(--g-tshadow)}
+/* pantalla completa (banda en «T» 288–1240): la plantilla cabe en 696 px y puede bajar de y=1000 */
+.gx-tee.dc .dc-tpl{max-width:var(--wlow);align-self:center}
+.gx-tee.dc .dc-card{width:100%}
+.gx-tee.dc .dc-opts{width:100%}
+/* con registro: el registro fijo arriba y la plantilla centrada en el resto */
+.dc-has-reg .dc-wrap{justify-content:flex-start}
+.dc-has-reg .dc-tpl{margin-top:auto;margin-bottom:auto}
+.dc .dc-reg{position:relative;z-index:3} /* la píldora que llega vuela por encima de la tarjeta nueva */
+/* ── estilos inbox / route / meter: superficies del tema (carbón en negro, blanco en claro), oro solo en el foco ── */
+.dx .dx-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+/* inbox */
+.dx .dx-mail{box-sizing:border-box;background:var(--g-card);color:var(--g-card-fg);border-radius:calc(30px * var(--s));
+  padding:calc(30px * var(--s)) calc(44px * var(--s)) calc(36px * var(--s));box-shadow:var(--g-card-edge),var(--g-shadow)}
+.dx .dx-head{display:flex;align-items:center;gap:calc(20px * var(--s));margin-bottom:calc(18px * var(--s))}
+.dx .dx-av{flex:none;width:calc(84px * var(--s));height:calc(84px * var(--s));border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--g-ghost);box-shadow:inset 0 0 0 1px var(--g-line);font:800 calc(32px * var(--s))/1 var(--ck-sans);color:var(--g-fg);letter-spacing:.02em}
+.dx .dx-who{flex:1;min-width:0;font:700 calc(40px * var(--s))/1.1 var(--ck-sans);color:var(--g-card-fg);white-space:nowrap}
+.dx .dx-dot{flex:none;width:calc(18px * var(--s));height:calc(18px * var(--s));border-radius:50%;background:var(--ck-accent)}
+.dx .dx-subj{font:800 calc(50px * var(--s))/1.12 var(--ck-sans);letter-spacing:-.02em;color:var(--g-card-fg);text-wrap:balance}
+.dx .dx-prev{margin-top:calc(12px * var(--s));font:500 calc(38px * var(--s))/1.25 var(--ck-sans);color:var(--g-muted)}
+.dx .dx-stamp{position:absolute;box-sizing:border-box;padding:calc(14px * var(--s)) calc(26px * var(--s));border-radius:calc(16px * var(--s));
+  border:calc(5px * var(--s)) solid var(--ck-accent);color:var(--ck-accent);background:rgba(11,11,12,.72);
+  font:900 calc(46px * var(--s))/1 var(--ck-sans);letter-spacing:-.01em;white-space:nowrap;z-index:3}
+.gx-th-light .dx-stamp{background:rgba(255,255,255,.9);color:#161514;border-color:#161514}
+.dx .dx-stamp-slot{border-style:dashed;border-color:var(--g-ghost-line);color:var(--g-muted);background:transparent}
+/* route */
+.dx .dx-chathead{display:flex;align-items:center;gap:calc(14px * var(--s));margin-bottom:calc(16px * var(--s));font:600 calc(32px * var(--s))/1 var(--ck-sans);color:var(--g-muted)}
+.dx .dx-live{display:block;width:calc(16px * var(--s));height:calc(16px * var(--s));border-radius:50%;background:#2BD576}
+.dx .dx-bubble{box-sizing:border-box;background:var(--g-card);color:var(--g-card-fg);padding:calc(28px * var(--s)) calc(40px * var(--s));
+  border-radius:calc(36px * var(--s)) calc(36px * var(--s)) calc(36px * var(--s)) calc(10px * var(--s));
+  font:600 calc(44px * var(--s))/1.22 var(--ck-sans);letter-spacing:-.01em;box-shadow:var(--g-card-edge),var(--g-shadow);text-wrap:pretty}
+.dx .dx-gap{height:calc(150px * var(--s));flex:none}
+.dx .dx-dests{display:grid;grid-template-columns:1fr 1fr;gap:calc(16px * var(--s)) calc(18px * var(--s))}
+.dx .dx-dests.dx-n3{grid-template-columns:1fr 1fr 1fr}
+.dx .dx-dests.dx-row{display:flex;justify-content:center;gap:calc(16px * var(--s))}
+.dx .dx-row .dx-dest{flex:1 1 0;min-width:0;padding:0 calc(14px * var(--s))}
+.dx .dx-dest{height:calc(92px * var(--s));display:flex;align-items:center;justify-content:center;border-radius:calc(22px * var(--s));
+  background:var(--g-card);color:var(--g-card-fg);font:700 calc(42px * var(--s))/1 var(--ck-sans);white-space:nowrap;
+  box-shadow:var(--g-card-edge),var(--g-shadow-chip);transform-origin:50% 50%}
+.dx .dx-arrows{pointer-events:none}
+.dx .dx-arr{stroke:var(--g-ghost-line);stroke-width:3;stroke-linecap:round}
+.dx .dx-arr-gold{stroke:var(--ck-accent);stroke-width:5;stroke-linecap:round}
+.gx-th-light .dx-arr-gold{stroke:#161514}
+/* meter */
+.dx .dx-task{box-sizing:border-box;background:var(--g-card);color:var(--g-card-fg);border-radius:calc(30px * var(--s));
+  padding:calc(26px * var(--s)) calc(40px * var(--s)) calc(30px * var(--s));text-align:center;box-shadow:var(--g-card-edge),var(--g-shadow)}
+.dx .dx-eyebrow{font:600 max(30px, calc(30px * var(--s)))/1 var(--ck-sans);color:var(--g-eyebrow);margin-bottom:calc(12px * var(--s))}
+.dx .dx-tasktext{font:800 calc(50px * var(--s))/1.14 var(--ck-sans);letter-spacing:-.02em;text-wrap:balance}
+.dx .dx-q{margin:calc(30px * var(--s)) 0 calc(16px * var(--s));font:800 calc(44px * var(--s))/1 var(--ck-sans);color:var(--g-fg)}
+.dx .dx-track{position:relative;box-sizing:border-box;display:flex;padding:8px;height:calc(104px * var(--s));border-radius:999px;
+  background:var(--g-ghost);box-shadow:inset 0 0 0 1px var(--g-line)}
+.dx .dx-seg{position:relative;flex:1;display:flex;align-items:center;justify-content:center;font:700 calc(44px * var(--s))/1 var(--ck-sans);color:var(--g-fg);z-index:2}
+.dx .dx-thumb{position:absolute;left:0;top:8px;bottom:8px;border-radius:999px;background:var(--g-pick);box-shadow:var(--g-shadow-chip);z-index:1;transform-origin:50% 50%}
+/* opciones en columna (etiquetas largas), icono del kit por opción, check ≥ 40 px, la no elegida con borde de tinta */
+.dc .dc-column{grid-template-columns:1fr;width:86%}
+.dc .dc-column .dc-opt{height:calc(96px * var(--s))}
+.gx-tee.dc .dc-column{width:100%}
+.dc .dc-opt-ic{flex:none;width:48px;height:48px}
+.dc .dc-check{width:max(40px,.8em);height:max(40px,.8em)}
+.dc .dc-check-r{right:auto;left:100%;margin:0 0 0 .3em}
+.dc .dc-lose{position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 calc(4px * var(--s)) #161514;pointer-events:none;z-index:2}
+.gx-th-dark .dc-lose{box-shadow:inset 0 0 0 calc(4px * var(--s)) rgba(255,255,255,.85)}
+.dc .dc-card-mask{overflow:hidden}   /* el texto de la entrada sube por la tarjeta */
+.dc .dc-q-mask{overflow:hidden;padding-bottom:.14em;padding-top:.04em}

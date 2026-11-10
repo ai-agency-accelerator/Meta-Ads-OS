@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="formatos" content="1x1,4x5,9x16">
+<title>Estático · {{marca.nombre}}</title>
+<!--
+  Estático de una sola imagen para Meta (1:1, 4:5 y 9:16) con la marca del cliente.
+  Datos: ver plantillas/html/README.md · ejemplo: plantillas/html/ejemplos/estatico.json
+  Render: uv run --extra render python -I herramientas/render.py png plantillas/html/estatico.html \
+          --datos <datos.json> --formatos 1x1,4x5,9x16 --salida <carpeta> --cliente <slug>
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: transparent; }
+  body {
+    width: var(--ancho); height: var(--alto); overflow: hidden;
+    font-family: var(--fuente-texto); font-weight: var(--peso-texto);
+    -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+  }
+
+  /* ── Temas (data «estilo»: claro | oscuro | color) ── */
+  .tema-claro  { --lienzo: var(--color-fondo); --tinta: var(--color-texto); --realce: var(--color-primario);
+                 --deco: var(--color-primario); --boton: var(--color-primario); --boton-tinta: var(--color-texto-sobre-primario); }
+  .tema-oscuro { --lienzo: var(--color-secundario); --tinta: var(--color-texto-sobre-secundario); --realce: var(--color-acento);
+                 --deco: var(--color-acento); --boton: var(--color-acento); --boton-tinta: var(--color-texto-sobre-acento); }
+  .tema-color  { --lienzo: var(--color-primario); --tinta: var(--color-texto-sobre-primario); --realce: var(--color-acento);
+                 --deco: var(--color-texto-sobre-primario); --boton: var(--color-acento); --boton-tinta: var(--color-texto-sobre-acento); }
+  .tema-claro .logo-claro, .tema-oscuro .logo-principal, .tema-color .logo-principal { display: none; }
+
+  /* ── Medidas por formato (la zona segura la inyecta render.py: --zs-*) ── */
+  .f-1x1  { --aire-h: 36px; --aire-v: 36px; --t-titular: 74px; --t-sub: 32px; --t-lista: 32px; --t-cta: 34px; --logo: 54px; --hueco: 26px; }
+  .f-4x5  { --aire-h: 36px; --aire-v: 44px; --t-titular: 90px; --t-sub: 38px; --t-lista: 34px; --t-cta: 36px; --logo: 60px; --hueco: 32px; }
+  /* 9:16: además de 14/35/6 %, se evita la franja de botones de Reels (abajo a la derecha desde y≈1152) */
+  .f-9x16 { --aire-h: 20px; --aire-v: 24px; --t-titular: 82px; --t-sub: 36px; --t-lista: 32px; --t-cta: 34px; --logo: 56px; --hueco: 26px;
+            --zona-abajo: 768px; }
+
+  .lienzo { position: relative; width: var(--ancho); height: var(--alto); overflow: hidden; background: var(--lienzo); color: var(--tinta); }
+
+  /* ── Decoración (fuera de la zona segura no hay nada que leer) ── */
+  .deco { position: absolute; inset: 0; pointer-events: none; }
+  .deco .circulo { position: absolute; width: 74%; aspect-ratio: 1; right: -26%; top: -22%; border-radius: 50%;
+                   background: var(--deco); opacity: .07; }
+  .deco .puntos { position: absolute; left: 0; bottom: 0; width: 46%; height: 34%; opacity: .16;
+                  background-image: radial-gradient(var(--deco) 2.2px, transparent 2.6px); background-size: 30px 30px;
+                  -webkit-mask-image: linear-gradient(to top right, #000 10%, transparent 70%); }
+  .deco .barra { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: var(--color-acento); }
+  .f-9x16 .deco .base { position: absolute; left: 0; right: 0; bottom: 0; height: 40%;
+                        background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--deco) 12%, transparent)); }
+
+  /* ── Zona de contenido ── */
+  .zona {
+    position: absolute; display: flex; flex-direction: column; gap: calc(var(--escala, 1) * var(--hueco));
+    top: calc(var(--zs-arriba) + var(--aire-v));
+    bottom: calc(var(--zona-abajo, var(--zs-abajo)) + var(--aire-v));
+    left: calc(var(--zs-izquierda) + var(--aire-h));
+    right: calc(var(--zs-derecha) + var(--aire-h));
+  }
+  .zona.sin-imagen .cuerpo { margin-block: auto; }
+
+  .cabecera { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: var(--logo); }
+  .cabecera img { height: var(--logo); width: auto; max-width: 62%; object-fit: contain; object-position: left center; }
+  .marca-texto { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--logo) * .62);
+                 letter-spacing: -.01em; }
+  .etiqueta { display: inline-flex; align-items: center; gap: 14px; font-family: var(--fuente-titulos); font-weight: 700;
+              font-size: calc(var(--escala, 1) * 26px); letter-spacing: .08em; text-transform: uppercase; color: var(--realce); }
+  .etiqueta::before { content: ""; width: 40px; height: 6px; border-radius: 3px; background: var(--realce); }
+
+  .cuerpo { display: flex; flex-direction: column; gap: calc(var(--escala, 1) * var(--hueco)); }
+  .titular { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--escala, 1) * var(--t-titular));
+             line-height: 1.04; letter-spacing: -.025em; text-wrap: balance; }
+  .titular .resaltado { color: var(--realce); }
+  .subtitulo { font-size: calc(var(--escala, 1) * var(--t-sub)); line-height: 1.3; opacity: .86; text-wrap: pretty; max-width: 30ch; }
+  .f-4x5 .subtitulo, .f-9x16 .subtitulo { max-width: 34ch; }
+
+  .beneficios { list-style: none; display: flex; flex-direction: column; gap: calc(var(--escala, 1) * 16px); }
+  .beneficios li { display: flex; align-items: flex-start; gap: 18px; font-size: calc(var(--escala, 1) * var(--t-lista)); line-height: 1.28; }
+  .beneficios svg { flex: none; width: 1.15em; height: 1.15em; margin-top: .08em; }
+  .beneficios svg circle { fill: var(--realce); }
+  .beneficios svg path { stroke: var(--lienzo); }
+
+  /* Imagen o captura REAL del producto: se ve entera (contain) con esquinas y sombra; «imagen_cubrir» la recorta */
+  .imagen { position: relative; flex: 1 1 0; min-height: calc(var(--escala, 1) * 260px); }
+  .imagen .marco { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; container-type: size; }
+  .imagen .foto { position: relative; line-height: 0; }
+  .imagen img { display: block; max-width: 100cqw; max-height: 100cqh; border-radius: 22px;
+                box-shadow: 0 34px 70px -30px rgba(15, 23, 42, .55), 0 0 0 1px color-mix(in srgb, var(--tinta) 10%, transparent); }
+  .imagen.cubrir img { width: 100cqw; height: 100cqh; object-fit: cover; }
+  /* 9:16: la imagen va debajo del CTA y baja por detrás de la interfaz (sangrado); lo que se lee queda arriba */
+  .f-9x16 .imagen { order: 3; min-height: calc(var(--escala, 1) * 240px + 640px); margin-bottom: -640px; }
+  .f-9x16 .imagen .marco { align-items: flex-start; }
+  .f-9x16 .imagen img { border-radius: 26px; }
+  .f-9x16 .pie-fila, .f-9x16 .legal { order: 2; }
+
+  .prueba.flotante { position: absolute; top: -26px; right: 24px; line-height: 1.2; background: #FFFFFF; color: #0F172A;
+                     padding: 16px 22px; border-radius: 18px; box-shadow: 0 18px 40px -16px rgba(15, 23, 42, .45); }
+  .prueba.flotante .cifra { color: var(--color-primario); }
+  /* La prueba flota sobre la imagen solo en 9:16 (imagen grande); en 1:1 y 4:5 va en línea bajo el texto */
+  .f-1x1 .prueba.flotante, .f-4x5 .prueba.flotante, .f-9x16 .con-imagen .prueba.en-linea { display: none; }
+  .prueba.en-linea { gap: 16px; }
+  .prueba.en-linea .cifra { font-size: calc(var(--escala, 1) * 40px); }
+  .prueba.en-linea .texto { max-width: none; font-size: calc(var(--escala, 1) * 28px); }
+  .prueba.en-linea::before { content: ""; align-self: stretch; width: 6px; border-radius: 3px; background: var(--color-acento); }
+  .pie-fila { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .prueba { display: flex; align-items: center; gap: 18px; }
+  .prueba .cifra { white-space: nowrap; font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--escala, 1) * 46px);
+                   color: var(--realce); letter-spacing: -.02em; line-height: 1; }
+  .prueba .texto { font-size: calc(var(--escala, 1) * 26px); line-height: 1.25; max-width: 16ch; opacity: .86; }
+  .cta { display: inline-flex; align-items: center; gap: 16px; align-self: flex-start; background: var(--boton); color: var(--boton-tinta);
+         font-family: var(--fuente-titulos); font-weight: 700; font-size: calc(var(--escala, 1) * var(--t-cta)); line-height: 1.1;
+         padding: calc(var(--escala, 1) * 24px) calc(var(--escala, 1) * 38px); border-radius: 999px; }
+  .cta svg { width: 1em; height: 1em; }
+  .cta svg path { stroke: currentColor; }
+  .legal { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 22px; line-height: 1.3; opacity: .78; }
+  .etiqueta-ia { padding: 6px 14px; border: 2px solid currentColor; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body class="{{formato.clase}} tema-{{#estilo}}{{estilo}}{{/estilo}}{{^estilo}}claro{{/estilo}}">
+<div class="lienzo">
+  <div class="deco" aria-hidden="true"><div class="circulo"></div><div class="puntos"></div><div class="base"></div><div class="barra"></div></div>
+
+  <main class="zona {{#imagen}}con-imagen{{/imagen}}{{^imagen}}sin-imagen{{/imagen}}" data-ajustar="contenido" data-ajustar-min="0.72">
+    <header class="cabecera" data-zona-segura="logo">
+      {{#marca.logo.principal}}
+        <img class="logo-principal" src="{{marca.logo.principal}}" alt="{{marca.nombre}}">
+        <img class="logo-claro" src="{{marca.logo.claro}}" alt="{{marca.nombre}}">
+      {{/marca.logo.principal}}
+      {{^marca.logo.principal}}<span class="marca-texto">{{marca.nombre}}</span>{{/marca.logo.principal}}
+    </header>
+
+    <section class="cuerpo">
+      {{#etiqueta}}<p class="etiqueta" data-zona-segura="etiqueta">{{etiqueta}}</p>{{/etiqueta}}
+      <h1 class="titular" data-zona-segura="titular">{{titular}}{{#resaltado}} <span class="resaltado">{{resaltado}}</span>{{/resaltado}}</h1>
+      {{#subtitulo}}<p class="subtitulo" data-zona-segura="subtítulo">{{subtitulo}}</p>{{/subtitulo}}
+      {{#beneficios?}}
+      <ul class="beneficios" data-zona-segura="beneficios">
+        {{#beneficios}}<li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/><path d="M7 12.4l3.2 3.1L17 8.8" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>{{.}}</span></li>{{/beneficios}}
+      </ul>
+      {{/beneficios?}}
+      {{#prueba}}<div class="prueba en-linea" data-zona-segura="prueba"><span class="cifra">{{cifra}}</span><span class="texto">{{texto}}</span></div>{{/prueba}}
+    </section>
+
+    {{#imagen}}
+    <figure class="imagen {{#imagen_cubrir}}cubrir{{/imagen_cubrir}}">
+      <div class="marco"><div class="foto">
+        <img src="{{imagen|uri}}" alt="{{#imagen_alt}}{{imagen_alt}}{{/imagen_alt}}">
+        {{#prueba}}<div class="prueba flotante" data-zona-segura="prueba"><span class="cifra">{{cifra}}</span><span class="texto">{{texto}}</span></div>{{/prueba}}
+      </div></div>
+    </figure>
+    {{/imagen}}
+
+    <div class="pie-fila">
+      <div class="cta" data-zona-segura="cta">{{#cta}}{{cta}}{{/cta}}{{^cta}}{{marca.cta_por_defecto}}{{/cta}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+    {{#etiqueta_ia}}<div class="legal" data-zona-segura="etiqueta IA"><span class="etiqueta-ia">{{marca.etiqueta_ia}}</span>{{#pie}}<span>{{pie}}</span>{{/pie}}</div>{{/etiqueta_ia}}
+    {{^etiqueta_ia}}{{#pie}}<div class="legal" data-zona-segura="pie"><span>{{pie}}</span></div>{{/pie}}{{/etiqueta_ia}}
+  </main>
+</div>
+</body>
+</html>

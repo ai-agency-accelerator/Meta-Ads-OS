@@ -1,0 +1,76 @@
+{
+  "id": "kb-03-ventanas-atribucion-2026",
+  "titulo": "Ventanas de atribución vigentes y cambios de 2026",
+  "categoria": "conocimiento",
+  "segmento": "general",
+  "dificultad": "baja",
+  "fecha": "2026-11-09",
+  "clientes_base": [],
+  "peticion": "/pregunta \"¿Qué ventanas de atribución puedo usar hoy y qué ha cambiado este año?\"",
+  "preambulo": "solo_fecha",
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Ventanas disponibles: 1 y 7 días tras el clic (7 por defecto), 1 día engage-through, 1 día de visualización (o ninguna) y la atribución incremental como opción.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/10-atribucion-ventanas-y-modelos.md §2"
+      },
+      {
+        "id": "d2",
+        "texto": "Las ventanas de 7 y 28 días de visualización salen de la API desde el 2026-01-12 (devuelven vacío).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/10-atribucion-ventanas-y-modelos.md §2"
+      },
+      {
+        "id": "d3",
+        "texto": "Desde marzo de 2026 el clic solo cuenta clics en el enlace; el resto es engage-through (1 día; vídeo ≥5 s).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §0"
+      },
+      {
+        "id": "d4",
+        "texto": "Consejo práctico: re-baselinar los KPI en cada cambio, verificar la ventana en cada conjunto y recordar que se reporta por fecha de conversión.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/10-atribucion-ventanas-y-modelos.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Menciona el cambio del 2026-11-12 (Measure conversions on customer devices, activado por defecto y no activo en la UE y el Reino Unido).",
+        "peso": 1,
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §0"
+      },
+      {
+        "id": "d6",
+        "texto": "Cita el archivo de la base y etiqueta la evidencia.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/00-CONVENCIONES.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Afirmar que las ventanas de 7 o 28 días de visualización siguen disponibles en informes o API.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M65"
+      },
+      {
+        "id": "n2",
+        "texto": "Afirmar que un like o un comentario cuenta como clic.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M63"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre describe las ventanas de 2023; el experto conoce las discontinuidades de 2026."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "meta-ads-kb/",
+        "motivo": "cita la ruta de la base"
+      },
+      {
+        "patron": "\\[(official meta|empirical|strong inference|hypothesis|contested)\\]",
+        "motivo": "etiqueta la evidencia"
+      }
+    ]
+  }
+}

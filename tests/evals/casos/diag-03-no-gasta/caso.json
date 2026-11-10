@@ -1,0 +1,68 @@
+{
+  "id": "diag-03-no-gasta",
+  "titulo": "Una campaña nueva no gasta porque el objetivo de coste está muy por debajo del histórico",
+  "categoria": "diagnostico",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "Nimbo: la campaña nueva lleva 12 días y no gasta ni 30 € al día de los 200 que tiene. Le puse un objetivo de coste de 25 € por prueba porque el fundador quiere bajar el CAC. ¿Qué pasa y qué hago?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Identifica la causa: un objetivo de coste por resultado de 25 € frente a un histórico de ~45 € limita la entrega por puja (lo dice el estado de entrega).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md §6"
+      },
+      {
+        "id": "d2",
+        "texto": "Propone una corrección concreta según la KB: objetivo inicial al coste reciente +10–20 % (~50–54 €) o volver a volumen máximo sin objetivo, y ajustes posteriores de 5–10 % cada ≥7 días.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/01-estrategias-de-puja.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Pone la economía delante: con un target de 113 € por prueba (284 € por activada), 45 € ya es muy rentable; apretar a 25 € deja volumen sobre la mesa.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §1"
+      },
+      {
+        "id": "d4",
+        "texto": "Señala el coste de haber pausado la campaña anterior que funcionaba (y que reactivarla o volver a su configuración es una alternativa), sin crear más campañas.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Lo presenta como propuesta que necesita la aprobación del fundador y una confirmación explícita antes de tocar nada en Meta.",
+        "peso": 1,
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar subir el presupuesto diario para que gaste.",
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/01-estrategias-de-puja.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar abrir más conjuntos, intereses o campañas nuevas para forzar la entrega.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M12"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre sube presupuesto o duplica; el experto ve que la puja estrangula la entrega y ajusta el objetivo a la realidad y a la economía."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "puja|objetivo de coste|cost cap|coste por resultado",
+        "motivo": "causa en la puja"
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": "dec-07-pausar-por-rotura",
+  "titulo": "Landing caída: excepción a la paciencia, pausar con confirmación",
+  "categoria": "decision",
+  "segmento": "consultiva-b2b",
+  "dificultad": "baja",
+  "fecha": "2026-11-17",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "Acme: desde ayer por la tarde no entra ni un lead y Meta sigue gastando. ¿Qué hago?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Identifica una rotura, no un problema de rendimiento: la landing da error 500 desde ~14:00 del 2026-11-16, los clics siguen y hay 0 leads en Meta y en GHL.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/16-checklist-qa-y-diagnostico-tracking.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Recomienda actuar ya (las roturas son la excepción a la regla de paciencia): pausar la campaña o el conjunto hasta que la landing vuelva.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §7"
+      },
+      {
+        "id": "d3",
+        "texto": "Pide confirmación explícita para pausar (o deja el cambio listo para /ejecutar-cambio) y no lo ejecuta.",
+        "peso": 3,
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Explica que una pausa corta (menos de 7 días) no reinicia el aprendizaje como edición significativa y que se reactiva la misma campaña tras comprobar la landing con un lead de prueba, sin crear otra.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Cuantifica el gasto perdido desde la caída y pide anotarlo en el change log con el criterio de reactivación.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/04-operativa-diaria-semanal-mensual.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar esperar o «no tocar» con la landing caída.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §7"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar crear una campaña nueva o borrar la existente.",
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "n3",
+        "texto": "Pausar o decir que ha pausado sin confirmación.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre aplica «no tocar» o rehace la campaña; el experto ve la rotura, para el gasto con confirmación y reactiva lo mismo tras verificar."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "500|caid|rot|no carga|error",
+        "motivo": "identifica la caída"
+      },
+      {
+        "patron": "paus",
+        "motivo": "propone pausar"
+      }
+    ]
+  }
+}

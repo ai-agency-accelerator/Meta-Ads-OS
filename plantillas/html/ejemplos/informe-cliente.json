@@ -1,0 +1,67 @@
+{
+  "_nota": "Ejemplo ficticio: informe mensual que Acme Automations entrega a su cliente Clínica Sonrisa. Cifras inventadas y coherentes entre sí. Sin datos personales.",
+  "titulo": "Informe mensual de Meta Ads · octubre de 2026",
+  "cliente": "Clínica Sonrisa",
+  "agencia": "Acme Automations",
+  "periodo": {"desde": "2026-10-01", "hasta": "2026-10-31", "comparado_con": "2026-09-01 a 2026-09-30"},
+  "ventana_atribucion": "7 días tras el clic y 1 día tras la visualización",
+  "fecha": "2026-11-03",
+  "veredicto": "Buen mes: más citas atendidas y más baratas. El nuevo cuello de botella es la asistencia a la cita.",
+  "resumen": [
+    "Con una inversión de 3.180 € (+6 %) conseguimos 212 leads (+18 %) a 15,00 € cada uno (−10 %).",
+    "74 leads reservaron cita y 52 acudieron: cada cita atendida costó 61,15 €, por debajo del objetivo de 70 €.",
+    "El vídeo del recorrido por la clínica es el ganador del mes: 31 citas a 36,13 € cada una.",
+    "La asistencia bajó del 74 % al 70 %. Proponemos recordatorios por WhatsApp antes de tocar el presupuesto."
+  ],
+  "kpis": [
+    {"nombre": "Inversión", "valor": "3.180 €", "variacion": "+6 %", "tendencia": "sube", "lectura": "neutra", "nota": "Presupuesto aprobado: 3.300 €"},
+    {"nombre": "Leads", "valor": "212", "variacion": "+18 %", "tendencia": "sube", "lectura": "buena"},
+    {"nombre": "Coste por lead", "valor": "15,00 €", "variacion": "−10 %", "tendencia": "baja", "lectura": "buena"},
+    {"nombre": "Citas reservadas", "valor": "74", "variacion": "+23 %", "tendencia": "sube", "lectura": "buena"},
+    {"nombre": "Coste por cita atendida", "valor": "61,15 €", "variacion": "−8 %", "tendencia": "baja", "lectura": "buena", "nota": "Objetivo: 70 € o menos"},
+    {"nombre": "Asistencia a la cita", "valor": "70 %", "variacion": "−4 pp", "tendencia": "baja", "lectura": "mala", "nota": "52 de 74 citas"}
+  ],
+  "embudo_titulo": "Del lead al tratamiento (cohorte de octubre)",
+  "embudo": [
+    {"etapa": "Leads", "valor": "212", "pct": 100},
+    {"etapa": "Cualificados", "valor": "131", "pct": 62},
+    {"etapa": "Cita reservada", "valor": "74", "pct": 35},
+    {"etapa": "Cita atendida", "valor": "52", "pct": 25},
+    {"etapa": "Tratamiento iniciado", "valor": "19", "pct": 9}
+  ],
+  "tablas": [
+    {
+      "titulo": "Campañas",
+      "columnas": ["Campaña", "Inversión", "Leads", "CPL", "Citas", "Coste por cita"],
+      "filas": [
+        ["ES_LEADS_ADQ_HV", "2.540 €", "171", "14,85 €", "61", "41,64 €"],
+        ["ES_LEADS_RET_HV", "640 €", "41", "15,61 €", "13", "49,23 €"],
+        ["Total", "3.180 €", "212", "15,00 €", "74", "42,97 €"]
+      ],
+      "nota": "Citas según el CRM, asignadas al anuncio por utm_content."
+    },
+    {
+      "titulo": "Anuncios de la campaña de captación",
+      "columnas": ["Anuncio", "Gasto", "Leads", "Citas", "Coste por cita", "Veredicto"],
+      "filas": [
+        ["20261006_sin-dolor_recorrido-clinica_demo_h1", "1.120 €", "81", "31", "36,13 €", "Ganador"],
+        ["20261006_financiacion_cuota-mensual_estatico_h2", "860 €", "52", "17", "50,59 €", "En test"],
+        ["20260915_urgencias_doctora-explica_founder_h1", "560 €", "38", "13", "43,08 €", "En test"]
+      ]
+    }
+  ],
+  "decisiones": [
+    {"decision": "Pasar 300 € a la semana del estático de financiación al vídeo del recorrido por la clínica", "motivo": "Coste por cita un 29 % menor con 31 citas de muestra", "metrica": "Coste por cita atendida de 60 € o menos", "fecha_evaluacion": "2026-11-17"},
+    {"decision": "Recordatorio por WhatsApp 24 h y 2 h antes de la cita (desde el CRM)", "motivo": "La asistencia bajó 4 puntos; hipótesis: falta un recordatorio cercano a la cita", "metrica": "Asistencia del 75 % o más", "fecha_evaluacion": "2026-11-30"}
+  ],
+  "proximos_pasos": [
+    {"accion": "Producir 3 variantes de gancho del vídeo ganador", "responsable": "Agencia", "fecha": "2026-11-10"},
+    {"accion": "Enviar a Meta la etapa «Tratamiento iniciado» con su valor desde el CRM", "responsable": "Agencia", "fecha": "2026-11-14"},
+    {"accion": "Confirmar las condiciones de financiación para el nuevo estático", "responsable": "Clínica", "fecha": "2026-11-07"}
+  ],
+  "medicion": [
+    "Inversión, impresiones y leads: Meta Ads Manager. Citas, asistencia y tratamientos: CRM de la clínica, por cohorte de fecha del lead.",
+    "Los leads de los últimos 7 días del periodo aún pueden convertirse en cita: esas cifras pueden subir en el próximo informe.",
+    "Ninguna cifra de este informe contiene datos personales de pacientes."
+  ]
+}

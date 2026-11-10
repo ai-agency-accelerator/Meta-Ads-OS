@@ -1,0 +1,299 @@
+# Puertas de motion medibles de `ck qa` (montaje avanzado) y rúbrica del juez multimodal (opcional, de pago).
+# Las lee `cutkit.qa.config`. Severidad: block = no se entrega · warn = va al informe para revisión humana · info.
+# Umbrales: valores de partida; calíbralos con pares A/B de vídeos aprobados (tuyos o de tu cliente).
+# Fuentes de los valores: guías de motion (Material 1/3, Carbon, NN/g), WCAG, mediciones de vídeos de referencia
+# ([REF]) y criterio propio ([CRIT]); detalle en recursos/motion_tokens.yaml.
+version: 0.1.0
+perfil_por_defecto: firma
+frame_rate: 60
+gates:
+- id: mo.ease_tokens
+  desc: Todo ease pertenece al set de tokens de motion y cada uno cumple su rol (entrada=out, salida=in, desplazamiento=inOut)
+  medir: timeline → ease de cada tween; rol por props (opacity 0→1/scale↑ = entrada; →0 = salida; x/y con origen y destino
+    en pantalla = desplazamiento)
+  umbral: {eases_distintos_max: 4, fuera_de_tokens: 0, rol_incorrecto_pct_max: 10}
+  severidad: warn
+- id: mo.linear_spatial
+  desc: Nada de ease lineal en posición/escala/rotación salvo scroll, barras de progreso, contadores o escritura
+  medir: timeline → tweens con ease 'none'/'linear' sobre x,y,scale,rotation sin etiqueta {scroll|progress|typing}
+  umbral: {max: 0}
+  severidad: warn
+- id: mo.overshoot_budget
+  desc: Rebotes (back/elastic/bounce) reservados al foco del beat
+  medir: timeline → % de tweens con back/elastic/bounce; valores de sobreimpulso distintos; por beat del plan
+  umbral: {pct_max: 10, por_beat_max: 1, overshoot_param_max: 1.7, valores_distintos_max: 1, elastic_bounce: 0}
+  severidad: warn
+- id: mo.duration_tokens
+  desc: Duraciones de tokens y proporcionales al recorrido (no todo 0,3–0,5 s)
+  medir: timeline → dur; correlación de Spearman dur ~ (distancia recorrida px + Δárea) en entradas/desplazamientos
+  umbral:
+    fuera_de_tokens: 0
+    spearman_min: 0.3
+    entrada_s: [0.18, 0.7]
+    salida_s: [0.12, 0.5]
+  severidad: warn
+- id: mo.exit_faster
+  desc: Las salidas son un 20–30 % más cortas que la entrada del mismo elemento (M3)
+  medir: timeline → por target, dur(salida)/dur(entrada)
+  umbral:
+    ratio: [0.6, 0.85]
+    pct_cumple_min: 80
+  severidad: info
+- id: mo.simultaneous_entries
+  desc: No entra todo a la vez
+  medir: timeline → nº de targets distintos cuya entrada empieza en la misma ventana de 80 ms, excluidos grupos con stagger
+    declarado y el subtítulo
+  umbral: {max: 2}
+  severidad: warn
+- id: mo.stagger_monotony
+  desc: Staggers que siguen a la voz, no un valor fijo
+  medir: timeline → valores de stagger; o separación entre entradas de un grupo vs separación entre sus palabras disparadoras
+  umbral: {mismo_valor_pct_max: 60, desfase_palabra_ms_max: 200}
+  severidad: info
+- id: mo.camera_motion_ratio
+  desc: La cámara virtual no se mueve todo el tiempo
+  medir: timeline → % del vídeo con un tween de scale/x/y activo sobre la cámara (#cam*)
+  umbral: {pct_max: 40}
+  severidad: warn
+- id: mo.punch_dead_zone
+  desc: Punch-in en corte claro (≥12 %) o nulo; nunca la zona tibia
+  medir: timeline (escala antes/después del corte) o ORB+estimateAffinePartial2D sobre frames (qa.md n.º 7)
+  umbral:
+    zona_prohibida: [1.03, 1.1]
+  severidad: warn
+- id: mo.abrupt_exit
+  desc: Un gráfico no desaparece en 1 fotograma sin corte de plano ni salida animada
+  medir: timeline → gráfico con exit «cut» cuyo t1 no cae a ±1 f de un cambio de layout, una transición, un salto del A-roll
+    o el final, y al que no sigue la misma pieza que continúa su estado (mismo componente, `from` o `carry`); compile.py
+    da salida animada de 5 f cruzada 2 f dentro de un mismo panel
+  umbral: {max: 0}
+  severidad: warn
+- id: mo.text_entry
+  desc: TODO texto entra animado. Ningún kicker, título ni primer elemento de un bloque aparece ya puesto en el corte o
+    en su palabra
+  medir: 'plan → item de texto (pista graphic/overlay, no media) con props.enter = cut · DOM (Playwright sobre hf/) → en
+    los primeros 8 fotogramas del item y de cada cue, cada hoja de texto que aparece tiene que tardar ≥ 5 f en llegar al
+    90 % de su meseta (opacidad × parte no recortada por su máscara) O recorrer ≥ 20 px. En t = 0 no hay fotograma anterior:
+    lo visible en el primer fotograma no se da por continuado (un titular ya puesto en f0 también salta). El tecleo (una letra nueva por fotograma) no cuenta. Código: cutkit/qa/boxes.py (_entry_probe) y checks_motion.py;
+    kit v14: entrada de texto 8 f con subida de 32 px o máscara (gx.textIn / gx.maskIn)'
+  umbral: {enter_cut: 0, ventana_entrada_f: 8, f_hasta_90: 5, recorrido_px: 20, t0_sin_anterior: true}
+  severidad: block
+- id: mo.orphan_graphic
+  desc: Ningún gráfico sigue en pantalla cuando su frase ya ha terminado y empezó otra idea
+  medir: plan+words → visible después de fin_frase(palabra_disparadora) + 1,5 s sin estar marcado como 'sostener' (lectura/demo)
+  umbral: {max: 0}
+  severidad: warn
+- id: mo.strobe
+  desc: Movimiento rápido sin desenfoque produce parpadeo
+  medir: frames → desplazamiento por fotograma (flujo óptico o tween x/y) > 60 px a 1080 px de ancho sin filtro blur/motionBlur
+    activo
+  umbral: {max_px_por_fotograma: 60}
+  severidad: info
+- id: mo.component_repeat
+  desc: El mismo componente con la misma animación no se repite mecánicamente
+  medir: plan → (componente, preset_animacion) repetido; exento si plan marca plantilla_recurrente_intencional (ordinales)
+  umbral: {max_por_short: 3, max_por_10min: 6}
+  severidad: info
+- id: sync.trigger_word
+  desc: Todo gráfico tiene palabra disparadora y causa (enumeración, nombre propio, cifra, paso, resultado…)
+  medir: plan → campos palabra_disparadora y causa no vacíos; la palabra existe en words
+  umbral: {sin_ancla: 0}
+  severidad: block
+- id: sync.entry_lead
+  desc: El gráfico entra justo antes de su palabra (cuando la oyes ya la ves)
+  medir: t_entrada(timeline) − t_inicio(palabra) en ms
+  umbral:
+    rango_ms: [-370, -60]
+    tolerancia_tarde_ms: 120
+    pct_en_rango_min: 75
+  severidad: warn
+  fuente: 'referencia medida: antelación p10/p50/p90 = 60/155/370 ms'
+- id: tr.mid_sentence
+  desc: Ninguna transición de pantalla completa (barrido, flash, whip, glitch) dentro de una frase
+  medir: words → la transición cae entre dos palabras con pausa < 0,18 s y sin puntuación de fin de frase
+  umbral: {max: 0}
+  severidad: warn
+- id: tr.only_on_block_change
+  desc: Transiciones con efecto solo en cambio de layout o de bloque narrativo; dentro del layout, corte seco
+  medir: plan (bloques/layout) vs tipos de transición del timeline
+  umbral: {efecto_dentro_de_layout: 0}
+  severidad: warn
+- id: tr.rate
+  desc: Densidad de transiciones con efecto
+  medir: nº de transiciones no-corte por minuto
+  umbral: {max_por_min_short: 4, max_por_min_longform: 1.5}
+  severidad: warn
+- id: tr.dirty_crossfade
+  desc: No hay fotogramas con dos textos legibles superpuestos
+  medir: ocr → dos cajas de texto con IoU > 0,3 y ambas con alpha > 0,25 durante > 2 fotogramas
+  umbral: {max_fotogramas: 2}
+  severidad: warn
+- id: sfx.density
+  desc: Cada animación visible con su sonido, sin racimos ni SFX encima de la voz
+  medir: 'plan de audio → GESTOS/s (un gesto = un sonido con sus capas, los AudioItem con el mismo t0; antes cada fichero);
+    muestra más repetida por minuto (por fichero del catálogo, sin contar la firma declarada: `firma: true` en la paleta
+    o grupo `firma:` en sfx_plan.json); gestos en 1 s; SFX sobre palabra de contenido con VMR < 6 dB (qa.md n.º 4)'
+  umbral: {por_s_max: 0.4, misma_muestra_por_min_max: 4, racimo_1s_max: 2, vmr_db_min: 6}
+  severidad: warn
+- id: sfx.silent_block
+  desc: 'Ningún bloque animado mudo (regla de diseño sonoro: cada animación visible lleva su sonido)'
+  medir: 'timeline + events.json + sfx_plan.json → bloque (gráfico o B-roll) de ≥ 2,5 s con animación visible (eventos que
+    no son layout, cámara, lockup ni salida) sin ningún SFX: ni suyo (decisión o item en sfx_plan.json) ni de otro item
+    a ±0,25 s de alguna de sus animaciones'
+  umbral: {dur_min_s: 2.5, ventana_s: 0.25}
+  severidad: warn
+- id: ct.grounding
+  desc: Todo texto de un gráfico procede de lo que dice la voz o del registro de afirmaciones con fuente
+  medir: ocr+plan → cada cadena (normalizada, lematizada) cubre ≥ 60 % de sus tokens con words de ±10 s, o tiene fuente_afirmacion
+    verificable (URL/fichero)
+  umbral: {sin_respaldo: 0}
+  severidad: block
+- id: ct.number_context
+  desc: Ninguna cifra suelta
+  medir: ocr → token numérico sin unidad/etiqueta en la misma tarjeta, o número que no aparece en words ni en fuente
+  umbral: {max: 0}
+  severidad: warn
+- id: ct.no_cover_up
+  desc: Un gráfico de pantalla completa no existe solo para tapar un jump cut
+  medir: plan → gráfico a pantalla completa (layout broll_full, B-roll o lienzo propio) cuya entrada coincide (±2 fotogramas)
+    con un corte (salto del EDL o salto de toma de media/clip_cuts.json) y cuyo porqué es «eliminar_pausa_o_error» o no
+    tiene palabra disparadora en su entrada (−0,25…+0,6 s)
+  umbral:
+    max: 0
+    ventana_f: 2
+    palabra_s: [-0.25, 0.6]
+  severidad: warn
+- id: st.palette
+  desc: Colores de marca o del logo de la entidad nombrada en ese beat
+  medir: CSS computado de cada componente + k-means (k=5) sobre píxeles de gráficos; ΔE2000 a tokens/colores de logo
+  umbral: {de2000_max: 6, pct_area_fuera_max: 5}
+  severidad: warn
+- id: st.font_whitelist
+  desc: Solo fuentes de marca; monoespaciada solo en código, prompts o comandos
+  medir: getComputedStyle(font-family) de todos los nodos con texto visible; nodos mono sin rol {code|prompt|command}
+  umbral: {fuente_no_marca: 0, mono_sin_rol: 0}
+  severidad: warn
+- id: st.decor_tells
+  desc: Muletillas visuales del LLM sin función
+  medir: DOM/CSS → esquinas de visor, rejilla de puntos, badge/píldora encima del titular, borde lateral de color en tarjeta,
+    etiquetas en mayúsculas con letter-spacing > 0,1em
+  umbral: {max_por_minuto: 1, fuera_de_kit: 0}
+  severidad: warn
+- id: st.glow
+  desc: Sin resplandores ni sombras de color decorativas
+  medir: CSS → box-shadow/drop-shadow/filter con color saturado (C* > 20) o radial-gradient de fondo con alpha > 0,15
+  umbral: {max: 0, salvo: tokens.effects}
+  severidad: warn
+- id: st.gradient
+  desc: Degradados solo funcionales (fundido del split, legibilidad)
+  medir: CSS → linear/radial/conic-gradient con ≥ 2 tonos distintos (ΔH > 30°)
+  umbral: {decorativos_max: 0}
+  severidad: warn
+- id: st.icon_source
+  desc: Iconos solo del kit verificado, logos aportados (marca/ del cliente) o capturas reales; nada de emojis
+  medir: manifest de assets → origen de cada SVG/PNG; regex de emoji Unicode en texto renderizado; SVG de 24×24 con stroke-only
+    (lucide/feather/heroicons)
+  umbral: {emoji: 0, icon_pack_generico: 0}
+  severidad: {emoji: block, icon_pack_generico: warn}
+- id: st.fx_budget
+  desc: Grano, glitch, light leak y aberración cromática no son maquillaje
+  medir: plan/timeline → efectos activos; grano permanente solo si el perfil lo define
+  umbral: {glitch_flash_por_min_max: 2, fuera_de_cambio_de_bloque: 0}
+  severidad: warn
+- id: rd.text_size
+  desc: Texto pensado para leerse con tamaño de móvil
+  medir: ocr → altura de caja en px (a 1080 de ancho, 30 px ≈ 11 pt en un iPhone de 393 pt)
+  umbral: {min_px: 30, clave_min_px: 44, decorativo_exento: solo si plan.rol == decorativo y no contiene palabras de contenido}
+  severidad: {menor_24px: block, entre_24_30px: warn}
+- id: rd.dwell
+  desc: Cada texto dura lo suficiente para leerse
+  medir: ocr+timeline → tiempo con alpha ≥ 0,9 de cada bloque de texto
+  umbral: {min_s: 'max(0.8, caracteres/15 + 0.3)'}
+  severidad: warn
+- id: rd.contrast
+  desc: Contraste real del texto contra lo que tiene detrás, incluidas las transiciones
+  medir: frames → luminancia del texto (máscara OCR) vs anillo de 6 px alrededor; ratio WCAG
+  umbral: {min: 4.5, min_texto_grande: 3.0}
+  severidad: warn
+- id: rd.safe_zone
+  desc: Texto dentro de la zona segura de la plataforma más estricta del destino
+  medir: 'ocr → cajas fuera de la zona segura de Meta: izq 65 · der 65 (227 por debajo de y=1152, botones de Reels) · arriba
+    269 · abajo 672 px a 1080×1920'
+  umbral: {pct_tiempo_fuera_max: 0}
+  severidad: block
+- id: ly.concurrent_text
+  desc: Pocas cosas compitiendo a la vez
+  medir: ocr → bloques de texto simultáneos excluido el subtítulo; palabras fuera del subtítulo
+  umbral: {bloques_max: 2, palabras_max: 12}
+  severidad: warn
+- id: ly.hierarchy
+  desc: Jerarquía clara (un foco)
+  medir: ocr → altura del bloque mayor / altura del siguiente en el mismo fotograma
+  umbral: {ratio_min: 1.8}
+  severidad: info
+- id: ly.dead_space
+  desc: El layout no deja media pantalla vacía
+  medir: frames → en layout split, región del escenario con varianza de luma < 4 y sin OCR durante > 1,0 s
+  umbral: {max_s: 1.0}
+  severidad: warn
+- id: ly.margins
+  desc: Márgenes consistentes en rejilla
+  medir: ocr/DOM → x de los bordes izquierdos de bloques en el mismo layout; múltiplos de 8 px
+  umbral: {valores_distintos_por_layout_max: 2, fuera_de_rejilla_px: 4}
+  severidad: info
+- id: ly.line_parity
+  desc: 'Rótulos paralelos (nombres, rótulos de logos, pasos, nodos, opciones, estaciones) con el MISMO número de líneas
+    y centrados: si dos tienen 2 líneas, el tercero también'
+  medir: 'DOM (Playwright sobre hf/) → grupos marcados por gx.lineParity (`data-ck-group` por item) a mitad del item: líneas
+    reales de cada rótulo (tops distintos de sus rectángulos de línea); un rótulo de una sola palabra no se puede partir
+    y no cuenta'
+  umbral: {grupos_con_lineas_distintas: 0}
+  severidad: warn
+- id: ly.caption_rail_jump
+  desc: El subtítulo no salta de altura sin cambio de bloque
+  medir: ocr → y del subtítulo; saltos > 3 % de la altura fuera de cambios de bloque del plan
+  umbral: {max: 0}
+  severidad: warn
+- id: ly.face_on_reveal
+  desc: En la palabra clave de una revelación, tesis u opinión, la cara de quien habla sigue visible
+  medir: plan (palabras clave y frases sagradas) + detector de cara en frames
+  umbral: {cara_ausente_en_palabra_clave: 0}
+  severidad: warn
+- id: ly.breathing
+  desc: El vídeo respira
+  medir: timeline → tramos sin gráficos (excepto subtítulo) ≥ 2 s; frases 'sagradas' del plan sin gráfico/SFX/cámara
+  umbral:
+    tramo_limpio_cada_s: 20
+    sagradas_por_min: [1, 2]
+    sagradas_violadas: 0
+  severidad: warn
+- id: ly.graphics_budget
+  desc: Presupuesto de gráficos según la sección
+  medir: plan → gráficos por minuto por sección (gancho, lista/pasos, explicación, opinión/moraleja)
+  umbral: {gancho_max: 30, lista_pasos_max: 30, explicacion_max: 15, opinion_moraleja_max: 4, longform_global_max: 8}
+  severidad: info
+rubrica_juez:
+- {id: r01, peso: 3, pregunta: '¿Cada gráfico aparece cuando (o justo antes de que) la voz dice la palabra a la que se refiere?'}
+- {id: r02, peso: 3, pregunta: '¿Todo lo que dicen los gráficos lo dice también la voz o es un dato verificable (nada inventado
+    ni añadido)?'}
+- {id: r03, peso: 3, pregunta: '¿Se lee todo el texto de los gráficos en un móvil sin pausar el vídeo?'}
+- {id: r04, peso: 2, pregunta: '¿Hay un único foco claro en cada momento (sabes adónde mirar en < 0,5 s)?'}
+- {id: r05, peso: 2, pregunta: '¿Si pegaras estos gráficos en el vídeo de otro creador, dejarían de tener sentido? (sí =
+    están hechos para ESTA frase)'}
+- {id: r06, peso: 2, pregunta: '¿Parece de la marca del cliente (colores, tipografía, tono) y no de la herramienta de la
+    que habla ni de una plantilla?'}
+- {id: r07, peso: 2, pregunta: '¿Las frases de opinión, giro o confianza se dicen a cámara, sin gráfico encima?'}
+- {id: r08, peso: 2, pregunta: '¿Hay momentos de calma (cara sola, sin efectos) que hacen que lo importante destaque?'}
+- {id: r09, peso: 2, pregunta: '¿Las transiciones con efecto solo aparecen al cambiar de bloque, nunca a mitad de frase?'}
+- {id: r10, peso: 1, pregunta: '¿El movimiento tiene carácter coherente (mismos tipos de entrada y salida para lo mismo)
+    sin rebotar en todo?'}
+- {id: r11, peso: 1, pregunta: '¿Los efectos de sonido son escasos y cada uno subraya algo concreto (no suena a ''pop''
+    de plantilla)?'}
+- {id: r12, peso: 1, pregunta: '¿Los iconos e imágenes son la cosa real (logo verificado, captura, resultado) y no pictogramas
+    genéricos o emojis?'}
+- {id: r13, peso: 1, pregunta: '¿Ningún fotograma se ve sucio (textos superpuestos, mitad de pantalla vacía, subtítulo sin
+    contraste o saltando de altura)?'}
+- {id: r14, peso: 1, pregunta: '¿Las cifras en pantalla tienen unidad y contexto y coinciden con lo que se dice?'}
+- {id: r15, peso: 2, pregunta: '¿Si vieras este vídeo en el feed sin saberlo, NO pensarías que lo ha editado una IA o una
+    plantilla?'}
+

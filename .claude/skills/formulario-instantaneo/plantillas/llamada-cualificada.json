@@ -1,0 +1,132 @@
+{
+  "_leeme": [
+    "Solicitud de llamada con cualificación para proyectos a medida de varios miles de euros: rol, tamaño, qué automatizar, rango de inversión del proyecto y plazo, con email de trabajo y teléfono verificado.",
+    "Es el formulario con más fricción: menos leads y mejores. Úsalo cuando el comercial ya se ahoga en llamadas que no encajan o cuando el diagnóstico corto trae volumen sin calidad.",
+    "El dinero siempre sobre el proyecto y en rangos, nunca sobre la persona (ingresos o patrimonio son datos restringidos). Ajusta el umbral de 3.000 € y las opciones de `encaje` a la economía de la ficha (/economia).",
+    "«Exigir email de trabajo» solo se aplica en Instagram o si el formulario se crea por API, y solo compensa si el cliente ideal tiene más de ~20 personas: muchas pymes pequeñas usan correos personales (playbook de consultoras de IA §5.2). Si no, quita `exigir_email_trabajo` o usa `email`.",
+    "La lógica condicional solo se monta en Ads Manager. Elige: `crear --sin-logica` (email de trabajo exigido, sin lógica) o `guia` (lógica sí; email de trabajo, según lo que ofrezca Ads Manager).",
+    "La pregunta abierta da contexto al comercial; quítala si el coste por lead se dispara."
+  ],
+  "nombre": "acme_llamada-cualificada_v1",
+  "tipo": "mayor_intencion",
+  "idioma": "ES_ES",
+  "intro": {
+    "titulo": "Habla con un consultor de automatización",
+    "estilo": "lista",
+    "contenido": [
+      "Una llamada de 30 minutos para ver si tu proceso se puede automatizar y cuánto supondría",
+      "Trabajamos con empresas de 10 a 250 personas y proyectos a medida desde 3.000 €",
+      "Responde 6 preguntas y elige hueco al terminar"
+    ],
+    "boton": "Solicitar llamada"
+  },
+  "titular_preguntas": "Para que la llamada te sirva desde el minuto uno",
+  "preguntas": [
+    {
+      "clave": "rol",
+      "tipo": "opciones",
+      "texto": "¿Qué papel tienes en esta decisión?",
+      "opciones": [
+        {"clave": "decido", "texto": "Decido yo"},
+        {"clave": "decido_con_otros", "texto": "Decido con socios o dirección"},
+        {"clave": "propongo", "texto": "Lo propongo; decide otra persona"}
+      ],
+      "encaje": ["decido", "decido_con_otros"]
+    },
+    {
+      "clave": "tamano",
+      "tipo": "opciones",
+      "texto": "¿Cuántas personas sois en la empresa?",
+      "opciones": [
+        {"clave": "solo_yo", "texto": "Solo yo"},
+        {"clave": "2_9", "texto": "De 2 a 9"},
+        {"clave": "10_49", "texto": "De 10 a 49"},
+        {"clave": "50_249", "texto": "De 50 a 249"},
+        {"clave": "250_mas", "texto": "250 o más"}
+      ],
+      "encaje": ["10_49", "50_249", "250_mas"]
+    },
+    {
+      "clave": "proceso",
+      "tipo": "opciones",
+      "texto": "¿Qué quieres automatizar primero?",
+      "opciones": [
+        {"clave": "atencion", "texto": "Atención al cliente"},
+        {"clave": "comercial", "texto": "Captación y seguimiento comercial"},
+        {"clave": "operaciones", "texto": "Operaciones y papeleo"},
+        {"clave": "informes", "texto": "Informes y datos entre herramientas"},
+        {"clave": "no_lo_se", "texto": "Aún no lo sé"}
+      ]
+    },
+    {
+      "clave": "inversion",
+      "tipo": "opciones",
+      "texto": "Un proyecto a medida como este suele empezar en 3.000 €. ¿Qué rango encaja con lo que tenéis previsto?",
+      "opciones": [
+        {"clave": "menos_3000", "texto": "Menos de 3.000 €"},
+        {"clave": "3000_10000", "texto": "De 3.000 a 10.000 €"},
+        {"clave": "mas_10000", "texto": "Más de 10.000 €"},
+        {"clave": "sin_definir", "texto": "Aún no lo hemos definido"}
+      ],
+      "encaje": ["3000_10000", "mas_10000"]
+    },
+    {
+      "clave": "plazo",
+      "tipo": "opciones",
+      "texto": "¿Cuándo os gustaría empezar?",
+      "opciones": [
+        {"clave": "ya", "texto": "Lo antes posible"},
+        {"clave": "1_3_meses", "texto": "En 1–3 meses"},
+        {"clave": "3_6_meses", "texto": "En 3–6 meses"},
+        {"clave": "sin_fecha", "texto": "Sin fecha todavía"}
+      ],
+      "encaje": ["ya", "1_3_meses"]
+    },
+    {
+      "clave": "contexto",
+      "tipo": "texto",
+      "texto": "En una frase: ¿qué te gustaría dejar de hacer a mano?",
+      "ayuda": "Por ejemplo: copiar a mano los pedidos que llegan por email al ERP"
+    },
+    {"tipo": "nombre_completo"},
+    {"tipo": "email_trabajo", "exigir_email_trabajo": true},
+    {"tipo": "telefono"},
+    {"tipo": "empresa"}
+  ],
+  "verificar_telefono": true,
+  "privacidad": {
+    "url": "https://acme-automations.example/privacidad",
+    "texto_enlace": "Política de privacidad de Acme Automations"
+  },
+  "aviso_legal": {
+    "titulo": "Cómo usamos tus datos",
+    "texto": "Acme Automations usará estos datos para preparar la llamada y contactarte sobre tu solicitud. Puedes ejercer tus derechos en privacidad@acme-automations.example.",
+    "casillas": [
+      {"clave": "novedades", "texto": "Quiero recibir por email casos y novedades de Acme Automations", "obligatoria": false}
+    ]
+  },
+  "final": {
+    "titulo": "Elige día y hora para la llamada",
+    "texto": "Son 30 minutos con un consultor. Si ningún hueco te va bien, te escribimos para cuadrarla.",
+    "boton": "reservar",
+    "texto_boton": "Elegir hueco",
+    "url": "https://acme-automations.example/reservar-llamada",
+    "pais": "ES"
+  },
+  "finales_alternativos": {
+    "no_encaje": {
+      "titulo": "Gracias, te dejamos una alternativa",
+      "texto": "Por lo que nos cuentas, ahora te encaja más empezar por tu cuenta. Aquí tienes la guía y las plantillas que usamos con nuestros clientes.",
+      "boton": "web",
+      "texto_boton": "Ver la guía",
+      "url": "https://acme-automations.example/guia-que-automatizar"
+    }
+  },
+  "logica": [
+    {"si": {"pregunta": "inversion", "respuesta": ["menos_3000"]}, "ir_a": "final:no_encaje"},
+    {"si": {"pregunta": "tamano", "respuesta": ["solo_yo"]}, "ir_a": "final:no_encaje"}
+  ],
+  "parametros": {"oferta": "llamada", "formulario": "llamada-cualificada", "version": "v1"},
+  "solo_anuncios": true,
+  "revision_politicas": "pendiente"
+}

@@ -1,0 +1,86 @@
+{{> inicio}}
+<section class="pos-seccion pos-seccion--diag" aria-label="{{diag.nombre}}">
+<div class="pos-contenedor">
+<div class="pos-diag" data-pos-diag>
+{{#diag.intro}}<div class="pos-diag__intro" data-pos-diag-intro>
+<h1 class="pos-titular" tabindex="-1">{{titulo}}</h1>
+{{#entradilla?}}<p class="pos-entradilla">{{entradilla}}</p>
+{{/entradilla?}}{{#promesas?}}<ul class="pos-lista-check pos-diag__promesas">
+{{#promesas}}<li>{{.}}</li>
+{{/promesas}}</ul>
+{{/promesas?}}<div class="pos-acciones">
+<button type="button" class="pos-boton" data-pos-diag-empezar>{{boton}}</button>
+<p class="pos-nota">{{duracion}}</p>
+</div>
+{{#nota?}}<p class="pos-diag__privacidad">{{nota}}</p>
+{{/nota?}}<noscript><p class="pos-sin-js">Este diagnóstico necesita JavaScript. Si no puedes activarlo, escríbenos{{#alternativa?}} a {{alternativa}}{{/alternativa?}} y lo hacemos contigo.</p></noscript>
+</div>
+{{/diag.intro}}{{^diag.intro}}<h1 class="pos-oculto">{{diag.nombre}}</h1>
+{{/diag.intro}}<div class="pos-diag__panel" data-pos-diag-panel hidden>
+<div class="pos-progreso">
+<p class="pos-progreso__texto" data-pos-progreso-texto aria-live="polite">Pregunta 1 de {{diag.num_preguntas}}</p>
+<div class="pos-progreso__barra" role="progressbar" aria-label="Progreso del diagnóstico" aria-valuemin="0" aria-valuemax="{{diag.pasos_totales}}" aria-valuenow="0"><div class="pos-progreso__relleno" data-pos-progreso-relleno></div></div>
+</div>
+<form data-pos-diag-preguntas action="#" novalidate>
+{{#diag.preguntas}}<fieldset class="pos-paso" data-pos-paso data-pregunta="{{id}}" hidden{{#ayuda?}} aria-describedby="q-{{id}}-ayuda"{{/ayuda?}}>
+<legend class="pos-paso__pregunta" id="q-{{id}}" tabindex="-1">{{pregunta}}</legend>
+{{#ayuda?}}<p class="pos-paso__ayuda" id="q-{{id}}-ayuda">{{ayuda}}</p>
+{{/ayuda?}}{{#es_grupo}}<div class="pos-grupo">
+<div class="pos-grupo" data-pos-grupo-lista>
+{{#items}}{{> grupo-item}}{{/items}}</div>
+<template data-pos-grupo-plantilla>{{#plantilla}}{{> grupo-item}}{{/plantilla}}</template>
+<div><button type="button" class="pos-boton pos-boton--fantasma pos-boton--peque" data-pos-grupo-anadir>{{texto_anadir}}</button></div>
+</div>
+{{/es_grupo}}{{^es_grupo}}{{> campo-diag}}{{/es_grupo}}<p class="pos-error" data-pos-paso-error aria-live="polite"></p>
+</fieldset>
+{{/diag.preguntas}}<div class="pos-diag__nav">
+<button type="button" class="pos-diag__atras" data-pos-diag-atras>Atrás</button>
+<button type="submit" class="pos-boton" data-pos-diag-siguiente>Siguiente</button>
+</div>
+</form>
+{{#diag.captura_antes}}<div data-pos-diag-contacto hidden>
+{{#diag.formulario}}{{> formulario}}{{/diag.formulario}}<p><button type="button" class="pos-diag__atras" data-pos-diag-atras-contacto>Volver a las preguntas</button></p>
+</div>
+{{/diag.captura_antes}}</div>
+<section class="pos-resultado" data-pos-diag-resultado hidden aria-labelledby="pos-r-etiqueta">
+<div class="pos-resultado__principal">
+<h2 class="pos-resultado__etiqueta" id="pos-r-etiqueta" tabindex="-1" data-pos-r-foco>{{diag.resultado.etiqueta}}</h2>
+<p class="pos-resultado__cifra" data-pos-r-cifra aria-live="polite">—</p>
+<p class="pos-resultado__rango" data-pos-r-rango></p>
+</div>
+<div class="pos-recomendacion" data-pos-r-recomendacion data-nivel-tono="bajo">
+<h3 data-pos-r-titulo></h3>
+<p data-pos-r-texto></p>
+<div class="pos-acciones">
+<a class="pos-boton" href="#" data-pos-r-cta hidden>Siguiente paso</a>
+<a class="pos-enlace" href="#" data-pos-r-cta2 hidden>Otra opción</a>
+</div>
+</div>
+{{#diag.resultado.desglose?}}<dl class="pos-desglose">
+{{#diag.resultado.desglose}}<div><dt>{{etiqueta}}</dt><dd data-pos-r-valor="{{id}}">—</dd></div>
+{{/diag.resultado.desglose}}</dl>
+{{/diag.resultado.desglose?}}<details class="pos-supuestos"{{#diag.resultado.supuestos_abiertos}} open{{/diag.resultado.supuestos_abiertos}}>
+<summary>{{diag.resultado.titulo_supuestos}}</summary>
+<div class="pos-supuestos__cuerpo">
+{{#diag.supuestos_visibles}}<div class="pos-supuesto">
+<label class="pos-etiqueta" for="s-{{id}}">{{etiqueta_campo}}</label>
+{{#editable}}<input class="pos-input" id="s-{{id}}" type="text" inputmode="decimal" autocomplete="off" value="{{valor_texto}}" data-pos-supuesto="{{id}}"{{#explicacion?}} aria-describedby="s-{{id}}-ayuda"{{/explicacion?}}>
+{{/editable}}{{^editable}}<p id="s-{{id}}">{{valor_texto}}</p>
+{{/editable}}{{#explicacion?}}<p class="pos-ayuda" id="s-{{id}}-ayuda">{{explicacion}}</p>
+{{/explicacion?}}</div>
+{{/diag.supuestos_visibles}}{{#diag.explicaciones?}}<ul class="pos-prosa">
+{{#diag.explicaciones}}<li class="pos-formula"><strong>{{etiqueta}}:</strong> {{explicacion}}</li>
+{{/diag.explicaciones}}</ul>
+{{/diag.explicaciones?}}</div>
+</details>
+<div class="pos-resultado__pie">
+<p class="pos-aviso-estimacion">{{diag.resultado.aviso}}</p>
+{{#diag.captura_despues}}<button type="button" class="pos-diag__atras" data-pos-diag-revisar>Revisar mis respuestas</button>
+{{/diag.captura_despues}}</div>
+</section>
+{{#diag.captura_despues}}<div data-pos-diag-contacto id="pos-contacto" hidden>
+{{#diag.formulario}}{{> formulario}}{{/diag.formulario}}</div>
+{{/diag.captura_despues}}</div>
+</div>
+</section>
+{{> fin}}

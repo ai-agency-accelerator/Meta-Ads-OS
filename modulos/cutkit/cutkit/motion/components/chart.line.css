@@ -1,0 +1,16 @@
+/* chart.line — línea gruesa del color con significado, sin rejilla; solo extremos etiquetados. */
+.cline .cline-wrap{position:absolute;left:0;top:0;display:flex;flex-direction:column;gap:18px;color:var(--ck-white)}
+.cline .cline-title{font:800 68px/1.04 var(--ck-sans);letter-spacing:-.02em;white-space:nowrap}
+.cline .cline-box{position:relative}
+.cline .cline-box svg{position:absolute;left:0;top:0}
+.cline .cline-x{position:absolute;font:700 44px/1 var(--ck-sans);color:rgba(255,255,255,.78);letter-spacing:-.01em;white-space:nowrap}
+.cline .cline-val{position:absolute;left:0;top:0;font:900 112px/1 var(--ck-sans);letter-spacing:-.045em;color:var(--tone);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.cline .cline-ev{position:absolute;font:700 44px/1.08 var(--ck-sans);letter-spacing:-.01em;white-space:nowrap;color:var(--ck-white)}
+.cline .cline-dot{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:var(--tone);
+  box-shadow:0 0 0 7px #fff,0 4px 14px rgba(0,0,0,.45)}
+/* lienzo claro (blanco/papel): tinta, sin sombra de texto */
+.gx-th-light.cline .cline-wrap,.gx-th-accent.cline .cline-wrap,.gx-th-light.cline .cline-ev,.gx-th-accent.cline .cline-ev{color:var(--ck-ink)}
+.gx-th-light.cline .cline-x,.gx-th-accent.cline .cline-x{color:rgba(15,13,16,.6)}
+.gx-th-light.cline .gxx-ts,.gx-th-light.cline .gxx-ts-hero,.gx-th-accent.cline .gxx-ts,.gx-th-accent.cline .gxx-ts-hero{text-shadow:none}
+.gx-th-light.cline .cline-dot{box-shadow:0 0 0 7px #fff,0 3px 10px rgba(0,0,0,.18)}

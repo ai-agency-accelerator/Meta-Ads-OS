@@ -1,0 +1,336 @@
+# motion_tokens.yaml — tokens de movimiento para cutkit (HyperFrames + GSAP 3.15)
+# Versión 0.1.0 · vertical 1080×1920 a 30 fps (anuncios y orgánico de Reels, Stories y Feed).
+#
+# CONVENCIONES (para el código)
+#   - La unidad canónica es el FOTOGRAMA a 30 fps (1 f = 33,3 ms). `ms` es informativo: ms = round(f * 1000 / 30).
+#     Para entregar a 60 fps: f60 = f30 * 2. Redondear SIEMPRE al fotograma, nunca al ms.
+#   - GSAP trabaja en segundos: duration_s = f / 30. `gsap` es el string de ease listo para usar.
+#   - `cubic_bezier` es la equivalencia para CSS/WAAPI o para CustomEase.create(nombre, "x1,y1,x2,y2").
+#   - Rangos: [min, max]; `default` es lo que usa el motor si el director no pide otra cosa.
+#   - Etiquetas de procedencia en los comentarios:
+#       [M1] material.io v1 · [M3] Material 3 · [CARBON] IBM Carbon · [HIG] Apple HIG · [NNG] Nielsen Norman Group
+#       [VH] Val Head · [RN] Rachel Nabors · [UXIM] UX in Motion · [GSAP] docs GSAP · [ITU] ITU-R BT.1359
+#       [BBC] BBC Subtitle Guidelines · [WCAG] W3C WCAG 2.1 · [DISNEY] Thomas & Johnston, The Illusion of Life
+#       [REF] medición de vídeos verticales de referencia (12 piezas de divulgación de tecnología, ritmo y gramática)
+#       [CALC] calculado aquí (fórmula reproducible) · [CRIT] criterio propio SIN fuente externa: calíbralo con tus vídeos
+#   - Las URLs completas están en `fuentes:` al final.
+
+meta:
+  id: cutkit.motion
+  version: 0.1.0
+  fps: 30
+  frame_ms: 33.333
+  canvas: {w: 1080, h: 1920}
+  runtime: {motor: hyperframes, gsap: "3.15", plugins: [CustomEase, SplitText, DrawSVGPlugin, Flip]}
+  perfil_por_defecto: firma              # [CRIT] los valores [REF] solo mandan si el vídeo usa un perfil de referencia
+  nota: >-
+    Las guías de UI (M1/M3/Carbon/NNG) miden interacciones que el usuario provoca. En vídeo nadie pulsa nada:
+    el espectador no espera la animación, la LEE. Por eso las entradas de texto usan el tramo medio de UI (200–300 ms),
+    pero la duración total del elemento manda: la entrada no puede comerse el tiempo de lectura (ver ratios).
+
+# ───────────────────────────────────────────────────────────── DURACIONES (fotogramas @30)
+duraciones:
+  escala:                                # escala base: la «rejilla» de duraciones permitidas
+    instant: 0                           # corte seco [REF] 45 % de las entradas de recurso son corte seco
+    f2: 2                                # 67 ms  · [CARBON] fast-01 = 70 ms; [RN] 70 ms = mínimo en el centro de la visión
+    f3: 3                                # 100 ms · [NNG] 100 ms se percibe instantáneo; [CARBON] fast-02 = 110 ms
+    f4: 4                                # 133 ms
+    f5: 5                                # 167 ms · [CARBON] moderate-01 = 150 ms
+    f6: 6                                # 200 ms · [VH] 200–300 ms para cambios pequeños; [M1] salida 195 ms
+    f7: 7                                # 233 ms · [M1] entrada 225 ms; [CARBON] moderate-02 = 240 ms
+    f9: 9                                # 300 ms · [M1] transición estándar móvil 300 ms
+    f11: 11                              # 367 ms · [M1] transición grande/compleja 375 ms
+    f12: 12                              # 400 ms · [CARBON] slow-01 = 400 ms; [NNG] 400 ms solo para movimientos de pantalla completa
+    f15: 15                              # 500 ms · [VH] 400–500 ms para movimientos grandes o con rebote/elástico
+    f21: 21                              # 700 ms · [CARBON] slow-02 = 700 ms (atenuar fondo)
+    f30: 30                              # 1 s    · [VH]/[NNG] 1 s = límite del flujo de pensamiento
+
+  por_accion:                            # [frames]  ·  procedencia
+    texto_entrada:          {range: [5, 9],  default: 7,  nota: "línea o palabra de gráfico; [M1] 225 ms, [VH] 200–300 ms"}
+    texto_entrada_hero:     {range: [7, 12], default: 9,  nota: "titular grande o lockup; más recorrido → más tiempo [CARBON][M1]"}
+    texto_salida:           {range: [0, 6],  default: 4,  nota: "salida más corta que la entrada [NNG][M1: 195 vs 225]; 0 = corte"}
+    caption_pop:            {range: [4, 5],  default: 4,  nota: "raíl de subtítulos; coherente con guía de subtítulos"}
+    caption_salida:         {range: [0, 3],  default: 0,  nota: "[REF] en la referencia los subtítulos entran y salen secos"}
+    letra_a_letra:          {por_letra: 1, solape: true,  nota: "[REF] lockup (héroe) ≈30 ms/letra; la palabra completa dura lo que se dice"}
+    maquina_escribir:       {por_caracter: [1, 1], nota: "prompts y comandos: [REF] el prompt se escribe al ritmo del dictado y se sostiene 3–5 s"}
+    numero_aparicion:       {range: [6, 9],  default: 7,  nota: "pop de la cifra ya en su valor final [M1][VH]"}
+    numero_conteo:          {range: [15, 30], default: 21, nota: "conteo 0→N; termina en el ataque de la palabra-cifra [CRIT]"}
+    icono_logo_entrada:     {range: [6, 10], default: 8,  nota: "baldosa 3D / logo con asentamiento; rebote alarga [VH]"}
+    linea_trazo:            {formula: "clamp(round(longitud_px / 80), 8, 20)", default: 12, nota: "≈2400 px/s; [CRIT]. Círculo a mano: 12–15 f [REF 08]"}
+    flecha_dibujo:          {range: [6, 9],  default: 7,  nota: "flecha roja al punto clave [REF 02]; cabeza aparece en el último 25 %"}
+    subrayado_tachado:      {range: [5, 8],  default: 6,  nota: "[REF 05] tachado rojo en «complicados»"}
+    panel_split_entrada:    {range: [6, 10], default: 8,  nota: "el split baja desde arriba [REF 09]; recorrido ~960 px"}
+    movimiento_en_pantalla: {formula: "clamp(round(6 + distancia_px / 120), 6, 15)", default: 9, nota: "más distancia → más tiempo [CARBON][M1 375 ms grande]"}
+    reencuadre_punch_in:    {range: [0, 4],  default: 0,  nota: "[REF] punch-in ×1,6–2,6 casi siempre en corte (0 f); animado ≤4 f"}
+    zoom_lento:             {escala_por_s: [0.010, 0.025], default: 0.015, nota: "Ken Burns/zoom lento in: 1,0→~1,05 en 3 s [REF 16 % de recursos con zoom lento]"}
+    deriva_idle:            {amplitud_px: [3, 6], periodo_f: [60, 90], nota: "flotación de baldosas/iconos sostenidos [CRIT]"}
+    atenuar_fondo:          {range: [12, 21], default: 15, nota: "[CARBON] slow-02 = 700 ms es para UI; en vídeo, 400–500 ms [CRIT]"}
+    emphasize_pulso:        {range: [6, 10], default: 8,  nota: "pulso de escala/brillo sobre algo que ya está en pantalla"}
+
+  transiciones:                          # cambio de escena/layout · [REF] gramática: dentro de bloque → corte; cambio de bloque → luz/whip
+    corte_seco:        {frames: 0, uso: "mismo layout, siguiente ítem de lista, cambio de B-roll"}
+    whip_pan:          {frames: [3, 5], default: 4, blur_px: [12, 40], uso: "volver a cara / pivote («pero»)", nota: "[REF] se ven 2–3 f partidos por el detector"}
+    light_leak:        {frames: [8, 14], default: 10, pico_en: corte, uso: "cambio de bloque narrativo", nota: "[REF] el corte editorial va en el INICIO visible del leak"}
+    flash_blanco:      {frames: [2, 4], default: 3, uso: "drop/revelación; máx. 3 destellos por segundo [WCAG 2.3.1]"}
+    zoom_blur:         {frames: [5, 8], default: 6, uso: "juicio u opinión que entra a cara [REF 09]"}
+    glitch:            {frames: [3, 6], default: 4, uso: "entrada a split en vídeos de tono técnico [REF 01]; ≤2 por vídeo [CRIT]"}
+    desenfoque_cruzado: {frames: [6, 9], default: 7, uso: "dentro del mismo layout, salida de texto [REF 03 «el texto sale con desenfoque»]"}
+    shared_element:    {frames: [9, 12], default: 10, uso: "un elemento persiste entre escenas y viaja (Flip) [UXIM transformation/parenting][M1 375 ms]"}
+
+  ratios:                                # relaciones que el QA comprueba por elemento
+    entrada_max_pct_de_vida: 0.25        # [CRIT] si el gráfico vive 1,2 s, su entrada ≤ 9 f
+    salida_max_pct_de_vida: 0.15         # [CRIT]
+    salida_vs_entrada: 0.8               # [M1] 195/225 ≈ 0,87; [NNG] 200–250 vs 300 → la salida ~20 % más corta
+    estatico_min_pct_de_vida: 0.60       # [CRIT] el elemento quieto (o con deriva lenta) ≥60 % de su vida, para poder leerlo
+
+  sostener:                              # tiempo legible mínimo DESPUÉS de terminar la entrada
+    lectura_s_por_palabra: 0.33          # [BBC] 160–180 ppm ≈ 0,33–0,375 s/palabra
+    base_s: 0.5                          # [CRIT] orientación de la mirada; [RN] 70–700 ms para mover los ojos
+    min_s: 0.8                           # [REF] logo p10 = 0,80 s; texto grande p10 = 1,0 s
+    formula: "max(min_s, base_s + palabras * lectura_s_por_palabra)"
+    cifra_s: [1.0, 2.5]                  # [REF] la cifra tiene plano propio ~2,5 s y se mantiene hasta la siguiente
+    prompt_s: [3.0, 5.0]                 # [REF] prompts dictados: 3–5 s sin cortar
+
+# ───────────────────────────────────────────────────────────── EASES POR INTENCIÓN
+# Equivalencias GSAP ↔ Penner: power1=quad, power2=cubic, power3=quart, power4=quint [GSAP]. Default de GSAP: power1.out.
+eases:
+  enter:                                 # entra en cuadro: rápido al principio, se posa despacio [M1 deceleration][NNG ease-out]
+    default:   {gsap: "power3.out", cubic_bezier: [0.165, 0.84, 0.44, 1]}
+    suave:     {gsap: "power2.out", cubic_bezier: [0.215, 0.61, 0.355, 1], uso: "texto secundario, subtítulos con movimiento"}
+    expresivo: {gsap: "expo.out",   cubic_bezier: [0.16, 1, 0.3, 1], uso: "titular hero, panel grande; ≈ [M3] emphasized-decelerate"}
+    m3_emphasized_decelerate: {gsap: "CustomEase:m3EmphDecel", cubic_bezier: [0.05, 0.7, 0.1, 1], fuente: "[M3]"}
+    carbon_expressive_entrance: {gsap: "CustomEase:carbonExprIn", cubic_bezier: [0, 0, 0.3, 1], fuente: "[CARBON]"}
+  exit:                                  # sale: arranca despacio y acelera fuera [M1 acceleration][M3 accelerate]
+    default:   {gsap: "power2.in",  cubic_bezier: [0.55, 0.055, 0.675, 0.19]}
+    rapido:    {gsap: "power3.in",  cubic_bezier: [0.895, 0.03, 0.685, 0.22], uso: "salida hacia el whip"}
+    fade:      {gsap: "power1.in",  cubic_bezier: [0.11, 0, 0.5, 0], uso: "solo opacidad (alternativa [M1] acceleration: CustomEase \"0.4,0,1,1\")"}
+    m3_emphasized_accelerate: {gsap: "CustomEase:m3EmphAccel", cubic_bezier: [0.3, 0, 0.8, 0.15], fuente: "[M3]"}
+  move:                                  # A→B dentro del cuadro: acelera y frena [M1 standard][M3 standard][DISNEY slow in/slow out]
+    default:   {gsap: "power2.inOut", cubic_bezier: [0.645, 0.045, 0.355, 1]}
+    m3_standard: {gsap: "CustomEase:m3Standard", cubic_bezier: [0.2, 0, 0, 1], fuente: "[M3] standard (elementos que se quedan en pantalla)"}
+    m1_standard: {gsap: "CustomEase:m1Standard", cubic_bezier: [0.4, 0, 0.2, 1], fuente: "[M1]"}
+    expresivo: {gsap: "expo.inOut",   cubic_bezier: [0.87, 0, 0.13, 1], uso: "cámara virtual, reencuadre largo"}
+    camara_lenta: {gsap: "sine.inOut", cubic_bezier: [0.37, 0, 0.63, 1], uso: "zoom lento / Ken Burns / deriva idle"}
+    lineal:    {gsap: "none", uso: "SOLO scroll de captura, conteo de reparto de letras, loops de textura/grano; nunca posición de un objeto [NNG]"}
+  emphasize:                             # algo YA visible pide atención: pulso, brillo, subrayado
+    pulso:     {gsap: "power2.out", yoyo: true, escala: [1.0, 1.08], frames: 8}
+    golpe:     {gsap: "back.out(1.4)", escala_desde: 1.12, frames: 7, uso: "palabra clave del raíl, cifra"}
+    trazo:     {gsap: "power2.inOut", uso: "DrawSVG de subrayado, círculo, flecha"}
+    color:     {gsap: "power1.out", frames: 3, uso: "cambio de color/opacidad: [RN] cambios de color 70–200 ms en el centro de la visión"}
+  settle:                                # aterriza con un pequeño exceso y se asienta [DISNEY follow-through][GSAP back]
+    sutil:     {gsap: "back.out(1.2)", overshoot_pct: 5.3}
+    default:   {gsap: "back.out(1.4)", overshoot_pct: 7.1}
+    marcado:   {gsap: "back.out(1.7)", overshoot_pct: 10.0, nota: "≈ default clásico de Penner (s=1,70158 → 10 %)"}
+    css_equivalente: {cubic_bezier: [0.34, 1.56, 0.64, 1], overshoot_pct: 9.8, nota: "el back-soft de la guía de subtítulos"}
+    elastico:  {gsap: "elastic.out(1, 0.5)", nota: "solo ver `prohibiciones_back_elastic`"}
+  count_up:    {gsap: "power2.out", nota: "frena al final para que se lean las últimas cifras; NUNCA back (no rebasar el valor real)"}
+  typewriter:  {gsap: "steps(1)", nota: "por carácter, con cursor; o `none` repartido por la duración del dictado"}
+  opacity_cross: {gsap: "sine.inOut", nota: "light leak, fundido de grano y de fondo"}
+
+  customease_registro:                   # pegar tal cual al iniciar la composición
+    - 'CustomEase.create("m3EmphDecel", "0.05,0.7,0.1,1")'
+    - 'CustomEase.create("m3EmphAccel", "0.3,0,0.8,0.15")'
+    - 'CustomEase.create("m3Standard", "0.2,0,0,1")'
+    - 'CustomEase.create("m1Standard", "0.4,0,0.2,1")'
+    - 'CustomEase.create("carbonExprIn", "0,0,0.3,1")'
+
+  prohibiciones_back_elastic:            # cuándo NO usar back/elastic (regla dura salvo `excepcion`)
+    - {id: no_back_texto_cuerpo, regla: "Ni back ni elastic en subtítulos ni en texto de más de 3 palabras: el exceso se lee como temblor y la lectura empieza a mitad de la entrada", fuente: "[CRIT]+[HIG brevedad y precisión]"}
+    - {id: no_back_datos, regla: "Barras, conteos, gráficas y porcentajes nunca rebasan su valor: un 100 % que pasa por 107 % miente un instante", fuente: "[CRIT]; regla dura del perfil r.nada_inventado"}
+    - {id: no_back_capturas, regla: "Capturas y grabaciones de interfaz reales no rebotan: restan credibilidad (función del 35 % de los recursos)", fuente: "[REF] funcion_pct.credibilidad=35"}
+    - {id: no_back_salidas, regla: "Las salidas no llevan back.in (anticipación de salida = ruido); salen con power2.in o en corte", fuente: "[M1][NNG]"}
+    - {id: no_back_pantalla_completa, regla: "Paneles a pantalla completa o splits sin overshoot (el exceso enseña el borde o el fondo)", fuente: "[CRIT]"}
+    - {id: no_back_corto, regla: "Con menos de 6 f el overshoot no se percibe como asentamiento sino como salto: usa power3.out", fuente: "[CALC] el pico de back.out(1.4) cae al 61 % de la duración"}
+    - {id: no_back_grupo, regla: "Nunca más de 1 elemento rebotando a la vez; en un stagger de ≥4, solo el último o ninguno", fuente: "[CRIT]+[UXIM offset & delay]"}
+    - {id: no_back_tono_serio, regla: "Opinión, advertencia, confianza o dinero perdido: cero rebote", fuente: "[REF] la frase de confianza no se ilustra"}
+    - {id: elastic_casi_nunca, regla: "elastic: como mucho 1 por vídeo, solo en un icono/emoji aislado y lúdico, ≥12 f; nunca en texto, logos de marca ni datos", fuente: "[VH] rebotes y elásticos necesitan 400–500 ms; [CRIT]"}
+    - {id: bounce_nunca, regla: "bounce.out (rebotes múltiples) no forma parte del lenguaje: prohibido", fuente: "[CRIT]"}
+
+# ───────────────────────────────────────────────────────────── STAGGER
+stagger:
+  # Regla de oro [REF mb.enumeracion]: si cada elemento corresponde a una palabra hablada, NO hay stagger fijo:
+  # cada elemento se ancla a su palabra (ver sincronia.voz). El stagger fijo es solo para grupos sin anclaje verbal.
+  anclado_a_voz_si: "cada elemento tiene su palabra en la transcripción y entre palabras hay ≥ 6 f"
+  por_numero:                            # each en fotogramas; tope total = amount_max_f [UXIM offset & delay][GSAP stagger]
+    - {n: [2, 3],  each_f: [3, 4], default_each_f: 4}
+    - {n: [4, 6],  each_f: [2, 3], default_each_f: 3}
+    - {n: [7, 12], each_f: [1, 2], amount_max_f: 12, gsap: "{amount: 0.4, from: 'start'}"}
+    - {n: [13, 999], amount_max_f: 15, gsap: "{amount: 0.5, from: 'center'}", nota: "tratar como textura/grupo, no como lista"}
+  amount_max_f: 15                       # [VH] 500 ms = techo de un movimiento grande; la cadena entera no debería pasarlo sin voz
+  letras:  {each_f: 1, uso: "lockup letra a letra [REF ≈30 ms/letra]"}
+  palabras: {each_f: [2, 3], uso: "titular de 3–6 palabras sin dictado (word-reveal 80–120 ms)"}
+  lineas:   {each_f: [3, 5]}
+  solape_minimo_pct: 0.5                 # [CRIT] el siguiente empieza antes de que acabe el anterior (≥50 % de solape) → se lee como un gesto
+  orden:                                 # [UXIM] offset & delay crea jerarquía; orden de lectura en castellano
+    lista_vertical: start               # de arriba abajo
+    rejilla: "{grid: 'auto', from: 'start'}"
+    radial_o_explosion: center
+    con_foco: "el foco primero; los secundarios 2–4 f después"
+  ease_de_reparto: "power1.in"           # [GSAP] stagger.ease reparte inicios; power1.in junta los finales (cierre con ritmo) [CRIT]
+
+# ───────────────────────────────────────────────────────────── ANTICIPACIÓN · OVERSHOOT · FOLLOW-THROUGH
+fisica:
+  overshoot_pct:                         # exceso máximo sobre el valor final (escala o posición) [CALC con back.out(s)]
+    texto: 0
+    subtitulo: 0                         # o pop 0,85→1 sin exceso
+    icono_baldosa_logo: [5, 8]           # back.out(1.2–1.5)
+    cifra_pop: [5, 7]                    # escala de la cifra; el VALOR nunca rebasa
+    golpe_hook: [10, 13]                 # back.out(1.7–2.0); 1 por vídeo, en la frase que duele [REF 03 «el efecto fuerte se guarda»]
+    maximo_absoluto: 15
+  tabla_back_overshoot:                  # [CALC] back.out(s): exceso máximo y dónde cae (fracción de la duración)
+    "1.0": {pct: 3.7, t: 0.67}
+    "1.2": {pct: 5.3, t: 0.64}
+    "1.4": {pct: 7.1, t: 0.61}
+    "1.7": {pct: 10.0, t: 0.58}
+    "2.0": {pct: 13.2, t: 0.56}
+    "2.5": {pct: 18.9, t: 0.52}
+  anticipacion:                          # [DISNEY anticipation][SOM]: pequeño movimiento contrario antes de la acción
+    cuando: "solo objetos héroe que «golpean» (logo que cae, baldosa que se abre, whip de cámara)"
+    amplitud_pct: [3, 6]                 # p. ej. escala 1→0,96 antes del pop, o 8–20 px hacia atrás antes del whip
+    frames: [2, 4]
+    gsap: "power1.inOut"
+    nunca: [texto_cuerpo, subtitulos, datos, capturas]
+  follow_through:                        # [DISNEY follow through & overlapping action]
+    secundario_retraso_f: [2, 4]         # sombra, brillo, etiqueta o subrayado llegan 2–4 f después del objeto principal
+    sombra_retraso_f: [1, 2]
+    asentamiento_f: [3, 6]               # tiempo de vuelta desde el pico del overshoot al reposo (incluido en la duración de back)
+  squash_stretch:
+    max_pct: 8                           # [DISNEY] solo iconos/objetos 3D, eje del movimiento, conservando el área
+    nunca: [texto, logos_de_marca, capturas]
+  arcos:                                 # [DISNEY arcs]
+    objetos_organicos: "trayectoria curva (motionPath, curvatura 10–20 % de la distancia) [CRIT]"
+    ui_texto_paneles: "línea recta: la UI no vuela en arco"
+
+# ───────────────────────────────────────────────────────────── LÍMITES (QA duro y blando)
+limites:
+  foco:
+    focos_por_momento: 1                 # [UXIM staging/offset][HIG «sin eclipsar la experiencia»][REF un único destacado por frase]
+    elementos_animando_a_la_vez_max: 3   # 1 foco + ≤2 secundarios; un grupo en stagger cuenta como 1
+    elementos_nuevos_por_ventana: {max: 3, ventana_f: 9}
+    bloques_de_texto_visibles_max: 2     # subtítulo + 1 texto gráfico [CRIT]
+    palabras_destacadas_por_frase_max: 1 # [REF] max_destacados_por_frase: 1
+    no_foco: {opacidad: [0.35, 0.6], blur_px: [4, 8], escala: [0.9, 0.96]}   # [CRIT]
+  ritmo:
+    cambios_de_foco_por_s_max: 2.5       # = ≥12 f entre cambios de foco; [REF] p10 del intervalo de cambio visual = 0,40 s
+    intervalo_cambio_visual_s: {p10: 0.40, p50: 1.24, p90: 2.80}   # [REF] medido; densidad, no regla
+    inicios_de_animacion_por_s_max: 4    # cualquier tween que arranque (no cuenta texturas en bucle) [CRIT]
+    destellos_por_s_max: 3               # [WCAG 2.3.1] flash/light leak/glitch con cambio de luminancia ≥10 %
+    efectos_fuertes_por_video_max: 1     # golpe con overshoot ≥10 %, desaturación total, etc. [REF 03]
+    layout_max_s: 6                      # [REF] r.layout_max_6s (salvo que el recurso se mueva o haya que leer)
+    respiro_tras_racha: {racha: "≥3 cambios de foco en 2 s", respiro_s: [1.5, 3.3]}   # [REF] contención: mediana 3,3 s
+  texto:                                 # 1080×1920; el vídeo se ve en un móvil de ~393 pt de ancho → 1 pt ≈ 2,75 px [CALC]
+    min_px_absoluto: 32                  # [HIG] mínimo 11 pt × 2,75 ≈ 30 px; solo etiquetas que no hace falta leer
+    min_px_lectura: 48                   # [HIG] cuerpo por defecto 17 pt × 2,75 ≈ 47 px
+    min_px_lectura_rapida: 56            # texto que vive < 1,5 s [CRIT]
+    subtitulo_px: [56, 64]               # [BBC] 9:16: interlineado = 4,5 % del alto = 86 px → cuerpo ≈ 60 px; guía de subtítulos: 58
+    titular_px: [96, 160]
+    hero_px: [180, 320]                  # héroe Montserrat 900 (sin serif decorativa) 2–3× el conector [REF lockup]
+    peso_min_si_menor_de_64px: 600       # [CRIT] sobre vídeo en movimiento
+    light_solo_si_mayor_de_px: 80        # [REF] conectores en Light, siempre grandes y sobre fondo plano
+    tracking_em:
+      hero: [-0.03, -0.01]
+      titular: [-0.02, 0]
+      cuerpo: [0, 0.01]
+      versalitas_mayusculas: [0.02, 0.06]
+      pequeno_menor_de_48px: [0.01, 0.03]
+    interlineado: {hero: [0.88, 0.95], titular: [0.95, 1.05], cuerpo: [1.1, 1.25]}
+    contraste_min: 4.5                   # [WCAG 1.4.3] 4,5:1; en vídeo aplicarlo también a texto grande (el fondo se mueve)
+    si_fondo_variable: "sombra 0 4 18 rgba(0,0,0,.45) o placa/píldora; medir contraste en el peor fotograma"
+    caracteres_por_linea_max: 22         # [CRIT] a 60 px caben ~24 en 696 px de ancho útil
+  zona_segura_px: {top: 269, bottom: 672, left: 65, right: 227}   # zona segura de Meta 9:16 [OFFICIAL META]; derecha bajo y≈1152
+
+# ───────────────────────────────────────────────────────────── PROFUNDIDAD
+profundidad:
+  capas_max: 3                           # fondo · plano medio · primer plano [UXIM parallax/dimensionality][CRIT]
+  parallax_factor: {fondo: [0.2, 0.4], medio: [0.5, 0.7], primer_plano: 1.0}   # velocidad relativa al primer plano [CRIT]
+  escala_por_profundidad: {fondo: [1.05, 1.15], primer_plano: 1.0, nota: "fondo sobredimensionado para que el parallax no enseñe bordes"}
+  desenfoque_px: {fondo_tras_tarjeta: [8, 20], no_foco: [4, 8], movimiento_whip: [12, 40]}
+  sombras:                               # elevación: más alto = más desplazamiento y más difusa [M3 elevation][CRIT]
+    baja:  {y: 6,  blur: 18, opacidad: 0.25}
+    media: {y: 12, blur: 32, opacidad: 0.32}
+    alta:  {y: 24, blur: 60, opacidad: 0.40}
+    animar: "al levantar un elemento, sombra de baja→alta con follow-through 1–2 f"
+  tarjeta_flotante: "esquinas 32–48 px, sombra alta, fondo negro con grano animado [REF tarjeta_flotante 9 % de recursos]"
+  grano: {opacidad: [0.04, 0.10], fps_textura: 12, nota: "[REF] el grano a saltos engaña al detector de cortes: marcarlo como textura"}
+
+# ───────────────────────────────────────────────────────────── CONTINUIDAD ENTRE ESCENAS
+continuidad:
+  direccion_narrativa:                   # [CRIT] coherente durante todo el vídeo
+    avanzar: {entra_desde: derecha_o_abajo, sale_hacia: izquierda_o_arriba}
+    volver_o_contrastar: {entra_desde: izquierda, sale_hacia: derecha}
+  match_de_movimiento:
+    regla: "si A sale en una dirección a velocidad v, B entra en la MISMA dirección y con velocidad inicial ≈ v"
+    par_whip: {salida: {gsap: "power3.in", frames: 2}, entrada: {gsap: "expo.out", frames: [4, 6]}, blur_comun_px: [20, 40]}
+  elemento_compartido: {tecnica: "GSAP Flip o morph", frames: [9, 12], gsap: "power2.inOut", fuente: "[UXIM transformation/parenting][CARBON elementos continuos en transiciones grandes]"}
+  solape_salida_entrada_f: [0, 3]        # [CRIT] 0 = corte; >3 se lee como fundido blando
+  plantilla_recurrente: "un sistema por vídeo (sellos 1º/2º/3º, baldosas numeradas) con EL MISMO movimiento cada vez [REF mb.ordinal]"
+  gramatica_transicion:                  # [REF] medido
+    mismo_layout: corte_seco
+    cambio_de_bloque: [light_leak, flash_blanco, whip_pan, zoom_blur, glitch]
+    volver_a_cara_desde_recurso: [light_leak, whip_pan]
+    pasar_a_recurso: [corte_seco, panel_split_entrada, zoom]
+
+# ───────────────────────────────────────────────────────────── SINCRONÍA CON LA VOZ Y EL SONIDO
+sincronia:
+  voz:
+    ancla: "ataque de la palabra disparadora (alineación forzada al fotograma)"
+    antelacion_f: {min: 2, default: 5, max: 11}          # [REF] 60 / 155 / 370 ms (p10/p50/p90, n=216)
+    antelacion_por_causa_f:                              # [REF] p50 por causa → fotogramas
+      enfasis: 3                         # 90 ms
+      enumeracion: 4                     # 150 ms
+      cambio_de_idea: 5                  # 160 ms
+      transicion_de_seccion: 5           # 170 ms
+      mostrar_lo_que_se_dice: 5          # 180 ms
+      prueba_credibilidad: 7             # 230 ms
+    retraso_max_f: 1                     # [ITU] el desfase con el audio por delante se detecta a +45 ms → nunca >1 f tarde
+    que_se_alinea: "el INICIO de la entrada (con ease-out el 70–80 % del recorrido ocurre en el primer tercio → legible en el ataque)"
+    subtitulos: {antelacion_f: [0, 2], nota: "guía de subtítulos: 0–80 ms; [ITU] −125 ms indetectable"}
+    conteo: "el conteo llega a su valor final en el ataque de la palabra-cifra ±1 f"
+    letra_a_letra: "la revelación dura lo que dura la palabra hablada [REF]"
+    salida: "al cambiar de idea o en el siguiente ancla; si hay silencio, sostener 0,3–0,5 s y salir en corte o ≤4 f"
+  sonido:
+    sfx_impacto: {ancla: "fotograma de aterrizaje (fin del recorrido o pico del overshoot)", tolerancia_f: [-1, 1], preferir: "0 a +1 f (el sonido algo después se percibe natural) [ITU asimetría +45/−125 ms]"}
+    sfx_whoosh: {ancla: "fotograma del corte de la transición", preroll_f: [4, 8], nota: "el pico del whoosh cae en el corte"}
+    sfx_pop_texto: {ancla: "primer fotograma visible del texto", tolerancia_f: [0, 1]}
+    sfx_por_video: "variable: [REF] solo 3/12 vídeos ponen SFX por encima del azar; sin música → cada animación su SFX (ding/whoosh/clic) [REF 04]"
+    musica:
+      corte_en_beat: opcional            # [REF] la referencia NO corta en beat; la voz manda
+      si_beat_claro: "transición de bloque al beat más cercano solo si cae a ≤3 f del ancla de voz"
+      drop_editorial: {silencio_s: [0.5, 1.2], antes_de: "frase clave o revelación; vuelve con el whoosh/flash"}   # [REF 09]
+      silencio_como_enfasis: "quitar la música en apartes personales o en la frase clave [REF 02,03,05,07]"
+
+# ───────────────────────────────────────────────────────────── RITMO (cuándo dejar respirar)
+ritmo:
+  densidad_por_seccion: {hook: alta, lista_o_pasos: alta, explicacion_conceptual: media, opinion_o_moraleja: baja}   # [REF]
+  sin_graficos_cuando:                   # [REF] contención (48 momentos sin edición, mediana 3,3 s)
+    - "frase de confianza, complicidad, consejo personal u opinión → cara, sin gráficos"
+    - "el recurso ya se mueve (demo, scroll, animación propia) → no añadir motion encima"
+    - "hay algo que leer (prompt, comando, cifra, nombre raro) → sostener hasta poder leerlo"
+    - "moraleja final → sin cortes ni gráficos nuevos"
+  idle_entre_eventos: "deriva lenta (zoom 1,0→1,05 en 3 s o flotación 3–6 px) en vez de estático muerto o de wiggle constante [CRIT]"
+  contraste_de_densidad: "«antes» = montaje rápido de varios planos; «ahora» = un único gráfico limpio sostenido [REF 03]"
+
+# ───────────────────────────────────────────────────────────── FUENTES
+fuentes:
+  M1: https://m1.material.io/motion/duration-easing.html
+  M3: https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md
+  M3_specs: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+  M3_elevation: https://m3.material.io/styles/elevation/overview
+  CARBON: https://carbondesignsystem.com/elements/motion/overview/
+  HIG_motion: https://developer.apple.com/design/human-interface-guidelines/motion
+  HIG_typography: https://developer.apple.com/design/human-interface-guidelines/typography
+  NNG: https://www.nngroup.com/articles/animation-duration/
+  VH: https://valhead.com/2016/05/05/how-fast-should-your-ui-animations-be/
+  RN: https://alistapart.com/article/communicating-animation/
+  UXIM: https://medium.com/ux-in-motion/creating-usability-with-motion-the-ux-in-motion-manifesto-a87a4584ddc
+  GSAP_eases: https://gsap.com/docs/v3/Eases/
+  GSAP_customease: https://gsap.com/docs/v3/Eases/CustomEase/
+  GSAP_stagger: https://gsap.com/resources/getting-started/Staggers/
+  ITU: https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1359-1-199811-I!!PDF-E.pdf
+  BBC: https://www.bbc.co.uk/accessibility/forproducts/guides/subtitles/
+  WCAG_contraste: https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
+  WCAG_destellos: https://www.w3.org/WAI/WCAG21/Understanding/three-flashes-or-below-threshold.html
+  DISNEY: https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation
+  SOM: https://www.schoolofmotion.com/blog/anticipation-principle-quick-tip
+  CANEDO: https://www.learnsquared.com/courses/motion-design
+  HOFFMANN: https://www.motiondesignprinciples.com/

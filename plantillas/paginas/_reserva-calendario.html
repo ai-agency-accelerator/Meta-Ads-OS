@@ -1,0 +1,7 @@
+<div class="pos-reserva__agenda" id="calendario">
+{{#reserva.texto_calendario?}}<h2 class="pos-formulario__titulo">{{reserva.texto_calendario}}</h2>
+{{/reserva.texto_calendario?}}<div class="pos-calendario" data-pos-calendario style="--alto-calendario: {{reserva.alto}}">
+{{#reserva.calendario_url?}}<p class="pos-calendario__cargando">Cargando el calendario… Si no aparece, <a href="{{reserva.calendario_url}}" target="_blank" rel="noopener" data-pos-sin-atribucion>ábrelo en otra pestaña</a>.</p>
+{{/reserva.calendario_url?}}{{^reserva.calendario_url}}<p class="pos-calendario__cargando">Modo prueba: aquí irá el calendario de reservas (GHL, Calendly o Cal.com). Configura <code>calendario.url</code>.</p>
+{{/reserva.calendario_url}}</div>
+</div>

@@ -1,0 +1,15 @@
+/* chart.bar — barras planas (sin degradados ni brillo), etiquetas directas, valor en el extremo. */
+.cbar .cbar-wrap{position:absolute;left:0;top:0;display:flex;flex-direction:column;gap:calc(var(--lab) * .62);color:var(--ck-white)}
+.cbar .cbar-title{font:800 68px/1.04 var(--ck-sans);letter-spacing:-.02em;white-space:nowrap;margin-bottom:calc(var(--lab) * .2)}
+.cbar .cbar-row{display:flex;flex-direction:column;gap:14px}
+.cbar .cbar-label{font:700 var(--lab)/1.05 var(--ck-sans);letter-spacing:-.015em;white-space:nowrap}
+.cbar .cbar-line{position:relative;height:var(--barh)}
+.cbar .cbar-bar{position:absolute;left:0;top:0;height:100%;border-radius:calc(var(--barh) * .18);background:rgba(255,255,255,.92);
+  transform-origin:0 50%;box-shadow:0 2px 4px rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.22)}
+.cbar .cbar-val{position:absolute;top:50%;margin-top:calc(var(--barh) * -.5);height:var(--barh);display:flex;align-items:center;
+  font:900 calc(var(--lab) * 1.12)/1 var(--ck-sans);letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums;color:#fff}
+/* `measure`: tramos del largo de la barra destacada (contorno y velo del tono) sobre la barra medida, y la
+   nota en oro a la derecha del rótulo de la destacada («La Mitad», «Una Quinta Parte») */
+.cbar .cbar-seg{position:absolute;top:0;height:100%;box-sizing:border-box;border-radius:calc(var(--barh) * .18);transform-origin:0 50%;
+  background:color-mix(in srgb, var(--tone) 30%, transparent);box-shadow:inset 0 0 0 calc(var(--barh) * .07) var(--tone);z-index:2}
+.cbar .cbar-note{font:800 var(--lab)/1.05 var(--ck-sans);letter-spacing:-.015em;white-space:nowrap;color:var(--tone);text-align:right}

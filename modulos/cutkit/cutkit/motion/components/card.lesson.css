@@ -1,0 +1,58 @@
+/* card.lesson — marco de vídeo negro profesional en cualquier lienzo; oro solo en el sello. */
+.cl .cl-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cl .cl-kicker{font:700 calc(32px * var(--s))/1 var(--ck-sans);color:var(--g-muted);letter-spacing:.01em;margin-bottom:calc(18px * var(--s))}
+/* máscara del kicker: el texto sube desde abajo (padding/margen negativos: no recorta ascendentes ni descendentes) */
+.cl .cl-kmask{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em .12em .2em;margin:-.14em -.12em -.2em}
+.cl .cl-kin{display:inline-block;will-change:transform}
+.cl .cl-frame{position:relative;flex:none;border-radius:calc(28px * var(--s));background:#0B0B0C;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),var(--g-shadow);transform-origin:50% 50%}
+.cl .cl-key{position:absolute;inset:0;border-radius:inherit;overflow:hidden;
+  background:radial-gradient(75% 60% at 50% 38%,rgba(255,255,255,.085) 0%,rgba(255,255,255,0) 72%)}
+.cl .cl-grain{position:absolute;inset:0;border-radius:inherit;opacity:.05;
+  background-image:repeating-radial-gradient(circle at 17% 23%,rgba(255,255,255,.6) 0 1px,transparent 1px 3px),repeating-radial-gradient(circle at 71% 63%,rgba(255,255,255,.5) 0 1px,transparent 1px 4px)}
+.cl .cl-play{position:absolute;left:50%;top:50%;width:calc(150px * var(--s));height:calc(150px * var(--s));margin:calc(-75px * var(--s)) 0 0 calc(-75px * var(--s));
+  border-radius:50%;background:#F7F7F5;box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;transform-origin:50% 50%}
+.cl .cl-tri{width:46%;height:46%;fill:#0B0B0C;margin-left:6%}
+.cl .cl-ring{position:absolute;left:50%;top:50%;width:calc(150px * var(--s));height:calc(150px * var(--s));margin:calc(-75px * var(--s)) 0 0 calc(-75px * var(--s));
+  border-radius:50%;box-shadow:0 0 0 3px rgba(247,247,245,.85);transform-origin:50% 50%;pointer-events:none}
+.cl .cl-bar{position:absolute;left:calc(30px * var(--s));right:calc(30px * var(--s));bottom:calc(26px * var(--s));height:calc(7px * var(--s));
+  border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden}
+.cl .cl-fill{position:absolute;inset:0;border-radius:inherit;background:#F7F7F5;transform-origin:0 50%}
+.cl .cl-badge{position:absolute;right:calc(-18px * var(--s));top:calc(-26px * var(--s));padding:calc(14px * var(--s)) calc(28px * var(--s));
+  border-radius:999px;background:var(--ck-accent);color:#0B0B0C;font:900 calc(46px * var(--s))/1 var(--ck-sans);letter-spacing:-.01em;
+  box-shadow:0 2px 3px rgba(0,0,0,.18),0 12px 26px rgba(0,0,0,.22);white-space:nowrap;z-index:3}
+.cl .cl-title{margin-top:calc(30px * var(--s));text-align:center;font:800 calc(58px * var(--s))/1.08 var(--ck-sans);color:var(--g-fg);
+  letter-spacing:-.025em;text-wrap:balance}
+/* banda baja (outro a todo el ancho): marco a la izquierda, título a la derecha */
+.cl .cl-wrap.cl-row{flex-direction:row;align-items:center;justify-content:center;gap:calc(44px * var(--s))}
+.cl .cl-row .cl-col{display:flex;flex-direction:column;align-items:center;flex:none}
+.cl .cl-row .cl-title{margin-top:0;text-align:left;text-wrap:balance}
+/* `badge_inset`: el sello DENTRO de la esquina del marco (18 px·s), así nunca sale de la zona segura */
+.cl .cl-badge.cl-badge-in{right:calc(18px * var(--s));top:calc(18px * var(--s))}
+/* `image`: la imagen real llena el marco (cover), con sus esquinas */
+.cl .cl-img{position:absolute;inset:0;border-radius:inherit;background:#0B0B0C center/cover no-repeat}
+.cl .cl-has-img .cl-bar{background:rgba(255,255,255,.28);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+
+/* `frame: "page"`: la guía como documento vertical A4 (−3°, sombra suave, filete fino); con `image` la
+   página ES la portada real; sin ella, un documento genérico en esqueleto (nunca un rectángulo negro). --ps = ancho/420 */
+.cl .cl-frame.cl-page{border-radius:calc(10px * var(--ps, 1));background:#FFFFFF;
+  box-shadow:0 0 0 1px rgba(15,13,16,.08),0 2px 3px rgba(15,13,16,.06),0 14px 30px rgba(15,13,16,.12),0 38px 70px -18px rgba(15,13,16,.22)}
+.gx-th-dark .cl .cl-frame.cl-page,.gx-th-dark.cl .cl-frame.cl-page{box-shadow:0 0 0 1px rgba(255,255,255,.10),0 18px 40px rgba(0,0,0,.5),0 40px 80px -20px rgba(0,0,0,.6)}
+.cl .cl-page .cl-img{background-color:#FFFFFF;background-size:cover}
+/* `page_crop`: la página recortada por abajo: imagen a todo el ancho y pegada arriba, fundido a blanco */
+.cl .cl-page.cl-page-crop .cl-img{background-size:100% auto;background-position:50% 0}
+.cl .cl-page.cl-page-crop::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14%;border-radius:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,0),#FFFFFF 92%);pointer-events:none}
+.cl .cl-doc{position:absolute;inset:0;padding:calc(30px * var(--ps, 1)) calc(30px * var(--ps, 1));display:flex;flex-direction:column;gap:calc(11px * var(--ps, 1));overflow:hidden;border-radius:inherit}
+.cl .cl-doc-head{height:calc(7px * var(--ps, 1));width:100%;background:linear-gradient(90deg,rgba(15,13,16,.22) 0 22%,transparent 22% 70%,rgba(15,13,16,.22) 70% 100%);border-radius:99px}
+.cl .cl-doc-rule{height:calc(2px * var(--ps, 1));background:rgba(15,13,16,.75);margin-bottom:calc(26px * var(--ps, 1))}
+.cl .cl-doc-acc{width:calc(44px * var(--ps, 1));height:calc(8px * var(--ps, 1));border-radius:2px;background:#FECA1A}
+.cl .cl-doc-h{height:calc(30px * var(--ps, 1));border-radius:calc(6px * var(--ps, 1));background:#161514}
+.cl .cl-doc-l{height:calc(9px * var(--ps, 1));border-radius:99px;background:rgba(15,13,16,.18)}
+.cl .cl-doc-h + .cl-doc-l{margin-top:calc(14px * var(--ps, 1))}
+.cl .cl-doc-grid{margin-top:calc(22px * var(--ps, 1));display:grid;grid-template-columns:1fr 1fr;gap:calc(12px * var(--ps, 1));flex:1;min-height:0}
+.cl .cl-doc-cell{border-radius:calc(6px * var(--ps, 1));background:#ECEBE7;box-shadow:inset 0 0 0 1px rgba(15,13,16,.05)}
+.cl .cl-page .cl-badge.cl-badge-in{right:calc(14px * var(--ps, 1));top:calc(14px * var(--ps, 1))}
+/* `point_arrow`, flecha que baja en «aquí abajo» (opcional, por plan) */
+.cl .cl-parr{position:absolute;left:50%;width:calc(84px * var(--s));margin-left:calc(-42px * var(--s));z-index:6;pointer-events:none}
+.cl .cl-parr svg{display:block;width:100%;height:auto}

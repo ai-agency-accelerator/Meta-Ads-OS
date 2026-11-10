@@ -1,0 +1,68 @@
+{
+  "id": "diag-04-learning-limited",
+  "titulo": "«Aprendizaje limitado» con resultados dentro del target: no dividir",
+  "categoria": "diagnostico",
+  "segmento": "agencia-local",
+  "dificultad": "baja",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "clinica-sonrisa"
+  ],
+  "peticion": "La gerente de Clínica Sonrisa ha visto «Aprendizaje limitado» en Ads Manager y está preocupada. Propone dividir el conjunto en tres por edades (25-34, 35-44 y 45-55) con 20 € al día cada uno para salir del aprendizaje. Su mensaje está en investigacion/. ¿Lo hacemos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Explica que «aprendizaje limitado» no es una penalización: indica que el conjunto no llegará a ~50 eventos por semana tras la última edición (aquí ~13 leads por semana).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Muestra que los resultados están muy por dentro del target (CPL ~22 € frente a 51 €; coste por cita ~62 € frente a 127 €) y que un conjunto rentable en aprendizaje limitado no se toca.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Explica que dividir en tres conjuntos fragmentaría aún más la señal (cada uno con un tercio de los eventos) y empeoraría el problema; consolidar es lo que lo trata.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M03"
+      },
+      {
+        "id": "d4",
+        "texto": "Detecta que 3 × 20 € = 60 €/día supera el tope por cambio de la ficha (50 €) aunque iguale el total (60 €), y que si quieren más volumen la palanca es subir el presupuesto del conjunto actual dentro de los topes y de la capacidad (15 valoraciones por semana).",
+        "peso": 2,
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Propone una respuesta clara y sin jerga para la gerente.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-agencias-consultores.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Recomendar dividir el conjunto por edades o crear más conjuntos.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M03"
+      },
+      {
+        "id": "n2",
+        "texto": "Presentar el aprendizaje limitado como un problema que hay que resolver a toda costa.",
+        "fuente": "meta-ads-kb/02-estructura-campanas/03-learning-phase.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre trata la etiqueta como una avería y fragmenta; el experto mira el coste por cita, ve que todo va bien y explica por qué dividir lo empeora."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "penaliz|no es (un|una) (problema|castigo|error)",
+        "motivo": "desmonta la idea de que es una penalización"
+      }
+    ]
+  }
+}

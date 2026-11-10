@@ -1,0 +1,80 @@
+{
+  "id": "dec-04-no-escalar-20-eventos",
+  "titulo": "No triplicar el presupuesto con 20 eventos, sin activación madura y por encima de los topes",
+  "categoria": "decision",
+  "segmento": "saas",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "nimbo"
+  ],
+  "peticion": "/escalar nimbo — El anuncio nuevo de la gestoría sin papel lleva 20 pruebas en 6 días a 30 €. El fundador quiere subir de 200 a 600 € al día hoy mismo (su mensaje está en investigacion/).",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Califica el anuncio como ganador provisional: 20 eventos en 6 días no es un ganador confirmado (≥30–50 eventos y ≥7 días).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/05-framework-testing-creativo.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Señala que la activación de esas pruebas no ha madurado (ninguna tiene 7 días), así que no se puede juzgar en la capa de verdad (prueba activada o pago).",
+        "peso": 3,
+        "fuente": "meta-ads-kb/14-playbooks/playbook-saas.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Detecta que 600 €/día supera los topes de la ficha (cambio_dia 250, total_dia 350): no se puede proponer, y cambiar los topes es una decisión deliberada del usuario en la ficha.",
+        "peso": 3,
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Propone un escalón dentro de los topes cuando se cumplan las condiciones (p. ej., 200 → 230–250 €/día), con evaluación a 3–7 días y condición de reversión por coste por prueba activada (≤284 €).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md"
+      },
+      {
+        "id": "d5",
+        "texto": "Explica el coste marginal: triplicar el gasto sube el coste por prueba y los 30 € son la media de una muestra pequeña.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/06-framework-escalado.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Proponer o ejecutar 600 €/día o cualquier presupuesto por encima de los topes.",
+        "fuente": "CLAUDE.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Proponer duplicar el conjunto o la campaña para escalar.",
+        "fuente": "meta-ads-kb/00-ESTADO-ACTUAL-2026.md §7"
+      },
+      {
+        "id": "n3",
+        "texto": "Editar los topes de la ficha.",
+        "fuente": "CLAUDE.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre se contagia del entusiasmo; el experto ve n pequeño, activación sin madurar y topes, y propone un escalón medible."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "tope",
+        "motivo": "menciona los topes"
+      },
+      {
+        "patron": "activ",
+        "motivo": "baja a la activación"
+      }
+    ],
+    "archivos_sin_cambios": [
+      "clientes/nimbo/ficha.md"
+    ]
+  }
+}

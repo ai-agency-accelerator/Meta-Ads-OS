@@ -1,0 +1,47 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "100000000000001",
+      "changes": [
+        {
+          "field": "messages",
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "15550000000",
+              "phone_number_id": "100000000000009"
+            },
+            "contacts": [
+              {
+                "profile": {"name": "Contacto de ejemplo"},
+                "wa_id": "16505551212"
+              }
+            ],
+            "messages": [
+              {
+                "from": "16505551212",
+                "id": "wamid.EJEMPLO000000000000000001",
+                "timestamp": "1762851600",
+                "type": "text",
+                "text": {"body": "Hola, quiero el diagnóstico de automatización (DIAG-NOV)"},
+                "referral": {
+                  "source_url": "https://fb.me/ejemplo",
+                  "source_id": "120000000000000123",
+                  "source_type": "ad",
+                  "body": "¿Cuántas horas pierde tu equipo copiando datos entre herramientas?",
+                  "headline": "Diagnóstico de automatización en 20 minutos",
+                  "media_type": "video",
+                  "video_url": "https://video.example/anuncio.mp4",
+                  "thumbnail_url": "https://video.example/anuncio.jpg",
+                  "ctwa_clid": "ARAkEjemploClicDeAnuncio0000000000000001",
+                  "welcome_message": {"text": "Hola, soy el asistente de Acme Automations. ¿Para qué equipo es?"}
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

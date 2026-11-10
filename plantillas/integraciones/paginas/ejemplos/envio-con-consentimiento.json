@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "origen": "meta-ads-os/paginas",
+  "tipo_envio": "diagnostico",
+  "pagina": "diagnostico",
+  "url": "https://acme-automations.example/diagnostico.html?utm_source=fb_ad&utm_medium=paid&utm_campaign=acme_diagnostico&utm_content=120000000000000003&ad_id=120000000000000003",
+  "momento": "2026-11-10T10:00:00.000Z",
+  "event_time": 1794304800,
+  "ref": "",
+  "content_name": "",
+  "respuestas": {
+    "tamano": "De 10 a 49",
+    "herramientas": "Una mezcla de nube, hojas de cálculo y programas instalados"
+  },
+  "diagnostico": {
+    "nivel": "medio",
+    "principal": "coste_recuperable",
+    "valor_principal": 8100
+  },
+  "utm_source": "fb_ad",
+  "utm_medium": "paid",
+  "utm_campaign": "acme_diagnostico",
+  "utm_term": "",
+  "utm_content": "120000000000000003",
+  "utm_id": "",
+  "campaign_id": "",
+  "adset_id": "",
+  "placement": "",
+  "site": "",
+  "ad_id": "120000000000000003",
+  "consentimiento_marketing": "si",
+  "base_legal_servidor": "consentimiento",
+  "enviar_a_meta": true,
+  "event_name": "Lead",
+  "event_id": "lead_3f2a000000004000800000000000ab01",
+  "eventos": [
+    {
+      "event_name": "Lead",
+      "event_id": "lead_3f2a000000004000800000000000ab01"
+    },
+    {
+      "event_name": "DiagnosticoCompletado",
+      "event_id": "diagnosticocompletado_3f2a000000004000800000000000ab02",
+      "value": 100,
+      "currency": "EUR"
+    }
+  ],
+  "event_source_url": "https://acme-automations.example/diagnostico.html",
+  "client_user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram",
+  "fbclid": "IwAR0ejemplo",
+  "fbc": "fb.1.1794304680000.IwAR0ejemplo",
+  "fbp": "fb.1.1762768680000.1234567890",
+  "nombre": "Ana",
+  "apellidos": "López",
+  "email": "ana.lopez@acme-cliente.example",
+  "telefono": "612 34 56 78",
+  "empresa": "Cliente de Acme SL",
+  "acepta_comunicaciones": false
+}

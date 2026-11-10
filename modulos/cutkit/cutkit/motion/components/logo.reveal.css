@@ -1,0 +1,26 @@
+/* logo.reveal — logo grande centrado (x=540), barrido de luz recortado a su forma, nombre en Montserrat 900. */
+.lv .lv-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.lv .lv-mark{position:relative;width:var(--lsize);height:var(--lsize)}
+.lv .lv-img{position:absolute;inset:0}
+.lv .lv-sweepmask{position:absolute;inset:0;overflow:hidden;-webkit-mask-size:contain;mask-size:contain;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+.lv .lv-sweep{position:absolute;top:-10%;bottom:-10%;left:0;width:100%;mix-blend-mode:screen;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 70%)}
+.lv .lv-name{margin-top:calc(var(--lsize) * .08);font:900 210px/1 var(--ck-sans);color:var(--g-fg);letter-spacing:-.04em;
+  text-shadow:var(--g-tshadow);white-space:nowrap}
+.lv .lv-by{margin-top:26px;font:600 48px/1 var(--ck-sans);color:var(--g-muted);letter-spacing:.005em}
+.lv-min .lv-name{margin-top:calc(var(--lsize) * .1);font-size:128px;letter-spacing:-.03em}
+/* la coletilla con rotulador es SEGUNDO NIVEL (500, 44 px, blanco al
+   75 %): con 800 y blanco pleno se confundía con el subtítulo. El subrayado oro va a opacidad plena (color, no opacity) */
+.lv .lv-by-strong{font-weight:500;color:rgba(255,255,255,.75);letter-spacing:-.005em;white-space:nowrap}
+.gx-th-light.lv:not(.lv-min) .lv-by-strong,.gx-th-accent.lv:not(.lv-min) .lv-by-strong{color:rgba(15,13,16,.75)}
+.lv .lv-mk{position:relative;display:inline-block}
+.lv .lv-mk-bg{position:absolute;left:-.07em;right:-.07em;bottom:.04em;height:.46em;border-radius:.06em;background:#F2C230;transform-origin:0 50%}
+.lv .lv-mk-t{position:relative}
+/* coletilla en dos líneas equilibradas y centradas; sobre tinta, el rotulador es un SUBRAYADO oro bajo la
+   línea base (blanco sobre oro daba ≈1,5:1 y parecía que se comía las letras) */
+.lv .lv-by{text-align:center}
+.lv .lv-by.lv-by-2{line-height:1.22}
+.gx-th-dark.lv .lv-by.lv-by-2{line-height:1.32}
+.gx-th-dark.lv .lv-mk-bg{left:0;right:0;bottom:-.16em;height:.12em;border-radius:.06em;background:#FECA1A}
+.lv-min .lv-by{margin-top:22px;font:700 64px/1.05 var(--ck-sans);color:var(--g-fg);letter-spacing:-.02em;white-space:nowrap}

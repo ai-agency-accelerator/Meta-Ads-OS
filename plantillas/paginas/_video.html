@@ -1,0 +1,7 @@
+<div class="pos-video{{#vertical}} pos-video--vertical{{/vertical}}">
+<button type="button" class="pos-video__boton" data-pos-video="{{proveedor}}" data-id="{{id}}" data-src="{{src}}" data-subtitulos="{{subtitulos}}" data-titulo="{{titulo}}" aria-label="Reproducir el vídeo: {{titulo}}">
+{{#miniatura?}}<img src="{{miniatura}}" alt="" width="{{miniatura_ancho}}" height="{{miniatura_alto}}" loading="{{carga}}" decoding="async">
+{{/miniatura?}}<span class="pos-video__icono" aria-hidden="true"></span>
+<span class="pos-video__titulo" aria-hidden="true">{{titulo}}{{#duracion?}} ({{duracion}}){{/duracion?}}</span>
+</button>
+</div>

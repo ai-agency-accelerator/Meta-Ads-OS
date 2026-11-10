@@ -1,0 +1,62 @@
+{
+  "id": "dec-03-esperar-ventana",
+  "titulo": "Dos cierres atribuidos al anuncio B vienen de cohortes de septiembre: esperar a que madure",
+  "categoria": "decision",
+  "segmento": "consultiva-b2b",
+  "dificultad": "alta",
+  "fecha": "2026-11-09",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "El socio dice que el anuncio del caso real (el h2, B) ya ha cerrado 2 proyectos y el del fundador (A) ninguno, así que apaguemos A y pongamos todo en B. Te he dejado las exportaciones. ¿Lo hacemos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Detecta que los 2 cierres atribuidos a B son de leads creados en septiembre por otros anuncios: Meta los atribuye al último clic dentro de la ventana, no a la cohorte de B.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/10-atribucion-ventanas-y-modelos.md"
+      },
+      {
+        "id": "d2",
+        "texto": "Señala que las cohortes de A y B (desde 2026-10-20) no han madurado frente a un ciclo mediano de 38 días (p80 60): no se esperan cierres propios todavía.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/12-attribution-lag.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Compara en la capa más profunda con datos: coste por cualificado ~120 € (A) frente a ~124 € (B) y 7 frente a 6 llamadas; sin diferencia detectable.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/12-razonamiento-estadistico.md"
+      },
+      {
+        "id": "d4",
+        "texto": "Recomienda no apagar A y fija fecha de evaluación por cohorte (coste por propuesta o por ganado, hacia mediados de diciembre).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/11-cuando-no-tocar-una-campana.md"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Apagar A o mover todo el presupuesto a B por los 2 cierres atribuidos.",
+        "fuente": "meta-ads-kb/04-tracking-atribucion-medicion/12-attribution-lag.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Dar los cierres por mérito de B sin comprobar la cohorte de origen.",
+        "fuente": "meta-ads-kb/05-leadgen-high-ticket-crm/09-sales-feedback-loop.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre lee la columna de compras de Ads Manager; el experto mira la fecha de creación de cada oportunidad y separa atribución de cohorte."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "septiembre|cohorte",
+        "motivo": "separa cohortes"
+      }
+    ]
+  }
+}

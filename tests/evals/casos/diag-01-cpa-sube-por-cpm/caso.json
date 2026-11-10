@@ -1,0 +1,77 @@
+{
+  "id": "diag-01-cpa-sube-por-cpm",
+  "titulo": "El CPL sube por el CPM de Q4, no por la creatividad",
+  "categoria": "diagnostico",
+  "segmento": "consultiva-b2b",
+  "dificultad": "media",
+  "fecha": "2026-11-16",
+  "clientes_base": [
+    "acme"
+  ],
+  "peticion": "/diagnostico acme \"el CPL ha subido de 34 a casi 49 € en dos semanas\" — Mi socio quiere cambiar todos los anuncios esta semana y abrir intereses de «empresarios» e «inteligencia artificial» para abaratarlo. ¿Qué hacemos?",
+  "preambulo": true,
+  "rubrica": {
+    "debe": [
+      {
+        "id": "d1",
+        "texto": "Descompone el CPL en CPM, CTR y conversión clic→lead con los datos y concluye que la subida viene del CPM (de unos 14 € a casi 20 €, +40 %) con CTR y CVR estables.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md §1 y §3"
+      },
+      {
+        "id": "d2",
+        "texto": "Comprueba que el CPM sube en todos los anuncios por igual y lo atribuye a la subasta de Q4 (antesala de Black Friday), no a fatiga creativa ni a un anuncio concreto.",
+        "peso": 2,
+        "fuente": "meta-ads-kb/09-bidding-escalado-economia-analitica/06-estacionalidad.md"
+      },
+      {
+        "id": "d3",
+        "texto": "Baja a la capa de negocio: el coste por cualificado (de ~95 € a ~135 €) sigue en el target (133 €) y muy por debajo del break-even (266 €), así que no es una emergencia.",
+        "peso": 3,
+        "fuente": "meta-ads-kb/13-sistema-operativo/01-principios-de-razonamiento.md §4"
+      },
+      {
+        "id": "d4",
+        "texto": "Desaconseja abrir intereses y rehacer los anuncios por esto (el CPM alto no significa mala audiencia) y recomienda no tocar, con fecha de revisión pasado el pico (tras Cyber Monday, 2026-11-30).",
+        "peso": 2,
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M46"
+      },
+      {
+        "id": "d5",
+        "texto": "Da como mucho una acción y un criterio para revisarla (p. ej., umbral de coste por cualificado que obligaría a actuar), en lugar de una lista de cambios.",
+        "peso": 1,
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md (protocolo general)"
+      }
+    ],
+    "nunca": [
+      {
+        "id": "n1",
+        "texto": "Diagnosticar fatiga creativa como causa principal con CTR y CVR estables.",
+        "fuente": "meta-ads-kb/03-creatividad/06-fatiga-creativa.md"
+      },
+      {
+        "id": "n2",
+        "texto": "Recomendar añadir o abrir intereses o cambiar la segmentación para bajar el CPM.",
+        "fuente": "meta-ads-kb/12-mitos-contradicciones/01-mitos-meta-ads-2026.md M46"
+      },
+      {
+        "id": "n3",
+        "texto": "Recomendar varios cambios a la vez (anuncios, audiencia y presupuesto) esta semana.",
+        "fuente": "meta-ads-kb/13-sistema-operativo/07-framework-diagnostico.md"
+      }
+    ],
+    "experto_vs_mediocre": "El mediocre ve CPL alto y cambia anuncios o audiencia; el experto descompone, ve que solo se mueve el CPM en toda la cuenta, mira el coste por cualificado y no toca nada hasta pasado el pico."
+  },
+  "comprobaciones": {
+    "debe_aparecer": [
+      {
+        "patron": "cpm",
+        "motivo": "la causa está en el CPM"
+      },
+      {
+        "patron": "cualificad",
+        "motivo": "baja a la capa de negocio"
+      }
+    ]
+  }
+}

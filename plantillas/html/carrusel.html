@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="formatos" content="1x1,4x5">
+<title>Carrusel · {{marca.nombre}}</title>
+<!--
+  Carrusel para Meta (tarjetas 1:1 o 4:5): portada + N tarjetas + cierre con CTA. Cada <section data-tarjeta> sale
+  como un PNG aparte: <prefijo>_<formato>_01.png, _02.png… Meta admite de 2 a 10 tarjetas.
+  Datos: ver plantillas/html/README.md · ejemplo: plantillas/html/ejemplos/carrusel.json
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: var(--ancho); font-family: var(--fuente-texto); font-weight: var(--peso-texto);
+         -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; background: #000; }
+
+  .f-1x1 { --aire: 40px; --t-portada: 88px; --t-titulo: 64px; --t-texto: 34px; --t-cifra: 120px; --logo: 50px; }
+  .f-4x5 { --aire: 44px; --t-portada: 96px; --t-titulo: 70px; --t-texto: 36px; --t-cifra: 140px; --logo: 54px; }
+
+  .tarjeta { position: relative; width: var(--ancho); height: var(--alto); overflow: hidden; }
+  .t-portada { --lienzo: var(--color-primario); --tinta: var(--color-texto-sobre-primario); --realce: var(--color-acento); }
+  .t-paso    { --lienzo: var(--color-fondo); --tinta: var(--color-texto); --realce: var(--color-primario); }
+  .t-cierre  { --lienzo: var(--color-secundario); --tinta: var(--color-texto-sobre-secundario); --realce: var(--color-acento); }
+  .tarjeta { background: var(--lienzo); color: var(--tinta); }
+  .t-paso .logo-claro, .t-portada .logo-principal, .t-cierre .logo-principal { display: none; }
+
+  /* decoración: fuera de lo que se lee */
+  .deco { position: absolute; inset: 0; pointer-events: none; }
+  .t-portada .deco::before, .t-cierre .deco::before { content: ""; position: absolute; width: 80%; aspect-ratio: 1; right: -30%; bottom: -34%;
+                         border-radius: 50%; border: 90px solid color-mix(in srgb, var(--tinta) 9%, transparent); }
+  .t-paso .deco::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 14px; background: var(--color-primario); }
+
+  .contenido { position: absolute; display: flex; flex-direction: column; gap: calc(var(--escala, 1) * 28px);
+               top: calc(var(--zs-arriba) + var(--aire)); bottom: calc(var(--zs-abajo) + var(--aire));
+               left: calc(var(--zs-izquierda) + var(--aire)); right: calc(var(--zs-derecha) + var(--aire)); }
+
+  .cabecera { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: var(--logo); }
+  .cabecera img { height: var(--logo); width: auto; max-width: 60%; object-fit: contain; object-position: left center; }
+  .marca-texto { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--logo) * .6); }
+  .num { font-family: var(--fuente-titulos); font-weight: 700; font-size: 26px; letter-spacing: .06em; opacity: .7;
+         font-variant-numeric: tabular-nums; }
+
+  .etiqueta { display: inline-flex; align-items: center; gap: 14px; font-family: var(--fuente-titulos); font-weight: 700;
+              font-size: calc(var(--escala, 1) * 26px); letter-spacing: .08em; text-transform: uppercase; color: var(--realce); }
+  .etiqueta::before { content: ""; width: 40px; height: 6px; border-radius: 3px; background: var(--realce); }
+  h1, h2 { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); letter-spacing: -.025em; text-wrap: balance; }
+  .t-portada h1 { font-size: calc(var(--escala, 1) * var(--t-portada)); line-height: 1.02; }
+  .t-cierre h2  { font-size: calc(var(--escala, 1) * var(--t-portada) * .86); line-height: 1.04; }
+  .t-paso h2    { font-size: calc(var(--escala, 1) * var(--t-titulo)); line-height: 1.06; }
+  .texto { font-size: calc(var(--escala, 1) * var(--t-texto)); line-height: 1.34; opacity: .88; text-wrap: pretty; max-width: 34ch; }
+
+  .paso { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--escala, 1) * 30px);
+          color: var(--realce); letter-spacing: .04em; }
+  .cifra { display: flex; align-items: baseline; gap: 22px; flex-wrap: wrap; }
+  .cifra b { font-family: var(--fuente-titulos); font-weight: var(--peso-titulos); font-size: calc(var(--escala, 1) * var(--t-cifra));
+             line-height: .95; letter-spacing: -.04em; color: var(--realce); white-space: nowrap; }
+  .cifra span { font-size: calc(var(--escala, 1) * 30px); line-height: 1.25; max-width: 18ch; opacity: .85; }
+
+  .imagen { position: relative; flex: 1 1 0; min-height: calc(var(--escala, 1) * 220px); container-type: size; }
+  .imagen .foto { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; }
+  .imagen img { display: block; max-width: 100cqw; max-height: 100cqh; border-radius: 20px;
+                box-shadow: 0 30px 60px -28px rgba(15, 23, 42, .5), 0 0 0 1px color-mix(in srgb, var(--tinta) 10%, transparent); }
+
+  .cuerpo { display: flex; flex-direction: column; gap: calc(var(--escala, 1) * 30px); }
+  .sin-imagen .cuerpo { margin-block: auto; }
+  .sin-imagen .pie.empuje { margin-top: 0; }
+  .empuje { margin-top: auto; }
+  .pie { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .desliza { display: inline-flex; align-items: center; gap: 14px; font-family: var(--fuente-titulos); font-weight: 700;
+             font-size: 30px; }
+  .desliza svg { width: 40px; height: 40px; }
+  .desliza svg path { stroke: currentColor; }
+  .progreso { flex: 1; height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--tinta) 14%, transparent); overflow: hidden; }
+  .progreso i { display: block; height: 100%; width: 0; border-radius: 4px; background: var(--realce); }
+  .cta { display: inline-flex; align-items: center; gap: 16px; align-self: flex-start; background: var(--color-acento);
+         color: var(--color-texto-sobre-acento); font-family: var(--fuente-titulos); font-weight: 700;
+         font-size: calc(var(--escala, 1) * 38px); padding: calc(var(--escala, 1) * 26px) calc(var(--escala, 1) * 40px); border-radius: 999px; }
+  .cta svg { width: 1em; height: 1em; }
+  .cta svg path { stroke: currentColor; }
+</style>
+</head>
+<body class="{{formato.clase}}">
+
+{{#portada}}
+<section class="tarjeta t-portada" data-tarjeta>
+  <div class="deco" aria-hidden="true"></div>
+  <div class="contenido" data-ajustar="portada" data-ajustar-min="0.7">
+    <header class="cabecera" data-zona-segura="logo">
+      {{#marca.logo.principal}}<img class="logo-principal" src="{{marca.logo.principal}}" alt="{{marca.nombre}}"><img class="logo-claro" src="{{marca.logo.claro}}" alt="{{marca.nombre}}">{{/marca.logo.principal}}
+      {{^marca.logo.principal}}<span class="marca-texto">{{marca.nombre}}</span>{{/marca.logo.principal}}
+      <span class="num" data-numero></span>
+    </header>
+    <div class="empuje"></div>
+    {{#etiqueta}}<p class="etiqueta" data-zona-segura="etiqueta">{{etiqueta}}</p>{{/etiqueta}}
+    <h1 data-zona-segura="titular de portada">{{titular}}</h1>
+    {{#subtitulo}}<p class="texto" data-zona-segura="subtítulo de portada">{{subtitulo}}</p>{{/subtitulo}}
+    <div class="pie empuje" data-zona-segura="desliza">
+      <span class="desliza">{{#desliza}}{{desliza}}{{/desliza}}{{^desliza}}Desliza{{/desliza}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+  </div>
+</section>
+{{/portada}}
+
+{{#tarjetas}}
+<section class="tarjeta t-paso" data-tarjeta>
+  <div class="deco" aria-hidden="true"></div>
+  <div class="contenido {{^imagen}}sin-imagen{{/imagen}}" data-ajustar="tarjeta" data-ajustar-min="0.7">
+    <header class="cabecera" data-zona-segura="logo">
+      <span class="paso" data-paso></span>
+      <span class="num" data-numero></span>
+    </header>
+    <div class="cuerpo">
+      <h2 data-zona-segura="título">{{titulo}}</h2>
+      {{#cifra}}<div class="cifra" data-zona-segura="cifra"><b>{{cifra}}</b>{{#cifra_texto}}<span>{{cifra_texto}}</span>{{/cifra_texto}}</div>{{/cifra}}
+      {{#texto}}<p class="texto" data-zona-segura="texto">{{texto}}</p>{{/texto}}
+    </div>
+    {{#imagen}}<div class="imagen"><div class="foto"><img src="{{imagen|uri}}" alt="{{#imagen_alt}}{{imagen_alt}}{{/imagen_alt}}"></div></div>{{/imagen}}
+    <div class="pie empuje" data-zona-segura="pie">
+      {{#marca.logo.principal}}<img src="{{marca.logo.principal}}" alt="{{marca.nombre}}" style="height:40px;width:auto">{{/marca.logo.principal}}
+      {{^marca.logo.principal}}<span class="marca-texto" style="font-size:28px">{{marca.nombre}}</span>{{/marca.logo.principal}}
+      <span class="progreso"><i data-progreso></i></span>
+    </div>
+  </div>
+</section>
+{{/tarjetas}}
+
+{{#cierre}}
+<section class="tarjeta t-cierre" data-tarjeta>
+  <div class="deco" aria-hidden="true"></div>
+  <div class="contenido" data-ajustar="cierre" data-ajustar-min="0.7">
+    <header class="cabecera" data-zona-segura="logo">
+      {{#marca.logo.principal}}<img class="logo-principal" src="{{marca.logo.principal}}" alt="{{marca.nombre}}"><img class="logo-claro" src="{{marca.logo.claro}}" alt="{{marca.nombre}}">{{/marca.logo.principal}}
+      {{^marca.logo.principal}}<span class="marca-texto">{{marca.nombre}}</span>{{/marca.logo.principal}}
+      <span class="num" data-numero></span>
+    </header>
+    <div class="empuje"></div>
+    <h2 data-zona-segura="titular de cierre">{{titular}}</h2>
+    {{#texto}}<p class="texto" data-zona-segura="texto de cierre">{{texto}}</p>{{/texto}}
+    <div class="cta" data-zona-segura="cta">{{#cta}}{{cta}}{{/cta}}{{^cta}}{{marca.cta_por_defecto}}{{/cta}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="empuje"></div>
+  </div>
+</section>
+{{/cierre}}
+
+<script>
+  // Numeración «02/07», número de paso y barra de progreso (sin dependencias).
+  (function () {
+    const tarjetas = [...document.querySelectorAll('[data-tarjeta]')];
+    const dos = n => String(n).padStart(2, '0');
+    let paso = 0;
+    tarjetas.forEach((t, i) => {
+      t.querySelectorAll('[data-numero]').forEach(e => { e.textContent = dos(i + 1) + '/' + dos(tarjetas.length); });
+      if (t.querySelector('[data-paso]')) { paso += 1; t.querySelector('[data-paso]').textContent = dos(paso); }
+      t.querySelectorAll('[data-progreso]').forEach(e => { e.style.width = ((i + 1) / tarjetas.length * 100) + '%'; });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+ad_id,anuncio,campana,conjunto,desde,hasta,gasto,impresiones,alcance,frecuencia,cpm,clics_enlace,ctr,vistas_3s,thruplay,hook_rate,hold_rate,evento_resultado,resultado_meta,coste_resultado_meta
+120000000000000121,20261110_gestoria-sin-papel_demo-pantalla_video_h1,ES_TRIAL_ADQ_LC,BROAD-A+_TRIAL,2026-11-10,2026-11-15,600.00,58824,45249,1.30,10.20,794,1.35,20000,5800,34.0,29.0,start_trial,20,30.00
+120000000000000122,20261012_ahorro-tiempo_contador-horas_estatico_h1,ES_TRIAL_ADQ_LC,BROAD-A+_TRIAL,2026-11-10,2026-11-15,380.00,36538,24359,1.50,10.40,438,1.20,,,,,start_trial,8,47.50
+120000000000000123,20261012_fundador_por-que-nimbo_founder_h1,ES_TRIAL_ADQ_LC,BROAD-A+_TRIAL,2026-11-10,2026-11-15,220.00,21154,14103,1.50,10.40,254,1.20,5923,1955,28.0,33.0,start_trial,5,44.00

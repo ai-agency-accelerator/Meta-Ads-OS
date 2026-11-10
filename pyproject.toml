@@ -1,0 +1,16 @@
+[project]
+name = "meta-ads-os"
+version = "0.1.0"
+description = "Sistema operativo de Meta Ads para consultoras, agencias de IA y automatización, y SaaS"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+render = ["playwright>=1.45"]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["herramientas", ".claude/hooks"]

@@ -1,0 +1,50 @@
+# Tabla de precios usada por el libro de costes (USD).
+# Fuente: páginas oficiales de precios de cada proveedor, consultadas entre el 2026-10-01 y el 2026-10-04.
+# Los precios cambian: compáralos con la página del proveedor antes de un lote grande y actualiza esta tabla (el
+# guardián de presupuesto estima con ella; el libro de costes registra las unidades reales que devuelve el proveedor).
+
+gemini:
+  # Vídeo (precio por segundo de vídeo generado; incluye audio nativo salvo nota)
+  veo-3.1-lite-generate-preview: {unit: second, price: {"720p": 0.05, "1080p": 0.08}}
+  veo-3.1-fast-generate-preview: {unit: second, price: {"720p": 0.10, "1080p": 0.12, "4k": 0.30}}
+  veo-3.1-generate-preview: {unit: second, price: {"720p": 0.40, "1080p": 0.40, "4k": 0.60}}
+  gemini-omni-1.1-flash: {unit: second, price: {"360p": 0.034, "720p": 0.101, "1080p": 0.152, "4k": 0.30}, input_per_m: 1.50, output_per_m: 9.0, video_output_per_m: 17.5}
+  # Imagen (por imagen generada)
+  gemini-3.1-flash-image: {unit: image, price: {"0.5k": 0.045, "1k": 0.067, "2k": 0.101, "4k": 0.151}}
+  gemini-3.1-flash-lite-image: {unit: image, price: {"1k": 0.0336}}
+  gemini-3-pro-image: {unit: image, price: {"1k": 0.134, "2k": 0.134, "4k": 0.24}}
+  # Texto / visión (por millón de tokens)
+  gemini-3.8-flash: {unit: tokens, input_per_m: 0.75, output_per_m: 3.75}  # 1,50/7,50 desde 1-ene-2027
+  gemini-3.7-flash: {unit: tokens, input_per_m: 0.75, output_per_m: 3.75}
+  gemini-3.5-flash: {unit: tokens, input_per_m: 1.50, output_per_m: 9.00}
+  gemini-3.5-flash-lite: {unit: tokens, input_per_m: 0.30, output_per_m: 2.50}
+  gemini-3.1-flash-lite: {unit: tokens, input_per_m: 0.25, output_per_m: 1.50}
+  gemini-3.1-pro-preview: {unit: tokens, input_per_m: 2.00, output_per_m: 12.00}
+  gemini-flash-latest: {unit: tokens, input_per_m: 0.75, output_per_m: 3.75}
+  # Voz (tokens de audio de salida; 1 s de audio ≈ 25 tokens)
+  gemini-3.8-flash-tts: {unit: tokens, input_per_m: 0.50, output_per_m: 9.0, audio_output_per_m: 9.0}  # se duplica el 1-ene-2027
+  gemini-3.8-flash-lite-tts: {unit: tokens, input_per_m: 0.30, output_per_m: 6.0, audio_output_per_m: 6.0}
+  gemini-3.5-transcribe: {unit: tokens, input_per_m: 0.50, output_per_m: 2.0}  # ≈0,005 $/min
+  # Música
+  lyria-3-clip-preview: {unit: request, price: 0.04}
+  lyria-3.5: {unit: request, price: 0.08}
+
+fal:
+  fal-ai/kling-video/lipsync/audio-to-video: {unit: second, price: 0.014}
+  fal-ai/kling-video/ai-avatar/v2/standard: {unit: second, price: 0.0562}
+  fal-ai/kling-video/ai-avatar/v2/pro: {unit: second, price: 0.115}
+  fal-ai/kling-video/v3/pro/image-to-video: {unit: second, price: {"noaudio": 0.112, "audio": 0.168}}
+  fal-ai/bytedance/seedream/v5/edit: {unit: image, price: 0.0675}
+  fal-ai/sync-lipsync/v2: {unit: second, price: 0.05}
+  fal-ai/bytedance-upscaler/upscale/video: {unit: second, price: 0.0072}
+  bytedance/seedream/v5/lite/edit: {unit: image, price: 0.035}
+  fal-ai/kling-video/v3/standard/image-to-video: {unit: second, price: 0.084}
+  minimax/h3-max/lip-sync/image-to-video: {unit: second, price: 0.08}
+  minimax/h3/image-to-video: {unit: second, price: 0.06}
+
+openai:
+  gpt-image-2: {unit: image, price: {"low": 0.006, "medium": 0.053}}
+  gpt-4o-mini-tts: {unit: tokens, input_per_m: 0.60, output_per_m: 12.0}  # deprecado 1-oct-2026, se apaga 6-ene-2027
+
+local:
+  cpu_second: 0.0000025

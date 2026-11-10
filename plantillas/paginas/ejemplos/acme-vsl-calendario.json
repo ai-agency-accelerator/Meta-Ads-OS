@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "marca": {"ruta": "../../html/marca-ejemplo"},
+  "sitio": {
+    "nombre": "Acme Automations",
+    "url": "https://acme.example",
+    "idioma": "es",
+    "moneda": "EUR",
+    "contacto": "hola@acme.example",
+    "legal": {
+      "responsable": "Acme Automations, S.L.",
+      "finalidad": "enviarte el vídeo, responder a tu solicitud y, si reservas, preparar la llamada",
+      "privacidad": "https://acme.example/privacidad",
+      "aviso_legal": "https://acme.example/aviso-legal",
+      "cookies": "https://acme.example/cookies"
+    }
+  },
+  "tracking": {
+    "pixel_id": "000000000000000",
+    "eventos_navegador": true,
+    "webhook": {"url": "https://hooks.example/acme/lead", "modo": "json", "timeout_ms": 8000},
+    "base_legal_servidor": "consentimiento",
+    "consentimiento": {"banner": true, "caducidad_dias": 180},
+    "prefill_reserva": true
+  },
+  "paginas": {
+    "landing": {
+      "titulo_seo": "Automatiza las tareas que se repiten en tu empresa | Acme Automations",
+      "descripcion_seo": "Vídeo de 10 minutos: qué se puede automatizar en una pyme, cuánto cuesta y cómo es un proyecto. Después, si encaja, eliges hora para una llamada.",
+      "hero": {
+        "titular": "¿Cuántas horas a la semana se le van a tu equipo en copiar y pegar?",
+        "entradilla": "Déjanos tus datos y te enseñamos en un vídeo de 10 minutos qué se puede automatizar en una pyme, cuánto cuesta un proyecto y para quién no compensa.",
+        "prueba": "Sin compromiso. Si al verlo no encaja, no hace falta que hagas nada más.",
+        "cta": {"texto": "Quiero ver el vídeo", "href": "#registro"}
+      },
+      "barra_cta": {"texto": "Quiero ver el vídeo", "href": "#registro"},
+      "secciones": [
+        {
+          "tipo": "formulario",
+          "id": "registro",
+          "titulo": "Te mandamos al vídeo ahora mismo",
+          "puntos": [
+            "Un vídeo de 10 minutos del equipo, sin registrarte en ninguna plataforma.",
+            "Debajo del vídeo, el calendario por si quieres hablarlo con tus números.",
+            "Si no reservas, no te llamaremos para venderte nada."
+          ],
+          "formulario": {
+            "campos": [
+              "nombre",
+              "email",
+              "empresa",
+              {"id": "telefono", "requerido": false, "ayuda": "Solo para confirmarte la llamada si reservas."},
+              {
+                "id": "personas",
+                "tipo": "select",
+                "etiqueta": "¿Cuántas personas trabajan en tu empresa?",
+                "requerido": true,
+                "opciones": ["De 1 a 4", "De 5 a 20", "De 21 a 100", "Más de 100"]
+              }
+            ],
+            "boton": "Ver el vídeo",
+            "evento": "Lead",
+            "siguiente": "@reserva"
+          }
+        },
+        {
+          "tipo": "para_quien",
+          "titulo": "Para quién es (y para quién no)",
+          "si": [
+            "Sois entre 5 y 250 personas y hay tareas que se repiten cada semana.",
+            "Quieres decidir con números, no con promesas."
+          ],
+          "no": [
+            "Buscas algo que funcione sin tocar ningún proceso.",
+            "Lo necesitas para mañana: un proyecto bien hecho lleva semanas."
+          ]
+        }
+      ]
+    },
+    "reserva": {
+      "titulo": "Mira el vídeo y, si encaja, elige hora",
+      "entradilla": "En 10 minutos: los tres tipos de proyecto que hacemos, cuánto cuestan (en rangos), cómo es un proyecto semana a semana y para quién no es.",
+      "video": {
+        "proveedor": "youtube",
+        "id": "ID-de-tu-VSL",
+        "titulo": "Cómo trabajamos y cuánto cuesta",
+        "duracion": "10 min"
+      },
+      "texto_calendario": "¿Encaja con lo que buscas? Elige día y hora para una llamada de 30 minutos",
+      "puntos_titulo": "En la llamada",
+      "puntos": [
+        "Revisamos qué tareas os quitan más horas y cuántas personas las hacen.",
+        "Te decimos qué automatizar primero y qué no merece la pena.",
+        "Si encaja, te damos plazos y un presupuesto orientativo. Si no, te lo decimos."
+      ],
+      "anfitrion": {"nombre": "Equipo de Acme Automations", "cargo": "Consultoría de automatización"},
+      "nota": "Si ningún hueco te encaja, escríbenos a hola@acme.example.",
+      "calendario": {
+        "proveedor": "ghl",
+        "url": "https://reservas.acme.example/widget/booking/llamada",
+        "alto": "48rem"
+      },
+      "evento_schedule": "servidor"
+    },
+    "gracias": {
+      "titulo": "Llamada reservada. Nos vemos pronto.",
+      "texto": "Te hemos enviado la confirmación por email con el enlace de la videollamada.",
+      "pasos": [
+        {"titulo": "Revisa tu email", "texto": "Ahí tienes la confirmación y el enlace. Si no lo ves, mira en promociones o en spam."},
+        {"titulo": "Piensa en una tarea", "texto": "La que más horas os quita cada semana: es por donde empezaremos la llamada."}
+      ],
+      "evento": ""
+    }
+  }
+}

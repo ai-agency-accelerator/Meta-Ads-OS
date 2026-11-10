@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="1200" height="780" role="img" aria-label="Captura ficticia de un panel de automatización (ejemplo)">
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1F4FD1" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#1F4FD1" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+    <rect width="1200" height="780" rx="26" fill="#FFFFFF"/>
+    <rect width="1200" height="64" rx="26" fill="#EEF1F7"/>
+    <rect y="38" width="1200" height="26" fill="#EEF1F7"/>
+    <circle cx="40" cy="32" r="9" fill="#F87171"/><circle cx="68" cy="32" r="9" fill="#FBBF24"/><circle cx="96" cy="32" r="9" fill="#34D399"/>
+    <rect x="420" y="18" width="360" height="28" rx="14" fill="#FFFFFF"/>
+    <text x="600" y="38" font-size="15" fill="#64748B" text-anchor="middle">panel.ejemplo.com · Leads</text>
+
+    <rect x="0" y="64" width="220" height="716" fill="#0B1F3A"/>
+    <rect x="28" y="96" width="40" height="40" rx="10" fill="#1F4FD1"/>
+    <text x="84" y="123" font-size="19" font-weight="700" fill="#FFFFFF">Acme</text>
+    <g font-size="16" fill="#A9B6D3">
+      <rect x="20" y="170" width="180" height="40" rx="10" fill="#1F4FD1"/>
+      <text x="40" y="196" fill="#FFFFFF" font-weight="700">Leads</text>
+      <text x="40" y="250">Citas</text><text x="40" y="298">Automatizaciones</text><text x="40" y="346">Informes</text>
+    </g>
+
+    <text x="260" y="122" font-size="28" font-weight="700" fill="#0B1F3A">Leads de esta semana</text>
+    <text x="260" y="152" font-size="16" fill="#64748B">2026-11-02 a 2026-11-08 · datos ficticios de ejemplo</text>
+
+    <g>
+      <rect x="260" y="180" width="290" height="120" rx="18" fill="#F7F8FB"/>
+      <text x="284" y="218" font-size="16" fill="#64748B">Leads nuevos</text>
+      <text x="284" y="268" font-size="42" font-weight="700" fill="#0B1F3A">38</text>
+      <text x="370" y="266" font-size="17" font-weight="700" fill="#059669">+21 %</text>
+      <rect x="570" y="180" width="290" height="120" rx="18" fill="#F7F8FB"/>
+      <text x="594" y="218" font-size="16" fill="#64748B">Citas agendadas</text>
+      <text x="594" y="268" font-size="42" font-weight="700" fill="#0B1F3A">14</text>
+      <text x="660" y="266" font-size="17" font-weight="700" fill="#059669">+6</text>
+      <rect x="880" y="180" width="290" height="120" rx="18" fill="#F7F8FB"/>
+      <text x="904" y="218" font-size="16" fill="#64748B">Primera respuesta</text>
+      <text x="904" y="268" font-size="42" font-weight="700" fill="#0B1F3A">2 min</text>
+    </g>
+
+    <rect x="260" y="320" width="910" height="210" rx="18" fill="#F7F8FB"/>
+    <g stroke="#E2E8F0" stroke-width="2"><path d="M290 380 H1140"/><path d="M290 430 H1140"/><path d="M290 480 H1140"/></g>
+    <path d="M290 490 L410 470 L530 476 L650 440 L770 446 L890 404 L1010 392 L1140 356 L1140 510 L290 510 Z" fill="url(#area)"/>
+    <path d="M290 490 L410 470 L530 476 L650 440 L770 446 L890 404 L1010 392 L1140 356" fill="none" stroke="#1F4FD1" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="1140" cy="356" r="9" fill="#FFB020" stroke="#FFFFFF" stroke-width="4"/>
+
+    <g font-size="17">
+      <rect x="260" y="550" width="910" height="200" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+      <text x="290" y="590" fill="#64748B" font-size="15" font-weight="700">LEAD</text>
+      <text x="560" y="590" fill="#64748B" font-size="15" font-weight="700">ORIGEN</text>
+      <text x="860" y="590" fill="#64748B" font-size="15" font-weight="700">ESTADO</text>
+      <path d="M280 606 H1150" stroke="#E2E8F0" stroke-width="2"/>
+      <text x="290" y="642" fill="#0B1F3A">Lead #1042</text><text x="560" y="642" fill="#334155">Formulario de Meta</text>
+      <rect x="860" y="622" width="170" height="30" rx="15" fill="#DCFCE7"/><text x="945" y="643" fill="#047857" font-size="15" font-weight="700" text-anchor="middle">Cita agendada</text>
+      <text x="290" y="690" fill="#0B1F3A">Lead #1041</text><text x="560" y="690" fill="#334155">Landing · /diagnostico</text>
+      <rect x="860" y="670" width="170" height="30" rx="15" fill="#DBEAFE"/><text x="945" y="691" fill="#1D4ED8" font-size="15" font-weight="700" text-anchor="middle">En seguimiento</text>
+      <text x="290" y="736" fill="#0B1F3A">Lead #1040</text><text x="560" y="736" fill="#334155">Formulario de Meta</text>
+      <rect x="860" y="716" width="170" height="30" rx="15" fill="#DCFCE7"/><text x="945" y="737" fill="#047857" font-size="15" font-weight="700" text-anchor="middle">Cita agendada</text>
+    </g>
+  </g>
+</svg>

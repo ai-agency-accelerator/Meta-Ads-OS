@@ -1,0 +1,50 @@
+/* viz.mode_ladder — píldoras de cristal oscuro (negro profesional) con medidor de esfuerzo; oro solo en lo encendido.
+   Textos ≥30 px siempre (QA de legibilidad), también en el split. */
+.ml{--mh:calc(14px * var(--s));--mg:calc(16px * var(--s));--mw:calc(38px * var(--s))}
+.ml .ml-wrap{position:absolute;inset:0;transform-origin:50% 45%}
+.ml .ml-pill,.ml .ml-card{position:absolute;box-sizing:border-box;transform-origin:50% 50%;z-index:1}
+.ml .ml-pill{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--mg)}
+.ml .ml-glass{position:absolute;inset:0;border-radius:999px;
+  background:linear-gradient(160deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.04) 46%,rgba(255,255,255,.02) 100%),#121214;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(0,0,0,.45),0 16px 36px rgba(0,0,0,.45)}
+.ml .ml-card .ml-glass{border-radius:calc(40px * var(--s))}
+.ml .ml-ring{position:absolute;inset:-2px;border-radius:999px;pointer-events:none;box-shadow:0 0 0 calc(5px * var(--s)) var(--ck-accent)}
+.ml .ml-ring-w{box-shadow:0 0 0 calc(4px * var(--s)) rgba(255,255,255,.88)}
+.ml .ml-name{position:relative;max-width:calc(100% - 48px * var(--s));font:800 calc(64px * var(--s))/1 var(--ck-sans);color:#FFFFFF;
+  letter-spacing:-.02em;white-space:nowrap;text-align:center}
+/* medidor: N segmentos; el «hot» se superpone exacto al normal (margen negativo = alto + hueco) */
+.ml .ml-meter{position:relative;display:flex;justify-content:center;gap:calc(7px * var(--s));height:var(--mh)}
+.ml .ml-meter-hot{margin-top:calc(-1 * (var(--mh) + var(--mg)))}
+.ml .ml-seg{display:block;width:var(--mw);height:var(--mh);border-radius:calc(var(--mh) / 2);background:rgba(255,255,255,.12);transform-origin:0 50%}
+.ml .ml-seg.ml-on{background:rgba(255,255,255,.82)}
+.ml .ml-meter-hot .ml-seg{background:transparent}
+.ml .ml-meter-hot .ml-seg.ml-on{background:var(--ck-accent)}
+.ml .ml-glow{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(254,202,26,.16) 0%,rgba(254,202,26,0) 62%)}
+/* rótulo del grupo (pareja de modos): encima de la fila, centrado */
+.ml .ml-label{position:absolute;left:0;right:0;display:flex;align-items:flex-start;justify-content:center;
+  font:700 max(36px, calc(44px * var(--s)))/1 var(--ck-sans);color:var(--ck-accent);letter-spacing:-.01em;white-space:nowrap;text-shadow:var(--g-tshadow)}
+.ml .ml-eyebrow{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;
+  font:600 max(32px, calc(40px * var(--s)))/1 var(--ck-sans);color:var(--g-eyebrow);white-space:nowrap}
+.ml .ml-kicker{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;box-sizing:border-box;
+  font:900 calc(78px * var(--s))/1.04 var(--ck-sans);color:var(--g-fg);letter-spacing:-.025em;text-align:center;text-wrap:balance;text-shadow:var(--g-tshadow)}
+/* duelo: dos tarjetas (nombre + medidor grande; debajo, dos cifras) */
+.ml .ml-card{display:flex;flex-direction:column;justify-content:center;gap:calc(26px * var(--s));padding:0 calc(44px * var(--s))}
+.ml .ml-card-hot .ml-glass{box-shadow:inset 0 0 0 calc(4px * var(--s)) var(--ck-accent),0 16px 36px rgba(0,0,0,.45)}
+.ml .ml-head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:calc(24px * var(--s))}
+.ml .ml-cname{font:900 calc(96px * var(--s))/1 var(--ck-sans);color:#FFFFFF;letter-spacing:-.035em;white-space:nowrap}
+.ml .ml-meter-big{--mh:calc(18px * var(--s));--mw:calc(42px * var(--s))}
+.ml .ml-meter-gold .ml-seg.ml-on{background:var(--ck-accent)}
+.ml .ml-stats{position:relative;display:flex;gap:calc(40px * var(--s))}
+.ml .ml-stat{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:calc(10px * var(--s))}
+.ml .ml-k{font:600 max(32px, calc(36px * var(--s)))/1 var(--ck-sans);color:rgba(255,255,255,.55);white-space:nowrap}
+.ml .ml-v{font:900 calc(92px * var(--s))/1 var(--ck-sans);color:#FFFFFF;letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums;transform-origin:0 50%}
+.ml .ml-stat-hot .ml-v{color:var(--ck-accent)}
+/* lienzo claro: píldoras blancas, oro → tinta */
+.gx-th-light.ml .ml-glass{background:linear-gradient(160deg,#FFFFFF 0%,#F2F2EF 100%);box-shadow:inset 0 0 0 1px rgba(22,21,20,.07),0 1px 2px rgba(0,0,0,.08),0 14px 30px rgba(0,0,0,.10)}
+.gx-th-light.ml .ml-name,.gx-th-light.ml .ml-cname,.gx-th-light.ml .ml-v{color:#161514}
+.gx-th-light.ml .ml-seg{background:rgba(22,21,20,.10)}
+.gx-th-light.ml .ml-seg.ml-on{background:rgba(22,21,20,.7)}
+.gx-th-light.ml .ml-label{color:#161514}
+.gx-th-light.ml .ml-ring-w{box-shadow:0 0 0 calc(4px * var(--s)) #161514}
+.gx-th-light.ml .ml-k{color:rgba(22,21,20,.55)}

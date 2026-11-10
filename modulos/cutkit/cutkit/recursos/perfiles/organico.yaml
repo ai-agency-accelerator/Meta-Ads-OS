@@ -1,0 +1,55 @@
+# Perfil «organico»: vídeo vertical para Reels, Shorts o TikTok orgánicos (contenido de marca, no anuncio).
+# Igual que «anuncio» en lienzo y legibilidad, con más libertad de ritmo y cama musical si la hay.
+# Antes de promocionar un orgánico como anuncio, revisa la música: en anuncios de Reels no se puede usar música con
+# licencia comercial (meta-ads-kb/07-instagram-placements-mensajeria/03-specs-safe-zones-formatos.md).
+id: organico
+canvas: {width: 1080, height: 1920, fps: 30}
+
+# Zona segura vertical común a Reels y Stories (14/35/6 %) con la franja de botones a la derecha.
+safe_zone: {top: 269, bottom: 672, left: 65, right: 227, right_from_y: 1152}
+loudness: {lufs: -14.0, true_peak: -1.5}
+
+# Cierre fijo opcional (un vídeo de cierre de la marca con su CTA). Para usarlo, pon `enabled: true` y define
+# `path` (y opcionalmente `plan` con decisiones ancladas a sus palabras) relativo a la raíz del producto, p. ej.
+# `clientes/<cliente>/marca/cierre/cierre.mp4`.
+outro:
+  enabled: false
+  transition_in: transition.light_leak
+  transition_props: {palette: plata, peak: 0.25}
+  transition_s: 0.3
+  gap_before: 0.3
+  hold_after: 0.6
+  music: {gain_lu: -18.0}
+
+layout_defaults:
+  layout.full_face: {max_scale: 1.12}
+
+captions:
+  rail_shared: true
+  rail_y_full: 0.60
+  rail_chin_gap: 70
+  rail_max_px: 1180
+  rail_y: 0.58
+  max_words: 3
+  lead_frames: 1
+
+music:
+  enabled: true           # se usa si hay pista: `tokens.music_track`, `clientes/<c>/marca/musica/` o Lyria (CK_MUSICA_IA=1)
+  gain_lu: -18.0
+  brief:
+    mood: "electrónica minimalista y moderna para un explicador de tecnología, curiosa y con impulso, nada épica"
+    bpm: 100
+    instruments: "sintetizadores suaves, bajo redondo, percusión ligera y limpia"
+    avoid: "voces, melodía protagonista, drops agresivos, risers largos"
+  dropout_before_reveal: true
+
+sfx:
+  every_animation: true
+  max_per_min: 24
+  racimo_1s_max: 2
+  max_hits: 2
+  max_lead_ms: 40
+
+componentes_vetados: []
+
+style_default: firma

@@ -1,0 +1,16 @@
+{
+  "_nota": "Ejemplo ficticio. Acme Automations anuncia su servicio a clínicas y negocios de servicios. Cifras inventadas.",
+  "estilo": "claro",
+  "etiqueta": "Para clínicas y negocios de servicios",
+  "titular": "Cada lead sin respuesta en 5 minutos es",
+  "resaltado": "una cita que se lleva otro",
+  "subtitulo": "Conectamos tus formularios de Meta con el CRM y respondemos en menos de 2 minutos, también de noche.",
+  "imagen": "captura-panel.svg",
+  "imagen_alt": "Panel con los leads de la semana y las citas agendadas",
+  "prueba": {
+    "cifra": "2 min",
+    "texto": "de primera respuesta media"
+  },
+  "cta": "Reserva tu diagnóstico gratis",
+  "pie": "Diagnóstico de 30 minutos, sin compromiso."
+}

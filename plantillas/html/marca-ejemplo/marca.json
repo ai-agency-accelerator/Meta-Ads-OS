@@ -1,0 +1,19 @@
+{
+  "nombre": "Acme Automations",
+  "colores": {
+    "primario": "#1F4FD1",
+    "secundario": "#0B1F3A",
+    "acento": "#FFB020",
+    "fondo": "#F7F8FB",
+    "texto": "#0B1F3A",
+    "texto_sobre_primario": "#FFFFFF"
+  },
+  "tipografias": {
+    "titulos": {"familia": "Montserrat", "peso": 800},
+    "texto": {"familia": "Montserrat", "peso": 500}
+  },
+  "logo": {"principal": "logo.svg", "claro": "logo-claro.svg"},
+  "subtitulos": {"color": "#FFFFFF", "resaltado": "#FFB020", "contorno": "#000000", "mayusculas": false},
+  "cta_por_defecto": "Reserva tu diagnóstico",
+  "etiqueta_ia": "Imagen generada con IA"
+}

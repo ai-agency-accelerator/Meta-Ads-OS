@@ -1,0 +1,23 @@
+/* viz.gauges — medidores semicirculares de instrumento sobre papel: pista, marcas, relleno cálido, aguja y tope de límite */
+.vg .vg-wrap{position:absolute;inset:0}
+.vg .vg-head{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:calc(20px * var(--s))}
+.vg .vg-icon{flex:none;background:center/contain no-repeat;transform-origin:50% 60%;filter:drop-shadow(0 10px 16px rgba(0,0,0,.18))}
+.vg .vg-title{white-space:nowrap;font:900 88px/1.04 var(--ck-sans);letter-spacing:-.03em;color:var(--g-fg, #161514)}
+.vg .vg-sub{position:absolute;left:0;right:0;text-align:center;white-space:nowrap;font:700 46px/1.1 var(--ck-sans);letter-spacing:-.01em;
+  color:var(--g-muted, rgba(22,21,20,.62))}
+.vg .vg-sub .gxx-mi{display:inline-block}
+.vg .vg-svg{position:absolute;left:0;top:0;overflow:visible}
+.vg .vg-track{fill:none;stroke:rgba(22,21,20,.09);stroke-linecap:round}
+.vg .vg-fill{fill:none;stroke-linecap:round}
+.vg .vg-tick{stroke:rgba(22,21,20,.26);stroke-linecap:round}
+.vg .vg-tick-big{stroke:rgba(22,21,20,.5)}
+.vg .vg-limit{stroke:#161514;stroke-linecap:round}
+.vg .vg-needle-l{stroke:#161514;stroke-linecap:round}
+.vg .vg-hub{fill:#161514}
+.vg .vg-label{position:absolute;text-align:center;white-space:nowrap;font:800 56px/1.06 var(--ck-sans);letter-spacing:-.02em;color:var(--g-fg, #161514)}
+.gx-th-dark.vg .vg-track{stroke:rgba(255,255,255,.12)}
+.gx-th-dark.vg .vg-tick{stroke:rgba(255,255,255,.3)}
+.gx-th-dark.vg .vg-limit,.gx-th-dark.vg .vg-needle-l{stroke:#FFFFFF}
+.gx-th-dark.vg .vg-hub{fill:#FFFFFF}
+/* `hero`: el objeto del kit grande y centrado encima del título (no pegado a él como un emoji) */
+.vg .vg-hero{position:absolute;background:center/contain no-repeat;filter:drop-shadow(0 14px 22px rgba(0,0,0,.18))}
